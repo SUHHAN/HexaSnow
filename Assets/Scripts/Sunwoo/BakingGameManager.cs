@@ -29,15 +29,13 @@ public class BakingGameManager : MonoBehaviour
 
     public GameObject recipeSelectionPopup; // 제과 종류 선택 팝업(StartPanel 내부)
 
-    public GameObject bowl; // Bowl 오브젝트
-    public GameObject addIngredientsButton; // '재료 담기' 버튼
-
 
     void Start()
     {
         SetGameState(GameState.Start); // 초기 상태를 시작 단계로 설정
         isCooking = false; // 처음에는 조리 중이 아님
         recipeSelectionPopup.SetActive(false); // 처음에는 제과 선택 팝업 비활성화
+        ingredientSelectionPanel.SetActive(false); // 게임 시작 시 재료 선택 패널 비활성화
     }
 
     // 게임 상태를 설정하는 메서드. 매개변수로 받은 상태를 통해 currentState 변경하고 ui도 변경함
@@ -76,19 +74,19 @@ public class BakingGameManager : MonoBehaviour
     public void OnRecipeSelected(string recipeName)
     {
         Recipe selectedRecipe = recipeBook.GetRecipeByName(recipeName);
+
         if (selectedRecipe != null)
         {
             if (selectedRecipe.canBake)
             {
                 // 해금된 레시피인 경우
-                SetGameState(GameState.IngredientSelection);
-                bowl.SetActive(true); // Bowl 오브젝트 활성화
-                addIngredientsButton.SetActive(true); // '재료 담기' 버튼 활성화
+                SetGameState(GameState.IngredientSelection); // IngredientSelectionPanel로 전환
+                recipeSelectionPopup.SetActive(false); // 레시피 선택 팝업 비활성화
             }
             else
             {
                 // 해금되지 않은 레시피인 경우
-                uiManager.ShowMessage("해당 레시피는 아직 해금되지 않았습니다!");
+                uiManager.ShowMessage("not yet");
             }
         }
     }
