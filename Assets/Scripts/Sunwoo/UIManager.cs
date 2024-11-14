@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject recipeSelectionPopup; // 제과 종류 선택 팝업 패널
     public GameObject addingIngredientPanel; // 재료 담기 패널
 
-    public InventoryManager inventoryManager;
+    public InventoryManager inventoryManager; // 인벤토리 매니저 참조
     public GameObject refrigeratorPanel; // 냉장고 패널
     public GameObject shelfPanel; // 선반 패널
     public GameObject finishIngredientButton; // 재료 선택 완료 버튼
@@ -19,6 +19,9 @@ public class UIManager : MonoBehaviour
     public Dictionary<string, Button> recipeButtons = new Dictionary<string, Button>(); // 레시피 버튼 목록
     private Button currentlySelectedButton = null; // 현재 선택된 버튼 저장
     private List<Button> selectedIngredients = new List<Button>(); // 선택된 재료 버튼 목록
+
+    private float buttonSpacing = 110f; // 버튼 간격
+    private Vector2 buttonSize = new Vector2(100, 30); // 버튼 크기
 
     void Start()
     {
@@ -29,6 +32,7 @@ public class UIManager : MonoBehaviour
         }
 
         finishIngredientButton.SetActive(false); // 초기에는 finishIngredient 버튼 비활성화
+        GenerateIngredientButtons(); // 냉장고와 선반에 재료 버튼 생성
     }
 
     // 현재 선택된 레시피 버튼 반환
@@ -127,79 +131,71 @@ public class UIManager : MonoBehaviour
         panel.SetActive(isActive);
     }
 
-    // 냉장고와 선반에 재료 버튼 활성화/비활성화
+    // 소지한 재료만 냉장고와 선반에 버튼으로 생성
     public void GenerateIngredientButtons()
     {
+        // 냉장고 패널 내 버튼 위치 설정
+        Vector2 startPosition = new Vector2(0, 0);
+        int index = 0;
+
         // 냉장고 재료 목록
         string[] fridgeIngredients = { "Butter", "Egg", "Milk", "Egg Whites", "Browned Butter", "Cream Cheese", "Heavy Cream", "Condensed Milk" };
         foreach (string ingredient in fridgeIngredients)
         {
-            bool hasIngredient = inventoryManager.HasIngredient(ingredient);
-            SetIngredientButtonState(ingredient, refrigeratorPanel, hasIngredient);
+            if (inventoryManager.HasIngredient(ingredient))
+            {
+                CreateIngredientButton(ingredient, refrigeratorPanel, startPosition + new Vector2((index % 4) * buttonSpacing, -(index / 4) * buttonSpacing));
+                index++;
+            }
         }
+
+        // 선반 패널 내 버튼 위치 설정
+        startPosition = new Vector2(0, 0);
+        index = 0;
 
         // 선반 재료 목록
         string[] shelfIngredients = { "Flour", "Sugar", "Baking Powder", "Cocoa Powder", "Almond Powder", "Sugar Powder", "Honey" };
         foreach (string ingredient in shelfIngredients)
         {
-            bool hasIngredient = inventoryManager.HasIngredient(ingredient);
-            SetIngredientButtonState(ingredient, shelfPanel, hasIngredient);
-        }
-    }
-
-    // 재료 버튼 상태 설정 (활성화/비활성화 및 색상 변경)
-    void SetIngredientButtonState(string ingredientName, GameObject parentPanel, bool hasIngredient)
-    {
-        // 해당 재료 버튼 찾기
-        Transform buttonTransform = parentPanel.transform.Find(ingredientName + "Button");
-        if (buttonTransform != null)
-        {
-            Button button = buttonTransform.GetComponent<Button>();
-            Image buttonImage = button.GetComponent<Image>();
-
-            if (hasIngredient)
+            if (inventoryManager.HasIngredient(ingredient))
             {
-                // 소지한 재료인 경우 버튼을 흰색으로 설정하고 활성화
-                buttonImage.color = new Color(1f, 1f, 1f, 1f);
-                button.interactable = true; // 버튼 활성화
-                button.onClick.AddListener(() => OnIngredientButtonClick(button, hasIngredient));
-            }
-            else
-            {
-                // 소지하지 않은 재료는 회색 반투명으로 설정하고 비활성화
-                buttonImage.color = new Color(1f, 1f, 1f, 0.5f);
-                button.interactable = false; // 버튼 비활성화
-                button.onClick.AddListener(() => ShowMessage("없는 재료입니다"));
+                CreateIngredientButton(ingredient, shelfPanel, startPosition + new Vector2((index % 4) * buttonSpacing, -(index / 4) * buttonSpacing));
+                index++;
             }
         }
     }
 
-    // 재료 버튼 클릭 시 호출
-    public void OnIngredientButtonClick(Button button, bool hasIngredient)
+    // 재료 버튼 생성 및 클릭 이벤트 설정
+    void CreateIngredientButton(string ingredient, GameObject parentPanel, Vector2 position)
     {
-        if (hasIngredient)
-        {
-            // 선택된 재료 처리
-            if (selectedIngredients.Contains(button))
-            {
-                // 선택된 재료를 다시 클릭하면 선택 해제
-                button.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f); // 흰색으로 초기화
-                selectedIngredients.Remove(button);
-            }
-            else
-            {
-                // 재료 선택
-                button.GetComponent<Image>().color = Color.green; // 선택된 색상
-                selectedIngredients.Add(button);
-            }
+        // UI 버튼을 생성
+        GameObject buttonObj = new GameObject(ingredient, typeof(RectTransform), typeof(CanvasRenderer), typeof(Button), typeof(Image));
+        buttonObj.transform.SetParent(parentPanel.transform, false);
 
-            // 선택된 재료가 하나 이상일 때만 finishIngredient 버튼 활성화
-            finishIngredientButton.SetActive(selectedIngredients.Count > 0);
-        }
-        else
-        {
-            // 소지하지 않은 재료 클릭 시 메시지 표시
-            ShowMessage("없는 재료입니다");
-        }
+        // RectTransform 및 위치 설정
+        RectTransform rectTransform = buttonObj.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = position;
+        rectTransform.sizeDelta = buttonSize;
+
+        // Image 컴포넌트 설정
+        Image buttonImage = buttonObj.GetComponent<Image>();
+        buttonImage.color = Color.white; // 버튼 기본 색상 설정 (흰색)
+
+        // 텍스트 추가 (재료 이름)
+        GameObject textObj = new GameObject("Text");
+        TextMeshProUGUI buttonText = textObj.AddComponent<TextMeshProUGUI>();
+        buttonText.text = ingredient;
+        buttonText.alignment = TextAlignmentOptions.Center;
+        buttonText.fontSize = 18;
+        buttonText.color = Color.black; // 텍스트를 검은색으로 설정
+        textObj.transform.SetParent(buttonObj.transform, false);
+
+        // 텍스트 위치와 크기 설정
+        RectTransform textRect = textObj.GetComponent<RectTransform>();
+        textRect.sizeDelta = buttonSize;
+        textRect.anchoredPosition = Vector2.zero;
+
+        // 버튼 클릭 이벤트 추가
+        buttonObj.GetComponent<Button>().onClick.AddListener(() => OnIngredientButtonClick(buttonObj.GetComponent<Button>()));
     }
 }
