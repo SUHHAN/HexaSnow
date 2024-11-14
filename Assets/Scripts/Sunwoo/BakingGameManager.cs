@@ -17,7 +17,13 @@ public class BakingGameManager : MonoBehaviour
 {
     public GameState currentState; // 현재 게임 상태
     public GameObject startPanel; // 처음 시작 패널
+    public GameObject recipeSelectionPopup; // 제과 종류 선택 팝업(StartPanel 내부)
+    public GameObject nextButton; // '다음' 버튼
+
     public GameObject ingredientSelectionPanel; // 재료 선택 패널
+    public GameObject bowl; // Bowl 오브젝트
+    public GameObject addIngredientsButton; // '재료 담기' 버튼
+
     public GameObject mixingPanel; // 반죽 미니게임 패널
     public GameObject ovenPanel; // 오븐 미니게임 패널
     public GameObject toppingPanel; // 토핑 재료 선택 패널
@@ -28,10 +34,6 @@ public class BakingGameManager : MonoBehaviour
     public UIManager uiManager; // UI 관리 스크립트
     private Recipe selectedRecipe = null; // 선택된 레시피를 저장하는 변수
 
-    public GameObject recipeSelectionPopup; // 제과 종류 선택 팝업(StartPanel 내부)
-    public GameObject nextButton; // '다음' 버튼
-
-
     void Start()
     {
         SetGameState(GameState.Start); // 초기 상태를 시작 단계로 설정
@@ -39,6 +41,8 @@ public class BakingGameManager : MonoBehaviour
         recipeSelectionPopup.SetActive(false); // 처음에는 제과 선택 팝업 비활성화
         ingredientSelectionPanel.SetActive(false); // 게임 시작 시 재료 선택 패널 비활성화
         nextButton.SetActive(false); // '다음' 버튼 비활성화
+        bowl.SetActive(false); // Bowl 오브젝트 비활성화
+        addIngredientsButton.SetActive(false); // '재료 담기' 버튼 비활성화
     }
 
     // 게임 상태를 설정하는 메서드. 매개변수로 받은 상태를 통해 currentState 변경하고 ui도 변경함
@@ -53,6 +57,18 @@ public class BakingGameManager : MonoBehaviour
     {
         startPanel.SetActive(currentState == GameState.Start);
         ingredientSelectionPanel.SetActive(currentState == GameState.IngredientSelection);
+        if (currentState == GameState.IngredientSelection)
+        {
+            // IngredientSelectionPanel 활성화 시 Bowl과 '재료 담기' 버튼 표시
+            bowl.SetActive(true);
+            addIngredientsButton.SetActive(true);
+        }
+        else
+        {
+            // 다른 상태일 때는 비활성화
+            bowl.SetActive(false);
+            addIngredientsButton.SetActive(false);
+        }
         mixingPanel.SetActive(currentState == GameState.Mixing);
         ovenPanel.SetActive(currentState == GameState.Oven);
         toppingPanel.SetActive(currentState == GameState.Topping);

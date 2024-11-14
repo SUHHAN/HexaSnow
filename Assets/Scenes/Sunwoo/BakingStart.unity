@@ -1909,15 +1909,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   startPanel: {fileID: 66213970}
+  recipeSelectionPopup: {fileID: 2036366187}
+  nextButton: {fileID: 1318233742}
   ingredientSelectionPanel: {fileID: 1334194621}
+  bowl: {fileID: 1120570216}
+  addIngredientsButton: {fileID: 2082009395}
   mixingPanel: {fileID: 149430433}
   ovenPanel: {fileID: 2074983577}
   toppingPanel: {fileID: 1915734805}
   resultPanel: {fileID: 1147169064}
   recipeBook: {fileID: 1527461662}
   uiManager: {fileID: 1520048608}
-  recipeSelectionPopup: {fileID: 2036366187}
-  nextButton: {fileID: 1318233742}
 --- !u!4 &1047600967
 Transform:
   m_ObjectHideFlags: 0
