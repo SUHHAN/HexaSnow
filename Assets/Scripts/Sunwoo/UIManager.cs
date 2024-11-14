@@ -128,41 +128,28 @@ public class UIManager : MonoBehaviour
     }
 
     // AddIngredientButton을 클릭했을 때 호출되는 메서드로, 재료 버튼들을 생성
+    // 냉장고와 선반에 재료 버튼 생성
     public void GenerateIngredientButtons()
     {
-        // 기존 버튼 초기화 (이미 생성된 재료 버튼이 있을 경우)
-        foreach (Transform child in refrigeratorPanel.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (Transform child in shelfPanel.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
         // 냉장고 재료 목록
         string[] fridgeIngredients = { "Butter", "Egg", "Milk", "Egg Whites", "Browned Butter", "Cream Cheese", "Heavy Cream", "Condensed Milk" };
         foreach (string ingredient in fridgeIngredients)
         {
-            if (inventoryManager.HasIngredient(ingredient))
-            {
-                CreateIngredientButton(ingredient, refrigeratorPanel);
-            }
+            bool hasIngredient = inventoryManager.HasIngredient(ingredient);
+            CreateIngredientButton(ingredient, refrigeratorPanel, hasIngredient);
         }
 
         // 선반 재료 목록
         string[] shelfIngredients = { "Flour", "Sugar", "Baking Powder", "Cocoa Powder", "Almond Powder", "Sugar Powder", "Honey" };
         foreach (string ingredient in shelfIngredients)
         {
-            if (inventoryManager.HasIngredient(ingredient))
-            {
-                CreateIngredientButton(ingredient, shelfPanel);
-            }
+            bool hasIngredient = inventoryManager.HasIngredient(ingredient);
+            CreateIngredientButton(ingredient, shelfPanel, hasIngredient);
         }
     }
 
     // 재료 버튼 생성 및 클릭 이벤트 설정
-    void CreateIngredientButton(string ingredient, GameObject parentPanel)
+    void CreateIngredientButton(string ingredient, GameObject parentPanel, bool hasIngredient)
     {
         GameObject buttonObj = new GameObject(ingredient);
         Button button = buttonObj.AddComponent<Button>();
@@ -177,7 +164,40 @@ public class UIManager : MonoBehaviour
         RectTransform rectTransform = buttonObj.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(100, 30); // 버튼 크기 조정
 
+        // 색상 및 투명도 설정
+        Image buttonImage = buttonObj.AddComponent<Image>();
+        buttonImage.color = hasIngredient ? new Color(1f, 1f, 1f, 1f) : new Color(1f, 1f, 1f, 0.5f);
+
         // 버튼 클릭 이벤트 추가
-        button.onClick.AddListener(() => OnIngredientButtonClick(button));
+        button.onClick.AddListener(() => OnIngredientButtonClick(button, hasIngredient));
+    }
+
+    // 재료 버튼 클릭 시 호출
+    public void OnIngredientButtonClick(Button button, bool hasIngredient)
+    {
+        if (hasIngredient)
+        {
+            // 선택된 재료 처리
+            if (selectedIngredients.Contains(button))
+            {
+                // 선택된 재료를 다시 클릭하면 선택 해제
+                button.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f); // 흰색으로 초기화
+                selectedIngredients.Remove(button);
+            }
+            else
+            {
+                // 재료 선택
+                button.GetComponent<Image>().color = Color.green; // 선택된 색상
+                selectedIngredients.Add(button);
+            }
+
+            // 선택된 재료가 하나 이상일 때만 finishIngredient 버튼 활성화
+            finishIngredientButton.SetActive(selectedIngredients.Count > 0);
+        }
+        else
+        {
+            // 소지하지 않은 재료 클릭 시 메시지 표시
+            ShowMessage("없는 재료입니다");
+        }
     }
 }
