@@ -127,8 +127,7 @@ public class UIManager : MonoBehaviour
         panel.SetActive(isActive);
     }
 
-    // AddIngredientButton을 클릭했을 때 호출되는 메서드로, 재료 버튼들을 생성
-    // 냉장고와 선반에 재료 버튼 생성
+    // 냉장고와 선반에 재료 버튼 활성화/비활성화
     public void GenerateIngredientButtons()
     {
         // 냉장고 재료 목록
@@ -136,7 +135,7 @@ public class UIManager : MonoBehaviour
         foreach (string ingredient in fridgeIngredients)
         {
             bool hasIngredient = inventoryManager.HasIngredient(ingredient);
-            CreateIngredientButton(ingredient, refrigeratorPanel, hasIngredient);
+            SetIngredientButtonState(ingredient, refrigeratorPanel, hasIngredient);
         }
 
         // 선반 재료 목록
@@ -144,32 +143,35 @@ public class UIManager : MonoBehaviour
         foreach (string ingredient in shelfIngredients)
         {
             bool hasIngredient = inventoryManager.HasIngredient(ingredient);
-            CreateIngredientButton(ingredient, shelfPanel, hasIngredient);
+            SetIngredientButtonState(ingredient, shelfPanel, hasIngredient);
         }
     }
 
-    // 재료 버튼 생성 및 클릭 이벤트 설정
-    void CreateIngredientButton(string ingredient, GameObject parentPanel, bool hasIngredient)
+    // 재료 버튼 상태 설정 (활성화/비활성화 및 색상 변경)
+    void SetIngredientButtonState(string ingredientName, GameObject parentPanel, bool hasIngredient)
     {
-        GameObject buttonObj = new GameObject(ingredient);
-        Button button = buttonObj.AddComponent<Button>();
-        button.transform.SetParent(parentPanel.transform);
+        // 해당 재료 버튼 찾기
+        Transform buttonTransform = parentPanel.transform.Find(ingredientName + "Button");
+        if (buttonTransform != null)
+        {
+            Button button = buttonTransform.GetComponent<Button>();
+            Image buttonImage = button.GetComponent<Image>();
 
-        // 텍스트 추가 (재료 이름)
-        Text buttonText = buttonObj.AddComponent<Text>();
-        buttonText.text = ingredient;
-        buttonText.alignment = TextAnchor.MiddleCenter;
-
-        // 버튼 스타일 설정
-        RectTransform rectTransform = buttonObj.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(100, 30); // 버튼 크기 조정
-
-        // 색상 및 투명도 설정
-        Image buttonImage = buttonObj.AddComponent<Image>();
-        buttonImage.color = hasIngredient ? new Color(1f, 1f, 1f, 1f) : new Color(1f, 1f, 1f, 0.5f);
-
-        // 버튼 클릭 이벤트 추가
-        button.onClick.AddListener(() => OnIngredientButtonClick(button, hasIngredient));
+            if (hasIngredient)
+            {
+                // 소지한 재료인 경우 버튼을 흰색으로 설정하고 활성화
+                buttonImage.color = new Color(1f, 1f, 1f, 1f);
+                button.interactable = true; // 버튼 활성화
+                button.onClick.AddListener(() => OnIngredientButtonClick(button, hasIngredient));
+            }
+            else
+            {
+                // 소지하지 않은 재료는 회색 반투명으로 설정하고 비활성화
+                buttonImage.color = new Color(1f, 1f, 1f, 0.5f);
+                button.interactable = false; // 버튼 비활성화
+                button.onClick.AddListener(() => ShowMessage("없는 재료입니다"));
+            }
+        }
     }
 
     // 재료 버튼 클릭 시 호출
