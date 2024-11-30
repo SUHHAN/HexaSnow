@@ -20,7 +20,6 @@ public class RecipeBook : MonoBehaviour
             new Recipe("Financier", new List<string> { "Egg Whites", "Almond Powder", "Flour", "Honey", "Sugar", "Browned Butter" }),
             new Recipe("Basque Cheesecake", new List<string> { "Cream Cheese", "Sugar", "Egg", "Heavy Cream" }),
             new Recipe("Scone", new List<string> { "Flour", "Sugar", "Baking Powder", "Butter", "Egg", "Milk", "Heavy Cream" }),
-            new Recipe("Castella", new List<string> { "Meringue", "Egg Yolk", "Sugar", "Flour" }),
             new Recipe("Tart", new List<string> { "Cream Cheese", "Condensed Milk", "Heavy Cream", "Sugar", "Flour", "Almond Powder", "Sugar Powder", "Butter", "Egg" })
         };
     }

@@ -26,8 +26,10 @@ public class BakingGameManager : MonoBehaviour
     private bool isCooking = false; // 조리 중 여부
     public RecipeBook recipeBook; // 레시피 관리 스크립트
     public UIManager uiManager; // UI 관리 스크립트
+    private Recipe selectedRecipe = null; // 선택된 레시피를 저장하는 변수
 
     public GameObject recipeSelectionPopup; // 제과 종류 선택 팝업(StartPanel 내부)
+    public GameObject nextButton; // '다음' 버튼
 
 
     void Start()
@@ -36,6 +38,7 @@ public class BakingGameManager : MonoBehaviour
         isCooking = false; // 처음에는 조리 중이 아님
         recipeSelectionPopup.SetActive(false); // 처음에는 제과 선택 팝업 비활성화
         ingredientSelectionPanel.SetActive(false); // 게임 시작 시 재료 선택 패널 비활성화
+        nextButton.SetActive(false); // '다음' 버튼 비활성화
     }
 
     // 게임 상태를 설정하는 메서드. 매개변수로 받은 상태를 통해 currentState 변경하고 ui도 변경함
@@ -73,21 +76,29 @@ public class BakingGameManager : MonoBehaviour
     // 레시피 선택 시 호출
     public void OnRecipeSelected(string recipeName)
     {
-        Recipe selectedRecipe = recipeBook.GetRecipeByName(recipeName);
+        Recipe recipe = recipeBook.GetRecipeByName(recipeName);
 
+        if (recipe != null && recipe.canBake)
+        {
+            selectedRecipe = recipe; // 선택된 레시피 저장
+            uiManager.HighlightRecipeButton(recipeName); // 선택된 레시피 강조 표시 (체크 또는 색상 변경)
+            nextButton.SetActive(true); // '다음' 버튼 활성화
+        }
+        else
+        {
+            // 해금되지 않은 레시피인 경우 메시지 표시
+            uiManager.ShowMessage("해금되지 않은 레시피입니다!");
+        }
+    }
+
+    // '다음' 버튼 클릭 시 호출
+    public void OnNextButtonClick()
+    {
         if (selectedRecipe != null)
         {
-            if (selectedRecipe.canBake)
-            {
-                // 해금된 레시피인 경우
-                SetGameState(GameState.IngredientSelection); // IngredientSelectionPanel로 전환
-                recipeSelectionPopup.SetActive(false); // 레시피 선택 팝업 비활성화
-            }
-            else
-            {
-                // 해금되지 않은 레시피인 경우
-                uiManager.ShowMessage("not yet");
-            }
+            SetGameState(GameState.IngredientSelection); // IngredientSelectionPanel로 전환
+            recipeSelectionPopup.SetActive(false); // 레시피 선택 팝업 비활성화
+            nextButton.SetActive(false); // '다음' 버튼 비활성화
         }
     }
 
