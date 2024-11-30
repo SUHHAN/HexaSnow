@@ -7,7 +7,7 @@ using TMPro;
 
 public class GoogleManager : MonoBehaviour
 {
-    public TextMeshProUGUI logText;
+    public TextMeshProUGUI logText; 
 
     void Start()
     {
