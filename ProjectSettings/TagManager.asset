@@ -6,6 +6,8 @@ TagManager:
   tags:
   - player
   - Ground
+  - BadItem
+  - GoodItem
   layers:
   - Default
   - TransparentFX

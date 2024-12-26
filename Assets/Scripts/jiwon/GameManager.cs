@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("게임 종료 시도");
- 
+        
         // 애플리케이션 종료
         Application.Quit();
 
