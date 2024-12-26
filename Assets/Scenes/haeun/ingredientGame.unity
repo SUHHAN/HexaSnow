@@ -413,7 +413,7 @@ MonoBehaviour:
   - {fileID: -930014401, guid: bcc54234412ab814a9365045d560af42, type: 3}
   - {fileID: 1699425209, guid: bcc54234412ab814a9365045d560af42, type: 3}
   - {fileID: -1340672473, guid: bcc54234412ab814a9365045d560af42, type: 3}
-  - {fileID: 1654827326, guid: bcc54234412ab814a9365045d560af42, type: 3}
+  - {fileID: 667103758, guid: bcc54234412ab814a9365045d560af42, type: 3}
   goodItemSprites:
   - {fileID: -677210768, guid: 5fe5454ec8605de43809133b020d1b69, type: 3}
   - {fileID: 1637868511, guid: 5fe5454ec8605de43809133b020d1b69, type: 3}
@@ -843,7 +843,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.16744037, g: 0.20064753, b: 0.2528302, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
