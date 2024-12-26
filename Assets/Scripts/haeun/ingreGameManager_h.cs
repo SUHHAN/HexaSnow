@@ -3,53 +3,115 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class GameManager_h : MonoBehaviour
+public class ingreGameManager_h : MonoBehaviour
 {
     // 싱글톤 생성
-    private static GameManager_h _instance;
-    public static GameManager_h Instance
+    private static ingreGameManager_h _instance;
+    public static ingreGameManager_h Instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = FindObjectOfType<GameManager_h>();
+                _instance = FindObjectOfType<ingreGameManager_h>();
             }
             return _instance;
         }
     }
 
+
+    // 아이템 관련 선언
     [SerializeField] private GameObject BadItem; // 나쁜 아이템 프리팹
 
     [SerializeField] private GameObject goodItem; // 좋은 아이템 프리팹
 
     [SerializeField]
     private Sprite[] badItemSprites; // 나쁜 아이템 스프라이트 배열
-    [SerializeField]
-    private Sprite[] goodItemSprites; // 좋은 아이템 스프라이트 배열
 
     [SerializeField]
-    private GameObject gameOverPanel; // 게임 오버 패널
+    private Sprite[] goodItemSprites; // 좋은 아이템 스프라이트 배열
 
     private List<Vector3> badItemPositions = new List<Vector3>(); // 적 생성 위치 리스트
     private List<Vector3> goodItemPositions = new List<Vector3>(); // 좋은 아이템 생성 위치 리스트
 
+
+    // 상태 표시 관련 선언
+    [SerializeField]
+    private GameObject gameOverPanel; // 게임 오버 패널
+    [SerializeField] private TextMeshProUGUI FinishScoreText;
+
     private int voidScore; // 현재 점수
     private int savedScore; // 저장된 점수
-    [SerializeField]
-    private TextMeshProUGUI voidScoreText;
+    [SerializeField] private TextMeshProUGUI voidScoreText;
 
     private int heartScore = 3; // 현재 생명
-    [SerializeField]
-    private TextMeshProUGUI heartScoreText;
+    [SerializeField] private TextMeshProUGUI heartScoreText;
+    [SerializeField] private TextMeshProUGUI TimeText;
+    private float elapsedTime = 30f; // 초기 시간은 30초
+    private float gameDuration = 30f;
+
 
     private float minDistance = 1.0f; // 생성된 아이템 간 최소 거리
     private bool isGameOver = false;
     private bool isFinalizingGame = false; // 2초 동안 최종 상태를 처리하기 위한 플래그
 
+    // 시작 관련 선언
+    [SerializeField] private TextMeshProUGUI ReadyText;
+    [SerializeField] private TextMeshProUGUI GoText;
+    private bool isGameStarting = false; // Ready/Go 표시 중인지 여부
+
+
+
     void Start()
     {
-        StartGame(); // 게임 시작
+        StartCoroutine(StartGameRoutine()); // Ready/Go 처리 포함한 게임 시작
+    }
+
+    void Update() 
+    {
+        if (!isGameOver && !isFinalizingGame)
+        {
+            UpdateTimer(); // 타이머 업데이트
+        }
+    }
+
+    private void UpdateTimer()
+    {
+        elapsedTime -= Time.deltaTime; // 시간 감소
+
+        // 타이머 텍스트 업데이트
+        float remainingTime = Mathf.Max(0, elapsedTime);
+        TimeText.text = $"시간: {remainingTime:F1}초";
+
+        // 시간이 0초가 되면 게임 오버 처리
+        if (elapsedTime <= 0)
+        {
+            StartCoroutine(HandleGameOver());
+        }
+    }
+
+    public bool IsGameStarting()
+    {
+        return isGameStarting; // Ready/Go 표시 상태 반환
+    }
+
+    private IEnumerator StartGameRoutine()
+    {
+        isGameStarting = true;
+
+        // Ready 표시
+        ReadyText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        ReadyText.gameObject.SetActive(false);
+
+        // 게임 시작
+        isGameStarting = false;
+        StartGame();
+
+        // Go 표시
+        GoText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        GoText.gameObject.SetActive(false);
     }
 
     private void StartGame()
@@ -128,7 +190,18 @@ public class GameManager_h : MonoBehaviour
     public void GetVoidScore()
     {
         if (isFinalizingGame) return; // 최종 상태에서는 점수 증가 금지
-        voidScore++;
+        voidScore = voidScore + 3;
+        voidScoreText.text = "점수 : " + voidScore;
+    }
+    public void BackVoidScore()
+    {
+        if (isFinalizingGame) return; // 최종 상태에서는 점수 증가 금지
+        
+        voidScore = voidScore - 1;
+        if (voidScore <= 0) {
+            voidScore = 0;
+        }   // 점수가 음수가 되지는 않도록 조건 설정해두기
+
         voidScoreText.text = "점수 : " + voidScore;
     }
 
@@ -149,14 +222,15 @@ public class GameManager_h : MonoBehaviour
     private IEnumerator HandleGameOver()
     {
         isFinalizingGame = true; // 최종 상태로 전환
-        yield return new WaitForSeconds(1.5f); // 2초 지연
+        yield return new WaitForSeconds(1.5f); // 1.5초 지연
         GameOver(); // 게임 오버 처리
     }
 
     public void GameOver()
     {
         isGameOver = true;
-        savedScore = voidScore; // 점수 저장
+        savedScore = voidScore + heartScore * 3; // 점수 저장
+        FinishScoreText.text = "최종 점수 : " + savedScore;
         StopAllCoroutines(); // 모든 코루틴 중지
         gameOverPanel.SetActive(true); // 게임 오버 패널 활성화
     }
@@ -168,9 +242,11 @@ public class GameManager_h : MonoBehaviour
         isFinalizingGame = false;
         voidScore = 0;
         heartScore = 3;
+        elapsedTime = gameDuration;
 
         voidScoreText.text = "점수 : " + voidScore;
         heartScoreText.text = "생명 : " + heartScore;
+        TimeText.text = $"남은 시간: {gameDuration:F1}초";
 
         gameOverPanel.SetActive(false); // 게임 오버 패널 숨김
 
@@ -181,7 +257,7 @@ public class GameManager_h : MonoBehaviour
             player.ResetPlayerState();
         }
 
-        StartGame(); // 게임 다시 시작
+        StartCoroutine(StartGameRoutine());
     }
 
     IEnumerator CleanupPositionsRoutine()

@@ -22,8 +22,13 @@ public class player_h : MonoBehaviour
 
     void Update()
     {
+        // 게임 시작 전에는 움직이지 않음
+        if (ingreGameManager_h.Instance.IsGameStarting()) return;
+
+        horizontal = Input.GetAxis("Horizontal");
+
         // GameManager_h에서 현재 상태 확인
-        if (GameManager_h.Instance.IsGameOverFinalizing())
+        if (ingreGameManager_h.Instance.IsGameOverFinalizing())
         {
             StopPlayer(); // 플레이어 정지
             return; // 움직임 처리 종료

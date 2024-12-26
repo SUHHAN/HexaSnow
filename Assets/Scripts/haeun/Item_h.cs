@@ -28,11 +28,12 @@ public class Item_h : MonoBehaviour
         {
             if (gameObject.tag == "GoodItem") // goodItem 태그 확인
             {
-                GameManager_h.Instance.GetVoidScore(); // 점수 증가
+                ingreGameManager_h.Instance.GetVoidScore(); // 점수 증가
             }
             else if (gameObject.tag == "BadItem") // badItem 태그 확인
             {
-                GameManager_h.Instance.BackHeartScore(); // 생명 감소
+                ingreGameManager_h.Instance.BackVoidScore();
+                ingreGameManager_h.Instance.BackHeartScore(); // 생명 감소
             }
             Destroy(this.gameObject);
         }
