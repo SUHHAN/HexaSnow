@@ -1,46 +1,62 @@
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-// using GooglePlayGames;
-// using GooglePlayGames.BasicApi;
-// using TMPro;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using TMPro;
 
-// public class GoogleManager : MonoBehaviour
-// {
-//     public TextMeshProUGUI logText; 
+public class GoogleManager : MonoBehaviour
+{
+    public TextMeshProUGUI logText;
 
-//     void Start()
-//     {
-//         PlayGamesPlatform.DebugLogEnabled = true;
-//         PlayGamesPlatform.Activate();
-//         SignIn();
-//     }
+    void Start()
+    {
+        Debug.Log("App Starting...");
+        Debug.Log("Enabling PlayGamesPlatform debug log.");
+        PlayGamesPlatform.DebugLogEnabled = true;
 
-//     public void SignIn()
-//     {
-//         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
-//     }
+        Debug.Log("Activating PlayGamesPlatform.");
+        PlayGamesPlatform.Activate();
 
-//     internal void ProcessAuthentication(SignInStatus status)
-//     {
-//         if (status == SignInStatus.Success)
-//         {
-//             // Continue with Play Games Services
-//             // Perfectly login success
+        Debug.Log("Calling SignIn...");
+        SignIn();
+        
+    }
 
-//             string name = PlayGamesPlatform.Instance.GetUserDisplayName();
-//             string id = PlayGamesPlatform.Instance.GetUserId();
-//             string ImgUrl = PlayGamesPlatform.Instance.GetUserImageUrl();
+    public void SignIn()
+    {
+        Debug.Log("Starting Authentication...");
+        PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication, true);
+    }
 
-//             logText.text = "Success \n" + name;
-//         }
-//         else
-//         {
-//             logText.text = "Sign in Failed!";
-//             // Disable your integration with Play Games Services or show a login button
-//             // to ask users to sign-in. Clicking it should call
-//             // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).
-//             // Login failed
-//         }
-//     }
-// }
+    internal void ProcessAuthentication(SignInStatus status)
+    {
+        Debug.Log("Authentication Status: " + status);
+
+        switch (status)
+        {
+            case SignInStatus.Success:
+                Debug.Log("Login successful.");
+                string name = PlayGamesPlatform.Instance.GetUserDisplayName();
+                string id = PlayGamesPlatform.Instance.GetUserId();
+                string ImgUrl = PlayGamesPlatform.Instance.GetUserImageUrl();
+                logText.text = "Success \n" + name;
+                break;
+
+            case SignInStatus.Canceled:
+                Debug.LogError("Login canceled by the user.");
+                logText.text = "Sign in Failed! Canceled by the user.";
+                break;
+
+            case SignInStatus.InternalError:
+                Debug.LogError("Internal error occurred during login.");
+                logText.text = "Sign in Failed! Internal error.";
+                break;
+
+            default:
+                Debug.LogError("Unknown error: " + status);
+                logText.text = "Sign in Failed! Unknown error.";
+                break;
+        }
+    }
+}
