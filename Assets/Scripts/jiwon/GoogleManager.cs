@@ -13,10 +13,10 @@ public class GoogleManager : MonoBehaviour
     {
         Debug.Log("App Starting...");
         Debug.Log("Enabling PlayGamesPlatform debug log.");
-        PlayGamesPlatform.DebugLogEnabled = true;
+        //PlayGamesPlatform.DebugLogEnabled = true;
 
         Debug.Log("Activating PlayGamesPlatform.");
-        PlayGamesPlatform.Activate();
+        //PlayGamesPlatform.Activate();
 
         Debug.Log("Calling SignIn...");
         SignIn();
@@ -26,7 +26,7 @@ public class GoogleManager : MonoBehaviour
     public void SignIn()
     {
         Debug.Log("Starting Authentication...");
-        PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication, true);
+        //PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication, true);
     }
 
     internal void ProcessAuthentication(SignInStatus status)
@@ -37,9 +37,9 @@ public class GoogleManager : MonoBehaviour
         {
             case SignInStatus.Success:
                 Debug.Log("Login successful.");
-                string name = PlayGamesPlatform.Instance.GetUserDisplayName();
-                string id = PlayGamesPlatform.Instance.GetUserId();
-                string ImgUrl = PlayGamesPlatform.Instance.GetUserImageUrl();
+                //string name = PlayGamesPlatform.Instance.GetUserDisplayName();
+                //string id = PlayGamesPlatform.Instance.GetUserId();
+                //string ImgUrl = PlayGamesPlatform.Instance.GetUserImageUrl();
                 logText.text = "Success \n" + name;
                 break;
 
