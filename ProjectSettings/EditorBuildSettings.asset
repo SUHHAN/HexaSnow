@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/jiwon/Main.unity
     guid: 5fbd1a7eadb5c614e90b91213308cdbf
   - enabled: 1
-    path: Assets/Scenes/Sunwoo/BakingStart.unity
+    path: Assets/Scenes/Sunwoo/Baking.unity
     guid: 2a95141bdccf6d143930179dcd21619f
   m_configObjects: {}
