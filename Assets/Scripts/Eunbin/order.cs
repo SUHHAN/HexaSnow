@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class Order : MonoBehaviour
 {
+    public GameObject postman;
+    public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI dialogueName;
     public GameObject order; // 주문 UI
     public TextMeshProUGUI dialogueOrder; // 주문 텍스트 표시용
     private List<DialogueLine> dialogues = new List<DialogueLine>(); // 주문 데이터 저장 리스트
@@ -14,6 +17,9 @@ public class Order : MonoBehaviour
     public string csvFileName = "postmanDialogues.csv"; // CSV 파일 이름
     public Button acceptButton; // 수락 버튼
     public Button cancelButton; // 취소 버튼
+    public Button orderCheck;
+     public GameObject speechBubble;
+    public GameObject nameBubble;
 
     private int order_count=0;
     private int accept_order=2;
@@ -33,18 +39,15 @@ public class Order : MonoBehaviour
   }
     void Start()
     {
-        order.SetActive(true); // 주문 UI 활성화
-        //order.SetActive(false); // 주문 UI 비활성화
+        postman.SetActive(true);
+        orderCheck.gameObject.SetActive(true);
+        order.SetActive(true); // 주문 UI 비활성화
         acceptButton.onClick.AddListener(NextDialogue); // 수락 버튼 클릭 시 대화 진행
         cancelButton.onClick.AddListener(CloseDialogue); // 취소 버튼 클릭 시 대화 종료
+        orderCheck.onClick.AddListener(OpenOrderUI);
         LoadDialoguesFromCSV(); // CSV 파일 로드
-
-        if (dialogues.Count>0){
-             SetRandomDialogueIndex(); // 랜덤 인덱스 설정
-            ShowDialogue(); // 첫 대화 표시
+        Postmanment();
     }
-    }
-
     private void LoadDialoguesFromCSV()
     {
         try
@@ -107,6 +110,19 @@ public class Order : MonoBehaviour
         result.Add(currentField); // 마지막 필드 추가
         return result.ToArray();
     }
+
+    private void OpenOrderUI(){
+        orderCheck.gameObject.SetActive(false);
+        order.SetActive(true);
+        SetRandomDialogueIndex();
+        ShowDialogue();
+
+    }
+    private void Postmanment(){
+        dialogueText.text="오늘 들어온 주문서야.";
+        dialogueName.text="우체부 아저씨";
+
+    }
     private void ShowDialogue()
     {
         order_count++;
@@ -142,6 +158,10 @@ public class Order : MonoBehaviour
         order.SetActive(false); // UI 비활성화
         currentDialogueIndex = 0; // 대화 인덱스 초기화
         day++;
+        postman.SetActive(false);
+        speechBubble.SetActive(false);
+        nameBubble.SetActive(false);
+        
     }
  private void SetRandomDialogueIndex()
     {
