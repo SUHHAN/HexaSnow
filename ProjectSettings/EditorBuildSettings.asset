@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sunwoo/BakingStart.unity
     guid: 2a95141bdccf6d143930179dcd21619f
+  - enabled: 1
+    path: Assets/Scenes/haeun/Deadline.unity
+    guid: fab1399a546834c488906a3b054f6921
+  - enabled: 1
+    path: Assets/Scenes/haeun/Ingredient.unity
+    guid: f09924f61be45cc4c88eeadecd4b19fa
+  - enabled: 1
+    path: Assets/Scenes/haeun/Interior.unity
+    guid: dd8cc189d5f01bc4287a8b3612c20e66
   m_configObjects: {}
