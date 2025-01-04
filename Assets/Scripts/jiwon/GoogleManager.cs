@@ -13,7 +13,7 @@ public class GoogleManager : MonoBehaviour
     {
         Debug.Log("App Starting...");
         Debug.Log("Enabling PlayGamesPlatform debug log.");
-        PlayGamesPlatform.DebugLogEnabled = true;
+        GooglePlayGames.OurUtils.Logger.DebugLogEnabled = true;
 
         Debug.Log("Activating PlayGamesPlatform.");
         PlayGamesPlatform.Activate();
