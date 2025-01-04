@@ -12,6 +12,7 @@ public class Order : MonoBehaviour
     public TextMeshProUGUI dialogueName;
     public GameObject order; // 주문 UI
     public TextMeshProUGUI dialogueOrder; // 주문 텍스트 표시용
+    public TextMeshProUGUI orderCustomer;
     private List<DialogueLine> dialogues = new List<DialogueLine>(); // 주문 데이터 저장 리스트
     private int currentDialogueIndex; // 현재 주문 인덱스
     public string csvFileName = "postmanDialogues.csv"; // CSV 파일 이름
@@ -129,8 +130,9 @@ public class Order : MonoBehaviour
 
         if (dialogues.Count > currentDialogueIndex)
         {
-             DialogueLine currentLine = dialogues[currentDialogueIndex];
+            DialogueLine currentLine = dialogues[currentDialogueIndex];
             dialogueOrder.text = currentLine.description;
+            orderCustomer.text=currentLine.id;
 
         }
         else
