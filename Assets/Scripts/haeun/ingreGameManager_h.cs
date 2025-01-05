@@ -36,6 +36,10 @@ public class ingreGameManager_h : MonoBehaviour
     [SerializeField] private TextMeshProUGUI voidScoreText;
 
     private int heartScore = 3;
+    // 아래 heartO의 3개의 하트 이미지가 heartScore가 1씩 없어질 때마다 heartX로 스프라이트를 변경했으면 좋겠음
+    [SerializeField] private GameObject[] heartO;
+    [SerializeField] private Sprite heartX;
+    [SerializeField] private Sprite originalHeartSprite;
     [SerializeField] private TextMeshProUGUI heartScoreText;
     [SerializeField] private TextMeshProUGUI TimeText;
 
@@ -105,7 +109,7 @@ public class ingreGameManager_h : MonoBehaviour
     private void UpdateTimerText()
     {
         float remainingTime = Mathf.Max(0, elapsedTime);
-        TimeText.text = $"시간: {remainingTime:F1}초";
+        TimeText.text = $"{remainingTime:F1}초";
     }
 
     IEnumerator CreateBadItemRoutine()
@@ -191,8 +195,14 @@ public class ingreGameManager_h : MonoBehaviour
     {
         if (isFinalizingGame) return;
 
-        heartScore--;
-        heartScoreText.text = "생명 : " + heartScore;
+        if (heartScore > 0)
+        {
+            // 현재 heartScore에 해당하는 하트를 빈 하트(heartX)로 변경
+            heartO[heartScore - 1].GetComponent<UnityEngine.UI.Image>().sprite = heartX;
+
+            heartScore--; // 목숨 감소
+            heartScoreText.text = "생명 : " + heartScore;
+        }
 
         if (heartScore <= 0)
         {
@@ -225,9 +235,20 @@ public class ingreGameManager_h : MonoBehaviour
         heartScore = 3;
         elapsedTime = gameDuration;
 
+        // 하트 이미지 초기화
+        for (int i = 0; i < heartO.Length; i++)
+        {
+            heartO[i].GetComponent<UnityEngine.UI.Image>().sprite = heartX; // 모든 하트를 빈 하트로 초기화
+        }
+
+        for (int i = 0; i < heartScore; i++)
+        {
+            heartO[i].GetComponent<UnityEngine.UI.Image>().sprite = originalHeartSprite; // 3개의 하트 복구
+        }
+
         voidScoreText.text = "점수 : " + voidScore;
         heartScoreText.text = "생명 : " + heartScore;
-        TimeText.text = $"시간: {gameDuration:F1}초";
+        TimeText.text = $"{gameDuration:F1}초";
 
         gameOverPanel.SetActive(false);
 

@@ -16,16 +16,14 @@ public class Card_h : MonoBehaviour
     private bool isFilped = false;
     // isFilpping: 카드가 뒤집히는 중인지 확인하는 변수
     private bool isFilpping = false;
-    
+    public int cardID;
 
-    void Start()
-    {
-        
+    public void SetCardID(int id) {
+        this.cardID = id;
     }
-
-    void Update()
-    {
-        
+    
+    public void SetAnimalSprite(Sprite sprite) {
+        this.animalSprite = sprite;
     }
 
     public void FilpCard() {
