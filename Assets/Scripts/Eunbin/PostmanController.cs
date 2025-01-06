@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PostmanController : MonoBehaviour
 {
+
+    public GameObject postman;
     public GameObject speechBubble;
     public GameObject nameBubble;
     public GameObject letterBubble;
@@ -35,8 +37,10 @@ public class PostmanController : MonoBehaviour
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
         letterBubble.SetActive(false);
+        postman.SetActive(true);
         LoadDialoguesFromCSV();
 
+        
         if (dialogues.Count > 0)
         {
             ShowDialogue();
@@ -166,6 +170,7 @@ public class PostmanController : MonoBehaviour
         {
             speechBubble.SetActive(false);
             letterBubble.SetActive(false);
+            postman.SetActive(false);
         }
         else
         {

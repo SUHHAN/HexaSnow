@@ -14,28 +14,35 @@ public class Order : MonoBehaviour
     public TextMeshProUGUI dialogueOrder; // 주문 텍스트 표시용
     public TextMeshProUGUI orderCustomer;
     private List<DialogueLine> dialogues = new List<DialogueLine>(); // 주문 데이터 저장 리스트
+    private List<string> nicknames = new List<string>();
+    public List<int> order_menu_id=new List<int>();
+    public List<string> order_nickname=new List<string>();
+    public List<int> order_deadLine=new List<int>();
     private int currentDialogueIndex; // 현재 주문 인덱스
-    public string csvFileName = "postmanDialogues.csv"; // CSV 파일 이름
+    private int currentNicknameIndex; //현재 손님 인덱스
+    public string csvFileName = "orderStatement_main.csv"; // CSV 파일 이름
+    public string csvFileName_nickname="orderStatement_nickname.csv";
     public Button acceptButton; // 수락 버튼
     public Button cancelButton; // 취소 버튼
     public Button orderCheck;
      public GameObject speechBubble;
     public GameObject nameBubble;
-
+    private bool isAcceptButtonClicked = false;
     private int order_count=0;
     private int accept_order=2;
     private int day=1;
-  public struct DialogueLine{
+    private int deadline=1;
+    
+
+    public struct DialogueLine{
     public string id;
     public string menu;
-    //public string nickname;
     public string description;
 
     public DialogueLine(string id, string menu, string description){
         this.id=id;
         this.menu=menu;
         this.description=description;
-
     }
   }
     void Start()
@@ -43,10 +50,18 @@ public class Order : MonoBehaviour
         postman.SetActive(true);
         orderCheck.gameObject.SetActive(true);
         order.SetActive(true); // 주문 UI 비활성화
-        acceptButton.onClick.AddListener(NextDialogue); // 수락 버튼 클릭 시 대화 진행
+
+        acceptButton.onClick.AddListener(() => {
+        order_menu_id.Add(currentDialogueIndex); // 현재 대화 인덱스를 ID로 추가
+        order_nickname.Add(nicknames[currentNicknameIndex]);
+        order_deadLine.Add(deadline);
+        
+        NextDialogue(); // 다음 대화 진행
+    });
         cancelButton.onClick.AddListener(CloseDialogue); // 취소 버튼 클릭 시 대화 종료
         orderCheck.onClick.AddListener(OpenOrderUI);
         LoadDialoguesFromCSV(); // CSV 파일 로드
+        LoadNicknameFromCSV();
         Postmanment();
     }
     private void LoadDialoguesFromCSV()
@@ -80,6 +95,32 @@ public class Order : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError($"CSV 파일 읽기 중 오류 발생: {ex.Message}");
+        }
+    }
+
+    private void LoadNicknameFromCSV(){
+        try
+        {
+            TextAsset csvFile = Resources.Load<TextAsset>(Path.GetFileNameWithoutExtension(csvFileName_nickname));
+            if (csvFile == null)
+            {
+                Debug.LogError($"CSV 파일을 찾을 수 없습니다: {csvFileName_nickname}");
+                return;
+            }
+
+            string[] lines = csvFile.text.Split('\n');
+            foreach (string line in lines)
+        {
+            // 구분자로 데이터 파싱
+            string[] fields = line.Split(',');
+            if (fields.Length > 0) { 
+                nicknames.Add(fields[1].Trim());
+        }
+        }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"닉네임 CSV 파일 읽기 중 오류 발생: {ex.Message}");
         }
     }
 
@@ -120,8 +161,8 @@ public class Order : MonoBehaviour
 
     }
     private void Postmanment(){
-        dialogueText.text="오늘 들어온 주문서야.";
-        dialogueName.text="우체부 아저씨";
+        dialogueText.text=dialogues[1].description;
+        dialogueName.text=dialogues[1].menu;
 
     }
     private void ShowDialogue()
@@ -129,10 +170,10 @@ public class Order : MonoBehaviour
         order_count++;
 
         if (dialogues.Count > currentDialogueIndex)
-        {
+        {   
             DialogueLine currentLine = dialogues[currentDialogueIndex];
             dialogueOrder.text = currentLine.description;
-            orderCustomer.text=currentLine.id;
+            orderCustomer.text=nicknames[currentNicknameIndex];
 
         }
         else
@@ -152,22 +193,61 @@ public class Order : MonoBehaviour
         else
         {
             ShowDialogue(); // 다음 내용 표시
-        }
-    }
 
+        }
+
+    }
     private void CloseDialogue()
     {
         order.SetActive(false); // UI 비활성화
         currentDialogueIndex = 0; // 대화 인덱스 초기화
-        day++;
         postman.SetActive(false);
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
-        
+        Debug.Log("수락한 메뉴의 ID:");
+  /*      foreach (int id in order_menu_id)
+     {
+            Debug.Log(id);
+     }*/
+     foreach (string nickname in order_nickname)
+     {
+        Debug.Log(nickname);
+     }
+     foreach (int deadline in order_deadLine)
+     {
+        Debug.Log(order_deadLine.Count);
+
+     }
+    
     }
  private void SetRandomDialogueIndex()
     {
-        currentDialogueIndex = Random.Range(1, dialogues.Count); // 랜덤으로 인덱스 선택
+        currentDialogueIndex = Random.Range(3, dialogues.Count); // 랜덤으로 인덱스 선택
         Debug.Log($"랜덤으로 선택된 인덱스: {currentDialogueIndex}");
+        currentNicknameIndex=Random.Range(1, nicknames.Count);
+        
     }
+    public void IncreaseAcceptOrder(int increment){
+        accept_order+=increment;
+    }
+
+    public void ResetOrderSystem(int day)
+    {
+        Debug.Log($"Resetting Order System for Day {day}");
+        InitializeOrderSystem();
+    }
+    private void InitializeOrderSystem()
+    {
+        // 초기화 로직
+        postman.SetActive(true);
+        orderCheck.gameObject.SetActive(true);
+        order.SetActive(true);
+        order_menu_id.Clear();
+        order_nickname.Clear();
+        order_deadLine.Clear();
+        order_count = 0;
+        isAcceptButtonClicked = false;
+        Postmanment();
+    }
+
 }

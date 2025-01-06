@@ -300,7 +300,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAC70\uC808\n"
+  m_text: cancle
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 537e65026e2d347b5be6abad71ba31c1, type: 2}
   m_sharedMaterial: {fileID: -7231793993118050812, guid: 537e65026e2d347b5be6abad71ba31c1, type: 2}
@@ -1441,7 +1441,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC8FC\uBB38\uC11C \uD655\uC778\uD558\uAE30\n"
+  m_text: Check!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
   m_sharedMaterial: {fileID: 68952158446488501, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
@@ -2159,7 +2159,9 @@ MonoBehaviour:
   order: {fileID: 1773455536}
   dialogueOrder: {fileID: 2063117814}
   orderCustomer: {fileID: 0}
+  order_menu_id: 
   csvFileName: postmanDialogues.csv
+  csvFileName_nickname: orderStatement_nickname.csv
   acceptButton: {fileID: 1094453999}
   cancelButton: {fileID: 1764581428}
   orderCheck: {fileID: 46136245}
@@ -2324,7 +2326,9 @@ MonoBehaviour:
   order: {fileID: 1773455536}
   dialogueOrder: {fileID: 2063117814}
   orderCustomer: {fileID: 2093068879}
-  csvFileName: postmanDialogues.csv
+  order_menu_id: 
+  csvFileName: orderStatement_main.csv
+  csvFileName_nickname: orderStatement_nickname.csv
   acceptButton: {fileID: 1094453999}
   cancelButton: {fileID: 1764581428}
   orderCheck: {fileID: 46136245}
@@ -2387,7 +2391,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC218\uB77D\n"
+  m_text: 'accept
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 537e65026e2d347b5be6abad71ba31c1, type: 2}
   m_sharedMaterial: {fileID: -7231793993118050812, guid: 537e65026e2d347b5be6abad71ba31c1, type: 2}
