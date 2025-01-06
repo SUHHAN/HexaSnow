@@ -117,7 +117,7 @@ public class ingreGameManager_h : MonoBehaviour
         while (!isGameOver)
         {
             CreateItem(BadItem, badItemPositions, badItemSprites);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.8f);
         }
     }
 
@@ -126,7 +126,7 @@ public class ingreGameManager_h : MonoBehaviour
         while (!isGameOver)
         {
             CreateItem(goodItem, goodItemPositions, goodItemSprites);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.4f);
         }
     }
 
