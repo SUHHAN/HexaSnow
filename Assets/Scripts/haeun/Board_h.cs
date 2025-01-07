@@ -37,8 +37,6 @@ public class Board_h : MonoBehaviour
             int temp = cardIDList[randomIndex];
             cardIDList[randomIndex] = cardIDList[i];
             cardIDList[i] = temp;
-
-            Debug.Log(cardIDList[i]);
         }
     }
 

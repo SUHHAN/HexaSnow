@@ -16,10 +16,16 @@ public class Card_h : MonoBehaviour
     private bool isFilped = false;
     // isFilpping: 카드가 뒤집히는 중인지 확인하는 변수
     private bool isFilpping = false;
+
+    private bool isMatched = false;
     public int cardID;
 
     public void SetCardID(int id) {
         this.cardID = id;
+    }
+
+    public void SetMatched() {
+        isMatched = true;
     }
     
     public void SetAnimalSprite(Sprite sprite) {
@@ -52,8 +58,8 @@ public class Card_h : MonoBehaviour
     }
 
     void OnMouseDown() {
-        if (!isFilpping) {
-            FilpCard();
+        if (!isFilpping && !isMatched && !isFilped) {
+            MatchGame_h.instance.CardClicked(this); // 자기자신 입력
         }
     }
 }
