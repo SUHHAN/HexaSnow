@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
 
@@ -40,7 +41,6 @@ public class ingreGameManager_h : MonoBehaviour
     [SerializeField] private GameObject[] heartO;
     [SerializeField] private Sprite heartX;
     [SerializeField] private Sprite originalHeartSprite;
-    [SerializeField] private TextMeshProUGUI heartScoreText;
     [SerializeField] private TextMeshProUGUI TimeText;
 
     private float elapsedTime = 30f;
@@ -201,7 +201,6 @@ public class ingreGameManager_h : MonoBehaviour
             heartO[heartScore - 1].GetComponent<UnityEngine.UI.Image>().sprite = heartX;
 
             heartScore--; // 목숨 감소
-            heartScoreText.text = "생명 : " + heartScore;
         }
 
         if (heartScore <= 0)
@@ -229,36 +228,37 @@ public class ingreGameManager_h : MonoBehaviour
 
     public void RestartGame()
     {
-        isGameOver = false;
-        isFinalizingGame = false;
-        voidScore = 0;
-        heartScore = 3;
-        elapsedTime = gameDuration;
+        // isGameOver = false;
+        // isFinalizingGame = false;
+        // voidScore = 0;
+        // heartScore = 3;
+        // elapsedTime = gameDuration;
 
-        // 하트 이미지 초기화
-        for (int i = 0; i < heartO.Length; i++)
-        {
-            heartO[i].GetComponent<UnityEngine.UI.Image>().sprite = heartX; // 모든 하트를 빈 하트로 초기화
-        }
+        // // 하트 이미지 초기화
+        // for (int i = 0; i < heartO.Length; i++)
+        // {
+        //     heartO[i].GetComponent<UnityEngine.UI.Image>().sprite = heartX; // 모든 하트를 빈 하트로 초기화
+        // }
 
-        for (int i = 0; i < heartScore; i++)
-        {
-            heartO[i].GetComponent<UnityEngine.UI.Image>().sprite = originalHeartSprite; // 3개의 하트 복구
-        }
+        // for (int i = 0; i < heartScore; i++)
+        // {
+        //     heartO[i].GetComponent<UnityEngine.UI.Image>().sprite = originalHeartSprite; // 3개의 하트 복구
+        // }
 
-        voidScoreText.text = "점수 : " + voidScore;
-        heartScoreText.text = "생명 : " + heartScore;
-        TimeText.text = $"{gameDuration:F1}초";
+        // voidScoreText.text = "점수 : " + voidScore;
+        // // heartScoreText.text = "생명 : " + heartScore;
+        // TimeText.text = $"{gameDuration:F1}초";
 
-        gameOverPanel.SetActive(false);
+        // gameOverPanel.SetActive(false);
 
-        var player = FindObjectOfType<player_h>();
-        if (player != null)
-        {
-            player.ResetPlayerState();
-        }
+        // var player = FindObjectOfType<player_h>();
+        // if (player != null)
+        // {
+        //     player.ResetPlayerState();
+        // }
 
-        StartCoroutine(StartGameRoutine());
+        // StartCoroutine(StartGameRoutine());
+        SceneManager.LoadScene("Ingredient");
     }
 
     IEnumerator CleanupPositionsRoutine()
