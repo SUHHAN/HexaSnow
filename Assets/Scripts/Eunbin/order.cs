@@ -27,7 +27,7 @@ public class Order : MonoBehaviour
     public Button acceptButton; // 수락 버튼
     public Button cancelButton; // 취소 버튼
     public Button orderCheck;
-     public GameObject speechBubble;
+    public GameObject speechBubble;
     public GameObject nameBubble;
     private bool isAcceptButtonClicked = false;
     private int order_count=0;
@@ -240,9 +240,8 @@ public class Order : MonoBehaviour
     acceptButton.onClick.RemoveAllListeners();
     acceptButton.onClick.AddListener(() => {
         order_menu_id = currentDialogueIndex;
-        order_nickname.Add(nicknames[currentNicknameIndex]);
         order_deadLine.Add(deadline);
-        getMenuScript.ReceiveOrders(order_menu_id);
+        getMenuScript.ReceiveOrders(currentNicknameIndex, order_menu_id);
         NextDialogue();
     });
 
