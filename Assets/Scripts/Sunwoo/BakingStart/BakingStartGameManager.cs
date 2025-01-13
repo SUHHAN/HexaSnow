@@ -9,10 +9,9 @@ public class BakingStartGameManager : MonoBehaviour
 {
     public GameObject startButton; // '게임 시작' 버튼
     public GameObject recipePopup; // 제과 종류 선택 UI
+    public List<Button> recipeButtons; // 제과 버튼 리스트
     public GameObject nextButton; // '다음' 버튼. IngredientScene으로 넘어가는 버튼
     public TextMeshProUGUI unlockMessage; // '해금되지 않았습니다!' 안내 UI
-    public Transform recipeButtonContainer; // 제과 버튼 배치할 컨테이너
-    public GameObject recipeButtonPrefab; // 제과 버튼 프리팹
 
     public string selectedRecipe = null; // 선택된 제과의 이름
 
@@ -50,25 +49,40 @@ public class BakingStartGameManager : MonoBehaviour
 
     private void InitializeRecipeButtons()
     {
-        foreach (var recipe in recipes) // 모든 제과를 반복
+        foreach (Button button in recipeButtons) // 버튼 리스트 순회
         {
-            GameObject button = Instantiate(recipeButtonPrefab, recipeButtonContainer); // 버튼 프리팹 생성
-            button.GetComponentInChildren<Text>().text = recipe.Key; // 버튼 텍스트에 제과 이름 설정
+            // 버튼 텍스트에서 레시피 이름 가져오기
+            string recipeName = button.GetComponentInChildren<TextMeshProUGUI>().text;
 
-            bool isUnlocked = recipe.Value.isUnlocked; // 제과의 해금 상태 확인
-            button.GetComponent<Button>().interactable = isUnlocked; // 해금 상태에 따라 버튼 활성화/비활성화
+            Debug.Log($"Initializing button: {recipeName}"); // 디버깅 메시지 출력
 
-            button.GetComponent<Button>().onClick.AddListener(() => OnRecipeSelect(recipe.Key)); // 버튼 클릭 이벤트 연결
+            if (recipes.ContainsKey(recipeName)) // 레시피 데이터에 해당 이름이 있는지 확인
+            {
+                bool isUnlocked = recipes[recipeName].isUnlocked; // 레시피 해금 상태 확인
+                button.interactable = isUnlocked; // 해금 상태에 따라 버튼 활성화/비활성화 설정
+
+                // 클릭 이벤트 연결
+                button.onClick.AddListener(() => OnRecipeSelect(recipeName, button));
+            }
+            else
+            {
+                Debug.LogWarning($"Recipe not found for button: {recipeName}");
+            }
         }
     }
 
     // 제과 버튼 눌렀을 경우
-    public void OnRecipeSelect(string recipeName)
+    public void OnRecipeSelect(string recipeName, Button button)
     {
-        if (recipes[recipeName].isUnlocked) // 선택한 제과가 해금되었는지 확인
+        if (recipes[recipeName].isUnlocked) // 선택한 레시피가 해금되었는지 확인
         {
             selectedRecipe = recipeName; // 선택된 제과 이름 저장
             nextButton.SetActive(true); // "Next" 버튼 활성화
+
+            // 버튼 색상 변경
+            ColorBlock colors = button.colors;
+            colors.normalColor = Color.gray; // 기본 색상을 회색으로 변경
+            button.colors = colors;
         }
         else
         {
