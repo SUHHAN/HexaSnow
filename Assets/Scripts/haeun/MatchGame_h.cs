@@ -14,22 +14,31 @@ public class MatchGame_h : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI TimeText;
 
-    [SerializeField]
-    private float timeLimit = 15f;
+    [SerializeField] private float timeLimit = 15f;
     private float currentTime;
 
 
-    // Score : 베이킹 점수에 관여하는 공간
-    [Header("베이킹 점수 관리")]
+    [Header("준비, 시작 텍스트 관리")]
+    [SerializeField] private TextMeshProUGUI ReadyText;
+    [SerializeField] private TextMeshProUGUI GoText;
+
+
+
+    [Header("일시 정지 관리")]
+    private bool isPaused = false; // 일시정지 상태 여부
+    [SerializeField] private GameObject pausePanel; // 일시 정지 UI 패널
+
+
     private int totalMatches = 10;
 
     private int matchesFound = 0;
 
-    [Header("베이킹 점수 관리")]
-    [SerializeField] private int BakingScore; // float일수도
 
-    private int FinalScore;
-    private string FinalLevel;
+    [Header("베이킹 점수 관리")]
+    [SerializeField] private int BakingScore; // 이거 선우언니 점수와 연결하기
+
+    public int FinalScore;
+    public char FinalLevel;
 
     [SerializeField] private TextMeshProUGUI FinalScoreText;
     [SerializeField] private TextMeshProUGUI BonusScoreText;
@@ -44,12 +53,12 @@ public class MatchGame_h : MonoBehaviour
 
     private bool isGameOver;
 
-
     void Awake() {
         if (instance == null){
             instance = this;
         }
     }
+
     void Start()
     {
         Board_h board = FindObjectOfType<Board_h>();
@@ -59,17 +68,24 @@ public class MatchGame_h : MonoBehaviour
         SetCurrentTimeText();
 
         gameOverPanel.SetActive(false);
+        pausePanel.SetActive(false); // 초기에는 패널 비활성화
 
         StartCoroutine("FilpAllCardsRoutine");
     }
 
     IEnumerator FilpAllCardsRoutine() {
         isFlipping = true;
+        ReadyText.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         FilpAllCards();
         yield return new WaitForSeconds(2f);
         FilpAllCards();
-        yield return new WaitForSeconds(0.5f);
+        
+        ReadyText.gameObject.SetActive(false);
+        GoText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        GoText.gameObject.SetActive(false);
+
         isFlipping = false;
 
         // 카드를 보여준 후에 시간이 넘어갈 수 있도록
@@ -78,9 +94,10 @@ public class MatchGame_h : MonoBehaviour
 
     IEnumerator CountDownTimeRoutine() {
         while(currentTime > 0) {
-            currentTime -= Time.deltaTime;
-            SetCurrentTimeText();
-        
+            if (!isPaused) { // 일시 정지 중이 아닐 때만 시간 감소
+                currentTime -= Time.deltaTime;
+                SetCurrentTimeText();
+            }
             yield return null; // 프레임 단위로 계속 실행
         }
         GameOver(false);
@@ -99,8 +116,7 @@ public class MatchGame_h : MonoBehaviour
 
     // Card를 게임매니저가 관리
     public void CardClicked(Card_h card) {
-
-        if (isFlipping || isGameOver) {
+        if (isFlipping || isGameOver || isPaused) { // 일시 정지 중일 때 카드 클릭 불가
             return;
         }
         card.FilpCard();
@@ -142,9 +158,8 @@ public class MatchGame_h : MonoBehaviour
     }
 
     void GameOver(bool success) {
-
         if (!isGameOver) {
-            isGameOver = false;
+            isGameOver = true;
 
             StopCoroutine("CountDownTimeRoutine");
             SetScoreText();
@@ -162,16 +177,65 @@ public class MatchGame_h : MonoBehaviour
     void SetScoreText() {
         FinalScore = BakingScore + matchesFound;
 
-        FinalScoreText.text = $"총 베이킹 점수 : {FinalScore}";
+        LevelCalculate();
+        TimeText.text = $"{0:F1}초";
+
+        FinalScoreText.text = $"총 베이킹 점수 : {FinalScore}, {FinalLevel}";
         BonusScoreText.text = $"얻은 보너스 점수 : {matchesFound}";
 
+    }
+
+    void LevelCalculate() {
+        if (FinalScore == 60) {
+            FinalLevel = 'S';
+        }else if(FinalScore > 40) {
+            FinalLevel = 'A';
+        }else if(FinalScore > 30) {
+            FinalLevel = 'B';            
+        }else if(FinalScore > 20) {
+            FinalLevel = 'C';            
+        }else if(FinalScore > 10) {
+            FinalLevel = 'D';            
+        }else if(FinalScore <= 10) {
+            FinalLevel = 'F';            
+        }
     }
 
     void ShowGameOverPanel() {
         gameOverPanel.SetActive(true);
     }
 
-    void MatchRestartGame(){
+    public void MatchRestartGame(){
         SceneManager.LoadScene("Match");
+    }
+
+    public void PauseGame() {
+        if (!isPaused && !isFlipping && !isGameOver) {
+            pausePanel.SetActive(true);
+            isPaused = true;
+        }
+    }
+
+    public void ResumeGame() {
+        if (isPaused) {
+            pausePanel.SetActive(false);
+            StartCoroutine(ResumeReadyGoRoutine());
+        }
+    }
+
+    private IEnumerator ResumeReadyGoRoutine()
+    {
+        // Ready 표시
+        ReadyText.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f); // 실시간 기준으로 대기
+        ReadyText.gameObject.SetActive(false);
+
+        // Go 표시
+        GoText.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(0.5f); // 실시간 기준으로 대기
+        GoText.gameObject.SetActive(false);
+
+        isPaused = false;
+
     }
 }
