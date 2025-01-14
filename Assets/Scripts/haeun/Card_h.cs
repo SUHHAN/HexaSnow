@@ -39,7 +39,7 @@ public class Card_h : MonoBehaviour
         Vector3 originalScale = transform.localScale;
         Vector3 targetScale = new Vector3(0f, originalScale.y, originalScale.z);
 
-        transform.DOScale(targetScale, 0.15f).OnComplete(() => 
+        transform.DOScale(targetScale, 0.12f).OnComplete(() => 
         {
             // 뒤집혔는지 아닌지를 확인할 수 있게 됨
             isFilped = !isFilped;
@@ -51,7 +51,7 @@ public class Card_h : MonoBehaviour
                 cardRenderer.sprite = backSprite;
             }
             // 카드를 원상복귀 시킴
-            transform.DOScale(originalScale, 0.15f).OnComplete(() => {
+            transform.DOScale(originalScale, 0.12f).OnComplete(() => {
                 isFilpping = false;
             });
         });

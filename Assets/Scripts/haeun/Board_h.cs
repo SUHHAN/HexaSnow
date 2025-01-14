@@ -72,24 +72,3 @@ public class Board_h : MonoBehaviour
         return cardList;
     }
 }
-
-//     int rowCount = 6; // 행 개수 (6개)
-    //     int colCount = 4; // 열 개수 (4개)
-
-    //     float screenWidth = 5.0f; // 보드의 전체 가로 크기
-    //     float screenHeight = 8.0f; // 보드의 전체 세로 크기
-
-    //     // 행과 열 간 간격 계산
-    //     float spaceX = screenWidth / (colCount - 1); // 열 간격 (보드 크기에 맞게)
-    //     float spaceY = screenHeight / (rowCount - 1); // 행 간격 (보드 크기에 맞게)
-
-    //     // 중심으로 카드 배치
-    //     for (int row = 0; row < rowCount; row++) {
-    //         for (int col = 0; col < colCount; col++) {
-    //             float posY = (row - (rowCount - 1) / 2.0f) * spaceY; // 행 위치
-    //             float posX = (col - (colCount - 1) / 2.0f) * spaceX; // 열 위치
-    //             Vector3 pos = new Vector3(posX, posY, 0f);
-    //             Instantiate(cardPrefab, pos, Quaternion.identity); // 카드 배치
-    //         }
-    //     }
-    // }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class player_h : MonoBehaviour
@@ -10,14 +9,11 @@ public class player_h : MonoBehaviour
     private SpriteRenderer renderer_h;
     private BoxCollider2D boxCollider;
     private float speed = 3f; // 초기 속도를 3으로 설정
-    private float maxSpeed = 5f; // 최대 속도
-    private float dragDuration = 1f; // 속도가 최대가 되는 시간
-    private float horizontal;
-
-    private bool isDragging = false; // 드래그 상태 확인
-    private float dragStartTime; // 드래그 시작 시간
+    private float horizontal = -1; // 기본적으로 왼쪽으로 이동
 
     private bool isStopped = false; // 플레이어 정지 상태
+    private bool isRightButtonPressed = false; // 오른쪽 버튼 상태
+    private bool isPaused = false; // 게임 일시 정지 상태
 
     private enum PlayerState
     {
@@ -52,11 +48,7 @@ public class player_h : MonoBehaviour
 
     void Update()
     {
-        if (ingreGameManager_h.Instance.IsGameStarting()) return;
-
-        horizontal = Input.GetAxis("Horizontal");
-
-        HandleScreenTouch();
+        if (isPaused || ingreGameManager_h.Instance.IsGameStarting()) return;
 
         if (ingreGameManager_h.Instance.IsGameOverFinalizing())
         {
@@ -64,6 +56,7 @@ public class player_h : MonoBehaviour
             return;
         }
 
+        HandleButtonInput();
         PlayerMove_h();
         ScreenClick();
     }
@@ -71,6 +64,9 @@ public class player_h : MonoBehaviour
     private void PlayerMove_h()
     {
         if (isStopped) return;
+
+        // 오른쪽 버튼 상태에 따라 방향 결정
+        horizontal = isRightButtonPressed ? 1 : -1;
 
         animator.SetFloat("speed", Mathf.Abs(horizontal));
 
@@ -90,64 +86,33 @@ public class player_h : MonoBehaviour
                 SetColliderState(PlayerState.MovingLeft);
             }
         }
-        else
-        {
-            if (currentState == PlayerState.MovingRight)
-            {
-                SetColliderState(PlayerState.StoppedAfterMovingRight);
-            }
-            else if (currentState == PlayerState.MovingLeft)
-            {
-                SetColliderState(PlayerState.StoppedAfterMovingLeft);
-            }
-        }
 
         rigidbody_h.velocity = new Vector2(horizontal * speed, rigidbody_h.velocity.y);
     }
 
-    private void HandleScreenTouch()
+    private void HandleButtonInput()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            isDragging = true;
-            dragStartTime = Time.time; // 드래그 시작 시간 기록
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            isDragging = false;
-        }
+        if (isPaused) return; // 일시 정지 상태에서는 입력 무시
 
-        if (isDragging)
+        // 오른쪽 버튼 상태 업데이트
+        if (Input.GetMouseButton(0)) // 버튼이 눌려 있는 동안
         {
-            float elapsedTime = Time.time - dragStartTime; // 드래그 시간 계산
-            speed = Mathf.Lerp(0, maxSpeed, elapsedTime / dragDuration); // 선형 보간으로 속도 증가
-            speed = Mathf.Min(speed, maxSpeed); // 최대 속도를 초과하지 않도록 제한
-
-            Vector3 touchPosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-
-            if (touchPosition.x < 0.5f)
-            {
-                horizontal = -1;
-            }
-            else if (touchPosition.x >= 0.5f)
-            {
-                horizontal = 1;
-            }
+            isRightButtonPressed = true;
         }
-        else if (Mathf.Approximately(Input.GetAxis("Horizontal"), 0f))
+        else
         {
-            horizontal = 0;
+            isRightButtonPressed = false;
         }
     }
 
     private void ScreenClick()
     {
-        if (isStopped) return;
+        if (isStopped || isPaused) return;
 
         Vector3 worldpos = Camera.main.WorldToViewportPoint(this.transform.position);
 
-        if (worldpos.x < 0.05f) worldpos.x = 0.05f;
-        if (worldpos.x > 0.95f) worldpos.x = 0.95f;
+        if (worldpos.x < 0.1f) worldpos.x = 0.1f;
+        if (worldpos.x > 0.9f) worldpos.x = 0.9f;
 
         this.transform.position = Camera.main.ViewportToWorldPoint(worldpos);
     }
@@ -159,17 +124,31 @@ public class player_h : MonoBehaviour
             isStopped = true;
             animator.SetFloat("speed", 0);
             rigidbody_h.velocity = Vector2.zero;
+            SetColliderState(PlayerState.Idle); // Idle 상태로 복원
         }
     }
 
     public void ResetPlayerState()
     {
         isStopped = false;
-        isDragging = false; // 드래그 상태 확인
+        isRightButtonPressed = false;
 
         animator.SetFloat("speed", 0);
         rigidbody_h.velocity = Vector2.zero;
         SetColliderState(PlayerState.Idle);
+    }
+
+    public void SetPauseState(bool pause)
+    {
+        isPaused = pause;
+
+        if (pause)
+        {
+            // 일시 정지 시 움직임 멈춤
+            rigidbody_h.velocity = Vector2.zero;
+            animator.SetFloat("speed", 0);
+            SetColliderState(PlayerState.Idle);
+        }
     }
 
     private void SetColliderState(PlayerState newState)
@@ -179,23 +158,23 @@ public class player_h : MonoBehaviour
         switch (newState)
         {
             case PlayerState.Idle:
-                ConfigureBoxColliders(0.5f, 1.8f, 0.5f);
+                ConfigureBoxColliders(0.65f, 1.4f, 0.5f);
                 break;
 
             case PlayerState.MovingRight:
-                ConfigureBoxColliders(0.9f, 2.0f, 0.9f);
+                ConfigureBoxColliders(1f, 1.4f, 0.9f);
                 break;
 
             case PlayerState.StoppedAfterMovingRight:
-                ConfigureBoxColliders(0.5f, 1.8f, 0.5f);
+                ConfigureBoxColliders(0.65f, 1.4f, 0.5f);
                 break;
 
             case PlayerState.MovingLeft:
-                ConfigureBoxColliders(-0.9f, 2.0f, -0.9f);
+                ConfigureBoxColliders(-1f, 1.4f, -0.9f);
                 break;
 
             case PlayerState.StoppedAfterMovingLeft:
-                ConfigureBoxColliders(-0.5f, 1.8f, -0.5f);
+                ConfigureBoxColliders(-0.65f, 1.4f, -0.5f);
                 break;
         }
     }
@@ -212,5 +191,46 @@ public class player_h : MonoBehaviour
         {
             boxCollider2.offset = new Vector2(offset2X, boxCollider2.offset.y);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "BadItem")
+        {
+            StartCoroutine(HandleBadItemCollision());
+        }
+    }
+
+    private IEnumerator HandleBadItemCollision()
+    {
+        ingreGameManager_h.Instance.BackVoidScore();
+        ingreGameManager_h.Instance.BackHeartScore(); // 생명 감소
+        if (animator != null)
+        {
+
+            if (horizontal > 0)
+            {
+                renderer_h.flipX = true;
+                if (currentState != PlayerState.StoppedAfterMovingRight)
+                {
+                    SetColliderState(PlayerState.StoppedAfterMovingRight);
+                }
+            }
+            else if (horizontal < 0)
+            {
+                renderer_h.flipX = false;
+                if (currentState != PlayerState.StoppedAfterMovingLeft)
+                {
+                    SetColliderState(PlayerState.StoppedAfterMovingLeft);
+                }
+            }
+
+            rigidbody_h.velocity = new Vector2(horizontal * speed, rigidbody_h.velocity.y);
+            
+            animator.SetBool("badItem", true); // badItem 애니메이션 실행
+            yield return new WaitForSeconds(1f); // 1초 대기
+            animator.SetBool("badItem", false); // run 애니메이션으로 복귀
+        }
+        
     }
 }

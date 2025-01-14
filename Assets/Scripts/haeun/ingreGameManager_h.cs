@@ -37,6 +37,7 @@ public class ingreGameManager_h : MonoBehaviour
     [SerializeField] private TextMeshProUGUI voidScoreText;
 
     private int heartScore = 3;
+
     // 아래 heartO의 3개의 하트 이미지가 heartScore가 1씩 없어질 때마다 heartX로 스프라이트를 변경했으면 좋겠음
     [SerializeField] private GameObject[] heartO;
     [SerializeField] private Sprite heartX;
@@ -57,6 +58,9 @@ public class ingreGameManager_h : MonoBehaviour
     void Start()
     {
         StartCoroutine(StartGameRoutine());
+
+        gameOverPanel.SetActive(false);
+
     }
 
     void Update()
@@ -66,6 +70,7 @@ public class ingreGameManager_h : MonoBehaviour
             UpdateTimer();
         }
     }
+    
 
     private IEnumerator StartGameRoutine()
     {
@@ -221,6 +226,9 @@ public class ingreGameManager_h : MonoBehaviour
     {
         isGameOver = true;
         savedScore = voidScore + heartScore * 3;
+
+        ScrollbarManager.Instance.SetFinalScore(savedScore);
+
         FinishScoreText.text = "최종 점수 : " + savedScore;
         StopAllCoroutines();
         gameOverPanel.SetActive(true);
@@ -228,36 +236,6 @@ public class ingreGameManager_h : MonoBehaviour
 
     public void RestartGame()
     {
-        // isGameOver = false;
-        // isFinalizingGame = false;
-        // voidScore = 0;
-        // heartScore = 3;
-        // elapsedTime = gameDuration;
-
-        // // 하트 이미지 초기화
-        // for (int i = 0; i < heartO.Length; i++)
-        // {
-        //     heartO[i].GetComponent<UnityEngine.UI.Image>().sprite = heartX; // 모든 하트를 빈 하트로 초기화
-        // }
-
-        // for (int i = 0; i < heartScore; i++)
-        // {
-        //     heartO[i].GetComponent<UnityEngine.UI.Image>().sprite = originalHeartSprite; // 3개의 하트 복구
-        // }
-
-        // voidScoreText.text = "점수 : " + voidScore;
-        // // heartScoreText.text = "생명 : " + heartScore;
-        // TimeText.text = $"{gameDuration:F1}초";
-
-        // gameOverPanel.SetActive(false);
-
-        // var player = FindObjectOfType<player_h>();
-        // if (player != null)
-        // {
-        //     player.ResetPlayerState();
-        // }
-
-        // StartCoroutine(StartGameRoutine());
         SceneManager.LoadScene("Ingredient");
     }
 
