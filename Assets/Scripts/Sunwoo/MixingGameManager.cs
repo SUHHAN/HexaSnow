@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -32,6 +31,7 @@ public class MixingGameManager : MonoBehaviour
     private int score = 0; // 현재 점수
 
     private GameObject activeTouchPoint = null; // 현재 활성화된 터치 포인트
+    private int previousIndex = -1; // 이전에 생성된 터치 포인트 인덱스 (-1은 초기값)
 
     private void Start()
     {
@@ -82,12 +82,20 @@ public class MixingGameManager : MonoBehaviour
         StartCoroutine(SpawnTouchPoints());
     }
 
-    // 터치 포인트 스폰 (한 번에 하나만 활성화)
+    // 터치 포인트 스폰 (한 번에 하나만 활성화, 이전 위치 제외)
     private IEnumerator SpawnTouchPoints()
     {
         while (isGameRunning)
         {
-            int randomIndex = Random.Range(0, touchPointPositions.Length); // 랜덤 위치 선택
+            int randomIndex;
+
+            // 이전 인덱스와 다른 위치 선택
+            do
+            {
+                randomIndex = Random.Range(0, touchPointPositions.Length);
+            } while (randomIndex == previousIndex);
+
+            previousIndex = randomIndex; // 현재 인덱스를 이전 인덱스로 저장
 
             if (activeTouchPoint != null)
             {
@@ -150,22 +158,22 @@ public class MixingGameManager : MonoBehaviour
         float distance = Vector2.Distance(handIcon.transform.position, activeTouchPoint.transform.position);
         Debug.Log($"Distance: {distance}");
 
-        if (distance <= 50)
+        if (distance <= 0.5)
         {
             score += 5; // Perfect
             Debug.Log("Perfect! +5");
         }
-        else if (distance <= 100)
+        else if (distance <= 1)
         {
             score += 3; // Great
             Debug.Log("Great! +3");
         }
-        else if (distance <= 150)
+        else if (distance <= 1.5)
         {
             score += 1; // Good
             Debug.Log("Good! +1");
         }
-        else if (distance <= 200)
+        else if (distance <= 2)
         {
             Debug.Log("Bad! +0");
         }
