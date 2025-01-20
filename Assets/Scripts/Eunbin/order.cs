@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class Order : MonoBehaviour
 {
     public getMenu getMenuScript;
-
+    public special_customer SpecialScript;
+    public DayChange dayChange;
     public GameObject postman;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
@@ -16,6 +17,7 @@ public class Order : MonoBehaviour
     public TextMeshProUGUI dialogueOrder; // 주문 텍스트 표시용
     public TextMeshProUGUI orderCustomer;
     private List<DialogueLine> dialogues = new List<DialogueLine>(); // 주문 데이터 저장 리스트
+    private List<DialogueLine> filteredDialogues = new List<DialogueLine>();
     private List<string> nicknames = new List<string>();
     public int order_menu_id;
     public List<string> order_nickname=new List<string>();
@@ -32,9 +34,7 @@ public class Order : MonoBehaviour
     private bool isAcceptButtonClicked = false;
     private int order_count=0;
     private int accept_order=2;
-    private int day=1;
     private int deadline=1;
-    
 
     public struct DialogueLine{
     public string id;
@@ -56,9 +56,10 @@ public class Order : MonoBehaviour
         LoadDialoguesFromCSV(); // CSV 파일 로드
         LoadNicknameFromCSV();
         Postmanment();
+
+        openMenu();
     }
 
-    
     private void LoadDialoguesFromCSV()
     {
         try
@@ -70,7 +71,6 @@ public class Order : MonoBehaviour
                 Debug.LogError($"CSV 파일을 찾을 수 없습니다: {csvFileName}");
                 return;
             }
-
             // 줄 단위로 나누기
             string[] lines = csvFile.text.Split(new[] {'\r', '\n'}, System.StringSplitOptions.RemoveEmptyEntries);
             foreach (string line in lines)
@@ -84,7 +84,6 @@ public class Order : MonoBehaviour
                     string description=fields[2].Trim();
 
                     dialogues.Add(new DialogueLine(id, menu, description));
-            
             }
         }
         catch (System.Exception ex)
@@ -92,7 +91,6 @@ public class Order : MonoBehaviour
             Debug.LogError($"CSV 파일 읽기 중 오류 발생: {ex.Message}");
         }
     }
-
     private void LoadNicknameFromCSV(){
         try
         {
@@ -198,22 +196,9 @@ public class Order : MonoBehaviour
         postman.SetActive(false);
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
- /*      Debug.Log("수락한 메뉴의 ID:");
-        foreach (int id in order_menu_id)
-     {
-            Debug.Log(id);
-     }
-     foreach (string nickname in order_nickname)
-     {
-        Debug.Log(nickname);
-     }
-     foreach (int deadline in order_deadLine)
-     {
-        Debug.Log(order_deadLine.Count);
 
-     }
-     */
      int previousDay = getMenuScript.currentDay - 1;
+    
         if (getMenuScript.gameObject.activeSelf)
         {
             getMenuScript.StartCoroutine(getMenuScript.ProcessCustomers(previousDay));
@@ -225,16 +210,22 @@ public class Order : MonoBehaviour
 }
  private void SetRandomDialogueIndex()
     {
-        currentDialogueIndex = Random.Range(3, dialogues.Count); // 랜덤으로 인덱스 선택
-        //Debug.Log($"랜덤으로 선택된 인덱스: {currentDialogueIndex}");
+        if (filteredDialogues.Count == 0)
+    {
+        Debug.LogWarning("필터링된 대화가 없습니다. 기본 대화 리스트를 사용합니다.");
+        currentDialogueIndex = Random.Range(2, dialogues.Count); // 기본 전체 리스트에서 랜덤 선택
+    }
+    else
+    {
+        currentDialogueIndex = Random.Range(2, filteredDialogues.Count); // 필터링된 리스트에서 랜덤 선택
+    }
         currentNicknameIndex=Random.Range(1, nicknames.Count);
         
     }
-    public void IncreaseAcceptOrder(int increment){
-        accept_order+=increment;
+public void IncreaseAcceptOrder(int increment){
+    accept_order+=increment;
     }
-    private void InitializeButtons()
-{
+private void InitializeButtons(){
     // 기존 리스너 제거 후 새로 추가
     acceptButton.onClick.RemoveAllListeners();
     acceptButton.onClick.AddListener(() => {
@@ -251,7 +242,27 @@ public class Order : MonoBehaviour
     orderCheck.onClick.AddListener(OpenOrderUI);
 }
 
-    public void ResetOrderSystem(int day)
+public void openMenu(){
+     int maxId=dayChange.day*2000+1000;
+
+     filteredDialogues=dialogues.FindAll(dialogue=>{
+        if (int.TryParse(dialogue.id, out int dialogueId)){
+            return dialogueId<=maxId;
+        }
+        return false;
+     });
+
+     if (filteredDialogues.Count == 0)
+    {
+        Debug.LogWarning($"현재 날짜({dayChange.day})에 허용된 대화가 없습니다!");
+    }
+    else
+    {
+        Debug.Log($"현재 날짜({dayChange.day})에 허용된 대화 개수: {filteredDialogues.Count}");
+    }
+}
+
+public void ResetOrderSystem(int day)
     {
         Debug.Log($"Resetting Order System for Day {day}");
         postman.SetActive(true);
