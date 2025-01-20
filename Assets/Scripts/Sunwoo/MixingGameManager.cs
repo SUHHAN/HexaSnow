@@ -6,6 +6,7 @@ using TMPro;
 public class MixingGameManager : MonoBehaviour
 {
     // 패널 및 UI 요소
+    public GameObject mixingPanel; // Mixing 전체 패널
     public GameObject startMixingPanel;
     public GameObject mixingGamePanel;
     public GameObject finishMixingPanel;
@@ -21,6 +22,11 @@ public class MixingGameManager : MonoBehaviour
     public GameObject handIcon;
     public Transform[] touchPointPositions; // 터치 포인트 위치 배열
     public GameObject[] touchPointImages; // 터치 포인트 이미지 배열
+
+    // Bowl 이미지
+    public GameObject bowlBefore; // BowlBefore 이미지
+    public GameObject bowlAfter; // BowlAfter 이미지
+    private bool hasAnimationStarted = false; // 애니메이션 실행 여부 확인
 
     // 게임 설정
     public float pointLifetime = 1.5f; // 터치 포인트 유지 시간
@@ -42,9 +48,50 @@ public class MixingGameManager : MonoBehaviour
         finishMixingPanel.SetActive(false);
         ovenPanel.SetActive(false); // Oven 패널 초기 비활성화
 
+        bowlBefore.SetActive(true);
+        bowlAfter.SetActive(false);
+        startButton.gameObject.SetActive(false); // Start 버튼 초기 비활성화
+
         // Start 버튼 클릭 이벤트 등록
         startButton.onClick.AddListener(StartMixingGame);
         nextButton.onClick.AddListener(GoToOvenPanel); // Next 버튼 클릭 이벤트 등록
+    }
+
+    public void ActivateMixingPanel()
+    {
+        mixingPanel.SetActive(true); // Mixing 전체 패널 활성화
+        startMixingPanel.SetActive(true); // StartMixingPanel 활성화
+
+        if (!hasAnimationStarted)
+        {
+            StartCoroutine(BowlAnimation());
+            hasAnimationStarted = true; // 애니메이션 한 번만 실행되도록 설정
+        }
+    }
+
+    private IEnumerator BowlAnimation()
+    {
+        Debug.Log("BowlAnimation 시작");
+
+        float rotationDuration = 2f; // Bowl 회전 지속 시간 
+        float elapsedTime = 0f;
+        float rotationSpeed = 1080f; // 회전 속도 (기본 360도에서 증가)
+
+        // BowlBefore 빠르게 회전
+        while (elapsedTime < rotationDuration)
+        {
+            bowlBefore.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime); // 1080도 회전 (초당 3바퀴)
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("BowlAnimation 종료");
+
+        // BowlBefore 비활성화 및 BowlAfter 활성화
+        bowlBefore.SetActive(false);
+        bowlAfter.SetActive(true);
+
+        // Start 버튼 활성화
+        startButton.gameObject.SetActive(true);
     }
 
     // Mixing 게임 시작

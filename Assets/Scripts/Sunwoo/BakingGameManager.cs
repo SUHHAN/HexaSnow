@@ -36,6 +36,8 @@ public class BakingGameManager : MonoBehaviour
     public RecipeBook recipeBook; // 레시피 관리 스크립트
     public UIManager uiManager; // UI 관리 스크립트
 
+    public MixingGameManager mixingGameManager; // MixingGameManager 참조
+
     void Start()
     {
         SetGameState(GameState.Start); // 초기 상태를 시작 단계로 설정
@@ -145,7 +147,11 @@ public class BakingGameManager : MonoBehaviour
         {
             Debug.Log("선택한 재료가 레시피와 일치하지 않습니다.");
         }
-        SetGameState(GameState.Mixing);
+        if (currentState == GameState.IngredientSelection)
+        {
+            SetGameState(GameState.Mixing); // Mixing 단계로 전환
+            mixingGameManager.ActivateMixingPanel(); // MixingGameManager의 ActivateMixingPanel 호출
+        }
     }
 
     // 선택된 재료가 레시피와 일치하는지 검증
