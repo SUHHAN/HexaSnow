@@ -186,10 +186,9 @@ public class Order : MonoBehaviour
         else
         {
             ShowDialogue(); // 다음 내용 표시
-
         }
-
     }
+
     private void CloseDialogue()
     {
         order.SetActive(false); // UI 비활성화
@@ -236,7 +235,7 @@ private void InitializeButtons(){
         NextDialogue();
     });
 
-    cancelButton.onClick.RemoveAllListeners();
+    
     cancelButton.onClick.AddListener(CloseDialogue);
 
     orderCheck.onClick.RemoveAllListeners();

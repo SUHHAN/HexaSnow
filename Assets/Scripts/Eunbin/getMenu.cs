@@ -149,60 +149,72 @@ public class getMenu : MonoBehaviour
     }
 
     public IEnumerator ProcessCustomers(int dayToProcess)
+{
+    Debug.Log($"[{dayToProcess}일] 손님 처리 시작");
+
+    if (!dailyOrders.ContainsKey(dayToProcess) || dailyOrders[dayToProcess].Count == 0)
     {
-        Debug.Log($"{dayToProcess}일의 손님들이 메뉴를 받으러 왔습니다.");
-
-        if (!dailyOrders.ContainsKey(dayToProcess) || dailyOrders[dayToProcess].Count == 0)
-        {
-            Debug.Log($"처리할 주문이 없습니다: {dayToProcess}일");
-            yield break;
-        }
-
-        List<List<int>> menuForDay = new List<List<int>>(dailyOrders[dayToProcess]); // 해당 날짜의 주문 복사
-
-        foreach(List<int> order in menuForDay)
-        {
-            int orderId=order[0];
-            int nicknameIndex=order[1];
-
-            GameObject customer=GetRandomCustomer();
-            customer.SetActive(true);
-            dialogueName.text=nicknames[nicknameIndex];
-            
-            Debug.Log($"손님 {customer.name}이(가) 메뉴 {order}을(를) 받으러 왔습니다!");
-            ShowOrder(orderId);
-            nameBubble.SetActive(true);
-            bool isOrderCompleted = false;
-            bool isScreenClicked = false;
-
-            right.onClick.RemoveAllListeners(); 
-            none.onClick.RemoveAllListeners(); 
-            False.onClick.RemoveAllListeners(); 
-            right.onClick.AddListener(() => {
-                Debug.Log($"{customer.name}이(가) 메뉴를 받았습니다.");
-                UpdateDialogue("right");
-                isOrderCompleted = true; 
-            });
-            none.onClick.AddListener(() => {
-                Debug.Log($"{customer.name}이(가) 메뉴를 못았습니다.");
-                UpdateDialogue("none");
-                isOrderCompleted = true;
-            });
-            False.onClick.AddListener(() => {
-                Debug.Log($"{customer.name}이(가) 메뉴를 잘못 받았습니다.");
-                UpdateDialogue("False");
-                isOrderCompleted = true;
-            });
-            yield return new WaitUntil(() => isOrderCompleted);
-            yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-            customer.SetActive(false);
-            customer_order.SetActive(false);
-            speechBubble.SetActive(false);
-            Debug.Log("손님이 메뉴를 받아갔습니다!");
-        }
-        dailyOrders[dayToProcess].Clear(); // 해당 날짜의 주문 처리 완료
-        Debug.Log($"{dayToProcess}일의 모든 주문이 처리되었습니다.");
+        Debug.Log($"[{dayToProcess}일] 처리할 주문이 없습니다.");
+        yield break;
     }
+
+    Debug.Log($"[{dayToProcess}일] 처리할 주문 목록:");
+    foreach (var order in dailyOrders[dayToProcess])
+    {
+        Debug.Log($"  - 메뉴 ID: {order[0]}, 닉네임 인덱스: {order[1]}");
+    }
+
+    List<List<int>> menuForDay = new List<List<int>>(dailyOrders[dayToProcess]); // 해당 날짜의 주문 복사
+
+    foreach (List<int> order in menuForDay)
+    {
+        int orderId = order[0];
+        int nicknameIndex = order[1];
+
+        GameObject customer = GetRandomCustomer();
+        customer.SetActive(true);
+        dialogueName.text = nicknames[nicknameIndex];
+
+        Debug.Log($"손님 {customer.name}이(가) 메뉴 {orderId}을(를) 받으러 왔습니다!");
+        ShowOrder(orderId);
+        nameBubble.SetActive(true);
+
+        bool isOrderCompleted = false;
+
+        right.onClick.RemoveAllListeners();
+        none.onClick.RemoveAllListeners();
+        False.onClick.RemoveAllListeners();
+
+        right.onClick.AddListener(() => {
+            Debug.Log($"손님 {customer.name}이(가) 올바른 메뉴를 받았습니다.");
+            UpdateDialogue("right");
+            isOrderCompleted = true;
+        });
+        none.onClick.AddListener(() => {
+            Debug.Log($"손님 {customer.name}이(가) 메뉴를 받지 못했습니다.");
+            UpdateDialogue("none");
+            isOrderCompleted = true;
+        });
+        False.onClick.AddListener(() => {
+            Debug.Log($"손님 {customer.name}이(가) 잘못된 메뉴를 받았습니다.");
+            UpdateDialogue("False");
+            isOrderCompleted = true;
+        });
+
+        yield return new WaitUntil(() => isOrderCompleted);
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+
+        customer.SetActive(false);
+        customer_order.SetActive(false);
+        speechBubble.SetActive(false);
+
+        Debug.Log($"손님 {customer.name}이(가) 메뉴를 받아갔습니다!");
+    }
+
+    dailyOrders[dayToProcess].Clear(); // 해당 날짜의 주문 처리 완료
+    Debug.Log($"[{dayToProcess}일] 모든 손님이 메뉴를 받아갔습니다.");
+}
+
     private GameObject GetRandomCustomer(){
         int randomIndex=Random.Range(0, customers.Count);
         return customers[randomIndex];
