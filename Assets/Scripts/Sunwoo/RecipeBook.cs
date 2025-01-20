@@ -13,7 +13,9 @@ public class RecipeBook : MonoBehaviour
         {
             new Recipe("Madeleine", new List<string> { "Butter", "Egg", "Flour", "Sugar" }, true),
             new Recipe("Muffin", new List<string> { "Butter", "Egg", "Sugar", "Flour", "Baking Powder" }),
-            new Recipe("Cookie", new List<string> { "Butter", "Sugar", "Sugar Powder", "Egg", "Flour", "Almond Powder" }),
+            new Recipe("Choco Muffin", new List<string> { "Butter", "Egg", "Sugar", "Baking Powder", "Flour", "Milk", "Cocoa Powder", "Chocolate Chips (Topping)" }),
+            new Recipe("Blueberry Muffin", new List<string> { "Butter", "Egg", "Sugar", "Flour", "Baking Powder", "Milk", "Blueberry (Topping)" }),
+            new Recipe("Cookie", new List<string> { "Butter", "Sugar Powder", "Egg", "Flour", "Almond Powder" }),
             new Recipe("Pound Cake", new List<string> { "Butter", "Egg", "Flour", "Sugar" }), // 마들렌과 같은 재료
             new Recipe("Financier", new List<string> { "Egg Whites", "Almond Powder", "Flour", "Honey", "Sugar", "Browned Butter" }),
             new Recipe("Basque Cheesecake", new List<string> { "Cream Cheese", "Sugar", "Egg", "Heavy Cream" }),

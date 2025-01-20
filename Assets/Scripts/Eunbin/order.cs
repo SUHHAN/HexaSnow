@@ -56,6 +56,8 @@ public class Order : MonoBehaviour
         LoadDialoguesFromCSV(); // CSV 파일 로드
         LoadNicknameFromCSV();
         Postmanment();
+
+        openMenu(1);
     }
 
     private void LoadDialoguesFromCSV()
@@ -220,9 +222,45 @@ public class Order : MonoBehaviour
         currentNicknameIndex=Random.Range(1, nicknames.Count);
         
     }
-    public void IncreaseAcceptOrder(int increment){
-        accept_order+=increment;
+public void IncreaseAcceptOrder(int increment){
+    accept_order+=increment;
     }
+private void InitializeButtons(){
+    // 기존 리스너 제거 후 새로 추가
+    acceptButton.onClick.RemoveAllListeners();
+    acceptButton.onClick.AddListener(() => {
+        order_menu_id = currentDialogueIndex;
+        order_deadLine.Add(deadline);
+        getMenuScript.ReceiveOrders(currentNicknameIndex, order_menu_id);
+        NextDialogue();
+    });
+
+    
+    cancelButton.onClick.AddListener(CloseDialogue);
+
+    orderCheck.onClick.RemoveAllListeners();
+    orderCheck.onClick.AddListener(OpenOrderUI);
+}
+
+public void openMenu(int day){
+     int maxId=day*2000+1000;
+
+     filteredDialogues=dialogues.FindAll(dialogue=>{
+        if (int.TryParse(dialogue.id, out int dialogueId)){
+            return dialogueId<=maxId;
+        }
+        return false;
+     });
+
+     if (filteredDialogues.Count == 0)
+    {
+        Debug.LogWarning($"현재 날짜({day})에 허용된 대화가 없습니다!");
+    }
+    else
+    {
+        Debug.Log($"현재 날짜({day})에 허용된 대화 개수: {filteredDialogues.Count}");
+    }
+}
 
 public void ResetOrderSystem(int day)
     {
