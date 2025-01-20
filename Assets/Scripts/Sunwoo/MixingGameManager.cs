@@ -73,7 +73,7 @@ public class MixingGameManager : MonoBehaviour
     {
         Debug.Log("BowlAnimation 시작");
 
-        float rotationDuration = 2f; // Bowl 회전 지속 시간 
+        float rotationDuration = 1.5f; // Bowl 회전 지속 시간 
         float elapsedTime = 0f;
         float rotationSpeed = 1080f; // 회전 속도 (기본 360도에서 증가)
 
