@@ -45,6 +45,7 @@ public class OvenGameManager : MonoBehaviour
 
         // 버튼 이벤트 등록
         startButton.onClick.AddListener(StartOvenGame);
+        stopButton.onClick.RemoveAllListeners();
         stopButton.onClick.AddListener(StopGauge);
         nextButton.onClick.AddListener(GoToNextPanel);
 
@@ -119,6 +120,8 @@ public class OvenGameManager : MonoBehaviour
         targetZoneStart = Random.Range(zoneStartRange, zoneEndRange);
         targetZoneEnd = targetZoneStart + targetZoneWidth;
 
+        Debug.Log($"Target Zone: Start={targetZoneStart}, End={targetZoneEnd}");
+
         // 붉은 구역 이미지 위치 및 크기 설정
         targetZone.rectTransform.anchoredPosition = new Vector2(targetZoneStart, 0f);
         targetZone.rectTransform.sizeDelta = new Vector2(targetZoneWidth, targetZone.rectTransform.sizeDelta.y);
@@ -127,7 +130,15 @@ public class OvenGameManager : MonoBehaviour
     // Stop 버튼 클릭
     public void StopGauge()
     {
+        if (!isGaugeMoving) return; // 눈금 이동 중이 아니면 호출 차단
+
+        Debug.Log($"[STOP 버튼 클릭] StopGauge 메서드 호출!");
         isGaugeMoving = false; // 눈금 이동 중지
+
+        // Stop 버튼 눌렀을 때의 현재 Gauge 위치 출력
+        Debug.Log($"Gauge Position: {gaugePosition}, Gauge Left Edge: {gaugePosition - gaugeWidth / 2f}, Right Edge: {gaugePosition + gaugeWidth / 2f}");
+        Debug.Log($"Target Zone Start: {targetZoneStart}, End: {targetZoneEnd}");
+
         CheckGaugePosition(); // 눈금 위치 확인
     }
 

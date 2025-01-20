@@ -29,7 +29,7 @@ public class MixingGameManager : MonoBehaviour
     private bool hasAnimationStarted = false; // 애니메이션 실행 여부 확인
 
     // 게임 설정
-    public float pointLifetime = 1.5f; // 터치 포인트 유지 시간
+    public float pointLifetime = 1f; // 터치 포인트 유지 시간
     public float gameDuration = 30f; // 게임 지속 시간
     private float remainingTime;
 
@@ -73,7 +73,7 @@ public class MixingGameManager : MonoBehaviour
     {
         Debug.Log("BowlAnimation 시작");
 
-        float rotationDuration = 1.5f; // Bowl 회전 지속 시간 
+        float rotationDuration = 1f; // Bowl 회전 지속 시간 
         float elapsedTime = 0f;
         float rotationSpeed = 1080f; // 회전 속도 (기본 360도에서 증가)
 
@@ -176,8 +176,27 @@ public class MixingGameManager : MonoBehaviour
         mixingGamePanel.SetActive(false); // MixingGame 패널 비활성화
         finishMixingPanel.SetActive(true); // FinishMixing 패널 활성화
 
-        // 점수 표시
-        scoreText.text = "점수: " + score;
+        // 점수에 따른 결과 표시
+        if (score >= 65 && score <= 75)
+        {
+            scoreText.text = "Perfect!";
+            Debug.Log("Perfect!");
+        }
+        else if (score >= 40 && score < 65)
+        {
+            scoreText.text = "Great!";
+            Debug.Log("Great!");
+        }
+        else if (score >= 10 && score < 40)
+        {
+            scoreText.text = "Good!";
+            Debug.Log("Good!");
+        }
+        else
+        {
+            scoreText.text = "Bad!";
+            Debug.Log("Bad!");
+        }
     }
 
     // 손 아이콘 마우스 드래그로 이동
