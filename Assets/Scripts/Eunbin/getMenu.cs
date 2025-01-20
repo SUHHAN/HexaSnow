@@ -145,7 +145,7 @@ public class getMenu : MonoBehaviour
         }
     Debug.Log($"현재 {currentDay}일의 주문 상태: {dailyOrders[currentDay].Count}개의 주문이 있습니다.");
     dailyOrders[currentDay].Add(new List<int> { order_id, NicknameIndex});
-    Debug.Log($"{currentDay}일 주문에 메뉴 ID {order_id}가 추가되었습니다.");
+
     }
 
     public IEnumerator ProcessCustomers(int dayToProcess)
@@ -157,13 +157,6 @@ public class getMenu : MonoBehaviour
         Debug.Log($"[{dayToProcess}일] 처리할 주문이 없습니다.");
         yield break;
     }
-
-    Debug.Log($"[{dayToProcess}일] 처리할 주문 목록:");
-    foreach (var order in dailyOrders[dayToProcess])
-    {
-        Debug.Log($"  - 메뉴 ID: {order[0]}, 닉네임 인덱스: {order[1]}");
-    }
-
     List<List<int>> menuForDay = new List<List<int>>(dailyOrders[dayToProcess]); // 해당 날짜의 주문 복사
 
     foreach (List<int> order in menuForDay)

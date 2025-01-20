@@ -9,7 +9,7 @@ public class DayChange : MonoBehaviour
     public Order orderScript; // Order 스크립트 참조
     public special_customer SpecialScript;
     public getMenu getMenuScript;
-    public int day = 1; // Day 값
+    private int day = 1; // Day 값
     private bool isSpecialCustomerSubscribed = false;
 
     void Start()
@@ -18,15 +18,20 @@ public class DayChange : MonoBehaviour
         {
         OnDayChange();
         gametime.currentTime=360f;
-        //order.openMenu();
         });
     }
 
     public void OnDayChange()
     {
         day++;
+        order.openMenu(day);
         SpecialScript.currentDay=day;
         SpecialScript.CheckSpecialCustomerVisit();
+
+         if (day == 4 || day == 7)
+        {
+            orderScript.IncreaseAcceptOrder(2); // Order 스크립트에 메서드 호출
+        }
 
         if (day==2 || day==5 || day==8){
             Debug.Log(day);
@@ -38,7 +43,7 @@ public class DayChange : MonoBehaviour
             gametime.OnSpecialTimeReached += SpecialScript.orderSpecialCustomer; // 새로운 구독 추가
             isSpecialCustomerSubscribed = true; // 구독 상태 업데이트
         }
-            Debug.Log("특정 시간(3분)에 손님 등장 이벤트 발생");
+            Debug.Log("3시에 손님 등장 이벤트 발생");
         }
         else
     {
@@ -47,6 +52,7 @@ public class DayChange : MonoBehaviour
         isSpecialCustomerSubscribed = false;
     }
         orderScript.ResetOrderSystem(day); // Order 시스템 초기화
+        getMenuScript.currentDay = day; // 현재 날짜 업데이트
         
     }
 }

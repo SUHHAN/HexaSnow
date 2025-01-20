@@ -32,14 +32,13 @@ public class special_customer : MonoBehaviour
         customers.Add(oldMan);
         customers.Add(man);
 
-        order.SetActive(true);
+        order.SetActive(false);
         gametime.OnSpecialTimeReached += OnSpecialTimeReached;
         }    
     private void OnSpecialTimeReached()
     {   
-        Debug.Log("특정 시간(3분)에 손님 등장 이벤트 발생");
+        Debug.Log("3시에 손님 등장 이벤트 발생");
         if(specialOrders.ContainsKey(currentDay)){
-            Debug.Log("여기1");
             VisitSpecialCustomer(currentDay);
         }
     }
@@ -64,7 +63,6 @@ public class special_customer : MonoBehaviour
             specialOrders[currentDay + 2] = customer;
             customer.SetActive(false);
             order.SetActive(false);
-           acceptButton.gameObject.SetActive(false);
            Spe_customer++;
     });
     }
@@ -102,7 +100,6 @@ public class special_customer : MonoBehaviour
             Debug.Log("특별 손님이 제품을 받아갔습니다!");
             customer.SetActive(false);
             order.SetActive(false);
-            acceptButton.gameObject.SetActive(false);
 
             // 방문 완료 후 데이터 삭제
             specialOrders.Remove(day);

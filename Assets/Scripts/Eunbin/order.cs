@@ -57,7 +57,7 @@ public class Order : MonoBehaviour
         LoadNicknameFromCSV();
         Postmanment();
 
-        openMenu();
+        openMenu(1);
     }
 
     private void LoadDialoguesFromCSV()
@@ -242,8 +242,8 @@ private void InitializeButtons(){
     orderCheck.onClick.AddListener(OpenOrderUI);
 }
 
-public void openMenu(){
-     int maxId=dayChange.day*2000+1000;
+public void openMenu(int day){
+     int maxId=day*2000+1000;
 
      filteredDialogues=dialogues.FindAll(dialogue=>{
         if (int.TryParse(dialogue.id, out int dialogueId)){
@@ -254,11 +254,11 @@ public void openMenu(){
 
      if (filteredDialogues.Count == 0)
     {
-        Debug.LogWarning($"현재 날짜({dayChange.day})에 허용된 대화가 없습니다!");
+        Debug.LogWarning($"현재 날짜({day})에 허용된 대화가 없습니다!");
     }
     else
     {
-        Debug.Log($"현재 날짜({dayChange.day})에 허용된 대화 개수: {filteredDialogues.Count}");
+        Debug.Log($"현재 날짜({day})에 허용된 대화 개수: {filteredDialogues.Count}");
     }
 }
 
