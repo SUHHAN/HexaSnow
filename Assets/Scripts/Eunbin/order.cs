@@ -14,6 +14,7 @@ public class Order : MonoBehaviour
     public TextMeshProUGUI dialogueOrder; // 주문 텍스트 표시용
     public TextMeshProUGUI orderCustomer;
     private List<DialogueLine> dialogues = new List<DialogueLine>(); // 주문 데이터 저장 리스트
+    private List<DialogueLine> filteredDialogues = new List<DialogueLine>();
     private List<string> nicknames = new List<string>();
     public List<int> order_menu_id=new List<int>();
     public List<string> order_nickname=new List<string>();
@@ -30,9 +31,7 @@ public class Order : MonoBehaviour
     private bool isAcceptButtonClicked = false;
     private int order_count=0;
     private int accept_order=2;
-    private int day=1;
     private int deadline=1;
-    
 
     public struct DialogueLine{
     public string id;
@@ -63,6 +62,8 @@ public class Order : MonoBehaviour
         LoadDialoguesFromCSV(); // CSV 파일 로드
         LoadNicknameFromCSV();
         Postmanment();
+
+        openMenu();
     }
     private void LoadDialoguesFromCSV()
     {
@@ -75,7 +76,6 @@ public class Order : MonoBehaviour
                 Debug.LogError($"CSV 파일을 찾을 수 없습니다: {csvFileName}");
                 return;
             }
-
             // 줄 단위로 나누기
             string[] lines = csvFile.text.Split(new[] {'\r', '\n'}, System.StringSplitOptions.RemoveEmptyEntries);
             foreach (string line in lines)
@@ -89,7 +89,6 @@ public class Order : MonoBehaviour
                     string description=fields[2].Trim();
 
                     dialogues.Add(new DialogueLine(id, menu, description));
-            
             }
         }
         catch (System.Exception ex)
@@ -97,7 +96,6 @@ public class Order : MonoBehaviour
             Debug.LogError($"CSV 파일 읽기 중 오류 발생: {ex.Message}");
         }
     }
-
     private void LoadNicknameFromCSV(){
         try
         {
@@ -193,10 +191,9 @@ public class Order : MonoBehaviour
         else
         {
             ShowDialogue(); // 다음 내용 표시
-
         }
-
     }
+
     private void CloseDialogue()
     {
         order.SetActive(false); // UI 비활성화
@@ -227,11 +224,31 @@ public class Order : MonoBehaviour
         currentNicknameIndex=Random.Range(1, nicknames.Count);
         
     }
-    public void IncreaseAcceptOrder(int increment){
-        accept_order+=increment;
+public void IncreaseAcceptOrder(int increment){
+    accept_order+=increment;
     }
 
-    public void ResetOrderSystem(int day)
+public void openMenu(){
+     int maxId=dayChange.day*2000+1000;
+
+     filteredDialogues=dialogues.FindAll(dialogue=>{
+        if (int.TryParse(dialogue.id, out int dialogueId)){
+            return dialogueId<=maxId;
+        }
+        return false;
+     });
+
+     if (filteredDialogues.Count == 0)
+    {
+        Debug.LogWarning($"현재 날짜({dayChange.day})에 허용된 대화가 없습니다!");
+    }
+    else
+    {
+        Debug.Log($"현재 날짜({dayChange.day})에 허용된 대화 개수: {filteredDialogues.Count}");
+    }
+}
+
+public void ResetOrderSystem(int day)
     {
         Debug.Log($"Resetting Order System for Day {day}");
         InitializeOrderSystem();
@@ -249,5 +266,4 @@ public class Order : MonoBehaviour
         isAcceptButtonClicked = false;
         Postmanment();
     }
-
 }
