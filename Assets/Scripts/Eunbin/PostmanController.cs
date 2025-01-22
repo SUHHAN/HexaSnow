@@ -5,15 +5,14 @@ using UnityEngine;
 
 public class PostmanController : MonoBehaviour
 {
-
     public GameObject postman;
     public GameObject speechBubble;
+    public GameObject order;
     public GameObject nameBubble;
     public GameObject letterBubble;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
     public TextMeshProUGUI letterText;
-
     private List<DialogueLine> dialogues = new List<DialogueLine>();
     private int currentDialogueIndex = 1;
     public string csvFileName = "postmanDialogues.csv";
@@ -34,21 +33,12 @@ public class PostmanController : MonoBehaviour
 
     private void Start()
     {
+        order.SetActive(false);
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
         letterBubble.SetActive(false);
-        postman.SetActive(true);
+        postman.SetActive(false);
         LoadDialoguesFromCSV();
-
-        
-        if (dialogues.Count > 0)
-        {
-            ShowDialogue();
-        }
-        else
-        {
-            Debug.LogError("대화 내용이 없습니다. CSV 파일을 확인하세요.");
-        }
     }
 
     private void LoadDialoguesFromCSV()
@@ -111,8 +101,9 @@ public class PostmanController : MonoBehaviour
         return result.ToArray();
     }
 
-    private void ShowDialogue()
+    public void ShowDialogue()
     {
+        postman.SetActive(true);
         if (currentDialogueIndex < dialogues.Count)
         {
             DialogueLine currentLine = dialogues[currentDialogueIndex];

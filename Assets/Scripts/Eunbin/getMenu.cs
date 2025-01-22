@@ -45,6 +45,7 @@ public class getMenu : MonoBehaviour
         child.SetActive(false);
         man.SetActive(false);
         customer_order.SetActive(false);
+        speechBubble.SetActive(false);
         LoadDialoguesFromCSV(); // CSV 파일 로드
         LoadNicknameFromCSV();
         customers.Add(oldMan);
