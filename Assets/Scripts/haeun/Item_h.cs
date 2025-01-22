@@ -4,12 +4,9 @@ using UnityEngine;
 public class Item_h : MonoBehaviour
 {
     private bool isInitialized = false;
-    private Animator animator;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-
         StartCoroutine(InitializeDelay());
     }
 
@@ -35,11 +32,10 @@ public class Item_h : MonoBehaviour
             }
             else if (gameObject.tag == "BadItem") // badItem 태그 확인
             {
-                Destroy(this.gameObject);
-                return;
+                ingreGameManager_h.Instance.BackVoidScore();
+                ingreGameManager_h.Instance.BackHeartScore(); // 생명 감소
             }
             Destroy(this.gameObject);
         }
     }
-    
 }
