@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class PostmanController : MonoBehaviour
 {
+
     public GameObject postman;
     public GameObject speechBubble;
-    public GameObject order;
     public GameObject nameBubble;
     public GameObject letterBubble;
+    public GameObject order;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
     public TextMeshProUGUI letterText;
+
     private List<DialogueLine> dialogues = new List<DialogueLine>();
     private int currentDialogueIndex = 1;
     public string csvFileName = "postmanDialogues.csv";
@@ -39,6 +41,7 @@ public class PostmanController : MonoBehaviour
         letterBubble.SetActive(false);
         postman.SetActive(false);
         LoadDialoguesFromCSV();
+
     }
 
     private void LoadDialoguesFromCSV()

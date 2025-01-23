@@ -7,6 +7,7 @@ public class tutorial : MonoBehaviour
 {
     public PostmanController postman;
     public GameObject Tutorial;
+    public GameObject front;
     public GameObject speechBubble;
     public GameObject nameBubble;
     public TextMeshProUGUI dialogueText;
@@ -32,6 +33,7 @@ public class tutorial : MonoBehaviour
     private void Start()
     {
         Tutorial.SetActive(true);
+        front.SetActive(true);
         LoadDialoguesFromCSV();
 
         
@@ -112,8 +114,11 @@ public class tutorial : MonoBehaviour
             DialogueLine currentLine = dialogues[currentDialogueIndex];
                 speechBubble.SetActive(true);
                 UpdateDialogueUI(currentLine);
-                if(currentLine.id=="15"){
+                if(currentLine.id=="14"){
                     Tutorial.SetActive(false);
+                }
+                if(currentLine.id=="16"){
+                    front.SetActive(false);
                 }
         }
         else
