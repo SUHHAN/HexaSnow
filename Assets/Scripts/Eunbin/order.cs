@@ -235,7 +235,7 @@ private void InitializeButtons(){
         NextDialogue();
     });
 
-    
+    cancelButton.onClick.RemoveAllListeners();
     cancelButton.onClick.AddListener(CloseDialogue);
 
     orderCheck.onClick.RemoveAllListeners();
