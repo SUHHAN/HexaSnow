@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RunPopupManager : MonoBehaviour
 {
@@ -19,5 +20,10 @@ public class RunPopupManager : MonoBehaviour
     public void HideRunPopup()
     {
         runPopupPanel.SetActive(false);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Ingredient");
     }
 }
