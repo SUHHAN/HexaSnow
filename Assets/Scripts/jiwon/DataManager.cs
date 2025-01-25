@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class GameData
@@ -7,12 +8,27 @@ public class GameData
     public bool isGuestLoggedIn;
     public string guestId;
     public string lastLoginDate;
+    public List<int> ingredientNum;
     // 나중에 추가할 게임 진행 정보
 }
+
 
 public class DataManager : MonoBehaviour
 {
     private string gameDataPath; // 저장할 JSON 파일 경로
+    private static DataManager _instance;
+
+    public static DataManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<DataManager>();
+            }
+            return _instance;
+        }
+    }
 
     // DataManager가 시작될 때 게임 데이터 파일 경로 설정
     private void Awake()
