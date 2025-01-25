@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 6607318698673766304}
   - component: {fileID: 7082346528826787874}
   m_Layer: 5
-  m_Name: Image
+  m_Name: IngreImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
