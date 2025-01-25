@@ -36,6 +36,8 @@ public class ScrollbarManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private GameData ingredientGD = new GameData();
+
     private string csvFileName = "ingredient.csv"; // CSV 파일명
     public List<Ingredient> ingredientList = new List<Ingredient>(); // 재료 리스트
     public List<int> ingre_Num = new List<int>();
@@ -177,19 +179,36 @@ public class ScrollbarManager : MonoBehaviour
         }
     }
 
-    private void PrintIngredients()
-    {
-        foreach (var ingredient in ingredientList)
-        {
-            Debug.Log($"Index: {ingredient.index}, Name: {ingredient.name}, Type: {ingredient.type}, Price: {ingredient.price}");
-        }
-    }
+    // private void PrintIngredients()
+    // {
+    //     foreach (var ingredient in ingredientList)
+    //     {
+    //         Debug.Log($"Index: {ingredient.index}, Name: {ingredient.name}, Type: {ingredient.type}, Price: {ingredient.price}");
+    //     }
+    // }
 
 
     public void SaveIngreData()
     {
         if (DataManager.Instance != null)
-        {
+        {   
+            // 저장되어 있던 재료 리스트 로드
+            ingredientGD = DataManager.Instance.LoadGameData();
+        
+            // 리스트 크기가 같을 경우 각 요소를 더함
+            if (ingredientGD.ingredientNum.Count == ingre_Num.Count)
+            {
+                for (int i = 0; i < ingre_Num.Count; i++)
+                {
+                    ingre_Num[i] += ingredientGD.ingredientNum[i];
+                }
+            }
+            else
+            {
+                Debug.LogError("리스트 크기가 일치하지 않습니다. 데이터를 확인하세요.");
+                return;
+            }
+
             DataManager.Instance.gameData.SetIngredient(ingre_Num);
             DataManager.Instance.SaveGameData(); // 저장 함수 호출
             Debug.Log("GameData에 ingre_Num 저장 완료!");
