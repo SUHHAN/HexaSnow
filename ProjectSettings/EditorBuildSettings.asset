@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/jiwon/Login.unity
     guid: 5ec9023c4b99cb246a559b333532e46d
   - enabled: 1
-    path: Assets/Scenes/jiwon/Main.unity
+    path: Assets/Scenes/jiwon/Lobby.unity
     guid: 5fbd1a7eadb5c614e90b91213308cdbf
   - enabled: 1
     path: Assets/Scenes/Sunwoo/BakingStart.unity
@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/haeun/Deadline.unity
     guid: fab1399a546834c488906a3b054f6921
   - enabled: 1
-    path: Assets/Scenes/haeun/Ingredient.unity
+    path: Assets/Scenes/haeun/ingredientGame.unity
     guid: f09924f61be45cc4c88eeadecd4b19fa
   - enabled: 1
     path: Assets/Scenes/haeun/Interior.unity
