@@ -185,6 +185,7 @@ public class ScrollbarManager : MonoBehaviour
         }
     }
 
+
     public void SaveIngreData()
     {
         if (DataManager.Instance != null)
@@ -199,4 +200,5 @@ public class ScrollbarManager : MonoBehaviour
         }
     }
 
+    
 }
