@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="23ca92c0-584f-4ec0-bde7-ea41f6af19a6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/1.2.182/Google.IOSResolver.dll.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/1.2.182/Google.JarResolver.dll.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/1.2.182/Google.JarResolver.dll.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/1.2.182/Google.PackageManagerResolver.dll.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/1.2.182/Google.PackageManagerResolver.dll.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/CHANGELOG.md.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/CHANGELOG.md.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/Google.VersionHandler.dll.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/Google.VersionHandler.dll.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/LICENSE.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/LICENSE.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/README.md.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../ExternalDependencyManager/Editor/README.md.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPlugin_v2.0.0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPlugin_v2.0.0.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GooglePlayGames/com.google.play.games/Runtime/Scripts/GameInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../GooglePlayGames/com.google.play.games/Runtime/Scripts/GameInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainTemplate.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/mainTemplate.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settingsTemplate.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settingsTemplate.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Scripts/jiwon/GoogleManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Scripts/jiwon/GoogleManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ProjectSettings/AndroidResolverDependencies.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ProjectSettings/AndroidResolverDependencies.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ProjectSettings/GooglePlayGameSettings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ProjectSettings/GooglePlayGameSettings.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ProjectSettings/GvhProjectSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ProjectSettings/GvhProjectSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ProjectSettings/ProjectSettings.asset" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2r77nzsOsdULQvByk0fZYXAoJCE" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;jiwon&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="23ca92c0-584f-4ec0-bde7-ea41f6af19a6" name="Changes" comment="" />
+      <created>1735898440463</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1735898440463</updated>
+    </task>
+    <servers />
+  </component>
+</project>
