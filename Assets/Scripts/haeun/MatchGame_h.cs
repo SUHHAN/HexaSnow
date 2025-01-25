@@ -78,12 +78,12 @@ public class MatchGame_h : MonoBehaviour
         ReadyText.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         FilpAllCards();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         FilpAllCards();
         
         ReadyText.gameObject.SetActive(false);
         GoText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.24f);
         GoText.gameObject.SetActive(false);
 
         isFlipping = false;
