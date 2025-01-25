@@ -1,63 +1,77 @@
-
-// using System.Collections;
-// using System.Collections.Generic;
+// using Firebase.Auth;
 // using UnityEngine;
+// using UnityEngine.UI;
 // using GooglePlayGames;
 // using GooglePlayGames.BasicApi;
+// using System.Collections;
+// using System.Collections.Generic;
 // using TMPro;
+
 
 // public class GoogleManager : MonoBehaviour
 // {
-//     public TextMeshProUGUI logText;
+//     public TMP_Text googleLog;
+//     public TMP_Text firebaseLog;
 
+//     FirebaseAuth fbauth;
+
+//     // Start is called before the first frame update
 //     void Start()
 //     {
-//         Debug.Log("App Starting...");
-//         Debug.Log("Enabling PlayGamesPlatform debug log.");
-//         GooglePlayGames.OurUtils.Logger.DebugLogEnabled = true;
-
-//         Debug.Log("Activating PlayGamesPlatform.");
+//         PlayGamesPlatform.InitializeInstance(new PlayGamesClientConfiguration.Builder()
+//             .RequestIdToken()
+//             .RequestEmail()
+//             .Build());
+//         PlayGamesPlatform.DebugLogEnabled = true;
 //         PlayGamesPlatform.Activate();
 
-//         Debug.Log("Calling SignIn...");
-//         SignIn();
-        
+//         fbauth = FirebaseAuth.DefaultInstance;
+
+//         TryGoogleLogin();
 //     }
 
-//     public void SignIn()
+//     public void TryGoogleLogin()
 //     {
-//         Debug.Log("Starting Authentication...");
-//         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication, true);
-//     }
-
-//     internal void ProcessAuthentication(SignInStatus status)
-//     {
-//         Debug.Log("Authentication Status: " + status);
-
-//         switch (status)
+//         PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, (success) =>
 //         {
-//             case SignInStatus.Success:
-//                 Debug.Log("Login successful.");
-//                 string name = PlayGamesPlatform.Instance.GetUserDisplayName();
-//                 string id = PlayGamesPlatform.Instance.GetUserId();
-//                 string ImgUrl = PlayGamesPlatform.Instance.GetUserImageUrl();
-//                 logText.text = "Success \n" + name;
-//                 break;
-
-//             case SignInStatus.Canceled:
-//                 Debug.LogError("Login canceled by the user.");
-//                 logText.text = "Sign in Failed! Canceled by the user.";
-//                 break;
-
-//             case SignInStatus.InternalError:
-//                 Debug.LogError("Internal error occurred during login.");
-//                 logText.text = "Sign in Failed! Internal error.";
-//                 break;
-
-//             default:
-//                 Debug.LogError("Unknown error: " + status);
-//                 logText.text = "Sign in Failed! Unknown error.";
-//                 break;
+//             if (success == SignInStatus.Success)
+//             {
+//                 googleLog.text = "Google Success";
+//                 StartCoroutine(TryFirebaseLogin());
+//             }
+//             else
+//             {
+//                 googleLog.text = "google Failure";
+//             }
+//         });
+//     }
+//     public void TryGoggleLogout()
+//     {
+//         if (Social.localUser.authenticated)
+//         {
+//             PlayGamesPlatform.Instance.SignOut();
+//             fbauth.SignOut();
 //         }
+//     }
+//     IEnumerator TryFirebaseLogin()
+//     {
+//         while (string.IsNullOrEmpty(((PlayGamesLocalUser)Social.localUser).GetIdToken()))
+//         {
+//             yield return null;
+//         }
+
+//         string idToken = ((PlayGamesLocalUser)Social.localUser).GetIdToken();
+
+//         Credential credential = GoogleAuthProvider.GetCredential(idToken, null);
+
+//         fbauth.SignInWithCredentialAsync(credential).ContinueWith(task =>
+//         {
+//             if (task.IsCanceled)
+//                 firebaseLog.text = "Firebase Cancles";
+//             else if (task.IsFaulted)
+//                 firebaseLog.text = "firebase Faulted";
+//             else
+//                 firebaseLog.text = "firebase success";
+//         });
 //     }
 // }

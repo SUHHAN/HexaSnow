@@ -4,7 +4,7 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
-    implementation 'com.google.games:gpgs-plugin-support:2.0.0' // Assets/GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml:11
+    implementation 'com.google.games:gpgs-plugin-support:0.10.14' // Assets/GooglePlayGames/Editor/GooglePlayGamesPluginDependencies.xml:11
 // Android Resolver Dependencies End
 **DEPS**}
 
@@ -49,6 +49,19 @@ android {
         noCompress = **BUILTIN_NOCOMPRESS** + unityStreamingAssets.tokenize(', ')
         ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~"
     }**PACKAGING_OPTIONS**
+
+    buildTypes {
+        release {
+            minifyEnabled true   // 코드 최적화
+            multiDexEnabled true // 멀티덱스 활성화
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-unity.txt'
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            multiDexEnabled true
+        }
+    }
 }
 **IL_CPP_BUILD_SETUP**
 **SOURCE_BUILD_SETUP**
