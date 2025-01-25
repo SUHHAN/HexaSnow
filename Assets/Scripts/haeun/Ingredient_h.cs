@@ -68,6 +68,9 @@ public class Ingredient_h : MonoBehaviour
                     textComponent.text = $"{currentNum}";
                 }
             }
+
+            // ScrollbarManager의 ingre_Num 리스트 업데이트
+            ScrollbarManager.Instance.ingre_Num[Ingredient_ID] = currentNum;
         }
         else
         {
