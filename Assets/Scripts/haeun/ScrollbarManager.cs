@@ -167,7 +167,7 @@ public class ScrollbarManager : MonoBehaviour
             }
 
             // ingre_Num 리스트를 재료 리스트 크기만큼 0으로 초기화
-            ingre_Num = new List<int>(new int[ingredientList.Count]);
+            ingre_Num = new List<int>(new int[ingredientList.Count + 1]);
 
             Debug.Log($"총 {ingredientList.Count}개의 재료를 불러왔습니다.");
         }
@@ -187,8 +187,11 @@ public class ScrollbarManager : MonoBehaviour
 
 
     public void SaveIngreData() {
-        string ingreDataString = string.Join(", ", ingre_Num);
-        Debug.Log($"현재 ingre_Num 리스트: [{ingreDataString}]");
-        // DataManager.Instance.SaveGameData();
+        // // 재료 리스트 확인 test
+        // string ingreDataString = string.Join(", ", ingre_Num);
+        // Debug.Log($"현재 ingre_Num 리스트: [{ingreDataString}]");
+
+        DataManager.Instance.ingredientNum = ingre_Num;
+        DataManager.Instance.SaveGameData();
     }
 }
