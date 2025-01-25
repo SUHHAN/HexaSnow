@@ -186,17 +186,19 @@ public class ScrollbarManager : MonoBehaviour
     }
 
 
-    // public void SaveIngreData()
-    // {
-    //     if (DataManager.Instance != null)
-    //     {
-    //         DataManager.Instance.gameData.SetIngredient(ingre_Num);
-    //         DataManager.Instance.SaveGameData(); // 저장 함수 호출
-    //         Debug.Log("GameData에 ingre_Num 저장 완료!");
-    //     }
-    //     else
-    //     {
-    //         Debug.LogError("DataManager 인스턴스를 찾을 수 없습니다.");
-    //     }
-    // }
+    public void SaveIngreData()
+    {
+        if (DataManager.Instance != null)
+        {
+            DataManager.Instance.gameData.SetIngredient(ingre_Num);
+            DataManager.Instance.SaveGameData(); // 저장 함수 호출
+            Debug.Log("GameData에 ingre_Num 저장 완료!");
+        }
+        else
+        {
+            Debug.LogError("DataManager 인스턴스를 찾을 수 없습니다.");
+        }
+    }
+
+    
 }
