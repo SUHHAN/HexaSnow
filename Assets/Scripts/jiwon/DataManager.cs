@@ -8,7 +8,19 @@ public class GameData
     public bool isGuestLoggedIn;
     public string guestId;
     public string lastLoginDate;
-    public List<int> ingredientNum;
+    public List<int> ingredientNum = new List<int>(); // 재료 개수 저장 리스트
+
+    public void SetIngredient(List<int> newIngredientNum)
+    {
+        if (newIngredientNum == null)
+        {
+            Debug.LogError("SetIngredient: 입력된 리스트가 null 입니다!");
+            return;
+        }
+
+        ingredientNum = new List<int>(newIngredientNum); // 리스트 복사하여 저장
+        Debug.Log($"GameData에 ingredientNum 저장 완료: [{string.Join(", ", ingredientNum)}]");
+    }
     // 나중에 추가할 게임 진행 정보
 }
 
@@ -16,30 +28,27 @@ public class GameData
 public class DataManager : MonoBehaviour
 {
     private string gameDataPath; // 저장할 JSON 파일 경로
-    private static DataManager _instance;
+    public static DataManager Instance { get; private set; }
+    public GameData gameData = new GameData();
 
-    public static DataManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<DataManager>();
-            }
-            return _instance;
-        }
-    }
-
-    // DataManager가 시작될 때 게임 데이터 파일 경로 설정
     private void Awake()
     {
         gameDataPath = Path.Combine(Application.persistentDataPath, "GameData.json");
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // 게임 데이터를 JSON 파일로 저장
-    public void SaveGameData(GameData data)
+    public void SaveGameData()
     {
-        string json = JsonUtility.ToJson(data, true);
+        string json = JsonUtility.ToJson(gameData, true);
         File.WriteAllText(gameDataPath, json);
         Debug.Log("게임 데이터가 저장되었습니다: " + gameDataPath);
     }
