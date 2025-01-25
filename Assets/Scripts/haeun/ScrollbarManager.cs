@@ -161,7 +161,6 @@ public class ScrollbarManager : MonoBehaviour
                 ingredientList.Add(new Ingredient(index, name, type, price));
             }
 
-            // 지원언니를 위한 PR
             Debug.Log($"총 {ingredientList.Count}개의 재료를 불러왔습니다.");
         }
         catch (System.Exception ex)
