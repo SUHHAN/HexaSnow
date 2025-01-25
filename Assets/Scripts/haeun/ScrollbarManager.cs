@@ -185,13 +185,18 @@ public class ScrollbarManager : MonoBehaviour
         }
     }
 
-
-    public void SaveIngreData() {
-        // // 재료 리스트 확인 test
-        // string ingreDataString = string.Join(", ", ingre_Num);
-        // Debug.Log($"현재 ingre_Num 리스트: [{ingreDataString}]");
-
-        // DataManager.Instance.ingredientNum = ingre_Num;
-        // DataManager.Instance.SaveGameData();
+    public void SaveIngreData()
+    {
+        if (DataManager.Instance != null)
+        {
+            DataManager.Instance.gameData.SetIngredient(ingre_Num);
+            DataManager.Instance.SaveGameData(); // 저장 함수 호출
+            Debug.Log("GameData에 ingre_Num 저장 완료!");
+        }
+        else
+        {
+            Debug.LogError("DataManager 인스턴스를 찾을 수 없습니다.");
+        }
     }
+
 }
