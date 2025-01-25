@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -19,26 +18,6 @@ public class ScrollbarManager : MonoBehaviour
         }
     }
 
-    [System.Serializable]
-    public class Ingredient
-    {
-        public int index;
-        public string name;
-        public int type;
-        public int price;
-
-        public Ingredient(int index, string name, int type, int price)
-        {
-            this.index = index;
-            this.name = name;
-            this.type = type;
-            this.price = price;
-        }
-    }
-
-    private string csvFileName = "ingredient.csv"; // CSV 파일명
-    public List<Ingredient> ingredientList = new List<Ingredient>(); // 재료 리스트
-
     public GameObject itemPrefab; // 아이템 Prefab
     public Transform content; // Content 오브젝트
 
@@ -51,35 +30,24 @@ public class ScrollbarManager : MonoBehaviour
 
     void Start()
     {
-        LoadIngredientsFromCSV();
-
-        AddItems(); // 10개의 아이템 추가
+        AddItems(10); // 10개의 아이템 추가
         CalculateNum(); // 초기 SumSc 계산
-
-        // PrintIngredients(); // 확인용
     }
 
-    public void AddItems()
+    public void AddItems(int itemCount)
     {
-        try {
-            foreach (var ingre in ingredientList)
-            {
-                if(ingre.type == 1) {
-                    GameObject item = Instantiate(itemPrefab, content);
+        int Ingredient_Index = 1;
 
-                    // 카드 스프라이트의 인덱스 지정 변수
-                    Ingredient_h ingredient = item.GetComponent<Ingredient_h>();
-                    ingredient.SetIngredientID(ingre.index);
-                    ingredient.SetPrice(ingre.price);
-
-                    item.GetComponentInChildren<TextMeshProUGUI>().text = $"{ingre.index} | {ingre.name}";
-                }
-            }
-        }
-        
-        catch (System.Exception ex)
+        for (int i = 1; i <= itemCount; i++)
         {
-            Debug.LogError($"뭔가 이상이상: {ex.Message}");
+            GameObject item = Instantiate(itemPrefab, content);
+
+            // 카드 스프라이트의 인덱스 지정 변수
+            Ingredient_h ingredient = item.GetComponent<Ingredient_h>();
+            int ingredientID = Ingredient_Index++;
+            ingredient.SetIngredientID(ingredientID);
+
+            item.GetComponentInChildren<TextMeshProUGUI>().text = $"{i} | 안녕하십니까";
         }
     }
 
@@ -132,48 +100,5 @@ public class ScrollbarManager : MonoBehaviour
     private void UpdateScoreDisplay()
     {
         UseScText.text = $"사용 가능 포인트 : {SumSc}";
-    }
-
-    private void LoadIngredientsFromCSV()
-    {
-        try
-        {
-            TextAsset csvFile = Resources.Load<TextAsset>(Path.GetFileNameWithoutExtension(csvFileName));
-            if (csvFile == null)
-            {
-                Debug.LogError($"CSV 파일을 찾을 수 없습니다: {csvFileName}");
-                return;
-            }
-
-            string[] lines = csvFile.text.Split(new[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
-
-            // 첫 번째 줄 (헤더) 무시하고 읽기
-            for (int i = 1; i < lines.Length; i++)
-            {
-                string[] fields = lines[i].Split(',');
-                if (fields.Length < 4) continue;
-
-                int index = int.Parse(fields[0].Trim());
-                string name = fields[1].Trim();
-                int type = int.Parse(fields[2].Trim());
-                int price = int.Parse(fields[3].Trim());
-
-                ingredientList.Add(new Ingredient(index, name, type, price));
-            }
-
-            Debug.Log($"총 {ingredientList.Count}개의 재료를 불러왔습니다.");
-        }
-        catch (System.Exception ex)
-        {
-            Debug.LogError($"CSV 파일 읽기 중 오류 발생: {ex.Message}");
-        }
-    }
-
-    private void PrintIngredients()
-    {
-        foreach (var ingredient in ingredientList)
-        {
-            Debug.Log($"Index: {ingredient.index}, Name: {ingredient.name}, Type: {ingredient.type}, Price: {ingredient.price}");
-        }
     }
 }
