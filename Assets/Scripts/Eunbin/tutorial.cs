@@ -3,21 +3,19 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 
-public class PostmanController : MonoBehaviour
+public class tutorial : MonoBehaviour
 {
-
-    public GameObject postman;
+    public PostmanController postman;
+    public GameObject Tutorial;
+    public GameObject front;
     public GameObject speechBubble;
     public GameObject nameBubble;
-    public GameObject letterBubble;
-    public GameObject order;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
-    public TextMeshProUGUI letterText;
 
     private List<DialogueLine> dialogues = new List<DialogueLine>();
     private int currentDialogueIndex = 1;
-    public string csvFileName = "postmanDialogues.csv";
+    public string csvFileName = "tutorial.csv";
 
     public struct DialogueLine
     {
@@ -32,16 +30,21 @@ public class PostmanController : MonoBehaviour
             this.dialogue = dialogue;
         }
     }
-
     private void Start()
     {
-        order.SetActive(false);
-        speechBubble.SetActive(false);
-        nameBubble.SetActive(false);
-        letterBubble.SetActive(false);
-        postman.SetActive(false);
+        Tutorial.SetActive(true);
+        front.SetActive(true);
         LoadDialoguesFromCSV();
 
+        
+        if (dialogues.Count > 0)
+        {
+            ShowDialogue();
+        }
+        else
+        {
+            Debug.LogError("대화 내용이 없습니다. CSV 파일을 확인하세요.");
+        }
     }
 
     private void LoadDialoguesFromCSV()
@@ -104,32 +107,25 @@ public class PostmanController : MonoBehaviour
         return result.ToArray();
     }
 
-    public void ShowDialogue()
+    private void ShowDialogue()
     {
-        postman.SetActive(true);
         if (currentDialogueIndex < dialogues.Count)
         {
             DialogueLine currentLine = dialogues[currentDialogueIndex];
-
-            if (currentLine.id == "27")
-            {
-                // 편지 UI 활성화
-                letterBubble.SetActive(true);
-                letterText.text = currentLine.dialogue.Replace("\\n", "\n");
-                speechBubble.SetActive(false);
-                nameBubble.SetActive(false);
-            }
-            else
-            {
-                // 일반 대화
                 speechBubble.SetActive(true);
                 UpdateDialogueUI(currentLine);
-                letterBubble.SetActive(false);
-            }
+                if(currentLine.id=="14"){
+                    Tutorial.SetActive(false);
+                }
+                if(currentLine.id=="16"){
+                    front.SetActive(false);
+                }
         }
         else
         {
             Debug.LogWarning("대화가 끝났습니다.");
+
+
         }
     }
 
@@ -150,7 +146,7 @@ public class PostmanController : MonoBehaviour
 
     private void Update()
     {
-        if ((speechBubble.activeSelf || letterBubble.activeSelf) && Input.GetMouseButtonDown(0))
+        if ((speechBubble.activeSelf) && Input.GetMouseButtonDown(0))
         {
             NextDialogue();
         }
@@ -163,8 +159,7 @@ public class PostmanController : MonoBehaviour
         if (currentDialogueIndex >= dialogues.Count)
         {
             speechBubble.SetActive(false);
-            letterBubble.SetActive(false);
-            postman.SetActive(false);
+            postman.ShowDialogue();
         }
         else
         {
