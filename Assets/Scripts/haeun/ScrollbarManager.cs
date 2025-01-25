@@ -191,7 +191,7 @@ public class ScrollbarManager : MonoBehaviour
         // string ingreDataString = string.Join(", ", ingre_Num);
         // Debug.Log($"현재 ingre_Num 리스트: [{ingreDataString}]");
 
-        DataManager.Instance.ingredientNum = ingre_Num;
-        DataManager.Instance.SaveGameData();
+        // DataManager.Instance.ingredientNum = ingre_Num;
+        // DataManager.Instance.SaveGameData();
     }
 }
