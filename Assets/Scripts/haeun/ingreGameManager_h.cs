@@ -241,14 +241,14 @@ public class ingreGameManager_h : MonoBehaviour
         isGameOver = true;
         savedScore = voidScore + heartScore * 3;
 
-        Debug.Log($"남은 목숨  = {heartScore}");
+        Debug.Log($"남은 목숨  = {heartScore}개");
 
         // 인게임 플레이 점수 없애기
         ingamePlayScore.SetActive(false);
 
         ScrollbarManager.Instance.SetFinalScore(savedScore);
 
-        FinishScoreText.text = "최종 점수 : " + savedScore;
+        FinishScoreText.text = "최종 점수 : " + savedScore + "점";
         StopAllCoroutines();
         gameOverPanel.SetActive(true);
     }
