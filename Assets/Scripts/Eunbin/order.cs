@@ -244,6 +244,7 @@ private void InitializeButtons(){
 
 public void openMenu(int day){
      int maxId=day*2000+1000;
+     Debug.Log(maxId);
 
      filteredDialogues=dialogues.FindAll(dialogue=>{
         if (int.TryParse(dialogue.id, out int dialogueId)){

@@ -40,10 +40,6 @@ public class SetMenu : MonoBehaviour
             TextMeshProUGUI menuText = menuObject.GetComponentInChildren<TextMeshProUGUI>();
             Button menuButton = menuObject.GetComponentInChildren<Button>();
             EventTrigger eventTrigger = menuObject.GetComponentInChildren<EventTrigger>();
-            Debug.Log($"menuObjects[{i}] 확인: {menuObject.name}");
-            Debug.Log($"Button 상태: {menuButton.gameObject.activeSelf}");
-            Debug.Log($"EventTrigger 트리거 개수: {eventTrigger.triggers.Count}");
-
 
             if (menuText == null || eventTrigger == null)
             {
