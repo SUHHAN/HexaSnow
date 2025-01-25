@@ -5,14 +5,20 @@ using TMPro;
 
 public class Ingredient_h : MonoBehaviour
 {
+
     public int Ingredient_ID;
     public int currentNum = 0;
+    private int ScoreMultiplier = 3; // 1개 구매 당 배점
 
-    private const int ScoreMultiplier = 3; // 1개 구매 당 배점
+
 
     void Start()
     {
         InitNum();
+        
+    }
+    public void SetPrice(int price) {
+        this.ScoreMultiplier = price;
     }
 
     public void SetIngredientID(int id)
@@ -23,12 +29,23 @@ public class Ingredient_h : MonoBehaviour
     public void InitNum()
     {
         Transform panel = this.transform.Find("numPanel");
+        Transform panel2 = this.transform.Find("pricePanel");
+        
         if (panel != null)
         {
             TextMeshProUGUI textComponent = panel.GetComponentInChildren<TextMeshProUGUI>();
             if (textComponent != null)
             {
                 textComponent.text = $"{currentNum}";
+            }
+        }
+
+        if (panel2 != null)
+        {
+            TextMeshProUGUI textComponent1 = panel2.GetComponentInChildren<TextMeshProUGUI>();
+            if (textComponent1 != null)
+            {
+                textComponent1.text = $"{ScoreMultiplier}";
             }
         }
     }
