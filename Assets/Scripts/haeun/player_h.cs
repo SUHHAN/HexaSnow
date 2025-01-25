@@ -149,6 +149,9 @@ public class player_h : MonoBehaviour
             animator.SetFloat("speed", 0);
             SetColliderState(PlayerState.Idle);
         }
+        else{
+            animator.SetFloat("speed", 1);
+        }
     }
 
     private void SetColliderState(PlayerState newState)

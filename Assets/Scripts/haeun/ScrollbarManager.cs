@@ -145,7 +145,7 @@ public class ScrollbarManager : MonoBehaviour
 
     private void UpdateScoreDisplay()
     {
-        UseScText.text = $"사용 가능 포인트 : {SumSc}점";
+        UseScText.text = $"사용 가능 점수 : {SumSc}점";
     }
 
     private void LoadIngredientsFromCSV()
