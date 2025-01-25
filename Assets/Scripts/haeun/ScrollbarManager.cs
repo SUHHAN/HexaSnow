@@ -38,6 +38,7 @@ public class ScrollbarManager : MonoBehaviour
 
     private string csvFileName = "ingredient.csv"; // CSV 파일명
     public List<Ingredient> ingredientList = new List<Ingredient>(); // 재료 리스트
+    public List<int> ingre_Num = new List<int>();
 
     public GameObject itemPrefab; // 아이템 Prefab
     public Transform content; // Content 오브젝트
@@ -71,6 +72,10 @@ public class ScrollbarManager : MonoBehaviour
                     Ingredient_h ingredient = item.GetComponent<Ingredient_h>();
                     ingredient.SetIngredientID(ingre.index);
                     ingredient.SetPrice(ingre.price);
+
+                    // ingre_Num 리스트와 연동하여 currentNum 설정
+                    ingredient.currentNum = ingre_Num[ingre.index];
+                    ingredient.InitNum(); // UI 업데이트
 
                     item.GetComponentInChildren<TextMeshProUGUI>().text = $"{ingre.index} | {ingre.name}";
                 }
@@ -161,6 +166,9 @@ public class ScrollbarManager : MonoBehaviour
                 ingredientList.Add(new Ingredient(index, name, type, price));
             }
 
+            // ingre_Num 리스트를 재료 리스트 크기만큼 0으로 초기화
+            ingre_Num = new List<int>(new int[ingredientList.Count]);
+
             Debug.Log($"총 {ingredientList.Count}개의 재료를 불러왔습니다.");
         }
         catch (System.Exception ex)
@@ -175,5 +183,12 @@ public class ScrollbarManager : MonoBehaviour
         {
             Debug.Log($"Index: {ingredient.index}, Name: {ingredient.name}, Type: {ingredient.type}, Price: {ingredient.price}");
         }
+    }
+
+
+    public void SaveIngreData() {
+        string ingreDataString = string.Join(", ", ingre_Num);
+        Debug.Log($"현재 ingre_Num 리스트: [{ingreDataString}]");
+        // DataManager.Instance.SaveGameData();
     }
 }
