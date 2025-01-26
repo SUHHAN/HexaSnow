@@ -6,7 +6,7 @@ public class ButtonManager : MonoBehaviour
     public GameObject QuitButton;  // 종료 버튼
     public GameObject Free;  // 자유 모드 버튼
     public GameObject RunPopupPanel;  // 실행 팝업 패널
-    public GameObject SettingPanel;  // 설정 패널
+    public GameObject SettingParentPanel;  // 설정 패널
     public GameObject QuitPopupPanel;  // 종료 팝업 패널
 
     private bool isLoggedIn = false;  // 로그인 상태
@@ -47,7 +47,7 @@ public class ButtonManager : MonoBehaviour
     // 활성화된 패널이 있는지 확인하는 함수
     private bool IsAnyPanelActive()
     {
-        return RunPopupPanel.activeSelf || SettingPanel.activeSelf || QuitPopupPanel.activeSelf;
+        Debug.Log($"RunPopupPanel active: {RunPopupPanel.activeSelf}, SettingParentPanel active: {SettingParentPanel.activeSelf}, QuitPopupPanel active: {QuitPopupPanel.activeSelf}");
+        return RunPopupPanel.activeSelf || SettingParentPanel.activeSelf || QuitPopupPanel.activeSelf;
     }
 }
-
