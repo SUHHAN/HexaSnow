@@ -394,7 +394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &66213971
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4613,7 +4613,7 @@ MonoBehaviour:
   gaugeIndicator: {fileID: 624317655}
   targetZone: {fileID: 1299408908}
   resultText: {fileID: 2007809562}
-  gaugeSpeed: 200
+  gaugeSpeed: 2
   targetZoneWidth: 100
   gaugeWidth: 10
 --- !u!4 &859194560
