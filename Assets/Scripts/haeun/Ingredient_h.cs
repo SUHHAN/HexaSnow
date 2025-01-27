@@ -5,20 +5,30 @@ using TMPro;
 
 public class Ingredient_h : MonoBehaviour
 {
+<<<<<<< HEAD
 
     public int Ingredient_ID;
     public int currentNum = 0;
     private int ScoreMultiplier = 3; // 1개 구매 당 배점
 
 
+=======
+    public int Ingredient_ID;
+    public int currentNum = 0;
+
+    private const int ScoreMultiplier = 3; // 1개 구매 당 배점
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 
     void Start()
     {
         InitNum();
+<<<<<<< HEAD
         
     }
     public void SetPrice(int price) {
         this.ScoreMultiplier = price;
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
     }
 
     public void SetIngredientID(int id)
@@ -29,13 +39,17 @@ public class Ingredient_h : MonoBehaviour
     public void InitNum()
     {
         Transform panel = this.transform.Find("numPanel");
+<<<<<<< HEAD
         Transform panel2 = this.transform.Find("pricePanel");
         
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
         if (panel != null)
         {
             TextMeshProUGUI textComponent = panel.GetComponentInChildren<TextMeshProUGUI>();
             if (textComponent != null)
             {
+<<<<<<< HEAD
                 textComponent.text = $"{currentNum}개";
             }
         }
@@ -46,6 +60,9 @@ public class Ingredient_h : MonoBehaviour
             if (textComponent1 != null)
             {
                 textComponent1.text = $"{ScoreMultiplier}원";
+=======
+                textComponent.text = $"{currentNum}";
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
             }
         }
     }
@@ -65,12 +82,18 @@ public class Ingredient_h : MonoBehaviour
                 TextMeshProUGUI textComponent = panel.GetComponentInChildren<TextMeshProUGUI>();
                 if (textComponent != null)
                 {
+<<<<<<< HEAD
                     textComponent.text = $"{currentNum}개";
                 }
             }
 
             // ScrollbarManager의 ingre_Num 리스트 업데이트
             ScrollbarManager.Instance.ingre_Num[Ingredient_ID] = currentNum;
+=======
+                    textComponent.text = $"{currentNum}";
+                }
+            }
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
         }
         else
         {

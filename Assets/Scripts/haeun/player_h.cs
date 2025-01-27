@@ -52,7 +52,11 @@ public class player_h : MonoBehaviour
 
         if (ingreGameManager_h.Instance.IsGameOverFinalizing())
         {
+<<<<<<< HEAD
             GameOver(); // 게임 종료 시 한 번만 실행
+=======
+            StopPlayer();
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
             return;
         }
 
@@ -149,9 +153,12 @@ public class player_h : MonoBehaviour
             animator.SetFloat("speed", 0);
             SetColliderState(PlayerState.Idle);
         }
+<<<<<<< HEAD
         else{
             animator.SetFloat("speed", 1);
         }
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
     }
 
     private void SetColliderState(PlayerState newState)
@@ -232,6 +239,7 @@ public class player_h : MonoBehaviour
             
             animator.SetBool("badItem", true); // badItem 애니메이션 실행
             yield return new WaitForSeconds(1f); // 1초 대기
+<<<<<<< HEAD
 
         // if (ingreGameManager_h.Instance.heartScore > 0)
         // {
@@ -266,5 +274,10 @@ public class player_h : MonoBehaviour
         if(speed >= 0f) {
                 speed = 0f;
         }
+=======
+            animator.SetBool("badItem", false); // run 애니메이션으로 복귀
+        }
+        
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
     }
 }

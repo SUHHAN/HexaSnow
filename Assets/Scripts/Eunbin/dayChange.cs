@@ -3,35 +3,24 @@ using UnityEngine.UI;
 
 public class DayChange : MonoBehaviour
 {
-    public GameTime gametime;
-    public Order order;
     public Button dayChangButton; // DayChange 버튼
     public Order orderScript; // Order 스크립트 참조
-    public special_customer SpecialScript;
-    public getMenu getMenuScript;
+
     private int day = 1; // Day 값
-    private bool isSpecialCustomerSubscribed = false;
 
     void Start()
     {
-        dayChangButton.onClick.AddListener(() =>
-        {
-        OnDayChange();
-        gametime.currentTime=360f;
-        });
+        dayChangButton.onClick.AddListener(OnDayChange);
     }
 
-    public void OnDayChange()
+    private void OnDayChange()
     {
         day++;
-        order.openMenu(day);
-        SpecialScript.currentDay=day;
-        SpecialScript.CheckSpecialCustomerVisit();
-
-         if (day == 4 || day == 7)
+        if (day == 4 || day == 7)
         {
             orderScript.IncreaseAcceptOrder(2); // Order 스크립트에 메서드 호출
         }
+<<<<<<< HEAD
 
         if (day==2 || day==5 || day==8){
             getMenuScript.currentDay = day; // 현재 날짜 업데이트
@@ -50,9 +39,10 @@ public class DayChange : MonoBehaviour
         gametime.OnSpecialTimeReached -= SpecialScript.orderSpecialCustomer;
         isSpecialCustomerSubscribed = false;
     }
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
         orderScript.ResetOrderSystem(day); // Order 시스템 초기화
-        getMenuScript.currentDay = day; // 현재 날짜 업데이트
-        
+        Debug.Log($"Day changed to {day}");
     }
 }
 

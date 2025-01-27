@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+<<<<<<< HEAD
 using System.IO;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
 using Microsoft.Unity.VisualStudio.Editor;
+=======
+using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 
 public class ScrollbarManager : MonoBehaviour
 {
@@ -20,6 +25,7 @@ public class ScrollbarManager : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     [System.Serializable]
     public class Ingredient
     {
@@ -44,6 +50,8 @@ public class ScrollbarManager : MonoBehaviour
     public List<int> ingre_Num = new List<int>();
     [SerializeField] private Sprite[] IngreSprites;
 
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
     public GameObject itemPrefab; // 아이템 Prefab
     public Transform content; // Content 오브젝트
 
@@ -54,6 +62,7 @@ public class ScrollbarManager : MonoBehaviour
     private int FinalSc = 0; // 초기 점수
     private int SumSc;
 
+<<<<<<< HEAD
     
 
     void Start()
@@ -94,6 +103,28 @@ public class ScrollbarManager : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError($"뭔가 이상이상: {ex.Message}");
+=======
+    void Start()
+    {
+        AddItems(10); // 10개의 아이템 추가
+        CalculateNum(); // 초기 SumSc 계산
+    }
+
+    public void AddItems(int itemCount)
+    {
+        int Ingredient_Index = 1;
+
+        for (int i = 1; i <= itemCount; i++)
+        {
+            GameObject item = Instantiate(itemPrefab, content);
+
+            // 카드 스프라이트의 인덱스 지정 변수
+            Ingredient_h ingredient = item.GetComponent<Ingredient_h>();
+            int ingredientID = Ingredient_Index++;
+            ingredient.SetIngredientID(ingredientID);
+
+            item.GetComponentInChildren<TextMeshProUGUI>().text = $"{i} | 안녕하십니까";
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
         }
     }
 
@@ -145,6 +176,7 @@ public class ScrollbarManager : MonoBehaviour
 
     private void UpdateScoreDisplay()
     {
+<<<<<<< HEAD
         UseScText.text = $"사용 가능 점수 : {SumSc}점";
     }
 
@@ -218,4 +250,8 @@ public class ScrollbarManager : MonoBehaviour
     }
 
     
+=======
+        UseScText.text = $"사용 가능 포인트 : {SumSc}";
+    }
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 }

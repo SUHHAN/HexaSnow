@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - BadItem
   - GoodItem
+  - TouchPoint
   layers:
   - Default
   - TransparentFX

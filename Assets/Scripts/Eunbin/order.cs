@@ -7,9 +7,6 @@ using UnityEngine.UI;
 
 public class Order : MonoBehaviour
 {
-    public getMenu getMenuScript;
-    public special_customer SpecialScript;
-    public DayChange dayChange;
     public GameObject postman;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
@@ -17,9 +14,8 @@ public class Order : MonoBehaviour
     public TextMeshProUGUI dialogueOrder; // 주문 텍스트 표시용
     public TextMeshProUGUI orderCustomer;
     private List<DialogueLine> dialogues = new List<DialogueLine>(); // 주문 데이터 저장 리스트
-    private List<DialogueLine> filteredDialogues = new List<DialogueLine>();
     private List<string> nicknames = new List<string>();
-    public int order_menu_id;
+    public List<int> order_menu_id=new List<int>();
     public List<string> order_nickname=new List<string>();
     public List<int> order_deadLine=new List<int>();
     private int currentDialogueIndex; // 현재 주문 인덱스
@@ -29,12 +25,14 @@ public class Order : MonoBehaviour
     public Button acceptButton; // 수락 버튼
     public Button cancelButton; // 취소 버튼
     public Button orderCheck;
-    public GameObject speechBubble;
+     public GameObject speechBubble;
     public GameObject nameBubble;
     private bool isAcceptButtonClicked = false;
     private int order_count=0;
     private int accept_order=2;
+    private int day=1;
     private int deadline=1;
+    
 
     public struct DialogueLine{
     public string id;
@@ -52,14 +50,20 @@ public class Order : MonoBehaviour
         postman.SetActive(true);
         orderCheck.gameObject.SetActive(true);
         order.SetActive(true); // 주문 UI 비활성화
-        InitializeButtons(); // 버튼 초기화
+
+        acceptButton.onClick.AddListener(() => {
+        order_menu_id.Add(currentDialogueIndex); // 현재 대화 인덱스를 ID로 추가
+        order_nickname.Add(nicknames[currentNicknameIndex]);
+        order_deadLine.Add(deadline);
+        
+        NextDialogue(); // 다음 대화 진행
+    });
+        cancelButton.onClick.AddListener(CloseDialogue); // 취소 버튼 클릭 시 대화 종료
+        orderCheck.onClick.AddListener(OpenOrderUI);
         LoadDialoguesFromCSV(); // CSV 파일 로드
         LoadNicknameFromCSV();
         Postmanment();
-
-        openMenu(1);
     }
-
     private void LoadDialoguesFromCSV()
     {
         try
@@ -71,6 +75,7 @@ public class Order : MonoBehaviour
                 Debug.LogError($"CSV 파일을 찾을 수 없습니다: {csvFileName}");
                 return;
             }
+
             // 줄 단위로 나누기
             string[] lines = csvFile.text.Split(new[] {'\r', '\n'}, System.StringSplitOptions.RemoveEmptyEntries);
             foreach (string line in lines)
@@ -84,6 +89,7 @@ public class Order : MonoBehaviour
                     string description=fields[2].Trim();
 
                     dialogues.Add(new DialogueLine(id, menu, description));
+            
             }
         }
         catch (System.Exception ex)
@@ -91,6 +97,7 @@ public class Order : MonoBehaviour
             Debug.LogError($"CSV 파일 읽기 중 오류 발생: {ex.Message}");
         }
     }
+
     private void LoadNicknameFromCSV(){
         try
         {
@@ -186,9 +193,10 @@ public class Order : MonoBehaviour
         else
         {
             ShowDialogue(); // 다음 내용 표시
-        }
-    }
 
+        }
+
+    }
     private void CloseDialogue()
     {
         order.SetActive(false); // UI 비활성화
@@ -196,45 +204,34 @@ public class Order : MonoBehaviour
         postman.SetActive(false);
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
+        Debug.Log("수락한 메뉴의 ID:");
+  /*      foreach (int id in order_menu_id)
+     {
+            Debug.Log(id);
+     }*/
+     foreach (string nickname in order_nickname)
+     {
+        Debug.Log(nickname);
+     }
+     foreach (int deadline in order_deadLine)
+     {
+        Debug.Log(order_deadLine.Count);
 
-     int previousDay = getMenuScript.currentDay - 1;
+     }
     
-        if (getMenuScript.gameObject.activeSelf)
-        {
-            getMenuScript.StartCoroutine(getMenuScript.ProcessCustomers(previousDay));
-        }
-    else
-    {
-        Debug.LogError("getMenuScript가 비활성화 상태입니다. 코루틴 실행 불가!");
     }
-}
  private void SetRandomDialogueIndex()
     {
-        if (filteredDialogues.Count == 0)
-    {
-        Debug.LogWarning("필터링된 대화가 없습니다. 기본 대화 리스트를 사용합니다.");
-        currentDialogueIndex = Random.Range(2, dialogues.Count); // 기본 전체 리스트에서 랜덤 선택
-    }
-    else
-    {
-        currentDialogueIndex = Random.Range(2, filteredDialogues.Count); // 필터링된 리스트에서 랜덤 선택
-    }
+        currentDialogueIndex = Random.Range(3, dialogues.Count); // 랜덤으로 인덱스 선택
+        Debug.Log($"랜덤으로 선택된 인덱스: {currentDialogueIndex}");
         currentNicknameIndex=Random.Range(1, nicknames.Count);
         
     }
-public void IncreaseAcceptOrder(int increment){
-    accept_order+=increment;
+    public void IncreaseAcceptOrder(int increment){
+        accept_order+=increment;
     }
-private void InitializeButtons(){
-    // 기존 리스너 제거 후 새로 추가
-    acceptButton.onClick.RemoveAllListeners();
-    acceptButton.onClick.AddListener(() => {
-        order_menu_id = currentDialogueIndex;
-        order_deadLine.Add(deadline);
-        getMenuScript.ReceiveOrders(currentNicknameIndex, order_menu_id);
-        NextDialogue();
-    });
 
+<<<<<<< HEAD
     cancelButton.onClick.RemoveAllListeners();
     cancelButton.onClick.AddListener(CloseDialogue);
 
@@ -264,17 +261,25 @@ public void openMenu(int day){
 }
 
 public void ResetOrderSystem(int day)
+=======
+    public void ResetOrderSystem(int day)
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
     {
         Debug.Log($"Resetting Order System for Day {day}");
+        InitializeOrderSystem();
+    }
+    private void InitializeOrderSystem()
+    {
+        // 초기화 로직
         postman.SetActive(true);
         orderCheck.gameObject.SetActive(true);
         order.SetActive(true);
+        order_menu_id.Clear();
         order_nickname.Clear();
         order_deadLine.Clear();
-        speechBubble.SetActive(true);
-        nameBubble.SetActive(true);
         order_count = 0;
+        isAcceptButtonClicked = false;
         Postmanment();
-        
     }
+
 }
