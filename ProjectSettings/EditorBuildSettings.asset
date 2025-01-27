@@ -14,6 +14,7 @@ EditorBuildSettings:
   - enabled: 1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     path: Assets/Scenes/jiwon/Lobby.unity
     guid: 5fbd1a7eadb5c614e90b91213308cdbf
   - enabled: 1
@@ -21,11 +22,16 @@ EditorBuildSettings:
 =======
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
     path: Assets/Scenes/jiwon/Main.unity
     guid: 5fbd1a7eadb5c614e90b91213308cdbf
   - enabled: 1
     path: Assets/Scenes/Sunwoo/Baking.unity
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -35,8 +41,13 @@ EditorBuildSettings:
     guid: fab1399a546834c488906a3b054f6921
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   - enabled: 0
     path: Assets/Scenes/haeun/ingredientGame.unity
+=======
+  - enabled: 1
+    path: Assets/Scenes/haeun/Ingredient.unity
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   - enabled: 1
     path: Assets/Scenes/haeun/Ingredient.unity
@@ -51,9 +62,12 @@ EditorBuildSettings:
     guid: dd8cc189d5f01bc4287a8b3612c20e66
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   - enabled: 1
     path: Assets/Scenes/haeun/Ingredient.unity
     guid: 2a2a2bc84a0319440907453644c1daa9
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======

@@ -233,6 +233,7 @@ public class Order : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     cancelButton.onClick.RemoveAllListeners();
     cancelButton.onClick.AddListener(CloseDialogue);
 
@@ -262,6 +263,9 @@ public void openMenu(int day){
 }
 
 public void ResetOrderSystem(int day)
+=======
+    public void ResetOrderSystem(int day)
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
     public void ResetOrderSystem(int day)
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)

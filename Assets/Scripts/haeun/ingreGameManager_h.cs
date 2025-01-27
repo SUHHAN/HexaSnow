@@ -22,7 +22,10 @@ public class ingreGameManager_h : MonoBehaviour
     // 아이템 관련 선언
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     [Header("떨어지는 아이템 관리")]
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
@@ -38,7 +41,10 @@ public class ingreGameManager_h : MonoBehaviour
     // 안내 관련 선언
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     [Header("안내 패널 관리")]
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
@@ -52,7 +58,11 @@ public class ingreGameManager_h : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public int heartScore = 3;
+=======
+    private int heartScore = 3;
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
     private int heartScore = 3;
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -78,6 +88,7 @@ public class ingreGameManager_h : MonoBehaviour
     private bool isGameStarting = false;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     [Header("게임 오버 시 이미지/텍스트 관리")]
     [SerializeField] private GameObject PlayerIdle;
@@ -92,6 +103,11 @@ public class ingreGameManager_h : MonoBehaviour
         animator = PlayerIdle.GetComponent<Animator>();
 
 
+=======
+
+    void Start()
+    {
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 
     void Start()
@@ -265,7 +281,10 @@ public class ingreGameManager_h : MonoBehaviour
         isFinalizingGame = true;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         ingamePlayScore.SetActive(false);
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
@@ -281,6 +300,7 @@ public class ingreGameManager_h : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         Debug.Log($"남은 목숨  = {heartScore}개");
 
         // 인게임 플레이 점수 없애기
@@ -289,6 +309,11 @@ public class ingreGameManager_h : MonoBehaviour
         ScrollbarManager.Instance.SetFinalScore(savedScore);
 
         FinishScoreText.text = "최종 점수 : " + savedScore + "점";
+=======
+        ScrollbarManager.Instance.SetFinalScore(savedScore);
+
+        FinishScoreText.text = "최종 점수 : " + savedScore;
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
         ScrollbarManager.Instance.SetFinalScore(savedScore);
 

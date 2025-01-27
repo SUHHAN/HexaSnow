@@ -21,6 +21,7 @@ public class PauseManager : MonoBehaviour
     {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         if(!ingreGameManager_h.Instance.IsGameStarting()) {
             if (isPaused) return; // 이미 정지 상태면 아무 작업도 하지 않음
 
@@ -32,6 +33,8 @@ public class PauseManager : MonoBehaviour
 =======
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
         if (isPaused) return; // 이미 정지 상태면 아무 작업도 하지 않음
 
         isPaused = true;
@@ -40,6 +43,9 @@ public class PauseManager : MonoBehaviour
         player_h.SetPauseState(true); // 플레이어 입력 활성화
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -47,6 +53,7 @@ public class PauseManager : MonoBehaviour
 
     public void ResumeGame()
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         if(!ingreGameManager_h.Instance.IsGameStarting()) {
@@ -60,6 +67,8 @@ public class PauseManager : MonoBehaviour
 =======
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
         if (!isPaused) return; // 이미 실행 중이면 아무 작업도 하지 않음
 
         pausePanel.SetActive(false); // 일시 정지 UI 숨김
@@ -67,6 +76,9 @@ public class PauseManager : MonoBehaviour
         StartCoroutine(ResumeReadyGoRoutine());
         
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Sunwoo/BakingStart/BakingGameManager1.cs.meta
 guid: 790f7ec09bffb594f80ddb19872ab82d
+========
+guid: a57995ef827092540b8e6e5ac7452c70
+>>>>>>>> parent of e621967 (Merge branch 'main' into jsssun):Assets/Scripts/Sunwoo/InventoryManager.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

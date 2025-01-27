@@ -258,7 +258,10 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &37235496
@@ -396,6 +399,9 @@ CanvasRenderer:
   m_GameObject: {fileID: 37235496}
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -539,7 +545,11 @@ GameObject:
   m_StaticEditorFlags: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_IsActive: 0
+=======
+  m_IsActive: 1
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_IsActive: 1
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -1340,7 +1350,11 @@ MonoBehaviour:
   m_Material: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+=======
+  m_Color: {r: 0.97611135, g: 1, b: 0.6622641, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Color: {r: 0.97611135, g: 1, b: 0.6622641, a: 1}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -1355,7 +1369,11 @@ MonoBehaviour:
       m_Calls: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: d20601e96244dbd4d805b5830f292479, type: 3}
+=======
+  m_Sprite: {fileID: 0}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Sprite: {fileID: 0}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -1630,7 +1648,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -400}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_SizeDelta: {x: 200, y: 50}
+=======
+  m_SizeDelta: {x: 200, y: 100}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_SizeDelta: {x: 200, y: 100}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -1785,7 +1807,11 @@ MonoBehaviour:
   m_Material: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Color: {r: 1, g: 0.9228382, b: 0.79811317, a: 1}
+=======
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -1800,7 +1826,11 @@ MonoBehaviour:
       m_Calls: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 113fd31843729a04a9b08a1fbf6bf729, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: 4a682a4577acf1c4d84e2f2742c35c7d, type: 3}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Sprite: {fileID: 21300000, guid: 4a682a4577acf1c4d84e2f2742c35c7d, type: 3}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -2096,7 +2126,11 @@ MonoBehaviour:
       m_Calls: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 26a13cae4a814d544887e70b62017629, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: a78eb1eb31c32084aa834b6a868a0391, type: 3}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Sprite: {fileID: 21300000, guid: a78eb1eb31c32084aa834b6a868a0391, type: 3}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -2195,7 +2229,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_SizeDelta: {x: 400, y: 400}
+=======
+  m_SizeDelta: {x: 100, y: 100}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_SizeDelta: {x: 100, y: 100}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -2330,7 +2368,11 @@ MonoBehaviour:
   m_Material: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+=======
+  m_Color: {r: 0.97611135, g: 1, b: 0.6622641, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Color: {r: 0.97611135, g: 1, b: 0.6622641, a: 1}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -2345,7 +2387,11 @@ MonoBehaviour:
       m_Calls: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 0c29f164b7405e44ebb84dd874e004cb, type: 3}
+=======
+  m_Sprite: {fileID: 0}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Sprite: {fileID: 0}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -2884,8 +2930,11 @@ RectTransform:
   m_Children:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 1288508109}
   - {fileID: 882739280}
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
@@ -3262,7 +3311,11 @@ MonoBehaviour:
   m_Material: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+=======
+  m_Color: {r: 0.97611135, g: 1, b: 0.6622641, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Color: {r: 0.97611135, g: 1, b: 0.6622641, a: 1}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -3277,7 +3330,11 @@ MonoBehaviour:
       m_Calls: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: d20601e96244dbd4d805b5830f292479, type: 3}
+=======
+  m_Sprite: {fileID: 0}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Sprite: {fileID: 0}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -3782,7 +3839,11 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: -100, y: -31}
+=======
+  m_AnchoredPosition: {x: -100, y: 0}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_AnchoredPosition: {x: -100, y: 0}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -3865,7 +3926,11 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 0, y: 350}
+=======
+  m_AnchoredPosition: {x: 0, y: 399.87198}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_AnchoredPosition: {x: 0, y: 399.87198}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -4761,6 +4826,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &855175233
 GameObject:
   m_ObjectHideFlags: 0
@@ -4836,6 +4902,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855175233}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
@@ -5111,6 +5179,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &882739279
 GameObject:
   m_ObjectHideFlags: 0
@@ -5186,6 +5255,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 882739279}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
@@ -5418,7 +5489,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Children: []
+=======
+  m_Children:
+  - {fileID: 37235497}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Children:
   - {fileID: 37235497}
@@ -5433,8 +5509,13 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 250, y: 550}
   m_SizeDelta: {x: 150, y: 150}
+=======
+  m_AnchoredPosition: {x: 0, y: -300}
+  m_SizeDelta: {x: 160, y: 30}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_AnchoredPosition: {x: 0, y: -300}
   m_SizeDelta: {x: 160, y: 30}
@@ -5522,8 +5603,13 @@ MonoBehaviour:
       m_Calls: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: cbb30eb589befbf4ca1d6d8b843d6415, type: 3}
   m_Type: 0
+=======
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
@@ -7269,7 +7355,11 @@ MonoBehaviour:
       m_Calls: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 2076ec52b182554448d0147675455aa8, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: a78eb1eb31c32084aa834b6a868a0391, type: 3}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Sprite: {fileID: 21300000, guid: a78eb1eb31c32084aa834b6a868a0391, type: 3}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -7562,6 +7652,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1288508108
 GameObject:
   m_ObjectHideFlags: 0
@@ -7641,6 +7732,8 @@ CanvasRenderer:
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &1299408905
 GameObject:
   m_ObjectHideFlags: 0
@@ -7677,8 +7770,13 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: -100, y: -31}
   m_SizeDelta: {x: 120, y: 50}
+=======
+  m_AnchoredPosition: {x: -100, y: 0}
+  m_SizeDelta: {x: 100, y: 50}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_AnchoredPosition: {x: -100, y: 0}
   m_SizeDelta: {x: 100, y: 50}
@@ -7711,7 +7809,11 @@ MonoBehaviour:
   m_Material: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Color: {r: 1, g: 1, b: 1, a: 0.59607846}
+=======
+  m_Color: {r: 1, g: 0, b: 0, a: 0.5058824}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Color: {r: 1, g: 0, b: 0, a: 0.5058824}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -7726,7 +7828,11 @@ MonoBehaviour:
       m_Calls: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 6e1fb25e03749f0429a66e9ef5ef9096, type: 3}
+=======
+  m_Sprite: {fileID: 0}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Sprite: {fileID: 0}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -8983,7 +9089,10 @@ RectTransform:
   m_Children:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 855175234}
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
@@ -8996,8 +9105,13 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 0, y: 340}
   m_SizeDelta: {x: 800, y: 180}
+=======
+  m_AnchoredPosition: {x: -50, y: 150}
+  m_SizeDelta: {x: 500, y: 50}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_AnchoredPosition: {x: -50, y: 150}
   m_SizeDelta: {x: 500, y: 50}
@@ -9030,7 +9144,11 @@ MonoBehaviour:
   m_Material: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+=======
+  m_Color: {r: 0.6528301, g: 0.6528301, b: 0.6528301, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Color: {r: 0.6528301, g: 0.6528301, b: 0.6528301, a: 1}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -9045,7 +9163,11 @@ MonoBehaviour:
       m_Calls: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 520ba03dc0b1c864c996468f12390f32, type: 3}
+=======
+  m_Sprite: {fileID: 0}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Sprite: {fileID: 0}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -9329,8 +9451,13 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 50}
+=======
+  m_AnchoredPosition: {x: 0, y: 300}
+  m_SizeDelta: {x: 160, y: 30}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_AnchoredPosition: {x: 0, y: 300}
   m_SizeDelta: {x: 160, y: 30}
@@ -11316,7 +11443,11 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 0, y: 350}
+=======
+  m_AnchoredPosition: {x: 0, y: 399.87198}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_AnchoredPosition: {x: 0, y: 399.87198}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -11481,7 +11612,11 @@ MonoBehaviour:
       m_Calls: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: d1340d01e0c48044e86a932382d8c527, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: a78eb1eb31c32084aa834b6a868a0391, type: 3}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Sprite: {fileID: 21300000, guid: a78eb1eb31c32084aa834b6a868a0391, type: 3}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -11773,7 +11908,11 @@ MonoBehaviour:
       m_Calls: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: edd016c9c1cc3ba4994ff09a1083e659, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: a78eb1eb31c32084aa834b6a868a0391, type: 3}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Sprite: {fileID: 21300000, guid: a78eb1eb31c32084aa834b6a868a0391, type: 3}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -12194,7 +12333,11 @@ MonoBehaviour:
   m_Material: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+=======
+  m_Color: {r: 0.97611135, g: 1, b: 0.6622641, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Color: {r: 0.97611135, g: 1, b: 0.6622641, a: 1}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -12209,7 +12352,11 @@ MonoBehaviour:
       m_Calls: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 0c29f164b7405e44ebb84dd874e004cb, type: 3}
+=======
+  m_Sprite: {fileID: 0}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_Sprite: {fileID: 0}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -12308,7 +12455,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_SizeDelta: {x: 400, y: 400}
+=======
+  m_SizeDelta: {x: 100, y: 100}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_SizeDelta: {x: 100, y: 100}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)

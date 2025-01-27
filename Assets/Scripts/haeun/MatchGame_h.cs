@@ -80,7 +80,11 @@ public class MatchGame_h : MonoBehaviour
         FilpAllCards();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         yield return new WaitForSeconds(3f);
+=======
+        yield return new WaitForSeconds(2f);
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
         yield return new WaitForSeconds(2f);
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -93,7 +97,11 @@ public class MatchGame_h : MonoBehaviour
         GoText.gameObject.SetActive(true);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         yield return new WaitForSeconds(0.24f);
+=======
+        yield return new WaitForSeconds(1f);
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
         yield return new WaitForSeconds(1f);
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)

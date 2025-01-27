@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Sunwoo/MixingGameManager.cs.meta
 guid: e4715125c8628fb40bf2802862d9f9ef
+========
+guid: 3c509b47191963b4bb01cf0a72fa771f
+>>>>>>>> parent of e621967 (Merge branch 'main' into jsssun):Assets/Scripts/Sunwoo/IngredientSlot.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 using System.IO;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
 using Microsoft.Unity.VisualStudio.Editor;
+=======
+using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
@@ -30,6 +35,7 @@ public class ScrollbarManager : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     [System.Serializable]
@@ -60,6 +66,8 @@ public class ScrollbarManager : MonoBehaviour
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
     public GameObject itemPrefab; // 아이템 Prefab
     public Transform content; // Content 오브젝트
 
@@ -70,6 +78,7 @@ public class ScrollbarManager : MonoBehaviour
     private int FinalSc = 0; // 초기 점수
     private int SumSc;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     
@@ -115,6 +124,8 @@ public class ScrollbarManager : MonoBehaviour
 =======
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
     void Start()
     {
         AddItems(10); // 10개의 아이템 추가
@@ -136,6 +147,9 @@ public class ScrollbarManager : MonoBehaviour
 
             item.GetComponentInChildren<TextMeshProUGUI>().text = $"{i} | 안녕하십니까";
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -190,6 +204,7 @@ public class ScrollbarManager : MonoBehaviour
 
     private void UpdateScoreDisplay()
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         UseScText.text = $"사용 가능 점수 : {SumSc}점";
@@ -265,6 +280,10 @@ public class ScrollbarManager : MonoBehaviour
     }
 
     
+=======
+        UseScText.text = $"사용 가능 포인트 : {SumSc}";
+    }
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
         UseScText.text = $"사용 가능 포인트 : {SumSc}";
     }

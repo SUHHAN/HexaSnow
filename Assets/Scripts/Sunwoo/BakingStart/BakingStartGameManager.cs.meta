@@ -1,9 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 <<<<<<<< HEAD:Assets/Scripts/Sunwoo/BakingStart/BakingStartGameManager.cs.meta
 guid: 14488feff1b56db4b8513915dfb16e48
 ========
 guid: 3c509b47191963b4bb01cf0a72fa771f
 >>>>>>>> parent of e621967 (Merge branch 'main' into jsssun):Assets/Scripts/Sunwoo/IngredientSlot.cs.meta
+=======
+<<<<<<<< HEAD:Assets/Scripts/Sunwoo/OvenGameManager.cs.meta
+guid: 4a70f9fae63f6b5448497b0bbd568716
+========
+guid: 14488feff1b56db4b8513915dfb16e48
+>>>>>>>> parent of e621967 (Merge branch 'main' into jsssun):Assets/Scripts/Sunwoo/BakingStart/BakingStartGameManager.cs.meta
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
