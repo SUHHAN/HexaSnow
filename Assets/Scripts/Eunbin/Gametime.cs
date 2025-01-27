@@ -15,7 +15,6 @@ public class GameTime : MonoBehaviour
 
     void Start()
     {
-        StartGameTimer(); // 게임 타이머 시작
     }
 
     public void StartGameTimer()
@@ -47,7 +46,7 @@ public class GameTime : MonoBehaviour
     private void UpdateTimerUI(float currentTime)
     {
         int minutes = (6-Mathf.FloorToInt(currentTime / 60f))+9;
-        int seconds = (60-Mathf.FloorToInt(currentTime% 60f));
+        int seconds = (60-Mathf.FloorToInt(currentTime% 60f))-1;
 
         timerText.text = $"{minutes:D2}:{seconds:D2}"; 
     }

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Order : MonoBehaviour
 {
+    public GameTime gametime;
     public getMenu getMenuScript;
     public special_customer SpecialScript;
     public DayChange dayChange;
@@ -191,6 +192,7 @@ public class Order : MonoBehaviour
 
     private void CloseDialogue()
     {
+        gametime.StartGameTimer();
         order.SetActive(false); // UI 비활성화
         currentDialogueIndex = 0; // 대화 인덱스 초기화
         postman.SetActive(false);

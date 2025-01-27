@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.EventSystems; // EventTrigger 사용을 위해 필요
+using UnityEngine.EventSystems; 
 
 public class SetMenu : MonoBehaviour
 {
@@ -100,6 +100,11 @@ public class SetMenu : MonoBehaviour
     // 버튼 활성화 및 이전 버튼 비활성화
     private void ActivateButton(Button targetButton, int currentIndex)
     {
+        if (targetButton == null)
+    {
+        Debug.LogWarning($"ActivateButton: targetButton이 null입니다. currentIndex: {currentIndex}");
+        return; // null인 경우 실행 중단
+    }
         // 이전 활성 버튼 비활성화
         if (currentActiveButton != null)
         {
@@ -143,10 +148,12 @@ public class SetMenu : MonoBehaviour
             made_menu.Remove(menu);
             Debug.Log($"리스트에서 제거된 메뉴: {menu}");
             InitializeMenus(); // 메뉴 다시 초기화
+
+            currentActiveButton = null;
         }
         else
         {
             Debug.LogWarning($"리스트에서 메뉴를 찾을 수 없습니다: {menu}");
         }
     }
-}
+} 
