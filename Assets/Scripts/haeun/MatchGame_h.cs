@@ -145,12 +145,12 @@ public class MatchGame_h : MonoBehaviour
 
         } else {
             // 두개의 카드의 id가 다르면, 다시 뒤집기
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.5f);
 
             card1.FilpCard();
             card2.FilpCard();
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         isFlipping = false;
@@ -165,9 +165,9 @@ public class MatchGame_h : MonoBehaviour
             SetScoreText();
 
             if (success) {
-                gameOverText.SetText("게임 종료! - 성공");
+                gameOverText.SetText("보너스 게임 종료!");
             } else {
-                gameOverText.SetText("게임 종료! - 실패");
+                gameOverText.SetText("보너스 게임 종료!");
             }
 
             Invoke("ShowGameOverPanel", 2f);
