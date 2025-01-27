@@ -1,5 +1,8 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &811225970882156544
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,6 +137,12 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &1253690887438666038
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +155,19 @@ GameObject:
   - component: {fileID: 6607318698673766304}
   - component: {fileID: 7082346528826787874}
   m_Layer: 5
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_Name: IngreImage
+=======
+  m_Name: Image
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_Name: Image
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_Name: Image
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +189,19 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 0, y: -20}
+=======
+  m_AnchoredPosition: {x: 0, y: -15}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_AnchoredPosition: {x: 0, y: -15}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_AnchoredPosition: {x: 0, y: -15}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_SizeDelta: {x: 140, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6607318698673766304
@@ -199,7 +232,19 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 79707ba77786e084c821a7aa2068f519, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: 17bbe3481bbf18b4cbfe76be92587ac6, type: 3}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_Sprite: {fileID: 21300000, guid: 17bbe3481bbf18b4cbfe76be92587ac6, type: 3}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_Sprite: {fileID: 21300000, guid: 17bbe3481bbf18b4cbfe76be92587ac6, type: 3}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -243,8 +288,23 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: -21, y: 80}
   m_SizeDelta: {x: 112, y: 25}
+=======
+  m_AnchoredPosition: {x: -15, y: 80}
+  m_SizeDelta: {x: 150, y: 25}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_AnchoredPosition: {x: -15, y: 80}
+  m_SizeDelta: {x: 150, y: 25}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_AnchoredPosition: {x: -15, y: 80}
+  m_SizeDelta: {x: 150, y: 25}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2060810585806628548
 CanvasRenderer:
@@ -274,7 +334,19 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_text: "1 | \uC548\uB155\uD558\uC2DC\uC624\uB77C"
+=======
+  m_text: "1. \uC548\uB155\uD558\uC2ED\uB2C8\uAE4C"
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_text: "1. \uC548\uB155\uD558\uC2ED\uB2C8\uAE4C"
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_text: "1. \uC548\uB155\uD558\uC2ED\uB2C8\uAE4C"
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 537e65026e2d347b5be6abad71ba31c1, type: 2}
   m_sharedMaterial: {fileID: -7231793993118050812, guid: 537e65026e2d347b5be6abad71ba31c1, type: 2}
@@ -283,8 +355,23 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
     rgba: 4282400832
   m_fontColor: {r: 0.2509804, g: 0.2509804, b: 0.2509804, a: 1}
+=======
+    rgba: 4283848280
+  m_fontColor: {r: 0.3433962, g: 0.33886075, b: 0.33886075, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+    rgba: 4283848280
+  m_fontColor: {r: 0.3433962, g: 0.33886075, b: 0.33886075, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+    rgba: 4283848280
+  m_fontColor: {r: 0.3433962, g: 0.33886075, b: 0.33886075, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -301,18 +388,54 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_fontSize: 18
   m_fontSizeBase: 18
+=======
+  m_fontSize: 20
+  m_fontSizeBase: 20
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_fontSize: 20
+  m_fontSizeBase: 20
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_fontSize: 20
+  m_fontSizeBase: 20
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: -5
   m_wordSpacing: -20
+=======
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
@@ -378,8 +501,23 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 60.65854, y: 80}
   m_SizeDelta: {x: 36.3171, y: 25}
+=======
+  m_AnchoredPosition: {x: 80, y: 80}
+  m_SizeDelta: {x: 25, y: 25}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_AnchoredPosition: {x: 80, y: 80}
+  m_SizeDelta: {x: 25, y: 25}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_AnchoredPosition: {x: 80, y: 80}
+  m_SizeDelta: {x: 25, y: 25}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &258164590035499839
 CanvasRenderer:
@@ -402,7 +540,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_Color: {r: 0.8867924, g: 0.848309, b: 0.848309, a: 1}
+=======
+  m_Color: {r: 0.8037735, g: 0.8037735, b: 0.8037735, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_Color: {r: 0.8037735, g: 0.8037735, b: 0.8037735, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_Color: {r: 0.8037735, g: 0.8037735, b: 0.8037735, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -419,6 +569,9 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &6444483034251724538
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,6 +679,12 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &8334110117767044011
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,18 +717,48 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 5078083721224669626}
   - {fileID: 3272786622957745085}
   - {fileID: 4522128412940544686}
   - {fileID: 1792785165336926447}
   - {fileID: 964745940283194504}
   - {fileID: 1861665955720985094}
+=======
+  - {fileID: 3272786622957745085}
+  - {fileID: 4522128412940544686}
+  - {fileID: 1792785165336926447}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  - {fileID: 3272786622957745085}
+  - {fileID: 4522128412940544686}
+  - {fileID: 1792785165336926447}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  - {fileID: 3272786622957745085}
+  - {fileID: 4522128412940544686}
+  - {fileID: 1792785165336926447}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_SizeDelta: {x: 170, y: 200}
+=======
+  m_SizeDelta: {x: 200, y: 200}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_SizeDelta: {x: 200, y: 200}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_SizeDelta: {x: 200, y: 200}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4537437105443934326
 CanvasRenderer:
@@ -679,6 +868,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ingredient_ID: 0
   currentNum: 0
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &8369099298430797448
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,6 +946,12 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &9219730448105930240
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,8 +986,23 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 0.0965, y: 0}
   m_SizeDelta: {x: 32.3673, y: 25}
+=======
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 25, y: 25}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 25, y: 25}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 25, y: 25}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7075977920834816725
 CanvasRenderer:
@@ -819,7 +1032,19 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_text: "15 \uAC1C"
+=======
+  m_text: 15
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_text: 15
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_text: 15
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 537e65026e2d347b5be6abad71ba31c1, type: 2}
   m_sharedMaterial: {fileID: -7231793993118050812, guid: 537e65026e2d347b5be6abad71ba31c1, type: 2}
@@ -828,8 +1053,23 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
     rgba: 4282400832
   m_fontColor: {r: 0.2528302, g: 0.2528302, b: 0.2528302, a: 1}
+=======
+    rgba: 4283848280
+  m_fontColor: {r: 0.3433962, g: 0.33886075, b: 0.33886075, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+    rgba: 4283848280
+  m_fontColor: {r: 0.3433962, g: 0.33886075, b: 0.33886075, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+    rgba: 4283848280
+  m_fontColor: {r: 0.3433962, g: 0.33886075, b: 0.33886075, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -846,8 +1086,23 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_fontSize: 13.8
   m_fontSizeBase: 13.8
+=======
+  m_fontSize: 15
+  m_fontSizeBase: 15
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_fontSize: 15
+  m_fontSizeBase: 15
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_fontSize: 15
+  m_fontSizeBase: 15
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -856,8 +1111,23 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_characterSpacing: -10
   m_wordSpacing: -15
+=======
+  m_characterSpacing: -5
+  m_wordSpacing: 0
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_characterSpacing: -5
+  m_wordSpacing: 0
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  m_characterSpacing: -5
+  m_wordSpacing: 0
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0

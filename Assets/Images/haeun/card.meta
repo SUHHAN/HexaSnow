@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Images/haeun/card.meta
 guid: a5df5164bb4fb2d43844d52ad5467294
+========
+guid: 6b690f5b893630644be532734ebda2e6
+>>>>>>>> parent of e621967 (Merge branch 'main' into jsssun):Assets/Images/haeun/cardImage.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

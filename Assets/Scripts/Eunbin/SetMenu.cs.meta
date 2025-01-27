@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Eunbin/SetMenu.cs.meta
 guid: db4b83facac5049a4b79cb4f7bbab8fc
+========
+guid: a57995ef827092540b8e6e5ac7452c70
+>>>>>>>> parent of e621967 (Merge branch 'main' into jsssun):Assets/Scripts/Sunwoo/InventoryManager.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

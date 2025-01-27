@@ -20,7 +20,16 @@ public class ingreGameManager_h : MonoBehaviour
     }
 
     // 아이템 관련 선언
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
     [Header("떨어지는 아이템 관리")]
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
     [SerializeField] private GameObject BadItem;
     [SerializeField] private GameObject goodItem;
     [SerializeField] private Sprite[] badItemSprites;
@@ -30,7 +39,16 @@ public class ingreGameManager_h : MonoBehaviour
     private List<Vector3> goodItemPositions = new List<Vector3>();
 
     // 안내 관련 선언
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
     [Header("안내 패널 관리")]
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TextMeshProUGUI FinishScoreText;
 
@@ -38,7 +56,19 @@ public class ingreGameManager_h : MonoBehaviour
     private int savedScore;
     [SerializeField] private TextMeshProUGUI voidScoreText;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
     public int heartScore = 3;
+=======
+    private int heartScore = 3;
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+    private int heartScore = 3;
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+    private int heartScore = 3;
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 
     // 아래 heartO의 3개의 하트 이미지가 heartScore가 1씩 없어질 때마다 heartX로 스프라이트를 변경했으면 좋겠음
     [SerializeField] private GameObject[] heartO;
@@ -56,6 +86,9 @@ public class ingreGameManager_h : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ReadyText;
     [SerializeField] private TextMeshProUGUI GoText;
     private bool isGameStarting = false;
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 
     [Header("게임 오버 시 이미지/텍스트 관리")]
     [SerializeField] private GameObject PlayerIdle;
@@ -70,6 +103,21 @@ public class ingreGameManager_h : MonoBehaviour
         animator = PlayerIdle.GetComponent<Animator>();
 
 
+=======
+
+    void Start()
+    {
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+
+    void Start()
+    {
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+
+    void Start()
+    {
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
         StartCoroutine(StartGameRoutine());
 
         gameOverPanel.SetActive(false);
@@ -231,7 +279,16 @@ public class ingreGameManager_h : MonoBehaviour
     private IEnumerator HandleGameOver()
     {
         isFinalizingGame = true;
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
         ingamePlayScore.SetActive(false);
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
         yield return new WaitForSeconds(1.5f);
         GameOver();
     }
@@ -241,6 +298,9 @@ public class ingreGameManager_h : MonoBehaviour
         isGameOver = true;
         savedScore = voidScore + heartScore * 3;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
         Debug.Log($"남은 목숨  = {heartScore}개");
 
         // 인게임 플레이 점수 없애기
@@ -249,6 +309,21 @@ public class ingreGameManager_h : MonoBehaviour
         ScrollbarManager.Instance.SetFinalScore(savedScore);
 
         FinishScoreText.text = "최종 점수 : " + savedScore + "점";
+=======
+        ScrollbarManager.Instance.SetFinalScore(savedScore);
+
+        FinishScoreText.text = "최종 점수 : " + savedScore;
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+        ScrollbarManager.Instance.SetFinalScore(savedScore);
+
+        FinishScoreText.text = "최종 점수 : " + savedScore;
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+        ScrollbarManager.Instance.SetFinalScore(savedScore);
+
+        FinishScoreText.text = "최종 점수 : " + savedScore;
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
         StopAllCoroutines();
         gameOverPanel.SetActive(true);
     }
