@@ -244,6 +244,7 @@ CanvasRenderer:
   m_GameObject: {fileID: 46136243}
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &46917163
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,6 +1273,8 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &315489670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1406,6 +1409,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315489670}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &324562428
 GameObject:
@@ -2263,6 +2267,8 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &421666752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2362,12 +2368,15 @@ RectTransform:
   - {fileID: 1406909376}
   - {fileID: 722994421}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 787774922}
   - {fileID: 1267386990}
   - {fileID: 1157648015}
   - {fileID: 338788618}
   - {fileID: 2131745019}
   - {fileID: 2068216229}
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_Father: {fileID: 0}
@@ -3195,6 +3204,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 722994420}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &731533436
 GameObject:
@@ -4250,6 +4260,8 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &1094453997
 GameObject:
   m_ObjectHideFlags: 0
@@ -4687,6 +4699,7 @@ Transform:
   - {fileID: 1582579043}
   - {fileID: 1166421199}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 955013504}
   - {fileID: 1054238342}
   m_Father: {fileID: 421666757}
@@ -4845,6 +4858,11 @@ CanvasRenderer:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+  - {fileID: 1392434220}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &1166421198
 GameObject:
   m_ObjectHideFlags: 0
@@ -4918,9 +4936,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 48888c992148d445eb28f03093f467c8, type: 3}
   m_Color: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
+=======
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Color: {r: 0.6431626, g: 0.9339623, b: 0.54187435, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
@@ -4935,6 +4959,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &1175710568
 GameObject:
@@ -5409,6 +5434,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224230203}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &1259675375
@@ -5912,6 +5939,7 @@ CanvasRenderer:
   m_GameObject: {fileID: 1406909375}
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!61 &1406909379
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6043,6 +6071,8 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &1490473245
 GameObject:
   m_ObjectHideFlags: 0
@@ -6119,6 +6149,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490473245}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!61 &1490473249
 BoxCollider2D:
@@ -6389,6 +6420,8 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &1582579042
 GameObject:
   m_ObjectHideFlags: 0
@@ -6462,9 +6495,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 224555b7ffa434487aad5627ef8d6c48, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+=======
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Color: {r: 0.9433962, g: 0.8312155, b: 0.26254895, a: 1}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
@@ -6479,6 +6518,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &1589611758
 GameObject:
@@ -6884,6 +6924,8 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &1680841325
 GameObject:
   m_ObjectHideFlags: 0
@@ -6916,6 +6958,7 @@ Transform:
   - {fileID: 2093068878}
   m_Father: {fileID: 1773455537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &1714472476
 GameObject:
@@ -7137,6 +7180,8 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &1764581426
 GameObject:
   m_ObjectHideFlags: 0
@@ -7299,9 +7344,12 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 162.73, y: 113.089966}
   m_SizeDelta: {x: -384.53003, y: -750.17004}
 =======
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   m_AnchoredPosition: {x: 130.11, y: 68.69}
   m_SizeDelta: {x: -385.06, y: -905.45}
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
@@ -7470,7 +7518,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   postman: {fileID: 1921581492}
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
   speechBubble: {fileID: 1406909375}
@@ -7679,6 +7730,7 @@ CanvasRenderer:
   m_GameObject: {fileID: 1931119717}
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1959134987
 GameObject:
   m_ObjectHideFlags: 0
@@ -7813,6 +7865,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959134987}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1 &2063117812
@@ -8214,6 +8268,7 @@ CanvasRenderer:
   m_GameObject: {fileID: 2093068877}
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &2114937801
 GameObject:
   m_ObjectHideFlags: 0
@@ -8399,6 +8454,8 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -8407,6 +8464,11 @@ SceneRoots:
   - {fileID: 1406044511}
   - {fileID: 1921581494}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  - {fileID: 421666757}
+  - {fileID: 1157648015}
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
   - {fileID: 421666757}
   - {fileID: 1157648015}

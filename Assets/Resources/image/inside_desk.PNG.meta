@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 <<<<<<<< HEAD:Assets/Resources/image/inside_desk.PNG.meta
+<<<<<<<< HEAD:Assets/Resources/image/inside_desk.PNG.meta
 guid: 1dfc360d75a904eb78146a4abbbbdde9
 ========
 guid: 1bc8e71d4d36d1a44a5a75ed40a91852
 >>>>>>>> parent of e621967 (Merge branch 'main' into jsssun):Assets/Images/Sunwoo/hand_right.PNG.meta
+========
+guid: 61bfda966823127479f84b654c3df18c
+>>>>>>>> parent of e621967 (Merge branch 'main' into jsssun):Assets/Images/Sunwoo/bowl.PNG.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

@@ -21,6 +21,7 @@ public class DayChange : MonoBehaviour
             orderScript.IncreaseAcceptOrder(2); // Order 스크립트에 메서드 호출
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         if (day==2 || day==5 || day==8){
             getMenuScript.currentDay = day; // 현재 날짜 업데이트
@@ -39,6 +40,8 @@ public class DayChange : MonoBehaviour
         gametime.OnSpecialTimeReached -= SpecialScript.orderSpecialCustomer;
         isSpecialCustomerSubscribed = false;
     }
+=======
+>>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
 =======
 >>>>>>> parent of e621967 (Merge branch 'main' into jsssun)
         orderScript.ResetOrderSystem(day); // Order 시스템 초기화
