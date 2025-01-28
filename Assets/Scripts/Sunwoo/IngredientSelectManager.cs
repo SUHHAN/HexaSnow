@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,168 +6,149 @@ using TMPro;
 
 public class IngredientSelectManager : MonoBehaviour
 {
-    public GameObject ingredientSelectionPanel; // Àç·á ¼±ÅÃ ÆĞ³Î
-    public GameObject startIngredientPanel; // ÃÊ±â ÆĞ³Î
-    public GameObject addingIngredientPanel; // Àç·á Ãß°¡ ÆĞ³Î
-    public GameObject mixingPanel; // Mixing ÆĞ³Î
+    public GameObject ingredientSelectionPanel; // ì¬ë£Œ ì„ íƒ íŒ¨ë„
+    public GameObject startIngredientPanel; // ì´ˆê¸° íŒ¨ë„
+    public GameObject addingIngredientPanel; // ì¬ë£Œ ì¶”ê°€ íŒ¨ë„
+    public GameObject mixingPanel; // Mixing íŒ¨ë„
 
-    public Button addIngredientButton; // 'Àç·á ´ã±â' ¹öÆ°
-    public Button finishButton; // '¿Ï·á' ¹öÆ°
+    public Button addIngredientButton; // 'ì¬ë£Œ ë‹´ê¸°' ë²„íŠ¼
+    public Button finishButton; // 'ì™„ë£Œ' ë²„íŠ¼
 
-    public GameObject refrigeratorPanel; // ³ÃÀå°í ÆĞ³Î
-    public GameObject shelfPanel; // ¼±¹İ ÆĞ³Î
+    public InventoryManager inventoryManager; // ì¬ë£Œ ì •ë³´ ê´€ë¦¬
+    private BakingStartManager bakingStartManager; // ì„ íƒí•œ ë ˆì‹œí”¼ ê°€ì ¸ì˜¤ê¸°
 
-    public InventoryManager inventoryManager; // Àç·á Á¤º¸ °ü¸®
-    private BakingStartManager bakingStartManager; // ¼±ÅÃÇÑ ·¹½ÃÇÇ °¡Á®¿À±â
+    private List<string> selectedIngredients = new List<string>(); // ì‚¬ìš©ìê°€ ì„ íƒí•œ ì¬ë£Œ ëª©ë¡
 
-    private List<string> selectedIngredients = new List<string>(); // »ç¿ëÀÚ°¡ ¼±ÅÃÇÑ Àç·á ¸ñ·Ï
+    // ëƒ‰ì¥ê³  & ì„ ë°˜ ë²„íŠ¼ ë¯¸ë¦¬ í• ë‹¹ (Inspectorì—ì„œ ì„¤ì •)
+    public List<GameObject> refrigeratorButtons;
+    public List<GameObject> shelfButtons;
 
     void Start()
     {
-        // BakingStartManager ÂüÁ¶ °¡Á®¿À±â
+        // BakingStartManager ì°¸ì¡° ê°€ì ¸ì˜¤ê¸°
         bakingStartManager = FindObjectOfType<BakingStartManager>();
 
-        // ¹öÆ° ÀÌº¥Æ® µî·Ï
+        // ë²„íŠ¼ ì´ë²¤íŠ¸ ë“±ë¡
         addIngredientButton.onClick.AddListener(OpenAddIngredientPanel);
         finishButton.onClick.AddListener(FinishIngredientSelection);
 
-        finishButton.gameObject.SetActive(false); // ÃÊ±â¿¡´Â ºñÈ°¼ºÈ­
-        addingIngredientPanel.SetActive(false); // ÃÊ±â¿¡´Â ºñÈ°¼ºÈ­
+        finishButton.gameObject.SetActive(false); // ì´ˆê¸°ì—ëŠ” ë¹„í™œì„±í™”
+        addingIngredientPanel.SetActive(false); // ì´ˆê¸°ì—ëŠ” ë¹„í™œì„±í™”
+
+        UpdateIngredientButtons(); // ì¬ë£Œ ë²„íŠ¼ ì—…ë°ì´íŠ¸
     }
 
-    // 'Àç·á ´ã±â' ¹öÆ° Å¬¸¯ ½Ã ½ÇÇà
+    // 'ì¬ë£Œ ë‹´ê¸°' ë²„íŠ¼ í´ë¦­ ì‹œ ì‹¤í–‰
     private void OpenAddIngredientPanel()
     {
-        startIngredientPanel.SetActive(false); // ±âÁ¸ ÆĞ³Î ºñÈ°¼ºÈ­
-        addingIngredientPanel.SetActive(true); // »õ·Î¿î ÆĞ³Î È°¼ºÈ­
-        GenerateIngredientButtons(); // Àç·á ¹öÆ° »ı¼º ½ÇÇà
+        startIngredientPanel.SetActive(false); // ê¸°ì¡´ íŒ¨ë„ ë¹„í™œì„±í™”
+        addingIngredientPanel.SetActive(true); // ìƒˆë¡œìš´ íŒ¨ë„ í™œì„±í™”
+        UpdateIngredientButtons(); // ì¬ë£Œ ë²„íŠ¼ ìƒíƒœ ì—…ë°ì´íŠ¸
     }
 
-    // Àç·á ¹öÆ° µ¿Àû »ı¼º & ¼ÒÁöÇÑ Àç·á¸¸ È°¼ºÈ­
-    private void GenerateIngredientButtons()
+
+    // **ì†Œì§€í•œ ì¬ë£Œë§Œ í™œì„±í™”**
+    private void UpdateIngredientButtons()
     {
-        Debug.Log("Àç·á ¹öÆ° »ı¼º ½ÃÀÛ");
-
-        // ³ÃÀå°í Àç·á ¹öÆ° ¼³Á¤
-        foreach (Transform child in refrigeratorPanel.transform)
+        // ëƒ‰ì¥ê³  ë²„íŠ¼ ì²˜ë¦¬
+        foreach (GameObject buttonObj in refrigeratorButtons)
         {
-            Button button = child.GetComponent<Button>();
-            if (button == null) continue; // ButtonÀÌ ¾øÀ¸¸é ¹«½Ã
-
-            string ingredientName = button.name;
+            string ingredientName = buttonObj.name.Replace("Button", ""); // ex. "ButterButton" -> "Butter"
             bool hasIngredient = inventoryManager.HasIngredient(ingredientName);
 
-            button.interactable = hasIngredient;
-            button.gameObject.SetActive(hasIngredient); // ¼ÒÁöÇÑ Àç·á¸¸ È°¼ºÈ­
+            buttonObj.SetActive(hasIngredient);
+            Button button = buttonObj.GetComponent<Button>();
 
-            // ImageBefore & ImageAfter ¼³Á¤
-            Transform imageBeforeTransform = child.Find("Imagebf");
-            Transform imageAfterTransform = child.Find("Imageaft");
-
-            if (imageBeforeTransform == null || imageAfterTransform == null)
+            if (hasIngredient && button != null)
             {
-                Debug.LogError($"{ingredientName}ÀÇ ImageBefore ¶Ç´Â ImageAfter°¡ ¾øÀ½!");
-                continue;
+                button.onClick.RemoveAllListeners(); // ê¸°ì¡´ ì´ë²¤íŠ¸ ì œê±°
+                button.onClick.AddListener(() => OnIngredientButtonClick(buttonObj, ingredientName));
+
+                Debug.Log($"ëƒ‰ì¥ê³  ì¬ë£Œ: {ingredientName}, ì†Œì§€ ì—¬ë¶€: {hasIngredient}");
             }
-
-            GameObject imageBefore = imageBeforeTransform.gameObject;
-            GameObject imageAfter = imageAfterTransform.gameObject;
-
-            imageBefore.SetActive(true);
-            imageAfter.SetActive(false);
-
-            // ¹öÆ° Å¬¸¯ ½Ã ÀÌ¹ÌÁö º¯°æ ÀÌº¥Æ® Ãß°¡
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => OnIngredientButtonClick(button, ingredientName, imageBefore, imageAfter));
         }
 
-        // ¼±¹İ Àç·á ¹öÆ° ¼³Á¤
-        foreach (Transform child in shelfPanel.transform)
+        // ì„ ë°˜ ë²„íŠ¼ ì²˜ë¦¬
+        foreach (GameObject buttonObj in shelfButtons)
         {
-            Button button = child.GetComponent<Button>();
-            if (button == null) continue; // ButtonÀÌ ¾øÀ¸¸é ¹«½Ã
-
-            string ingredientName = button.name;
+            string ingredientName = buttonObj.name.Replace("Button", ""); // "FlourButton" -> "Flour"
             bool hasIngredient = inventoryManager.HasIngredient(ingredientName);
 
-            button.interactable = hasIngredient;
-            button.gameObject.SetActive(hasIngredient); // ¼ÒÁöÇÑ Àç·á¸¸ È°¼ºÈ­
+            buttonObj.SetActive(hasIngredient);
+            Button button = buttonObj.GetComponent<Button>();
 
-            // ImageBefore & ImageAfter ¼³Á¤
-            Transform imageBeforeTransform = child.Find("Imagebf");
-            Transform imageAfterTransform = child.Find("Imageaft");
-
-            if (imageBeforeTransform == null || imageAfterTransform == null)
+            if (hasIngredient && button != null)
             {
-                Debug.LogError($"{ingredientName}ÀÇ ImageBefore ¶Ç´Â ImageAfter°¡ ¾øÀ½!");
-                continue;
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(() => OnIngredientButtonClick(buttonObj, ingredientName));
+
+                Debug.Log($"ì„ ë°˜ ì¬ë£Œ: {ingredientName}, ì†Œì§€ ì—¬ë¶€: {hasIngredient}");
             }
-
-            GameObject imageBefore = imageBeforeTransform.gameObject;
-            GameObject imageAfter = imageAfterTransform.gameObject;
-
-            imageBefore.SetActive(true);
-            imageAfter.SetActive(false);
-
-            // ¹öÆ° Å¬¸¯ ½Ã ÀÌ¹ÌÁö º¯°æ ÀÌº¥Æ® Ãß°¡
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => OnIngredientButtonClick(button, ingredientName, imageBefore, imageAfter));
         }
     }
 
-    // Àç·á Å¬¸¯ ½Ã ÀÌ¹ÌÁö º¯°æ ¹× ¼±ÅÃ/ÇØÁ¦ ·ÎÁ÷ ¼öÁ¤
-    public void OnIngredientButtonClick(Button button, string ingredientName, GameObject imageBefore, GameObject imageAfter)
+    // ì¬ë£Œ ë²„íŠ¼ í´ë¦­ ì‹œ ì´ë¯¸ì§€ ë³€ê²½ ë° ì„ íƒëœ ì¬ë£Œ ë¦¬ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
+    public void OnIngredientButtonClick(GameObject buttonObj, string ingredientName)
     {
+        Transform imageBefore = buttonObj.transform.Find("Imagebf");
+        Transform imageAfter = buttonObj.transform.Find("Imageaft");
+
+        if (imageBefore == null || imageAfter == null)
+        {
+            Debug.LogError($"ì˜¤ë¥˜: {ingredientName} ë²„íŠ¼ì— 'Imagebf' ë˜ëŠ” 'Imageaft'ê°€ ì—†ìŠµë‹ˆë‹¤!");
+            return;
+        }
+
         if (selectedIngredients.Contains(ingredientName))
         {
-            // ¼±ÅÃ ÇØÁ¦
             selectedIngredients.Remove(ingredientName);
-            imageBefore.SetActive(true);
-            imageAfter.SetActive(false);
+            imageBefore.gameObject.SetActive(true);
+            imageAfter.gameObject.SetActive(false);
+            Debug.Log($"ì¬ë£Œ ì„ íƒ í•´ì œ: {ingredientName}");
         }
         else
         {
-            // Àç·á ¼±ÅÃ
             selectedIngredients.Add(ingredientName);
-            imageBefore.SetActive(false);
-            imageAfter.SetActive(true);
+            imageBefore.gameObject.SetActive(false);
+            imageAfter.gameObject.SetActive(true);
+            Debug.Log($"ì¬ë£Œ ì„ íƒ: {ingredientName}");
         }
 
-        // ¼±ÅÃµÈ Àç·á°¡ ÇÏ³ª¶óµµ ÀÖÀ¸¸é ¿Ï·á ¹öÆ° È°¼ºÈ­
+        // ì„ íƒëœ ì¬ë£Œê°€ í•˜ë‚˜ë¼ë„ ìˆìœ¼ë©´ ì™„ë£Œ ë²„íŠ¼ í™œì„±í™”
         finishButton.gameObject.SetActive(selectedIngredients.Count > 0);
     }
 
-    // ¼±ÅÃÇÑ Àç·á°¡ ·¹½ÃÇÇ¿Í ÀÏÄ¡ÇÏ´ÂÁö °ËÁõ ÈÄ MixingPanel·Î ÀÌµ¿
+    // ì„ íƒí•œ ì¬ë£Œê°€ ë ˆì‹œí”¼ì™€ ì¼ì¹˜í•˜ëŠ”ì§€ ê²€ì¦
     private void FinishIngredientSelection()
     {
         Recipe selectedRecipe = bakingStartManager.GetSelectedRecipe();
         if (selectedRecipe == null)
         {
-            Debug.LogError("¼±ÅÃµÈ ·¹½ÃÇÇ°¡ ¾ø½À´Ï´Ù!");
+            Debug.LogError("ì„ íƒëœ ë ˆì‹œí”¼ê°€ ì—†ìŠµë‹ˆë‹¤!");
             return;
         }
 
         if (VerifyIngredients(selectedRecipe.ingredients))
         {
-            Debug.Log("Àç·á°¡ ·¹½ÃÇÇ¿Í ÀÏÄ¡ÇÕ´Ï´Ù!");
+            Debug.Log("ì¬ë£Œê°€ ë ˆì‹œí”¼ì™€ ì¼ì¹˜í•©ë‹ˆë‹¤!");
         }
         else
         {
-            Debug.Log("¼±ÅÃÇÑ Àç·á°¡ ·¹½ÃÇÇ¿Í ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+            Debug.Log("ì„ íƒí•œ ì¬ë£Œê°€ ë ˆì‹œí”¼ì™€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         }
 
         ingredientSelectionPanel.SetActive(false);
-        mixingPanel.SetActive(true); // MixingPanel È°¼ºÈ­
+        mixingPanel.SetActive(true); // MixingPanel í™œì„±í™”
     }
 
-    // ¼±ÅÃÇÑ Àç·á°¡ ·¹½ÃÇÇ¿Í ÀÏÄ¡ÇÏ´ÂÁö È®ÀÎ
+    // ì„ íƒí•œ ì¬ë£Œê°€ ë ˆì‹œí”¼ì™€ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸
     private bool VerifyIngredients(List<string> requiredIngredients)
     {
         foreach (string ingredient in requiredIngredients)
         {
             if (!selectedIngredients.Contains(ingredient))
             {
-                return false; // ÇÊ¿äÇÑ Àç·á°¡ ¾øÀ¸¸é false ¹İÈ¯
+                return false; // í•„ìš”í•œ ì¬ë£Œê°€ ì—†ìœ¼ë©´ false ë°˜í™˜
             }
         }
         return true;
