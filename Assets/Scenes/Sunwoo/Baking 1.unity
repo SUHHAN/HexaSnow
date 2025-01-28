@@ -7035,9 +7035,23 @@ MonoBehaviour:
   mixingPanel: {fileID: 149430433}
   addIngredientButton: {fileID: 2082009396}
   finishButton: {fileID: 1810854960}
-  refrigeratorPanel: {fileID: 1006157538}
-  shelfPanel: {fileID: 380564423}
   inventoryManager: {fileID: 2059799789}
+  refrigeratorButtons:
+  - {fileID: 1584351576}
+  - {fileID: 44619046}
+  - {fileID: 312563693}
+  - {fileID: 1005786004}
+  - {fileID: 1518929488}
+  - {fileID: 115943655}
+  - {fileID: 300123575}
+  - {fileID: 2124218035}
+  shelfButtons:
+  - {fileID: 904016006}
+  - {fileID: 317340586}
+  - {fileID: 616533161}
+  - {fileID: 967815486}
+  - {fileID: 890102769}
+  - {fileID: 1566752494}
 --- !u!1 &1087493947
 GameObject:
   m_ObjectHideFlags: 0
@@ -14057,7 +14071,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2110832242
