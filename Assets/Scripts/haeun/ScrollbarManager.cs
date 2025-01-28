@@ -8,6 +8,7 @@ using Microsoft.Unity.VisualStudio.Editor;
 
 public class ScrollbarManager : MonoBehaviour
 {
+    private static ScrollbarManager _instance;
     public static ScrollbarManager Instance
     {
         get
@@ -49,7 +50,6 @@ public class ScrollbarManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI UseScText;
 
-    private static ScrollbarManager _instance;
 
     private int FinalSc = 0; // 초기 점수
     private int SumSc;
