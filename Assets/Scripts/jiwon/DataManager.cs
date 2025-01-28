@@ -61,6 +61,8 @@ public class DataManager : MonoBehaviour
             string json = File.ReadAllText(gameDataPath);
             GameData data = JsonUtility.FromJson<GameData>(json);
             Debug.Log("게임 데이터를 로드했습니다: " + gameDataPath);
+
+            
             return data;
         }
         else
