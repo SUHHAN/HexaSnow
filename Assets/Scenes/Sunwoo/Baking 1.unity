@@ -3019,7 +3019,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -466.32}
+  m_AnchoredPosition: {x: 0, y: -466.32007}
   m_SizeDelta: {x: 0, y: -932.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &380564425
@@ -3438,7 +3438,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1047600966}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BakingGameManager, Assembly-CSharp
         m_MethodName: OnRecipeSelected
         m_Mode: 5
@@ -4315,7 +4315,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1047600966}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BakingGameManager, Assembly-CSharp
         m_MethodName: OnRecipeSelected
         m_Mode: 5
@@ -4449,7 +4449,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1047600966}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BakingGameManager, Assembly-CSharp
         m_MethodName: OnRecipeSelected
         m_Mode: 5
@@ -4717,7 +4717,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1047600966}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BakingGameManager, Assembly-CSharp
         m_MethodName: OnRecipeSelected
         m_Mode: 5
@@ -6643,6 +6643,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999771874}
   m_CullTransparentMesh: 1
+--- !u!1 &1003396149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1003396151}
+  - component: {fileID: 1003396150}
+  m_Layer: 0
+  m_Name: BakingStartManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1003396150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003396149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4030320dc983d214b9b94bfa52e4ea9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPanel: {fileID: 66213970}
+  recipeSelectionPopup: {fileID: 2036366187}
+  messagePopup: {fileID: 1087493947}
+  ingredientSelectionPanel: {fileID: 1334194621}
+  messageText: {fileID: 1352704468}
+  startButton: {fileID: 1153297684}
+  nextButton: {fileID: 1318233744}
+  recipeBook: {fileID: 1527461662}
+  recipeButtons:
+  - {fileID: 463646855}
+  - {fileID: 1497636737}
+  - {fileID: 656005735}
+  - {fileID: 1642223196}
+  - {fileID: 719491380}
+  - {fileID: 691637968}
+  - {fileID: 1645025738}
+  - {fileID: 1418125615}
+--- !u!4 &1003396151
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003396149}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.0862956, y: -2.5072837, z: 317.87598}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1005786004
 GameObject:
   m_ObjectHideFlags: 0
@@ -6933,42 +6994,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1047600967}
-  - component: {fileID: 1047600966}
+  - component: {fileID: 1047600968}
   m_Layer: 0
-  m_Name: BakingGameManager
+  m_Name: IngredientSelectionManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1047600966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1047600965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a1c64c8882698f41a894797d007bef4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  startPanel: {fileID: 66213970}
-  recipeSelectionPopup: {fileID: 2036366187}
-  nextButton: {fileID: 1318233742}
-  ingredientSelectionPanel: {fileID: 1334194621}
-  addIngredientsButton: {fileID: 2082009395}
-  startIngredientPanel: {fileID: 1984322446}
-  addingIngredientPanel: {fileID: 169649278}
-  finishIngredientButton: {fileID: 1810854959}
-  mixingPanel: {fileID: 149430433}
-  ovenPanel: {fileID: 2074983577}
-  toppingPanel: {fileID: 1915734805}
-  resultPanel: {fileID: 1147169064}
-  recipeBook: {fileID: 1527461662}
-  uiManager: {fileID: 1520048608}
-  mixingGameManager: {fileID: 615322373}
 --- !u!4 &1047600967
 Transform:
   m_ObjectHideFlags: 0
@@ -6984,6 +7017,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1047600968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047600965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b9845a63d04b8b43ae4ee835bed9700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientSelectionPanel: {fileID: 1334194621}
+  startIngredientPanel: {fileID: 1984322446}
+  addingIngredientPanel: {fileID: 169649278}
+  mixingPanel: {fileID: 149430433}
+  addIngredientButton: {fileID: 2082009396}
+  finishButton: {fileID: 1810854960}
+  refrigeratorPanel: {fileID: 1006157538}
+  shelfPanel: {fileID: 380564423}
+  inventoryManager: {fileID: 2059799789}
 --- !u!1 &1087493947
 GameObject:
   m_ObjectHideFlags: 0
@@ -7495,9 +7549,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1047600966}
+      - m_Target: {fileID: 1003396149}
         m_TargetAssemblyTypeName: BakingGameManager, Assembly-CSharp
-        m_MethodName: OnStartButtonClick
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8554,7 +8608,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1047600966}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BakingGameManager, Assembly-CSharp
         m_MethodName: OnNextButtonClick
         m_Mode: 1
@@ -9392,7 +9446,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1047600966}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BakingGameManager, Assembly-CSharp
         m_MethodName: OnRecipeSelected
         m_Mode: 5
@@ -10022,7 +10076,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1047600966}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BakingGameManager, Assembly-CSharp
         m_MethodName: OnRecipeSelected
         m_Mode: 5
@@ -10329,58 +10383,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518929488}
   m_CullTransparentMesh: 1
---- !u!1 &1520048607
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1520048609}
-  - component: {fileID: 1520048608}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1520048608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520048607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6a01581508a25c4ca4be881b87147e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  messagePopup: {fileID: 1087493947}
-  messageText: {fileID: 1352704468}
-  recipeSelectionPopup: {fileID: 2036366187}
-  addingIngredientPanel: {fileID: 169649278}
-  inventoryManager: {fileID: 2059799789}
-  refrigeratorPanel: {fileID: 1006157538}
-  shelfPanel: {fileID: 380564423}
-  finishIngredientButton: {fileID: 1810854959}
---- !u!4 &1520048609
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520048607}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1527461661
 GameObject:
   m_ObjectHideFlags: 0
@@ -11282,7 +11284,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1047600966}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BakingGameManager, Assembly-CSharp
         m_MethodName: OnRecipeSelected
         m_Mode: 5
@@ -11416,7 +11418,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1047600966}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BakingGameManager, Assembly-CSharp
         m_MethodName: OnRecipeSelected
         m_Mode: 5
@@ -11696,7 +11698,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1047600966}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BakingGameManager, Assembly-CSharp
         m_MethodName: OnFinishIngredientSelection
         m_Mode: 1
@@ -13876,7 +13878,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1047600966}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BakingGameManager, Assembly-CSharp
         m_MethodName: OnAddIngredientsClick
         m_Mode: 1
@@ -14454,9 +14456,9 @@ SceneRoots:
   - {fileID: 1710744093}
   - {fileID: 1605418931}
   - {fileID: 1092162180}
+  - {fileID: 1003396151}
   - {fileID: 1047600967}
   - {fileID: 1527461663}
-  - {fileID: 1520048609}
   - {fileID: 2059799790}
   - {fileID: 615322374}
   - {fileID: 859194560}
