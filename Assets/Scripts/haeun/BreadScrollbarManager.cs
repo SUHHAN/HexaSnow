@@ -68,6 +68,7 @@ public class BreadScrollbarManager : MonoBehaviour
     public GameObject itemPrefab; // 아이템 Prefab
     public Transform content; // Content 오브젝트
     [SerializeField] private GameObject BonusPanel;
+    [SerializeField] private GameObject BlackBackground;
 
 
 
@@ -80,6 +81,7 @@ public class BreadScrollbarManager : MonoBehaviour
     {
 
         BonusPanel.SetActive(false);
+        BlackBackground.SetActive(false);
 
         // LoadIngredientsFromCSV();
         // test 코드
@@ -143,16 +145,18 @@ public class BreadScrollbarManager : MonoBehaviour
 
     public void SlotClick()
     {
+        BlackBackground.SetActive(true);
         BonusPanel.SetActive(true);
     }
 
     public void YesButtonClick()
-    {       
+    {   
         SceneManager.LoadScene("Match");
     }
 
     public void NoButtonClick()
     {
+        BlackBackground.SetActive(false);
         BonusPanel.SetActive(false);
 
         PlayerPrefs.DeleteKey("SelectedMenuIndex");
