@@ -29,6 +29,7 @@ public class getMenu : MonoBehaviour
 
     public GameObject MadeMenu;
     public string menuName;
+    public SetMenu setmenu;
     
     public struct DialogueLine{
     public string id;
@@ -175,6 +176,7 @@ public class getMenu : MonoBehaviour
         dialogueName.text = nicknames[nicknameIndex];
 
         Debug.Log($"손님 {customer.name}이(가) 메뉴 {menuName}을(를) 받으러 왔습니다!");
+        setmenu.current_cus(menuName, "cus");        
         ShowOrder(orderId);
         nameBubble.SetActive(true);
 

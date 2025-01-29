@@ -9,6 +9,7 @@ public class special_customer : MonoBehaviour
 {
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
+    public GameObject speechBubble;
     public GameTime gametime;
     public GameObject order; // 주문 UI
     public TextMeshProUGUI dialogueOrder; // 주문 텍스트 표시용
@@ -18,10 +19,14 @@ public class special_customer : MonoBehaviour
     public GameObject man;
     public GameObject child;
     public Button acceptButton;
+    public Button none;
     private List<GameObject> customers = new List<GameObject>();
     public int Spe_customer=0;
     public int currentDay;
     private bool isOrderCompleted=false;
+
+    public GameObject MadeMenu;
+    public SetMenu setmenu;
 
     void Start()
     {
@@ -92,17 +97,44 @@ public class special_customer : MonoBehaviour
 
         dialogueOrder.text = "특별한 디저트를 받으러 왔습니다!";
         orderCustomer.text = "특별 손님";
-
-        acceptButton.gameObject.SetActive(true);
-        acceptButton.onClick.RemoveAllListeners();
-        acceptButton.onClick.AddListener(() =>
-        {
-            Debug.Log("특별 손님이 제품을 받아갔습니다!");
-            customer.SetActive(false);
-            order.SetActive(false);
-
-            // 방문 완료 후 데이터 삭제
-            specialOrders.Remove(day);
+        speechBubble.SetActive(true);
+        MadeMenu.SetActive(true);
+        setmenu.current_cus("오리지널 마들렌", "special"); 
+        StartCoroutine(HandleCustomerInteraction(customer, day));
+        none.onClick.RemoveAllListeners();
+        
+        none.onClick.AddListener(() => {
+            Debug.Log($"손님 {customer.name}이(가) 메뉴를 받지 못했습니다.");
+            UpdateDialogue("none");
         });
+    }
+    private IEnumerator HandleCustomerInteraction(GameObject customer, int day){
+        yield return new WaitUntil(() => isOrderCompleted);
+
+        Debug.Log("사용자 입력 감지됨");
+
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        speechBubble.SetActive(false);
+        customer.SetActive(false);
+        order.SetActive(false);
+        MadeMenu.SetActive(false);
+        specialOrders.Remove(day);
+
+        Debug.Log("특별 손님이 방문을 완료했습니다.");
+}
+    public void UpdateDialogue(string action){
+        Debug.Log($"UpdateDialogue 호출됨: {action}");
+        if(action.Equals("none")){
+            dialogueText.text="안만들었다고요?";
+        }
+        else if(action.Equals("True")){
+            dialogueText.text="감사합니다.";
+            Debug.Log("특별 손님이 제품을 받아갔습니다!");
+        }
+        else if(action.Equals("False")){
+            dialogueText.text="이거 아니잖아요!";   
+            Debug.Log("특별 손님이 제품을 잘못 받아갔습니다!");     
+        }
+        isOrderCompleted=true;
     }
 }

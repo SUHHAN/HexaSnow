@@ -7,11 +7,13 @@ using UnityEngine.EventSystems;
 public class SetMenu : MonoBehaviour
 {
     public getMenu getmenu; // 메뉴 검증용 스크립트
+    public special_customer SpecialScript;
     public List<GameObject> menuObjects = new List<GameObject>(); // 부모 아래 이미지들
     public List<string> made_menu = new List<string> { "오리지널 마들렌", "레몬 마들렌", "오리지널 쿠키", "아몬드 쿠키" };
 
     private GameObject currentActiveButton; // 현재 활성화된 버튼
-
+    public string currentcus;
+    public string currentmenu;
     void Start()
     {
         if (menuObjects.Count == 0)
@@ -128,15 +130,22 @@ public class SetMenu : MonoBehaviour
             return;
         }
 
-        if (menu.Equals(getmenu.menuName))
+        if (menu.Equals(currentmenu))
         {
             Debug.Log($"선택된 메뉴가 올바릅니다: {menu}");
-            getmenu.UpdateDialogue("True");
+            if(currentcus.Equals("cus"))
+                getmenu.UpdateDialogue("True");
+            else if(currentcus.Equals("special")){
+                SpecialScript.UpdateDialogue("True");
+            }
         }
         else
         {
             Debug.Log($"선택된 메뉴가 잘못되었습니다: {menu}");
-            getmenu.UpdateDialogue("False");
+            if(currentcus.Equals("cus"))
+                getmenu.UpdateDialogue("False");
+            else if(currentcus.Equals("special"))
+                SpecialScript.UpdateDialogue("False");
         }
     }
 
@@ -156,4 +165,9 @@ public class SetMenu : MonoBehaviour
             Debug.LogWarning($"리스트에서 메뉴를 찾을 수 없습니다: {menu}");
         }
     }
+    public void current_cus(string menu, string cus){
+        currentmenu=menu;
+        currentcus=cus;
+        Debug.Log($"current_cus 호출됨: 메뉴 - {menu}, 손님 유형 - {cus}");
+}
 } 

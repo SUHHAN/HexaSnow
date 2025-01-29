@@ -17,6 +17,7 @@ public class Order : MonoBehaviour
     public GameObject order; // 주문 UI
     public TextMeshProUGUI dialogueOrder; // 주문 텍스트 표시용
     public TextMeshProUGUI orderCustomer;
+    public TextMeshProUGUI timerText;
     private List<DialogueLine> dialogues = new List<DialogueLine>(); // 주문 데이터 저장 리스트
     private List<DialogueLine> filteredDialogues = new List<DialogueLine>();
     private List<string> nicknames = new List<string>();
@@ -246,7 +247,6 @@ private void InitializeButtons(){
 
 public void openMenu(int day){
      int maxId=day*2000+1000;
-     Debug.Log(maxId);
 
      filteredDialogues=dialogues.FindAll(dialogue=>{
         if (int.TryParse(dialogue.id, out int dialogueId)){
@@ -261,7 +261,7 @@ public void openMenu(int day){
     }
     else
     {
-        Debug.Log($"현재 날짜({day})에 허용된 대화 개수: {filteredDialogues.Count}");
+        Debug.Log($"현재 날짜({day})에 허용된 주문 개수: {filteredDialogues.Count}");
     }
 }
 
@@ -275,6 +275,7 @@ public void ResetOrderSystem(int day)
         order_deadLine.Clear();
         speechBubble.SetActive(true);
         nameBubble.SetActive(true);
+        timerText.text="영업 준비 중";
         order_count = 0;
         Postmanment();
         

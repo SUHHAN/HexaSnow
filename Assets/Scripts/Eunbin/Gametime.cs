@@ -12,6 +12,7 @@ public class GameTime : MonoBehaviour
     public event Action OnSpecialTimeReached; // 특정 시간 도달 이벤트
     private bool isGameRunning = false;
     public DayChange daychange;
+    private Coroutine timerCoroutine; // 코루틴을 저장할 변수
 
     void Start()
     {
@@ -19,8 +20,12 @@ public class GameTime : MonoBehaviour
 
     public void StartGameTimer()
     {
+        if (isGameRunning && timerCoroutine != null)
+        {
+             StopCoroutine(timerCoroutine); // 기존 코루틴 중단
+        }
         isGameRunning = true;
-        StartCoroutine(TimerCoroutine());
+        timerCoroutine = StartCoroutine(TimerCoroutine());
     }
 
     private IEnumerator TimerCoroutine()
@@ -32,7 +37,7 @@ public class GameTime : MonoBehaviour
             currentTime -= Time.deltaTime; // 경과된 시간만큼 감소
             OnTimeUpdate?.Invoke(currentTime); // 시간 업데이트 이벤트 트리거
 
-            if (Mathf.Abs(currentTime - 120f) < 0.1f) // 5초 근처 확인
+            if (Mathf.Abs(currentTime - 350f) < 0.1f) // 5초 근처 확인
             {
                 OnSpecialTimeReached?.Invoke(); // 특정 시간 도달 이벤트 트리거
             }
@@ -40,6 +45,7 @@ public class GameTime : MonoBehaviour
         }
 
         isGameRunning = false;
+        timerCoroutine = null; // 코루틴 초기화
         OnTimerEnd(); // 타이머 종료 처리
     }
 
@@ -50,8 +56,16 @@ public class GameTime : MonoBehaviour
 
         timerText.text = $"{minutes:D2}:{seconds:D2}"; 
     }
+    public void StopTimer()
+{
+    if (timerCoroutine != null)
+    {
+        StopCoroutine(timerCoroutine); // 코루틴 중지
+        timerCoroutine = null; // 변수 초기화
+    }
+}
 
-    private void OnTimerEnd()
+    public void OnTimerEnd()
     {
         Debug.Log("6분이 끝났습니다");
         daychange.OnDayChange();
