@@ -15,6 +15,8 @@ public class InventoryManager : MonoBehaviour
         ownedIngredients.Add("Sugar");
         ownedIngredients.Add("Milk");
         ownedIngredients.Add("CreamCheese");
+        ownedIngredients.Add("Choco");
+        ownedIngredients.Add("Lemon");
 
         // 현재 등록된 재료 목록 출력
         foreach (string ingredient in ownedIngredients)
