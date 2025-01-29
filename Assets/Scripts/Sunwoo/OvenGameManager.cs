@@ -6,46 +6,45 @@ using TMPro;
 public class OvenGameManager : MonoBehaviour
 {
     // 패널 관리
+    public GameObject ovenPanel;
     public GameObject ovenStartPanel;
     public GameObject ovenGamePanel;
     public GameObject ovenFinishPanel;
     public GameObject toppingPanel;
 
     // UI 요소
-    public Button startButton;
+    public Button startOvenButton;
     public Button stopButton;
     public Button nextButton;
     public Image temperatureBar; // 가로 막대기
     public Image gaugeIndicator; // 눈금 표시
     public Image targetZone; // 랜덤 붉은색 구역
-
-    // 결과 텍스트
-    public TextMeshProUGUI resultText;
+    public TextMeshProUGUI resultText; // 결과 텍스트
 
     // 게임 설정
     public float gaugeSpeed = 2f; // 눈금 이동 속도
     public float targetZoneWidth = 100f; // 붉은 구역 너비
     public float gaugeWidth = 10f; // 눈금 너비
+
     private float minGaugePosition; // 눈금 최소 x좌표
     private float maxGaugePosition; // 눈금 최대 x좌표
-
-    private bool isGaugeMoving = false; // 눈금 이동 여부
-    private bool isGaugeIncreasing = true; // 눈금 이동 방향 (true: 오른쪽, false: 왼쪽)
-
     private float gaugePosition; // 눈금 위치
     private float targetZoneStart; // 붉은 구역 시작 위치
     private float targetZoneEnd; // 붉은 구역 끝 위치
 
+    private bool isGaugeMoving = false; // 눈금 이동 여부
+    private bool isGaugeIncreasing = true; // 눈금 이동 방향 (true: 오른쪽, false: 왼쪽)
+
     void Start()
     {
         // 초기 상태 설정
+        ovenStartPanel.SetActive(true);
         ovenGamePanel.SetActive(false);
         ovenFinishPanel.SetActive(false);
         toppingPanel.SetActive(false);
 
         // 버튼 이벤트 등록
-        startButton.onClick.AddListener(StartOvenGame);
-        stopButton.onClick.RemoveAllListeners();
+        startOvenButton.onClick.AddListener(StartOvenGame);
         stopButton.onClick.AddListener(StopGauge);
         nextButton.onClick.AddListener(GoToNextPanel);
 
@@ -61,8 +60,27 @@ public class OvenGameManager : MonoBehaviour
         ovenStartPanel.SetActive(false);
         ovenGamePanel.SetActive(true);
 
-        StartGaugeMovement();
         SetTargetZone(); // 붉은 구역 설정
+        StartGaugeMovement(); // 눈금 이동 시작
+    }
+
+    // 랜덤 붉은 구역 설정
+    private void SetTargetZone()
+    {
+        float zoneStartRange = minGaugePosition + targetZoneWidth / 2f;
+        float zoneEndRange = maxGaugePosition - targetZoneWidth / 2f;
+
+        targetZoneStart = Random.Range(zoneStartRange, zoneEndRange);
+        targetZoneEnd = targetZoneStart + targetZoneWidth;
+
+        Debug.Log($"Target Zone 설정: Start={targetZoneStart}, End={targetZoneEnd}");
+
+        // 타겟존의 y축 위치는 Hierarchy에서 설정한 위치 유지
+        float fixedY = targetZone.rectTransform.anchoredPosition.y;
+
+        // x축만 랜덤 배치
+        targetZone.rectTransform.anchoredPosition = new Vector2(targetZoneStart, fixedY);
+        targetZone.rectTransform.sizeDelta = new Vector2(targetZoneWidth, targetZone.rectTransform.sizeDelta.y);
     }
 
     // 눈금 이동 시작
@@ -79,7 +97,6 @@ public class OvenGameManager : MonoBehaviour
     {
         while (isGaugeMoving)
         {
-            // 이동 방향에 따라 눈금 위치 변경
             if (isGaugeIncreasing)
             {
                 gaugePosition += gaugeSpeed * Time.deltaTime;
@@ -107,56 +124,49 @@ public class OvenGameManager : MonoBehaviour
     // 눈금 위치 업데이트
     private void UpdateGaugePosition()
     {
-        gaugeIndicator.rectTransform.anchoredPosition = new Vector2(gaugePosition, 0f);
+        // Indicator의 y축 위치는 Hierarchy에서 설정한 값 유지
+        float fixedY = gaugeIndicator.rectTransform.anchoredPosition.y;
+
+        gaugeIndicator.rectTransform.anchoredPosition = new Vector2(gaugePosition, fixedY);
     }
 
-    // 랜덤 붉은 구역 설정
-    private void SetTargetZone()
-    {
-        // 붉은 구역 범위 계산
-        float zoneStartRange = minGaugePosition + targetZoneWidth / 2f;
-        float zoneEndRange = maxGaugePosition - targetZoneWidth / 2f;
-
-        targetZoneStart = Random.Range(zoneStartRange, zoneEndRange);
-        targetZoneEnd = targetZoneStart + targetZoneWidth;
-
-        Debug.Log($"Target Zone: Start={targetZoneStart}, End={targetZoneEnd}");
-
-        // 붉은 구역 이미지 위치 및 크기 설정
-        targetZone.rectTransform.anchoredPosition = new Vector2(targetZoneStart, 0f);
-        targetZone.rectTransform.sizeDelta = new Vector2(targetZoneWidth, targetZone.rectTransform.sizeDelta.y);
-    }
-
-    // Stop 버튼 클릭
+    // Stop 버튼 클릭 (눈금 멈추기)
     public void StopGauge()
     {
-        if (!isGaugeMoving) return; // 눈금 이동 중이 아니면 호출 차단
+        if (!isGaugeMoving) return;
 
-        Debug.Log($"[STOP 버튼 클릭] StopGauge 메서드 호출!");
         isGaugeMoving = false; // 눈금 이동 중지
 
-        // Stop 버튼 눌렀을 때의 현재 Gauge 위치 출력
-        Debug.Log($"Gauge Position: {gaugePosition}, Gauge Left Edge: {gaugePosition - gaugeWidth / 2f}, Right Edge: {gaugePosition + gaugeWidth / 2f}");
+        Debug.Log("[STOP 버튼 클릭] StopGauge 메서드 호출!");
+        Debug.Log($"Gauge Position: {gaugePosition}, Left: {gaugePosition - gaugeWidth / 2f}, Right: {gaugePosition + gaugeWidth / 2f}");
         Debug.Log($"Target Zone Start: {targetZoneStart}, End: {targetZoneEnd}");
 
-        CheckGaugePosition(); // 눈금 위치 확인
+        CheckGaugePosition(); // 성공 여부 판정
     }
 
-    // 눈금 위치 확인
+    // 눈금 위치 확인 (성공 or 실패 판정)
     private void CheckGaugePosition()
     {
-        float gaugeLeftEdge = gaugePosition - gaugeWidth / 2f;
-        float gaugeRightEdge = gaugePosition + gaugeWidth / 2f;
+        // **게이지 인디케이터의 중심 위치를 기준으로 판단**
+        float gaugeLeftEdge = gaugePosition - (gaugeWidth / 2f);
+        float gaugeRightEdge = gaugePosition + (gaugeWidth / 2f);
 
-        if (gaugeLeftEdge >= targetZoneStart && gaugeRightEdge <= targetZoneEnd)
+        // 현재 위치 디버깅
+        Debug.Log($"[STOP 버튼 클릭] Gauge Position: {gaugePosition}");
+        Debug.Log($"Gauge Left Edge: {gaugeLeftEdge}, Gauge Right Edge: {gaugeRightEdge}");
+        Debug.Log($"Target Zone Start: {targetZoneStart}, End: {targetZoneEnd}");
+
+        // 위치를 다시 계산해 제대로 판정되는지 확인
+        if ((gaugeLeftEdge <= targetZoneEnd && gaugeRightEdge >= targetZoneStart) ||
+            (gaugeLeftEdge >= targetZoneStart && gaugeRightEdge <= targetZoneEnd))
         {
-            resultText.text = "통과! Perfect!";
-            Debug.Log("통과! Perfect!");
+            resultText.text = "통과!";
+            Debug.Log("성공");
         }
         else
         {
-            resultText.text = "실패! Fail!";
-            Debug.Log("실패! Fail!");
+            resultText.text = "실패!";
+            Debug.Log("실패");
         }
 
         // 게임 종료 처리
@@ -170,10 +180,11 @@ public class OvenGameManager : MonoBehaviour
         ovenFinishPanel.SetActive(true);
     }
 
-    // 다음 패널로 이동
+    // 다음 패널로 이동 (OvenPanel 비활성화)
     public void GoToNextPanel()
     {
-        ovenFinishPanel.SetActive(false); // FinishMixing 패널 비활성화
-        toppingPanel.SetActive(true); // 토핑 패널 활성화
+        ovenFinishPanel.SetActive(false);
+        ovenPanel.SetActive(false); // OvenPanel 완전히 비활성화
+        toppingPanel.SetActive(true); // ToppingPanel 활성화
     }
 }
