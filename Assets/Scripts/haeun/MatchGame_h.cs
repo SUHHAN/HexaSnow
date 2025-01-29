@@ -66,7 +66,10 @@ public class MatchGame_h : MonoBehaviour
         if (PlayerPrefs.HasKey("SelectedMenuIndex"))
         {
             int menuIndex = PlayerPrefs.GetInt("SelectedMenuIndex");
+            int menuScore = PlayerPrefs.GetInt("SelectedMenuScore");
             Debug.Log("받은 Menu_Index 값: " + menuIndex);
+
+            BakingScore = menuScore;
 
             // 필요한 로직 추가 (예: 특정 메뉴 정보 불러오기)
             LoadMenuData(menuIndex);
@@ -172,6 +175,11 @@ public class MatchGame_h : MonoBehaviour
         if (!isGameOver) {
             isGameOver = true;
 
+            // 저장되어 있던 키를 삭제하기
+            PlayerPrefs.DeleteKey("SelectedMenuIndex");
+            PlayerPrefs.DeleteKey("SelectedMenuScore");
+            PlayerPrefs.Save(); // 변경 사항 저장
+
             StopCoroutine("CountDownTimeRoutine");
             SetScoreText();
 
@@ -218,12 +226,9 @@ public class MatchGame_h : MonoBehaviour
 
     // 이 코드는 다시 시작 코드가 아니라, 변한 점수, 등급 과 보너스 게임 bool 변수를 true로 바꾼 값을 저장한 뒤에 Bonus 씬으로 넘어가기
     public void MatchRestartGame(){
-
-
         //SaveMenuData();
-
-        // SceneManager.LoadScene("Bonus");
-        SceneManager.LoadScene("Match");
+        SceneManager.LoadScene("Bonus");
+        // SceneManager.LoadScene("Match");
     }
 
     public void PauseGame() {
