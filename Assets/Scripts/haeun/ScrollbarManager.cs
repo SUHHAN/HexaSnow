@@ -4,9 +4,11 @@ using UnityEngine;
 using System.IO;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
+using Microsoft.Unity.VisualStudio.Editor;
 
 public class ScrollbarManager : MonoBehaviour
 {
+    private static ScrollbarManager _instance;
     public static ScrollbarManager Instance
     {
         get
@@ -41,16 +43,18 @@ public class ScrollbarManager : MonoBehaviour
     private string csvFileName = "ingredient.csv"; // CSV 파일명
     public List<Ingredient> ingredientList = new List<Ingredient>(); // 재료 리스트
     public List<int> ingre_Num = new List<int>();
+    [SerializeField] private Sprite[] IngreSprites;
 
     public GameObject itemPrefab; // 아이템 Prefab
     public Transform content; // Content 오브젝트
 
     [SerializeField] private TextMeshProUGUI UseScText;
 
-    private static ScrollbarManager _instance;
 
     private int FinalSc = 0; // 초기 점수
     private int SumSc;
+
+    
 
     void Start()
     {
@@ -74,6 +78,9 @@ public class ScrollbarManager : MonoBehaviour
                     Ingredient_h ingredient = item.GetComponent<Ingredient_h>();
                     ingredient.SetIngredientID(ingre.index);
                     ingredient.SetPrice(ingre.price);
+
+                    Transform IngreImage = item.transform.Find("IngreImage");
+                    IngreImage.GetComponent<UnityEngine.UI.Image>().sprite = IngreSprites[ingre.index];
 
                     // ingre_Num 리스트와 연동하여 currentNum 설정
                     ingredient.currentNum = ingre_Num[ingre.index];
@@ -138,7 +145,7 @@ public class ScrollbarManager : MonoBehaviour
 
     private void UpdateScoreDisplay()
     {
-        UseScText.text = $"사용 가능 포인트 : {SumSc}";
+        UseScText.text = $"사용 가능 점수 : {SumSc}점";
     }
 
     private void LoadIngredientsFromCSV()
@@ -178,15 +185,6 @@ public class ScrollbarManager : MonoBehaviour
             Debug.LogError($"CSV 파일 읽기 중 오류 발생: {ex.Message}");
         }
     }
-
-    // private void PrintIngredients()
-    // {
-    //     foreach (var ingredient in ingredientList)
-    //     {
-    //         Debug.Log($"Index: {ingredient.index}, Name: {ingredient.name}, Type: {ingredient.type}, Price: {ingredient.price}");
-    //     }
-    // }
-
 
     public void SaveIngreData()
     {

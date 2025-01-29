@@ -61,6 +61,17 @@ public class MatchGame_h : MonoBehaviour
 
     void Start()
     {
+
+        // 이전 씬에서 넘어온 Menu_Index 값을 가져오기
+        if (PlayerPrefs.HasKey("SelectedMenuIndex"))
+        {
+            int menuIndex = PlayerPrefs.GetInt("SelectedMenuIndex");
+            Debug.Log("받은 Menu_Index 값: " + menuIndex);
+
+            // 필요한 로직 추가 (예: 특정 메뉴 정보 불러오기)
+            LoadMenuData(menuIndex);
+        }
+
         Board_h board = FindObjectOfType<Board_h>();
         allCards = board.GetCards();
 
@@ -145,12 +156,12 @@ public class MatchGame_h : MonoBehaviour
 
         } else {
             // 두개의 카드의 id가 다르면, 다시 뒤집기
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.5f);
 
             card1.FilpCard();
             card2.FilpCard();
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         isFlipping = false;
@@ -165,9 +176,9 @@ public class MatchGame_h : MonoBehaviour
             SetScoreText();
 
             if (success) {
-                gameOverText.SetText("게임 종료! - 성공");
+                gameOverText.SetText("보너스 게임 종료!");
             } else {
-                gameOverText.SetText("게임 종료! - 실패");
+                gameOverText.SetText("보너스 게임 종료!");
             }
 
             Invoke("ShowGameOverPanel", 2f);
@@ -205,7 +216,13 @@ public class MatchGame_h : MonoBehaviour
         gameOverPanel.SetActive(true);
     }
 
+    // 이 코드는 다시 시작 코드가 아니라, 변한 점수, 등급 과 보너스 게임 bool 변수를 true로 바꾼 값을 저장한 뒤에 Bonus 씬으로 넘어가기
     public void MatchRestartGame(){
+
+
+        //SaveMenuData();
+
+        // SceneManager.LoadScene("Bonus");
         SceneManager.LoadScene("Match");
     }
 
@@ -237,5 +254,53 @@ public class MatchGame_h : MonoBehaviour
 
         isPaused = false;
 
+    }
+
+    public void LoadMenuData(int index)
+    {
+        // if (DataManager.Instance != null)
+        // {   
+        //     // 저장되어 있던 재료 리스트 로드
+        //     MenuGD = DataManager.Instance.LoadGameData();
+        
+        //     // 내가 올리기를 원하는 순서(index)의 저장된 베이킹 점수 데이터를 변수에 넣어주기
+        //     BakingScore = MenuGD.Index['index'].score;
+        // }
+        // else
+        // {
+        //     Debug.LogError("DataManager 인스턴스를 찾을 수 없습니다.");
+        // }
+    }
+
+    // 저장할 거 -> index에 따른 score, level, bonus 변수를 바꾼뒤 저장하면 된다. 
+    public void SaveMenuData()
+    {
+        // if (DataManager.Instance != null)
+        // {   
+        //     // 저장되어 있던 재료 리스트 로드
+        //     ingredientGD = DataManager.Instance.LoadGameData();
+        
+        //     // 리스트 크기가 같을 경우 각 요소를 더함
+        //     if (ingredientGD.ingredientNum.Count == Menu_Num.Count)
+        //     {
+        //         for (int i = 0; i < Menu_Num.Count; i++)
+        //         {
+        //             Menu_Num[i] += ingredientGD.ingredientNum[i];
+        //         }
+        //     }
+        //     else
+        //     {
+        //         Debug.LogError("리스트 크기가 일치하지 않습니다. 데이터를 확인하세요.");
+        //         return;
+        //     }
+
+        //     DataManager.Instance.gameData.SetIngredient(Menu_Num);
+        //     DataManager.Instance.SaveGameData(); // 저장 함수 호출
+        //     Debug.Log("GameData에 ingre_Num 저장 완료!");
+        // }
+        // else
+        // {
+        //     Debug.LogError("DataManager 인스턴스를 찾을 수 없습니다.");
+        // }
     }
 }

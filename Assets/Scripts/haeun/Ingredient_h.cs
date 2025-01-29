@@ -36,7 +36,7 @@ public class Ingredient_h : MonoBehaviour
             TextMeshProUGUI textComponent = panel.GetComponentInChildren<TextMeshProUGUI>();
             if (textComponent != null)
             {
-                textComponent.text = $"{currentNum}";
+                textComponent.text = $"{currentNum}개";
             }
         }
 
@@ -45,7 +45,7 @@ public class Ingredient_h : MonoBehaviour
             TextMeshProUGUI textComponent1 = panel2.GetComponentInChildren<TextMeshProUGUI>();
             if (textComponent1 != null)
             {
-                textComponent1.text = $"{ScoreMultiplier}";
+                textComponent1.text = $"{ScoreMultiplier}점";
             }
         }
     }
@@ -65,7 +65,7 @@ public class Ingredient_h : MonoBehaviour
                 TextMeshProUGUI textComponent = panel.GetComponentInChildren<TextMeshProUGUI>();
                 if (textComponent != null)
                 {
-                    textComponent.text = $"{currentNum}";
+                    textComponent.text = $"{currentNum}개";
                 }
             }
 

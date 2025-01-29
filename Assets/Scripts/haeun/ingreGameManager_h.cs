@@ -20,6 +20,7 @@ public class ingreGameManager_h : MonoBehaviour
     }
 
     // 아이템 관련 선언
+    [Header("떨어지는 아이템 관리")]
     [SerializeField] private GameObject BadItem;
     [SerializeField] private GameObject goodItem;
     [SerializeField] private Sprite[] badItemSprites;
@@ -29,6 +30,7 @@ public class ingreGameManager_h : MonoBehaviour
     private List<Vector3> goodItemPositions = new List<Vector3>();
 
     // 안내 관련 선언
+    [Header("안내 패널 관리")]
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TextMeshProUGUI FinishScoreText;
 
@@ -36,7 +38,7 @@ public class ingreGameManager_h : MonoBehaviour
     private int savedScore;
     [SerializeField] private TextMeshProUGUI voidScoreText;
 
-    private int heartScore = 3;
+    public int heartScore = 3;
 
     // 아래 heartO의 3개의 하트 이미지가 heartScore가 1씩 없어질 때마다 heartX로 스프라이트를 변경했으면 좋겠음
     [SerializeField] private GameObject[] heartO;
@@ -55,8 +57,19 @@ public class ingreGameManager_h : MonoBehaviour
     [SerializeField] private TextMeshProUGUI GoText;
     private bool isGameStarting = false;
 
+    [Header("게임 오버 시 이미지/텍스트 관리")]
+    [SerializeField] private GameObject PlayerIdle;
+    [SerializeField] private Sprite PlayerDeath;
+    [SerializeField] private GameObject ingamePlayScore;
+    private Animator animator;
+
+
+
     void Start()
     {
+        animator = PlayerIdle.GetComponent<Animator>();
+
+
         StartCoroutine(StartGameRoutine());
 
         gameOverPanel.SetActive(false);
@@ -218,6 +231,7 @@ public class ingreGameManager_h : MonoBehaviour
     private IEnumerator HandleGameOver()
     {
         isFinalizingGame = true;
+        ingamePlayScore.SetActive(false);
         yield return new WaitForSeconds(1.5f);
         GameOver();
     }
@@ -227,9 +241,14 @@ public class ingreGameManager_h : MonoBehaviour
         isGameOver = true;
         savedScore = voidScore + heartScore * 3;
 
+        Debug.Log($"남은 목숨  = {heartScore}개");
+
+        // 인게임 플레이 점수 없애기
+        ingamePlayScore.SetActive(false);
+
         ScrollbarManager.Instance.SetFinalScore(savedScore);
 
-        FinishScoreText.text = "최종 점수 : " + savedScore;
+        FinishScoreText.text = "최종 점수 : " + savedScore + "점";
         StopAllCoroutines();
         gameOverPanel.SetActive(true);
     }

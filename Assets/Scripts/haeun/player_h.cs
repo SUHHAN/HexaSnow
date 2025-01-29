@@ -52,7 +52,7 @@ public class player_h : MonoBehaviour
 
         if (ingreGameManager_h.Instance.IsGameOverFinalizing())
         {
-            StopPlayer();
+            GameOver(); // 게임 종료 시 한 번만 실행
             return;
         }
 
@@ -149,6 +149,9 @@ public class player_h : MonoBehaviour
             animator.SetFloat("speed", 0);
             SetColliderState(PlayerState.Idle);
         }
+        else{
+            animator.SetFloat("speed", 1);
+        }
     }
 
     private void SetColliderState(PlayerState newState)
@@ -229,8 +232,39 @@ public class player_h : MonoBehaviour
             
             animator.SetBool("badItem", true); // badItem 애니메이션 실행
             yield return new WaitForSeconds(1f); // 1초 대기
-            animator.SetBool("badItem", false); // run 애니메이션으로 복귀
+
+        // if (ingreGameManager_h.Instance.heartScore > 0)
+        // {
+            animator.SetBool("badItem", false); // 다시 달리는 상태로 복귀
+        // }
+
         }
+
         
+    }
+
+    public void GameOver()
+    {
+        if (animator.GetBool("isGameOver")) return; // 이미 GameOver 상태면 실행 안 함
+
+        animator.SetBool("isGameOver", true); // 게임 종료 상태 설정
+
+        if (ingreGameManager_h.Instance.heartScore > 0)
+        {
+            Debug.Log("게임 종료 - 생명 있음 (Idle 상태)");
+            animator.SetBool("badDeath", false); // BadDeath 해제
+        }
+        else
+        {
+            Debug.Log("게임 종료 - 생명 없음 (BadDeath 실행)");
+            animator.SetBool("badDeath", true); // BadDeath 실행
+
+        }
+
+        animator.SetFloat("speed", 0);
+        StopPlayer();
+        if(speed >= 0f) {
+                speed = 0f;
+        }
     }
 }
