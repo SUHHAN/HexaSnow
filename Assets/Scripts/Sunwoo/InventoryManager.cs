@@ -13,6 +13,8 @@ public class InventoryManager : MonoBehaviour
         ownedIngredients.Add("Egg");
         ownedIngredients.Add("Flour");
         ownedIngredients.Add("Sugar");
+        ownedIngredients.Add("Milk");
+        ownedIngredients.Add("CreamCheese");
 
         // 현재 등록된 재료 목록 출력
         foreach (string ingredient in ownedIngredients)
