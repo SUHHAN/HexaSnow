@@ -45,7 +45,7 @@ public class Ingredient_h : MonoBehaviour
             TextMeshProUGUI textComponent1 = panel2.GetComponentInChildren<TextMeshProUGUI>();
             if (textComponent1 != null)
             {
-                textComponent1.text = $"{ScoreMultiplier}원";
+                textComponent1.text = $"{ScoreMultiplier}점";
             }
         }
     }
