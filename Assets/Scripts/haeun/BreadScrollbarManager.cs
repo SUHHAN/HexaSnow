@@ -174,11 +174,13 @@ public class BreadScrollbarManager : MonoBehaviour
     // ✅ 더미 데이터 추가 함수
     private void AddDummyData()
     {
-        MyList.Add(new MyRecipeList(0, 1, "초코 브레드", 60, false));
-        MyList.Add(new MyRecipeList(1, 2, "치즈 브레드", 40, false));
-        MyList.Add(new MyRecipeList(2, 3, "바게트", 20, true));
-        MyList.Add(new MyRecipeList(3, 4, "마늘 바게트", 10, false));
-        MyList.Add(new MyRecipeList(4, 5, "소시지 롤", 15, false));
+        MyList.Add(new MyRecipeList(0, 1, "오리지널 마들렌", 60, false));
+        MyList.Add(new MyRecipeList(1, 9, "블루베리 머핀", 50, false));
+        MyList.Add(new MyRecipeList(2, 10, "오리지널 파운드케이크", 40, false));
+        MyList.Add(new MyRecipeList(3, 14, "바스트 치즈케이크", 30, true));
+        MyList.Add(new MyRecipeList(4, 4, "오리지널 쿠키키", 20, false));
+        MyList.Add(new MyRecipeList(5, 19, "초코 스콘", 10, false));
+        MyList.Add(new MyRecipeList(6, 5, "우유 마카롱", 5, false));
 
         Debug.Log("더미 데이터가 정상적으로 추가되었습니다.");
     }

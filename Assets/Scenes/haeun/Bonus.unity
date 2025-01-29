@@ -1773,6 +1773,7 @@ MonoBehaviour:
     ingredientNum: 
   MyList: []
   MenuSprites:
+  - {fileID: 21300000, guid: cee51e2b689040549ada41c18153acc7, type: 3}
   - {fileID: 21300000, guid: 299621287da7fe947a5c010daeb28eca, type: 3}
   - {fileID: 21300000, guid: 24681faf84573b842abe2791825f9df0, type: 3}
   - {fileID: 21300000, guid: 2ed8a767b6cfea542992dbcf024d40ba, type: 3}

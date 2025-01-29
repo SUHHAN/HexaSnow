@@ -45,7 +45,6 @@ public class deadlineLast_h : MonoBehaviour
 
     void Show__Panel() {
 
-
         BlackPanel.SetActive(false);
     }
 
