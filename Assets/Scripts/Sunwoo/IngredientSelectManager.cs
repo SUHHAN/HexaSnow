@@ -23,6 +23,8 @@ public class IngredientSelectManager : MonoBehaviour
     public List<GameObject> refrigeratorButtons;
     public List<GameObject> shelfButtons;
 
+    public MixingGameManager mixingGameManager; // MixingGameManager 참조
+
     void Start()
     {
         // BakingStartManager 참조 가져오기
@@ -138,7 +140,7 @@ public class IngredientSelectManager : MonoBehaviour
         }
 
         ingredientSelectionPanel.SetActive(false);
-        mixingPanel.SetActive(true); // MixingPanel 활성화
+        mixingGameManager.ActivateMixingPanel(); // MixingGameManager의 ActivateMixingPanel 호출
     }
 
     // 선택한 재료가 레시피와 일치하는지 확인
