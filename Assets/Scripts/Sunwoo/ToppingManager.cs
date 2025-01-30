@@ -14,7 +14,9 @@ public class ToppingManager : MonoBehaviour
     public Button finishToppingButton; // 완료 버튼
 
     public InventoryManager inventoryManager; // 인벤토리 관리
-    public Image bakingImage;
+    public Image bakingImage; // 최종 이미지
+    public Image oriImage1; // Original 이미지 1
+    public Image oriImage2; // Original 이미지 2
 
     // 토핑 버튼 미리 할당
     public List<GameObject> refrigeratorButtons;
@@ -35,6 +37,7 @@ public class ToppingManager : MonoBehaviour
         finishToppingButton.onClick.AddListener(FinishToppingSelection);
 
         UpdateToppingButtons(); // 소지한 재료만 활성화
+        SetOriginalImages(); // OriImage1, OriImage2에 original 이미지 설정
     }
 
     // StartToppingButton 클릭 시 실행
@@ -105,10 +108,38 @@ public class ToppingManager : MonoBehaviour
         UpdateBakingImage();
     }
 
+    // 선택한 디저트의 original 이미지를 OriImage1, OriImage2에 설정
+    private void SetOriginalImages()
+    {
+        string selectedDessert = bakingStartManager.GetSelectedDessert();
+        string originalImagePath = $"Sunwoo/Images/menu_{selectedDessert.ToLower()}_original";
+
+        Sprite originalSprite = Resources.Load<Sprite>(originalImagePath);
+        if (originalSprite != null)
+        {
+            oriImage1.sprite = originalSprite;
+            oriImage2.sprite = originalSprite;
+        }
+        else
+        {
+            Debug.LogError($"Original 이미지 로드 실패: {originalImagePath}");
+        }
+    }
+
+    // 선택한 디저트와 토핑에 따라 bakingImage 업데이트
     private void UpdateBakingImage()
     {
         string selectedDessert = bakingStartManager.GetSelectedDessert();
         string imagePath = $"Sunwoo/Images/menu_{selectedDessert.ToLower()}_{(selectedTopping ?? "original").ToLower()}";
-        bakingImage.sprite = Resources.Load<Sprite>(imagePath);
+
+        Sprite newSprite = Resources.Load<Sprite>(imagePath);
+        if (newSprite != null)
+        {
+            bakingImage.sprite = newSprite;
+        }
+        else
+        {
+            Debug.LogError($"이미지 로드 실패: {imagePath}");
+        }
     }
 }

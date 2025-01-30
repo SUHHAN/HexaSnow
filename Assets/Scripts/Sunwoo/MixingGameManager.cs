@@ -20,6 +20,7 @@ public class MixingGameManager : MonoBehaviour
 
     // 터치 포인트와 손 아이콘
     public GameObject handIcon;
+    private Vector3 initialHandPosition = new Vector3(0, -100, 0);
     public Transform[] touchPointPositions; // 터치 포인트 위치 배열
     public GameObject[] touchPointImages; // 터치 포인트 이미지 배열
 
@@ -212,7 +213,7 @@ public class MixingGameManager : MonoBehaviour
         if (Input.GetMouseButtonUp(0)) // 마우스 왼쪽 버튼을 놓을 때
         {
             EvaluateTouchPoint();
-            handIcon.transform.localPosition = Vector3.zero; // 원래 위치로 복귀
+            handIcon.transform.localPosition = initialHandPosition; // 원래 위치로 복귀
         }
     }
 
