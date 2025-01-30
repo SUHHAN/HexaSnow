@@ -19,7 +19,7 @@ public class IngredientSelectManager : MonoBehaviour
 
     private List<string> selectedIngredients = new List<string>(); // 사용자가 선택한 재료 목록
 
-    // 냉장고 & 선반 버튼 미리 할당 (Inspector에서 설정)
+    // 냉장고 & 선반 버튼 리스트
     public List<GameObject> refrigeratorButtons;
     public List<GameObject> shelfButtons;
 
@@ -48,32 +48,12 @@ public class IngredientSelectManager : MonoBehaviour
         UpdateIngredientButtons(); // 재료 버튼 상태 업데이트
     }
 
-
-    // **소지한 재료만 활성화**
+    // 소지한 재료만 활성화
     private void UpdateIngredientButtons()
     {
-        // 냉장고 버튼 처리
         foreach (GameObject buttonObj in refrigeratorButtons)
         {
-            string ingredientName = buttonObj.name.Replace("Button", ""); // ex. "ButterButton" -> "Butter"
-            bool hasIngredient = inventoryManager.HasIngredient(ingredientName);
-
-            buttonObj.SetActive(hasIngredient);
-            Button button = buttonObj.GetComponent<Button>();
-
-            if (hasIngredient && button != null)
-            {
-                button.onClick.RemoveAllListeners(); // 기존 이벤트 제거
-                button.onClick.AddListener(() => OnIngredientButtonClick(buttonObj, ingredientName));
-
-                Debug.Log($"냉장고 재료: {ingredientName}, 소지 여부: {hasIngredient}");
-            }
-        }
-
-        // 선반 버튼 처리
-        foreach (GameObject buttonObj in shelfButtons)
-        {
-            string ingredientName = buttonObj.name.Replace("Button", ""); // "FlourButton" -> "Flour"
+            string ingredientName = buttonObj.name.Replace("Button", "");
             bool hasIngredient = inventoryManager.HasIngredient(ingredientName);
 
             buttonObj.SetActive(hasIngredient);
@@ -83,36 +63,52 @@ public class IngredientSelectManager : MonoBehaviour
             {
                 button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() => OnIngredientButtonClick(buttonObj, ingredientName));
+                Debug.Log($"냉장고 재료: {ingredientName}, 소지 여부: {hasIngredient}");
+            }
+        }
 
+        foreach (GameObject buttonObj in shelfButtons)
+        {
+            string ingredientName = buttonObj.name.Replace("Button", "");
+            bool hasIngredient = inventoryManager.HasIngredient(ingredientName);
+
+            buttonObj.SetActive(hasIngredient);
+            Button button = buttonObj.GetComponent<Button>();
+
+            if (hasIngredient && button != null)
+            {
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(() => OnIngredientButtonClick(buttonObj, ingredientName));
                 Debug.Log($"선반 재료: {ingredientName}, 소지 여부: {hasIngredient}");
             }
         }
     }
 
-    // 재료 버튼 클릭 시 이미지 변경 및 선택된 재료 리스트 업데이트
+    // 재료 버튼 클릭 시 투명도 조절 및 선택된 재료 리스트 업데이트
     public void OnIngredientButtonClick(GameObject buttonObj, string ingredientName)
     {
-        Transform imageBefore = buttonObj.transform.Find("Imagebf");
-        Transform imageAfter = buttonObj.transform.Find("Imageaft");
+        Image imageAfter = buttonObj.transform.Find("Imageaft")?.GetComponent<Image>();
 
-        if (imageBefore == null || imageAfter == null)
+        if (imageAfter == null)
         {
-            Debug.LogError($"오류: {ingredientName} 버튼에 'Imagebf' 또는 'Imageaft'가 없습니다!");
+            Debug.LogError($"오류: {ingredientName} 버튼에 'Imageaft'가 없습니다!");
             return;
         }
 
         if (selectedIngredients.Contains(ingredientName))
         {
             selectedIngredients.Remove(ingredientName);
-            imageBefore.gameObject.SetActive(true);
-            imageAfter.gameObject.SetActive(false);
+            Color color = imageAfter.color;
+            color.a = 1f; // 원래 불투명하게 설정
+            imageAfter.color = color;
             Debug.Log($"재료 선택 해제: {ingredientName}");
         }
         else
         {
             selectedIngredients.Add(ingredientName);
-            imageBefore.gameObject.SetActive(false);
-            imageAfter.gameObject.SetActive(true);
+            Color color = imageAfter.color;
+            color.a = 0.3f; // 투명도를 30%로 설정
+            imageAfter.color = color;
             Debug.Log($"재료 선택: {ingredientName}");
         }
 
@@ -132,7 +128,7 @@ public class IngredientSelectManager : MonoBehaviour
 
         if (VerifyIngredients(selectedRecipe.ingredients))
         {
-            Debug.Log("재료가 레시피와 일치합니다!");
+            Debug.Log("재료가 레시피와 정확히 일치합니다!");
         }
         else
         {
@@ -140,17 +136,22 @@ public class IngredientSelectManager : MonoBehaviour
         }
 
         ingredientSelectionPanel.SetActive(false);
-        mixingGameManager.ActivateMixingPanel(); // MixingGameManager의 ActivateMixingPanel 호출
+        mixingGameManager.ActivateMixingPanel();
     }
 
-    // 선택한 재료가 레시피와 일치하는지 확인
+    // 선택한 재료가 레시피와 정확히 일치하는지 확인 (순서 고려 X)
     private bool VerifyIngredients(List<string> requiredIngredients)
     {
-        foreach (string ingredient in requiredIngredients)
+        if (selectedIngredients.Count != requiredIngredients.Count)
         {
-            if (!selectedIngredients.Contains(ingredient))
+            return false; // 개수가 다르면 실패
+        }
+
+        foreach (string ingredient in selectedIngredients)
+        {
+            if (!requiredIngredients.Contains(ingredient))
             {
-                return false; // 필요한 재료가 없으면 false 반환
+                return false; // 불필요한 재료가 포함되면 실패
             }
         }
         return true;
