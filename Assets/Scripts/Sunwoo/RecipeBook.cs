@@ -12,13 +12,15 @@ public class RecipeBook : MonoBehaviour
         recipes = new List<Recipe>
         {
             new Recipe("Madeleine", new List<string> { "Butter", "Egg", "Flour", "Sugar" }, true),
-            new Recipe("Muffin", new List<string> { "Butter", "Egg", "Sugar", "Flour", "Baking Powder" }),
-            new Recipe("Cookie", new List<string> { "Butter", "Sugar", "Sugar Powder", "Egg", "Flour", "Almond Powder" }),
+            new Recipe("Muffin", new List<string> { "Butter", "Egg", "Sugar", "Flour", "BakingPowder" }),
+            new Recipe("Cookie", new List<string> { "Butter", "Sugar", "SugarPowder", "Egg", "Flour", "AlmondPowder" }),
             new Recipe("Pound Cake", new List<string> { "Butter", "Egg", "Flour", "Sugar" }), // 마들렌과 같은 재료
-            new Recipe("Financier", new List<string> { "Egg Whites", "Almond Powder", "Flour", "Honey", "Sugar", "Browned Butter" }),
-            new Recipe("Basque Cheesecake", new List<string> { "Cream Cheese", "Sugar", "Egg", "Heavy Cream" }),
-            new Recipe("Scone", new List<string> { "Flour", "Sugar", "Baking Powder", "Butter", "Egg", "Milk", "Heavy Cream" }),
-            new Recipe("Tart", new List<string> { "Cream Cheese", "Condensed Milk", "Heavy Cream", "Sugar", "Flour", "Almond Powder", "Sugar Powder", "Butter", "Egg" })
+            new Recipe("Financier", new List<string> { "EggWhites", "AlmondPowder", "Flour", "Honey", "Sugar", "BrownedButter" }),
+            new Recipe("Basque Cheesecake", new List<string> { "CreamCheese", "Sugar", "Egg", "WhCream" }),
+            new Recipe("Scone", new List<string> { "Flour", "Sugar", "BakingPowder", "Butter", "Egg", "Milk", "WhCream" }),
+            new Recipe("Tart", new List<string> { "CreamCheese", "ConMilk", "WhCream", "Sugar", "Flour", "AlmondPowder", "SugarPowder", "Butter", "Egg" }),
+            new Recipe("Slice Cake", new List<string> { "Butter", "Egg", "Flour", "Sugar", "Milk" }),
+            new Recipe("Doughnut", new List<string> { "Butter", "Egg", "Flour", "Sugar", "Milk" })
         };
     }
 
