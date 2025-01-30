@@ -36,6 +36,7 @@ public class deadlineLast_h : MonoBehaviour
 
     public void yesButton() {
         DeadlinePanel.SetActive(false);
+        BlackPanel.SetActive(false);
 
         // 하루를 넘어가는 버튼이 나오도록 하기
     }

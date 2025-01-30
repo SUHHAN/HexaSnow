@@ -253,6 +253,8 @@ public class ingreGameManager_h : MonoBehaviour
         gameOverPanel.SetActive(true);
     }
 
+    
+
     // 상점 떠나기 버튼을 눌렀다면 아래 함수로 이동하도록
     public void OnOutStoreButton()
     {

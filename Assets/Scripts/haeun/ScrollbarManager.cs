@@ -99,6 +99,7 @@ public class ScrollbarManager : MonoBehaviour
             Debug.LogError($"뭔가 이상이상: {ex.Message}");
         }
     }
+    
 
     public void OnGetButton() {
         foreach (Transform ch in content)
@@ -106,7 +107,6 @@ public class ScrollbarManager : MonoBehaviour
             Button child = ch.GetComponent<Button>();
             
             child.interactable = false;
-            
         }
     }
 
