@@ -40,6 +40,8 @@ public class MixingGameManager : MonoBehaviour
     private GameObject activeTouchPoint = null; // 현재 활성화된 터치 포인트
     private int previousIndex = -1; // 이전에 생성된 터치 포인트 인덱스 (-1은 초기값)
 
+    public Animator doughAnimator2;
+
     private void Start()
     {
         // 초기 UI 상태 설정
@@ -126,6 +128,8 @@ public class MixingGameManager : MonoBehaviour
         // 게임 시작
         isGameRunning = true;
         remainingTime = gameDuration;
+        Debug.Log("반죽 애니메이션 시작: IsMixing = true");
+        doughAnimator2.SetBool("IsMixing", true);
         StartCoroutine(GameTimer());
         StartCoroutine(SpawnTouchPoints());
     }
@@ -176,6 +180,8 @@ public class MixingGameManager : MonoBehaviour
         isGameRunning = false;
         mixingGamePanel.SetActive(false); // MixingGame 패널 비활성화
         finishMixingPanel.SetActive(true); // FinishMixing 패널 활성화
+        Debug.Log("반죽 애니메이션 종료: IsMixing = false");
+        doughAnimator2.SetBool("IsMixing", false);
 
         // 점수에 따른 결과 표시
         if (score >= 65 && score <= 75)

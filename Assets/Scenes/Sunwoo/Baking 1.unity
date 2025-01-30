@@ -3913,7 +3913,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 299621287da7fe947a5c010daeb28eca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4403,6 +4403,7 @@ MonoBehaviour:
   bowlAfter: {fileID: 229015295}
   pointLifetime: 1
   gameDuration: 30
+  doughAnimator2: {fileID: 1016131398}
 --- !u!4 &615322374
 Transform:
   m_ObjectHideFlags: 0
@@ -7439,7 +7440,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e712c9bae859b9642b664a106fe95b30, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7467,7 +7468,7 @@ Animator:
   m_GameObject: {fileID: 1016131394}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: eede83a739197274ba4c57cc4b5c5caa, type: 2}
+  m_Controller: {fileID: 9100000, guid: 43e24d6286152cb4aa65564e46d6b3d2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -7524,7 +7525,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 7.2, y: 12.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -14265,7 +14266,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 299621287da7fe947a5c010daeb28eca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
