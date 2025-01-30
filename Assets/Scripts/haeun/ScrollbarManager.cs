@@ -5,6 +5,7 @@ using System.IO;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
 using Microsoft.Unity.VisualStudio.Editor;
+using UnityEngine.UI;
 
 public class ScrollbarManager : MonoBehaviour
 {
@@ -49,6 +50,8 @@ public class ScrollbarManager : MonoBehaviour
     public Transform content; // Content 오브젝트
 
     [SerializeField] private TextMeshProUGUI UseScText;
+    [SerializeField] private Button ResetButton;
+    [SerializeField] private Button GetButton;
 
 
     private int FinalSc = 0; // 초기 점수
@@ -94,6 +97,16 @@ public class ScrollbarManager : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError($"뭔가 이상이상: {ex.Message}");
+        }
+    }
+
+    public void OnGetButton() {
+        foreach (Transform ch in content)
+        {
+            Button child = ch.GetComponent<Button>();
+            
+            child.interactable = false;
+            
         }
     }
 
@@ -188,6 +201,9 @@ public class ScrollbarManager : MonoBehaviour
 
     public void SaveIngreData()
     {
+        ResetButton.interactable = false;
+        GetButton.interactable = false;
+
         if (DataManager.Instance != null)
         {   
             // 저장되어 있던 재료 리스트 로드

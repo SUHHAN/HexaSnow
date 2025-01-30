@@ -1456,6 +1456,7 @@ MonoBehaviour:
   content: {fileID: 1847330101}
   BonusPanel: {fileID: 1962834822}
   BlackBackground: {fileID: 1906547960}
+  BonusPanelText: {fileID: 1783013160}
 --- !u!4 &1536210605
 Transform:
   m_ObjectHideFlags: 0
@@ -1776,7 +1777,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 5}
-  m_SizeDelta: {x: 400, y: 100}
+  m_SizeDelta: {x: 423.6837, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1783013160
 MonoBehaviour:
@@ -1798,7 +1799,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uCD94\uAC00 \uBCA0\uC774\uD0B9\uC744 \n\uC9C4\uD589\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
+  m_text: "'{}'\uB85C\n\uCD94\uAC00 \uBCA0\uC774\uD0B9\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
   m_sharedMaterial: {fileID: 68952158446488501, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
@@ -2141,7 +2142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1962834823
 RectTransform:
   m_ObjectHideFlags: 0

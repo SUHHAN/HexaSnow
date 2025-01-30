@@ -195,6 +195,9 @@ public class MatchGame_h : MonoBehaviour
 
     void SetScoreText() {
         FinalScore = BakingScore + matchesFound;
+        if(FinalScore >= 60) {
+            FinalScore = 60;
+        }
 
         LevelCalculate();
         TimeText.text = $"{0:F1}초";
@@ -205,7 +208,7 @@ public class MatchGame_h : MonoBehaviour
     }
 
     void LevelCalculate() {
-        if (FinalScore == 60) {
+        if (FinalScore >= 60) {
             FinalLevel = 'S';
         }else if(FinalScore > 40) {
             FinalLevel = 'A';
