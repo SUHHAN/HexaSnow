@@ -93,6 +93,8 @@ public class BakingStartManager : MonoBehaviour
                 clickedButton.image.color = newColor;
 
                 selectedRecipe = recipe;
+                Debug.Log($"선택된 제과: {selectedRecipe.recipeName}");
+
                 nextButton.gameObject.SetActive(true);
             }
         }
@@ -133,7 +135,13 @@ public class BakingStartManager : MonoBehaviour
         }
     }
 
-    // 선택한 레시피 반환 (재료 검증 시 활용)
+    // 선택한 레시피 반환 토핑 단계에서 쓰기 위해
+    public string GetSelectedDessert()
+    {
+        return selectedRecipe != null ? selectedRecipe.recipeName : null;
+    }
+
+    // 선택한 레시피 반환 재료 검증에서 쓰기
     public Recipe GetSelectedRecipe()
     {
         return selectedRecipe;

@@ -8,24 +8,27 @@ public class ToppingManager : MonoBehaviour
     public GameObject toppingPanel; // Topping 전체 패널
     public GameObject startToppingPanel; // 시작 패널
     public GameObject addToppingPanel; // 토핑 선택 패널
-    public GameObject resultPanel; // 결과 패널
+    public GameObject finishBakingPanel; // 결과 패널
 
     public Button startToppingButton; // 토핑 시작 버튼
     public Button finishToppingButton; // 완료 버튼
 
     public InventoryManager inventoryManager; // 인벤토리 관리
+    public Image bakingImage;
 
-    // 토핑 버튼 미리 할당 (Inspector에서 설정)
+    // 토핑 버튼 미리 할당
     public List<GameObject> refrigeratorButtons;
 
-    private string selectedTopping = null; // 선택된 토핑 (한 개만 가능)
+    private string selectedTopping = null; // 선택된 토핑
+
+    public BakingStartManager bakingStartManager; // BakingStartManager 참조
 
     void Start()
     {
         // 초기 UI 설정
         startToppingPanel.SetActive(true);
         addToppingPanel.SetActive(false);
-        resultPanel.SetActive(false);
+        finishBakingPanel.SetActive(false);
 
         // 버튼 이벤트 등록
         startToppingButton.onClick.AddListener(OpenToppingSelection);
@@ -42,11 +45,9 @@ public class ToppingManager : MonoBehaviour
         UpdateToppingButtons(); // 다시 업데이트
     }
 
-    // **소지한 토핑만 버튼 활성화**
+    // 소지한 토핑만 버튼 활성화
     private void UpdateToppingButtons()
     {
-        Debug.Log("토핑 버튼 업데이트 시작");
-
         foreach (GameObject buttonObj in refrigeratorButtons)
         {
             string toppingName = buttonObj.name.Replace("Button", ""); // "BananaButton" -> "Banana"
@@ -74,10 +75,8 @@ public class ToppingManager : MonoBehaviour
             {
                 if (btn.name.Replace("Button", "") == selectedTopping)
                 {
-                    Transform prevImageBefore = btn.transform.Find("Imagebf");
-                    Transform prevImageAfter = btn.transform.Find("Imageaft");
-                    prevImageBefore.gameObject.SetActive(true);
-                    prevImageAfter.gameObject.SetActive(false);
+                    Image prevImageAfter = btn.transform.Find("Imageaft").GetComponent<Image>();
+                    prevImageAfter.color = new Color(1f, 1f, 1f, 1f);
                     break;
                 }
             }
@@ -92,11 +91,8 @@ public class ToppingManager : MonoBehaviour
         else
         {
             selectedTopping = toppingName;
-            Transform imageBefore = buttonObj.transform.Find("Imagebf");
-            Transform imageAfter = buttonObj.transform.Find("Imageaft");
-
-            imageBefore.gameObject.SetActive(false);
-            imageAfter.gameObject.SetActive(true);
+            Image imageAfter = buttonObj.transform.Find("Imageaft").GetComponent<Image>();
+            imageAfter.color = new Color(1f, 1f, 1f, 0.3f);
         }
     }
 
@@ -104,7 +100,15 @@ public class ToppingManager : MonoBehaviour
     private void FinishToppingSelection()
     {
         Debug.Log($"선택된 토핑: {selectedTopping ?? "없음"}");
-        toppingPanel.SetActive(false);
-        resultPanel.SetActive(true);
+        addToppingPanel.SetActive(false);
+        finishBakingPanel.SetActive(true);
+        UpdateBakingImage();
+    }
+
+    private void UpdateBakingImage()
+    {
+        string selectedDessert = bakingStartManager.GetSelectedDessert();
+        string imagePath = $"Sunwoo/Images/menu_{selectedDessert.ToLower()}_{(selectedTopping ?? "original").ToLower()}";
+        bakingImage.sprite = Resources.Load<Sprite>(imagePath);
     }
 }
