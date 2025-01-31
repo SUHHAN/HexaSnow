@@ -33,6 +33,7 @@ public class RecipeBookManager : MonoBehaviour
 
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject pref2;
+    [SerializeField] private Sprite[] MenuSprites;
 
     [System.Serializable]
     public class RecipeB
@@ -318,6 +319,7 @@ private void ShowBakes(string key)
         // ✅ UI 요소 찾기
         Transform nameTrans = newPref.transform.Find("bakeName");
         Transform coinTrans = newPref.transform.Find("Money");
+        Transform MenuImage = newPref.transform.Find("bakeImage");
 
         if (nameTrans == null || coinTrans == null)
         {
@@ -327,6 +329,7 @@ private void ShowBakes(string key)
 
         TextMeshProUGUI nameText = nameTrans.GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI coinText = coinTrans.GetComponent<TextMeshProUGUI>();
+        Image menuImg = MenuImage.GetComponent<Image>();
 
         if (nameText == null || coinText == null)
         {
@@ -337,6 +340,7 @@ private void ShowBakes(string key)
         // ✅ UI에 데이터 적용 (menu → bakeName, coin → Money)
         nameText.text = $"{recipe.menu}";
         coinText.text = $"{recipe.coin}";
+        menuImg.GetComponent<Image>().sprite = MenuSprites[recipe.index];
 
         // 🔍 생성된 메뉴 및 코인 정보 디버그 출력
         Debug.Log($"생성된 메뉴: {recipe.menu}, 코인: {recipe.coin}");
