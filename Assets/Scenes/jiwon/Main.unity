@@ -1424,7 +1424,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 597.5}
+  m_AnchoredPosition: {x: 150, y: 597.5}
   m_SizeDelta: {x: 137, y: 85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &339853704
@@ -6880,7 +6880,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeNameText: {fileID: 4963167864254118370}
   ingredientsText: {fileID: 3157766269793679469}
-  priceText: {fileID: 0}
   NextButton: {fileID: 1107926761}
   PrevButton: {fileID: 689622895}
   RecipeContentIndex: {fileID: 1730368354}
