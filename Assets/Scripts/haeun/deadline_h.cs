@@ -22,7 +22,7 @@ public class deadline_h : MonoBehaviour
     [SerializeField] private GameData GD = new GameData();
 
 
-    private int MyMoney = 4000;
+    private int MyMoney;
     private int minMoney = 500;
 
     void Start()
@@ -91,6 +91,7 @@ public class deadline_h : MonoBehaviour
 
             MyMoney = MyMoney - minMoney;
             // 여기서 나의 머니 다시 저장하기
+            SaveMoneyData();
 
             SceneManager.LoadScene("Ingredient");
             IngredientStoreGoldPanel.SetActive(false);
@@ -137,7 +138,7 @@ public class deadline_h : MonoBehaviour
             GD = DataManager.Instance.LoadGameData();
         
             // 저장된 돈 가지고 오기
-            // MyMoney = DataManager.Instance.gameData.money; money에는 지원 언니가 정한 돈 관리 변수로 쓰기
+            MyMoney = GD.money; //money에는 지원 언니가 정한 돈 관리 변수로 쓰기
         }
         else
         {
@@ -149,7 +150,7 @@ public class deadline_h : MonoBehaviour
         if (DataManager.Instance != null)
         {   
             // 돈을 저장한 뒤에 넘기기
-            // DataManager.Instance.gameData.money = MyMoney;
+            DataManager.Instance.gameData.money = MyMoney;
             DataManager.Instance.SaveGameData(); // 저장 함수 호출
             Debug.Log("GameData에 money 저장 완료!");
         }

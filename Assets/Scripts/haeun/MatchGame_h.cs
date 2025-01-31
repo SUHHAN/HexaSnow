@@ -51,6 +51,10 @@ public class MatchGame_h : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI gameOverText;
 
+    [SerializeField] private GameData GD = new GameData();
+    [SerializeField] private MyRecipeList myRecipe;
+
+
     private bool isGameOver;
 
     void Awake() {
@@ -66,13 +70,10 @@ public class MatchGame_h : MonoBehaviour
         if (PlayerPrefs.HasKey("SelectedMenuIndex"))
         {
             int menuIndex = PlayerPrefs.GetInt("SelectedMenuIndex");
-            int menuScore = PlayerPrefs.GetInt("SelectedMenuScore");
             Debug.Log("받은 Menu_Index 값: " + menuIndex);
 
-            BakingScore = menuScore;
-
             // 필요한 로직 추가 (예: 특정 메뉴 정보 불러오기)
-            LoadMenuData(menuIndex);
+            LoadBakeData(menuIndex);
         }
 
         Board_h board = FindObjectOfType<Board_h>();
@@ -174,6 +175,9 @@ public class MatchGame_h : MonoBehaviour
     void GameOver(bool success) {
         if (!isGameOver) {
             isGameOver = true;
+            
+            int menuIndex = PlayerPrefs.GetInt("SelectedMenuIndex");
+            SaveBakeData(menuIndex);
 
             // 저장되어 있던 키를 삭제하기
             PlayerPrefs.DeleteKey("SelectedMenuIndex");
@@ -264,51 +268,38 @@ public class MatchGame_h : MonoBehaviour
 
     }
 
-    public void LoadMenuData(int index)
+    public void LoadBakeData(int num)
     {
-        // if (DataManager.Instance != null)
-        // {   
-        //     // 저장되어 있던 재료 리스트 로드
-        //     MenuGD = DataManager.Instance.LoadGameData();
+        if (DataManager.Instance != null)
+        {   
+            // 저장되어 있던 재료 리스트 로드
+            GD = DataManager.Instance.LoadGameData();
+            // 내가 올리기를 원하는 순서(index)의 저장된 베이킹 점수 데이터를 변수에 넣어주기
+            myRecipe = GD.myBake[num];
+
+            BakingScore = myRecipe.score;
+        }
+        else
+        {
+            Debug.LogError("DataManager 인스턴스를 찾을 수 없습니다.");
+        }
         
-        //     // 내가 올리기를 원하는 순서(index)의 저장된 베이킹 점수 데이터를 변수에 넣어주기
-        //     BakingScore = MenuGD.Index['index'].score;
-        // }
-        // else
-        // {
-        //     Debug.LogError("DataManager 인스턴스를 찾을 수 없습니다.");
-        // }
     }
 
-    // 저장할 거 -> index에 따른 score, level, bonus 변수를 바꾼뒤 저장하면 된다. 
-    public void SaveMenuData()
-    {
-        // if (DataManager.Instance != null)
-        // {   
-        //     // 저장되어 있던 재료 리스트 로드
-        //     ingredientGD = DataManager.Instance.LoadGameData();
-        
-        //     // 리스트 크기가 같을 경우 각 요소를 더함
-        //     if (ingredientGD.ingredientNum.Count == Menu_Num.Count)
-        //     {
-        //         for (int i = 0; i < Menu_Num.Count; i++)
-        //         {
-        //             Menu_Num[i] += ingredientGD.ingredientNum[i];
-        //         }
-        //     }
-        //     else
-        //     {
-        //         Debug.LogError("리스트 크기가 일치하지 않습니다. 데이터를 확인하세요.");
-        //         return;
-        //     }
+    private void SaveBakeData(int num) {
+        if (DataManager.Instance != null)
+        {   
+            myRecipe.bonus = true;
+            myRecipe.score = FinalScore;
 
-        //     DataManager.Instance.gameData.SetIngredient(Menu_Num);
-        //     DataManager.Instance.SaveGameData(); // 저장 함수 호출
-        //     Debug.Log("GameData에 ingre_Num 저장 완료!");
-        // }
-        // else
-        // {
-        //     Debug.LogError("DataManager 인스턴스를 찾을 수 없습니다.");
-        // }
+            // 돈을 저장한 뒤에 넘기기
+            DataManager.Instance.gameData.myBake[num] = myRecipe;
+            DataManager.Instance.SaveGameData(); // 저장 함수 호출
+            Debug.Log("GameData에 money 저장 완료!");
+        }
+        else
+        {
+            Debug.LogError("DataManager 인스턴스를 찾을 수 없습니다.");
+        }
     }
 }

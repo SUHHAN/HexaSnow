@@ -26,4 +26,15 @@ public class RunPopupManager : MonoBehaviour
     {
         SceneManager.LoadScene("Ingredient");
     }
+
+    public void deadline()
+    {
+        SceneManager.LoadScene("Deadline");
+    }
+
+    public void bonus()
+    {
+        SceneManager.LoadScene("Bonus");
+    }
 }
+

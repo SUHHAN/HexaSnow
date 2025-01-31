@@ -61,7 +61,6 @@ public class Bread_h : MonoBehaviour
 
         // Menu_Index 값을 PlayerPrefs에 저장
         PlayerPrefs.SetInt("SelectedMenuIndex", Menu_Index);
-        PlayerPrefs.SetInt("SelectedMenuScore", Menu_Score);
         PlayerPrefs.Save(); // 변경 사항 저장
 
         // ✅ 키가 존재하는지 확인
@@ -207,7 +206,5 @@ public class Bread_h : MonoBehaviour
         Transform panel = this.transform.Find("numPanel");
         Transform panel2 = this.transform.Find("pricePanel");
     }
-
-    // 이미 보너스 미니게임 진행한 슬롯은 비활성화 하기 함수
 
 }

@@ -15,11 +15,13 @@ public class deadlineLast_h : MonoBehaviour
 
     [Header("기타 관리")]
     [SerializeField] private GameObject BlackPanel;
-    private string mydate = "0";
+    private int mydate = 0;
     [SerializeField] private GameData GD = new GameData();
 
     void Start()
     {
+        LoadDate();
+        
         // 기본적으로 패널 및 불투명 블랙 다 비활성화 상태
         BlackPanel.SetActive(false);
 
@@ -63,7 +65,7 @@ public class deadlineLast_h : MonoBehaviour
         GD = DataManager.Instance.LoadGameData();
 
         // !! 일차 업데이트하기
-        // mydate = GD.lastLoginDate;
+        mydate = GD.date;
     }
 
 }
