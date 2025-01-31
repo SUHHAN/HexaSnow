@@ -105,6 +105,7 @@ public class deadline_h : MonoBehaviour
             Invoke("ShowNoMoneyPanel", 3f); // 경고창을 3초 뒤에 끄도록
 
             // 경고창 끈다음에 하루가 넘어가도록 하는 씬 추가
+            SceneManager.LoadScene("Deadline_Last");
         }
     }
 
@@ -112,6 +113,7 @@ public class deadline_h : MonoBehaviour
         IngredientStoreGoldPanel.SetActive(false);
 
         // 경고창 끈다음에 하루가 넘어가도록 하는 씬 추가
+        SceneManager.LoadScene("Deadline_Last");
     }
 
     void ShowNoMoneyPanel() {
