@@ -17,6 +17,8 @@ public class MixingGameManager : MonoBehaviour
     public Button startButton;
     public Button nextButton;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI gameText;
+    public TextMeshProUGUI finalText;
 
     // 터치 포인트와 손 아이콘
     public GameObject handIcon;
@@ -36,7 +38,6 @@ public class MixingGameManager : MonoBehaviour
 
     private bool isGameRunning = false; // 게임 진행 상태
     private int score = 0; // 현재 점수
-
     private GameObject activeTouchPoint = null; // 현재 활성화된 터치 포인트
     private int previousIndex = -1; // 이전에 생성된 터치 포인트 인덱스 (-1은 초기값)
 
@@ -47,6 +48,8 @@ public class MixingGameManager : MonoBehaviour
     private int currentFrame = 0;
     private float frameDuration = 30f / 85f; // 30초 동안 17장 애니메이션
     private bool isAnimating = false;
+
+    public int finalScore = 0;
 
     private void Start()
     {
@@ -226,27 +229,8 @@ public class MixingGameManager : MonoBehaviour
         Debug.Log("반죽 애니메이션 종료: IsMixing = false");
         isAnimating = false;
 
-        // 점수에 따른 결과 표시
-        if (score >= 65 && score <= 75)
-        {
-            scoreText.text = "Perfect!";
-            Debug.Log("Perfect!");
-        }
-        else if (score >= 40 && score < 65)
-        {
-            scoreText.text = "Great!";
-            Debug.Log("Great!");
-        }
-        else if (score >= 10 && score < 40)
-        {
-            scoreText.text = "Good!";
-            Debug.Log("Good!");
-        }
-        else
-        {
-            scoreText.text = "Bad!";
-            Debug.Log("Bad!");
-        }
+        finalScore = Mathf.RoundToInt(score / 10f);
+        Debug.Log($"반죽 게임 최종 점수: {finalScore}/15");
     }
 
     // 손 아이콘 마우스 드래그로 이동
@@ -298,6 +282,36 @@ public class MixingGameManager : MonoBehaviour
             score -= 6; // Miss
             Debug.Log("Miss! -3");
         }
+
+        ShowFloatingScore(score);
+    }
+
+    private void ShowFloatingScore(int point)
+    {
+        gameText.gameObject.SetActive(true);
+        gameText.text = point > 0 ? $"+{point}" : $"{point}";
+
+        // 점수 위치를 랜덤으로 조정 (UI 기준)
+        Vector3 randomPosition = new Vector3(Random.Range(-200f, 200f), Random.Range(-50f, 50f), 0);
+        gameText.rectTransform.anchoredPosition = randomPosition;
+
+        // 점점 사라지는 애니메이션
+        StartCoroutine(FadeOutText());
+    }
+    private IEnumerator FadeOutText()
+    {
+        Color textColor = gameText.color;
+        textColor.a = 1f;
+        gameText.color = textColor;
+
+        while (textColor.a > 0)
+        {
+            textColor.a -= Time.deltaTime * 1.5f;
+            gameText.color = textColor;
+            yield return null;
+        }
+
+        gameText.gameObject.SetActive(false);
     }
 
     // Oven 패널로 이동

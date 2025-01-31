@@ -18,6 +18,7 @@ public class IngredientSelectManager : MonoBehaviour
     private BakingStartManager bakingStartManager; // 선택한 레시피 가져오기
 
     private List<string> selectedIngredients = new List<string>(); // 사용자가 선택한 재료 목록
+    private int ingredientScore = 30; // 초기 총점 30점
 
     // 냉장고 & 선반 버튼 리스트
     public List<GameObject> refrigeratorButtons;
@@ -48,7 +49,7 @@ public class IngredientSelectManager : MonoBehaviour
         UpdateIngredientButtons(); // 재료 버튼 상태 업데이트
     }
 
-    // 소지한 재료만 활성화
+    // 소지한 재료만 버튼 활성화
     private void UpdateIngredientButtons()
     {
         foreach (GameObject buttonObj in refrigeratorButtons)
@@ -101,15 +102,24 @@ public class IngredientSelectManager : MonoBehaviour
             Color color = imageAfter.color;
             color.a = 1f; // 원래 불투명하게 설정
             imageAfter.color = color;
+            inventoryManager.AddIngredient(ingredientName); // 개수 +1
             Debug.Log($"재료 선택 해제: {ingredientName}");
         }
         else
         {
-            selectedIngredients.Add(ingredientName);
-            Color color = imageAfter.color;
-            color.a = 0.3f; // 투명도를 30%로 설정
-            imageAfter.color = color;
-            Debug.Log($"재료 선택: {ingredientName}");
+            // 선택 시: 개수 감소
+            if (inventoryManager.UseIngredient(ingredientName))
+            {
+                selectedIngredients.Add(ingredientName);
+                Color color = imageAfter.color;
+                color.a = 0.3f; // 투명도를 30%로 설정
+                imageAfter.color = color;
+                Debug.Log($"재료 선택: {ingredientName}");
+            }
+            else
+            {
+                Debug.LogError($"재료 {ingredientName} 개수가 부족합니다!");
+            }
         }
 
         // 선택된 재료가 하나라도 있으면 완료 버튼 활성화
@@ -128,12 +138,16 @@ public class IngredientSelectManager : MonoBehaviour
 
         if (VerifyIngredients(selectedRecipe.ingredients))
         {
+            ingredientScore -= 5;
             Debug.Log("재료가 레시피와 정확히 일치합니다!");
         }
         else
         {
             Debug.Log("선택한 재료가 레시피와 일치하지 않습니다.");
         }
+
+        // 최종 점수 출력 (Debug 로그)
+        Debug.Log($"최종 재료 점수: {ingredientScore}/30");
 
         ingredientSelectionPanel.SetActive(false);
         mixingGameManager.ActivateMixingPanel();
