@@ -653,8 +653,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelTransform: {fileID: 1837771933}
+  newDateText: {fileID: 794476388}
   targetY: 560
-  moveDuration: 1.5
+  GD:
+    isGuestLoggedIn: 0
+    guestId: 
+    lastLoginDate: 
+    date: 0
+    money: 0
+    ingredientNum: 
+    myBake: []
+  mydate: 0
 --- !u!4 &1221115801
 Transform:
   m_ObjectHideFlags: 0

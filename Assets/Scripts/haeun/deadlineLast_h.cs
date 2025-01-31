@@ -40,7 +40,11 @@ public class deadlineLast_h : MonoBehaviour
         DeadlinePanel.SetActive(false);
         BlackPanel.SetActive(false);
 
-        // 하루를 넘어가는 버튼이 나오도록 하기
+        // 하루를 넘겨서 일차 저장하기
+        SaveDate();
+
+        // 하루를 넘어가는 씬이 나오도록 하기
+        SceneManager.LoadScene("DayEnd");
     }
 
 
@@ -66,6 +70,11 @@ public class deadlineLast_h : MonoBehaviour
 
         // !! 일차 업데이트하기
         mydate = GD.date;
+    }
+
+    private void SaveDate() {
+        DataManager.Instance.gameData.date = mydate + 1;
+        DataManager.Instance.SaveGameData();
     }
 
 }

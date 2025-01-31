@@ -1,14 +1,23 @@
 using System.Collections;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PanelMover : MonoBehaviour
 {
     public RectTransform panelTransform; // 이동할 UI 패널 (상단)
+    public TextMeshProUGUI newDateText; // 새로운 일차를 알리는 알림 텍스트
     public float targetY = 560f;  // 최종적으로 내려올 위치
     private float moveDuration = 0.5f; // 이동에 걸리는 시간
 
     private float startY = 700f; // 시작 위치 (화면 밖)
     private float endY = 700f;   // 사라질 위치 (다시 화면 밖)
+
+    [SerializeField] private GameData GD = new GameData();
+    [SerializeField] private int mydate = 0;
+
+    
 
     void Start()
     {
@@ -21,6 +30,9 @@ public class PanelMover : MonoBehaviour
 
     void StartMovingPanel()
     {
+        LoadDate();
+
+        newDateText.text = $"{mydate}일차 가게 오픈";
         StartCoroutine(MovePanelSequence());
     }
 
@@ -51,5 +63,17 @@ public class PanelMover : MonoBehaviour
         }
 
         panelTransform.anchoredPosition = new Vector2(panelTransform.anchoredPosition.x, toY);
+    }
+
+    void GoGame() {
+        SceneManager.LoadScene("DayEnd");
+    }
+
+    private void LoadDate() {
+
+        GD = DataManager.Instance.LoadGameData();
+
+        // !! 일차 업데이트하기
+        mydate = GD.date;
     }
 }
