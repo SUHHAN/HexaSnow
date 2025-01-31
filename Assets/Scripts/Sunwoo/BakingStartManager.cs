@@ -80,7 +80,7 @@ public class BakingStartManager : MonoBehaviour
             if (selectedRecipe != null && selectedRecipe.recipeName == recipeName)
             {
                 // 이미 선택한 레시피를 다시 클릭하면 취소
-                clickedButton.image.color = originalButtonColors[clickedButton];
+                clickedButton.image.color = originalButtonColors[clickedButton]; // 원래 색상 복원
                 selectedRecipe = null;
                 nextButton.gameObject.SetActive(false);
             }
@@ -88,8 +88,13 @@ public class BakingStartManager : MonoBehaviour
             {
                 // 새로운 레시피 선택
                 DeselectAllRecipeButtons(); // 이전 선택 해제
-                clickedButton.image.color = Color.gray; // 회색으로 변경
+                Color newColor = clickedButton.image.color;
+                newColor.a = 0.5f; // 투명도를 50%로 낮춤
+                clickedButton.image.color = newColor;
+
                 selectedRecipe = recipe;
+                Debug.Log($"선택된 제과: {selectedRecipe.recipeName}");
+
                 nextButton.gameObject.SetActive(true);
             }
         }
@@ -106,7 +111,7 @@ public class BakingStartManager : MonoBehaviour
         {
             if (originalButtonColors.ContainsKey(button))
             {
-                button.image.color = originalButtonColors[button];
+                button.image.color = originalButtonColors[button]; // 원래 색상 복원
             }
         }
     }
@@ -130,7 +135,13 @@ public class BakingStartManager : MonoBehaviour
         }
     }
 
-    // 선택한 레시피 반환 (재료 검증 시 활용)
+    // 선택한 레시피 반환 토핑 단계에서 쓰기 위해
+    public string GetSelectedDessert()
+    {
+        return selectedRecipe != null ? selectedRecipe.recipeName : null;
+    }
+
+    // 선택한 레시피 반환 재료 검증에서 쓰기
     public Recipe GetSelectedRecipe()
     {
         return selectedRecipe;
