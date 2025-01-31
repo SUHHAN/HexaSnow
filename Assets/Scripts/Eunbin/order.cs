@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Order : MonoBehaviour
 {
+    public GameTime gametime;
     public getMenu getMenuScript;
     public special_customer SpecialScript;
     public DayChange dayChange;
@@ -21,11 +22,13 @@ public class Order : MonoBehaviour
     private List<string> nicknames = new List<string>();
     public int order_menu_id;
     public List<string> order_nickname=new List<string>();
+    public List<string> unlocked_menu=new List<string>();
     public List<int> order_deadLine=new List<int>();
     private int currentDialogueIndex; // 현재 주문 인덱스
     private int currentNicknameIndex; //현재 손님 인덱스
     public string csvFileName = "orderStatement_main.csv"; // CSV 파일 이름
     public string csvFileName_nickname="orderStatement_nickname.csv";
+    public string csvFileName_menu="menu.csv";
     public Button acceptButton; // 수락 버튼
     public Button cancelButton; // 취소 버튼
     public Button orderCheck;
@@ -36,6 +39,11 @@ public class Order : MonoBehaviour
     private int accept_order=2;
     private int deadline=1;
 
+    public GameObject popup;
+    public TextMeshProUGUI popupText;
+    private int openmenuIndex=1;
+    private bool isPopupCoroutineRunning=false;
+    public GameObject Mademenu;
     public struct DialogueLine{
     public string id;
     public string menu;
@@ -52,9 +60,12 @@ public class Order : MonoBehaviour
         postman.SetActive(true);
         orderCheck.gameObject.SetActive(true);
         order.SetActive(true); // 주문 UI 비활성화
+        Mademenu.SetActive(false);
+
         InitializeButtons(); // 버튼 초기화
         LoadDialoguesFromCSV(); // CSV 파일 로드
         LoadNicknameFromCSV();
+        LoadMenuForPopup(); // 메뉴 해금 팝업용 CSV 로드
         Postmanment();
 
         openMenu(1);
@@ -114,6 +125,35 @@ public class Order : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError($"닉네임 CSV 파일 읽기 중 오류 발생: {ex.Message}");
+        }
+    }
+
+    private void LoadMenuForPopup()
+    {
+        try
+        {
+            // 메뉴 해금 팝업용 CSV 파일 읽기
+            TextAsset csvFile = Resources.Load<TextAsset>(Path.GetFileNameWithoutExtension(csvFileName_menu));
+            if (csvFile == null)
+            {
+                Debug.LogError($"CSV 파일을 찾을 수 없습니다: {csvFileName_menu}");
+                return;
+            }
+
+            string[] lines = csvFile.text.Split('\n');
+            foreach (string line in lines)
+            {
+                string[] fields = line.Split(',');
+                if (fields.Length > 0)
+                {
+                    string menu = fields[1].Trim(); // 메뉴 이름
+                    unlocked_menu.Add(menu);
+                }
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"메뉴 해금 CSV 파일 읽기 중 오류 발생: {ex.Message}");
         }
     }
 
@@ -191,6 +231,7 @@ public class Order : MonoBehaviour
 
     private void CloseDialogue()
     {
+        gametime.StartGameTimer();
         order.SetActive(false); // UI 비활성화
         currentDialogueIndex = 0; // 대화 인덱스 초기화
         postman.SetActive(false);
@@ -244,7 +285,6 @@ private void InitializeButtons(){
 
 public void openMenu(int day){
      int maxId=day*2000+1000;
-     Debug.Log(maxId);
 
      filteredDialogues=dialogues.FindAll(dialogue=>{
         if (int.TryParse(dialogue.id, out int dialogueId)){
@@ -255,12 +295,13 @@ public void openMenu(int day){
 
      if (filteredDialogues.Count == 0)
     {
-        Debug.LogWarning($"현재 날짜({day})에 허용된 대화가 없습니다!");
+        Debug.LogWarning($"현재 날짜({day})에 허용된 주문이 없습니다!");
     }
     else
     {
-        Debug.Log($"현재 날짜({day})에 허용된 대화 개수: {filteredDialogues.Count}");
+        Debug.Log($"현재 날짜({day})에 허용된 주문 개수: {filteredDialogues.Count}");
     }
+    showPopup();
 }
 
 public void ResetOrderSystem(int day)
@@ -277,4 +318,27 @@ public void ResetOrderSystem(int day)
         Postmanment();
         
     }
+    private void showPopup(){
+    if (openmenuIndex < unlocked_menu.Count)
+    {
+        string unlockedMenu1 = unlocked_menu[openmenuIndex];
+        string unlockedMenu2 = (openmenuIndex + 1 < unlocked_menu.Count) ? unlocked_menu[openmenuIndex + 1] : null;
+
+        if (!string.IsNullOrEmpty(unlockedMenu1) && !string.IsNullOrEmpty(unlockedMenu2))
+        {
+            popup.SetActive(true);
+            popupText.text = $"{unlockedMenu1}, {unlockedMenu2} 레시피가\n해금되었습니다!";
+        }
+        
+        openmenuIndex += 2;
+}
+    }
+    void Update()
+    {
+    // 팝업이 활성화된 상태에서 클릭 감지
+    if (popup.activeSelf && Input.GetMouseButtonDown(0))
+    {
+        popup.SetActive(false); // 팝업 비활성화
+    }
+}
 }

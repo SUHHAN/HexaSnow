@@ -90,6 +90,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Menu_ID: 0
   Menu_Index: 0
+  Menu_Score: 0
+  Menu_Level: 0
+  Menu_Bonus: 0
+  Menu_Name: 
 --- !u!1 &1253690887438666038
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +316,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Menu_ID: 0
   Menu_Index: 0
+  Menu_Score: 0
+  Menu_Level: 0
+  Menu_Bonus: 0
+  Menu_Name: 
 --- !u!1 &5972407869610111521
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +605,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Menu_ID: 0
   Menu_Index: 0
+  Menu_Score: 0
+  Menu_Level: 51
+  Menu_Bonus: 0
+  Menu_Name: 
 --- !u!1 &8337822582850637035
 GameObject:
   m_ObjectHideFlags: 0
