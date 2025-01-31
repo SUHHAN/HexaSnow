@@ -53,7 +53,7 @@ public class deadlineLast_h : MonoBehaviour
 
     private IEnumerator ActivateDeadlinePanelAfterDelay()
     {
-        DeadlindText.text = $"{mydate}일차 가게를 마감합니다.";
+        DeadlindText.text = $"{mydate}일차 영업을 종료합니다.";
 
         yield return new WaitForSeconds(1f); // 1초 대기
         DeadlinePanel.SetActive(true);       // 패널 활성화
