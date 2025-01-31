@@ -10,6 +10,9 @@ public class InventoryManager : MonoBehaviour
     private GameData gameData; // DataManager에서 불러온 데이터
     private string csvFileName = "ingredient.csv"; // CSV 파일명
 
+    // 냉장고에 있는 재료 버튼 리스트 추가
+    public List<GameObject> refrigeratorButtons = new List<GameObject>();
+
     [System.Serializable]
     public class Ingred
     {
@@ -34,6 +37,22 @@ public class InventoryManager : MonoBehaviour
 
         // DataManager에서 저장된 재료 개수 불러오기
         LoadIngredientsFromGameData();
+
+        // 냉장고 재료 버튼 업데이트
+        UpdateRefrigeratorButtons();
+    }
+
+    // 냉장고 재료 버튼 업데이트
+    public void UpdateRefrigeratorButtons()
+    {
+        foreach (GameObject buttonObj in refrigeratorButtons)
+        {
+            string ingredientName = buttonObj.name.Replace("Button", ""); // 버튼 이름에서 "Button" 제거
+            bool hasIngredient = HasIngredient(ingredientName);
+
+            buttonObj.SetActive(hasIngredient);
+            Debug.Log($"재료 버튼 업데이트: {ingredientName}, 소지 여부: {hasIngredient}");
+        }
     }
 
     // GameDataManager에서 재료 개수 불러오기
@@ -142,6 +161,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         SaveIngredients();
+        UpdateRefrigeratorButtons(); // 재료가 추가되었으므로 버튼 업데이트
     }
 
     // 재료 개수 감소 (사용)
@@ -151,6 +171,7 @@ public class InventoryManager : MonoBehaviour
         {
             ingredientCounts[ingredient]--;
             SaveIngredients();
+            UpdateRefrigeratorButtons(); // 재료가 감소했으므로 버튼 업데이트
             return true;
         }
         return false;
