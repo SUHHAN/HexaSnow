@@ -40,7 +40,11 @@ public class deadlineLast_h : MonoBehaviour
         DeadlinePanel.SetActive(false);
         BlackPanel.SetActive(false);
 
-        // 하루를 넘어가는 버튼이 나오도록 하기
+        // 하루를 넘겨서 일차 저장하기
+        SaveDate();
+
+        // 하루를 넘어가는 씬이 나오도록 하기
+        SceneManager.LoadScene("DayEnd");
     }
 
 
@@ -53,7 +57,7 @@ public class deadlineLast_h : MonoBehaviour
 
     private IEnumerator ActivateDeadlinePanelAfterDelay()
     {
-        DeadlindText.text = $"{mydate}일차 가게를 마감합니다.";
+        DeadlindText.text = $"{mydate}일차 영업을 종료합니다.";
 
         yield return new WaitForSeconds(1f); // 1초 대기
         DeadlinePanel.SetActive(true);       // 패널 활성화
@@ -66,6 +70,11 @@ public class deadlineLast_h : MonoBehaviour
 
         // !! 일차 업데이트하기
         mydate = GD.date;
+    }
+
+    private void SaveDate() {
+        DataManager.Instance.gameData.date = mydate + 1;
+        DataManager.Instance.SaveGameData();
     }
 
 }
