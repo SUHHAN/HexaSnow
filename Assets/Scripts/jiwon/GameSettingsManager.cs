@@ -26,29 +26,35 @@ public class GameSettingsManager : MonoBehaviour
 
     private void Start()
     {
-        // 알림 설정 초기화
-        notificationToggle.onValueChanged.AddListener(SetNotification);
+        // **저장된 알림 설정 불러오기** (기본값: 1 = 허용)
+        bool isAllowed = PlayerPrefs.GetInt("NotificationAllowed", 1) == 1;
+        notificationToggle.isOn = isAllowed;
         UpdateNotificationUI();
 
-        // 볼륨 초기화
-        systemVolumeSlider.value = 50;
-        bgmVolumeSlider.value = 50;
-        effectVolumeSlider.value = 50;
+        // **토글 이벤트 리스너 등록**
+        notificationToggle.onValueChanged.AddListener(SetNotification);
 
+        // **저장된 볼륨 값 불러오기** (저장된 값이 없으면 기본값 50 사용)
+        systemVolumeSlider.value = PlayerPrefs.GetFloat("SystemVolume", 50);
+        bgmVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume", 50);
+        effectVolumeSlider.value = PlayerPrefs.GetFloat("EffectVolume", 50);
+
+        // **볼륨 조절 슬라이더 이벤트 리스너 등록**
         systemVolumeSlider.onValueChanged.AddListener(delegate { SetSystemVolume(); });
         bgmVolumeSlider.onValueChanged.AddListener(delegate { SetBGMVolume(); });
         effectVolumeSlider.onValueChanged.AddListener(delegate { SetEffectVolume(); });
 
+        // **UI 업데이트**
         UpdateVolumeUI();
 
-        // 언어 선택 버튼
+        // **언어 선택 버튼 설정**
         koreanButton.onClick.AddListener(SelectKorean);
-        preparingText.color = new Color(0.5f, 0.5f, 0.5f, 1f); // 회색 처리
+        preparingText.color = new Color(0.5f, 0.5f, 0.5f, 1F); // 회색 처리
 
-        // 슬라이더 크기와 위치 설정
-        SetSliderDimensions(systemVolumeSlider, "SystemVolume"); // 시스템 볼륨 슬라이더
-        SetSliderDimensions(bgmVolumeSlider, "BGMVolume"); // BGM 볼륨 슬라이더
-        SetSliderDimensions(effectVolumeSlider, "EffectVolume"); // 효과음 볼륨 슬라이더
+        // **슬라이더 크기 및 위치 설정 (선택 사항)**
+        SetSliderDimensions(systemVolumeSlider, "SystemVolume");
+        SetSliderDimensions(bgmVolumeSlider, "BGMVolume");
+        SetSliderDimensions(effectVolumeSlider, "EffectVolume");
     }
 
     // 알림 설정
@@ -56,6 +62,8 @@ public class GameSettingsManager : MonoBehaviour
     {
         Debug.Log("Toggle Changed: " + isOn); // 이벤트가 호출되는지 로그로 확인
         PlayerPrefs.SetInt("NotificationAllowed", isOn ? 1 : 0);
+        PlayerPrefs.Save();
+
         UpdateNotificationUI();
     }
 
@@ -153,4 +161,3 @@ public class GameSettingsManager : MonoBehaviour
         PlayerPrefs.Save(); // 저장을 확실하게 반영
     }
 }
-

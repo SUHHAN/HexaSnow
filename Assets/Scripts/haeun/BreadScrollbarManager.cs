@@ -189,8 +189,6 @@ public class BreadScrollbarManager : MonoBehaviour
         foreach (MyRecipeList recipe in DataManager.Instance.gameData.myBake) {
             MyList.Add(recipe);
         }
-
     }
-
 }
 
