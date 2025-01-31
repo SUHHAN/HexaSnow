@@ -10,6 +10,8 @@ public class getMenu : MonoBehaviour
     public GameObject oldMan;
     public GameObject man;
     public GameObject child;
+    public GameObject girl;
+    
     public Button none;
     private Dictionary<int, List<List<int>>> dailyOrders = new Dictionary<int, List<List<int>>>(); // 일별 주문 저장
     private List<GameObject> customers = new List<GameObject>();
@@ -26,9 +28,11 @@ public class getMenu : MonoBehaviour
     public GameObject nameBubble;
     private int NicknameIndex=0;
     bool isOrderCompleted = false;
+    public string csvFileName_guest="guest.csv";
 
     public GameObject MadeMenu;
     public string menuName;
+    public SetMenu setmenu;
     
     public struct DialogueLine{
     public string id;
@@ -41,11 +45,7 @@ public class getMenu : MonoBehaviour
         this.description=description;
     }
     }
-
     void Start(){
-        oldMan.SetActive(false);
-        child.SetActive(false);
-        man.SetActive(false);
         customer_order.SetActive(false);
         speechBubble.SetActive(false);
         LoadDialoguesFromCSV(); // CSV 파일 로드
@@ -53,6 +53,8 @@ public class getMenu : MonoBehaviour
         customers.Add(oldMan);
         customers.Add(man);
         customers.Add(child);
+        customers.Add(girl);
+        
     }
      private void LoadDialoguesFromCSV()
     {
@@ -154,12 +156,14 @@ public class getMenu : MonoBehaviour
     public IEnumerator ProcessCustomers(int dayToProcess)
 {
     Debug.Log($"[{dayToProcess}일] 손님 처리 시작");
+    none.gameObject.SetActive(true);
     MadeMenu.SetActive(true);
 
     if (!dailyOrders.ContainsKey(dayToProcess) || dailyOrders[dayToProcess].Count == 0)
     {
         Debug.Log($"[{dayToProcess}일] 처리할 주문이 없습니다.");
         MadeMenu.SetActive(false);
+        none.gameObject.SetActive(false);
         yield break;
     }
     List<List<int>> menuForDay = new List<List<int>>(dailyOrders[dayToProcess]); // 해당 날짜의 주문 복사
@@ -175,11 +179,12 @@ public class getMenu : MonoBehaviour
         dialogueName.text = nicknames[nicknameIndex];
 
         Debug.Log($"손님 {customer.name}이(가) 메뉴 {menuName}을(를) 받으러 왔습니다!");
+        setmenu.current_cus(menuName, "cus");        
         ShowOrder(orderId);
         nameBubble.SetActive(true);
 
         isOrderCompleted = false;
-
+    
         none.onClick.RemoveAllListeners();
         
         none.onClick.AddListener(() => {
@@ -201,6 +206,7 @@ public class getMenu : MonoBehaviour
     dailyOrders[dayToProcess].Clear(); // 해당 날짜의 주문 처리 완료
     Debug.Log($"[{dayToProcess}일] 모든 손님이 메뉴를 받아갔습니다.");
     MadeMenu.SetActive(false);
+    none.gameObject.SetActive(false);
 }
 
     private GameObject GetRandomCustomer(){
@@ -228,5 +234,6 @@ public class getMenu : MonoBehaviour
             isOrderCompleted = true;         
         }
     }
+
     
 }

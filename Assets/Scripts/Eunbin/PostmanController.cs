@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PostmanController : MonoBehaviour
 {
@@ -10,10 +11,10 @@ public class PostmanController : MonoBehaviour
     public GameObject speechBubble;
     public GameObject nameBubble;
     public GameObject letterBubble;
-    public GameObject order;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
     public TextMeshProUGUI letterText;
+
 
     private List<DialogueLine> dialogues = new List<DialogueLine>();
     private int currentDialogueIndex = 1;
@@ -35,7 +36,6 @@ public class PostmanController : MonoBehaviour
 
     private void Start()
     {
-        order.SetActive(false);
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
         letterBubble.SetActive(false);
@@ -162,9 +162,11 @@ public class PostmanController : MonoBehaviour
 
         if (currentDialogueIndex >= dialogues.Count)
         {
-            speechBubble.SetActive(false);
-            letterBubble.SetActive(false);
-            postman.SetActive(false);
+
+            //speechBubble.SetActive(false);
+            //letterBubble.SetActive(false);
+            //postman.SetActive(false);
+            SceneManager.LoadScene("order");
         }
         else
         {

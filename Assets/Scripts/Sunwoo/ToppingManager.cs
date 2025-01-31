@@ -2,81 +2,123 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System.IO;
+using UnityEngine.SceneManagement;
 
 public class ToppingManager : MonoBehaviour
 {
-    public GameObject toppingPanel; // Topping 전체 패널
-    public GameObject startToppingPanel; // 시작 패널
-    public GameObject addToppingPanel; // 토핑 선택 패널
-    public GameObject finishBakingPanel; // 결과 패널
+    // 토핑 패널
+    public GameObject toppingPanel;
+    public GameObject startToppingPanel;
+    public GameObject addToppingPanel;
+    public GameObject finishBakingPanel;
 
-    public Button startToppingButton; // 토핑 시작 버튼
-    public Button finishToppingButton; // 완료 버튼
+    // 버튼
+    public Button startToppingButton;
+    public Button finishToppingButton;
 
-    public InventoryManager inventoryManager; // 인벤토리 관리
-    public Image bakingImage; // 최종 이미지
-    public Image oriImage1; // Original 이미지 1
-    public Image oriImage2; // Original 이미지 2
+    // 기타 참조
+    public InventoryManager inventoryManager;
+    public OvenGameManager ovenGameManager;
+    public Image bakingImage;
+    public Image oriImage1;
+    public Image oriImage2;
 
-    // 토핑 버튼 미리 할당
-    public List<GameObject> refrigeratorButtons;
+    public BakingStartManager bakingStartManager;
 
-    private string selectedTopping = null; // 선택된 토핑
-
-    public BakingStartManager bakingStartManager; // BakingStartManager 참조
+    private int selectedToppingIndex = -1; // int 타입으로 변경하여 인덱스로 관리
+    private Dictionary<int, string> menuDictionary = new Dictionary<int, string>();
 
     void Start()
     {
-        // 초기 UI 설정
+        LoadRecipeCSV();
+
         startToppingPanel.SetActive(true);
         addToppingPanel.SetActive(false);
         finishBakingPanel.SetActive(false);
 
-        // 버튼 이벤트 등록
         startToppingButton.onClick.AddListener(OpenToppingSelection);
         finishToppingButton.onClick.AddListener(FinishToppingSelection);
 
-        UpdateToppingButtons(); // 소지한 재료만 활성화
-        SetOriginalImages(); // OriImage1, OriImage2에 original 이미지 설정
+        UpdateToppingButtons();
+        SetOriginalImages();
     }
 
-    // StartToppingButton 클릭 시 실행
+    // CSV에서 레시피 데이터를 불러오는 함수
+    private void LoadRecipeCSV()
+    {
+        TextAsset csvFile = Resources.Load<TextAsset>("recipe");
+        if (csvFile == null)
+        {
+            Debug.LogError("CSV 파일을 찾을 수 없습니다: recipe.csv");
+            return;
+        }
+
+        string[] lines = csvFile.text.Split('\n');
+        for (int i = 1; i < lines.Length; i++)
+        {
+            string[] fields = lines[i].Split(',');
+            if (fields.Length < 2) continue;
+
+            int id;
+            if (int.TryParse(fields[0].Trim(), out id))
+            {
+                string menuName = fields[1].Trim();
+                menuDictionary[id] = menuName;
+            }
+        }
+        Debug.Log($"CSV에서 {menuDictionary.Count}개의 메뉴 데이터를 불러왔습니다.");
+    }
+
+    // 토핑 선택 패널 열기
     private void OpenToppingSelection()
     {
         startToppingPanel.SetActive(false);
         addToppingPanel.SetActive(true);
-        UpdateToppingButtons(); // 다시 업데이트
+        UpdateToppingButtons();
     }
 
-    // 소지한 토핑만 버튼 활성화
+    // 소지한 토핑 버튼 활성화
     private void UpdateToppingButtons()
     {
-        foreach (GameObject buttonObj in refrigeratorButtons)
+        if (inventoryManager == null)
         {
-            string toppingName = buttonObj.name.Replace("Button", ""); // "BananaButton" -> "Banana"
-            bool hasTopping = inventoryManager.HasIngredient(toppingName);
+            Debug.LogError("InventoryManager가 할당되지 않았습니다!");
+            return;
+        }
+
+        inventoryManager.UpdateRefrigeratorButtons();
+
+        foreach (GameObject buttonObj in inventoryManager.refrigeratorButtons)
+        {
+            string toppingEname = buttonObj.name.Replace("Button", ""); // 버튼에서 "Button" 제거하여 eName 추출
+            int toppingIndex = inventoryManager.GetIngredientIndexFromEname(toppingEname); // eName → index 변환
+
+            if (toppingIndex == -1) continue; // 없는 재료면 무시
+
+            bool hasTopping = inventoryManager.HasIngredient(toppingIndex);
 
             buttonObj.SetActive(hasTopping);
-            Debug.Log($"토핑: {toppingName}, 소지 여부: {hasTopping}");
-
             if (hasTopping)
             {
                 Button button = buttonObj.GetComponent<Button>();
                 button.onClick.RemoveAllListeners();
-                button.onClick.AddListener(() => SelectSingleTopping(buttonObj, toppingName));
+                button.onClick.AddListener(() => SelectSingleTopping(buttonObj, toppingIndex)); // int 타입으로 변경
             }
         }
     }
 
-    // 토핑 버튼 클릭 시, 하나의 토핑만 선택 가능하게 설정
-    private void SelectSingleTopping(GameObject buttonObj, string toppingName)
+    // 토핑 하나만 선택 가능하도록 설정
+    private void SelectSingleTopping(GameObject buttonObj, int toppingIndex)
     {
-        // 기존 선택된 토핑 해제
-        if (selectedTopping != null)
+        if (selectedToppingIndex != -1) // 기존 선택된 토핑이 있으면 해제
         {
-            foreach (GameObject btn in refrigeratorButtons)
+            foreach (GameObject btn in inventoryManager.refrigeratorButtons)
             {
-                if (btn.name.Replace("Button", "") == selectedTopping)
+                string btnEname = btn.name.Replace("Button", "");
+                int btnIndex = inventoryManager.GetIngredientIndexFromEname(btnEname);
+                if (btnIndex == selectedToppingIndex)
                 {
                     Image prevImageAfter = btn.transform.Find("Imageaft").GetComponent<Image>();
                     prevImageAfter.color = new Color(1f, 1f, 1f, 1f);
@@ -85,30 +127,30 @@ public class ToppingManager : MonoBehaviour
             }
         }
 
-        // 새롭게 선택한 토핑 적용
-        if (selectedTopping == toppingName)
+        if (selectedToppingIndex == toppingIndex) // 같은 버튼 다시 누르면 선택 해제
         {
-            // 같은 버튼을 다시 눌렀다면 선택 해제
-            selectedTopping = null;
+            selectedToppingIndex = -1;
         }
-        else
+        else // 새로운 토핑 선택
         {
-            selectedTopping = toppingName;
+            selectedToppingIndex = toppingIndex;
             Image imageAfter = buttonObj.transform.Find("Imageaft").GetComponent<Image>();
             imageAfter.color = new Color(1f, 1f, 1f, 0.3f);
         }
     }
 
-    // 완료 버튼 클릭 시 실행
+    // 토핑 선택 완료
     private void FinishToppingSelection()
     {
-        Debug.Log($"선택된 토핑: {selectedTopping ?? "없음"}");
         addToppingPanel.SetActive(false);
         finishBakingPanel.SetActive(true);
         UpdateBakingImage();
+        SaveBakingResult();
+
+        SceneManager.LoadScene("Bonus");
     }
 
-    // 선택한 디저트의 original 이미지를 OriImage1, OriImage2에 설정
+    // 선택한 디저트의 원본 이미지 설정
     private void SetOriginalImages()
     {
         string selectedDessert = bakingStartManager.GetSelectedDessert();
@@ -120,26 +162,74 @@ public class ToppingManager : MonoBehaviour
             oriImage1.sprite = originalSprite;
             oriImage2.sprite = originalSprite;
         }
-        else
-        {
-            Debug.LogError($"Original 이미지 로드 실패: {originalImagePath}");
-        }
     }
 
-    // 선택한 디저트와 토핑에 따라 bakingImage 업데이트
+    // 선택한 디저트와 토핑을 반영하여 최종 이미지 업데이트
     private void UpdateBakingImage()
     {
         string selectedDessert = bakingStartManager.GetSelectedDessert();
-        string imagePath = $"Sunwoo/Images/menu_{selectedDessert.ToLower()}_{(selectedTopping ?? "original").ToLower()}";
+        string toppingEname = inventoryManager.GetIngredientEname(selectedToppingIndex); // 인덱스를 eName으로 변환
+        string imagePath = $"Sunwoo/Images/menu_{selectedDessert.ToLower()}_{(toppingEname ?? "original").ToLower()}";
 
         Sprite newSprite = Resources.Load<Sprite>(imagePath);
         if (newSprite != null)
         {
             bakingImage.sprite = newSprite;
         }
-        else
-        {
-            Debug.LogError($"이미지 로드 실패: {imagePath}");
-        }
     }
+
+    // 베이킹 결과 저장
+    private void SaveBakingResult()
+    {
+        if (DataManager.Instance == null)
+        {
+            Debug.LogError("DataManager 인스턴스를 찾을 수 없습니다!");
+            return;
+        }
+
+        string dessertName = bakingStartManager.GetSelectedDessert();
+        int totalScore = ovenGameManager.GetTotalScore();
+        Debug.Log($"최종 총점: {totalScore}");
+
+        bool isBonusGame = false;
+
+        int menuID = GetMenuID(dessertName);
+        if (menuID == -1)
+        {
+            Debug.LogError($"메뉴 ID를 찾을 수 없습니다: {dessertName}");
+            return;
+        }
+
+        string finalName = selectedToppingIndex != -1
+            ? $"{inventoryManager.GetIngredientEname(selectedToppingIndex)} {dessertName}"
+            : $"오리지널 {dessertName}";
+
+        MyRecipeList newRecipe = new MyRecipeList(
+            DataManager.Instance.gameData.myBake.Count + 1,
+            menuID,
+            finalName,
+            totalScore,
+            isBonusGame
+        );
+
+        DataManager.Instance.gameData.myBake.Add(newRecipe);
+        DataManager.Instance.SaveGameData();
+
+        Debug.Log($"저장 완료: {finalName} | 점수: {totalScore} | 보너스 여부: {isBonusGame}");
+    }
+
+    // 메뉴 ID를 가져오는 함수 추가
+    private int GetMenuID(string dessertName)
+    {
+        foreach (var entry in menuDictionary)
+        {
+            if (entry.Value == dessertName)
+            {
+                return entry.Key; // 해당하는 메뉴 ID 반환
+            }
+        }
+        Debug.LogError($"GetMenuID: '{dessertName}'에 해당하는 메뉴 ID를 찾을 수 없습니다.");
+        return -1; // 찾지 못한 경우 -1 반환
+    }
+
 }
