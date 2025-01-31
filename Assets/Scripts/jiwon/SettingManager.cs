@@ -44,10 +44,19 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
+
     // 설정 창 닫기
     public void CloseSettings()
     {
-        SettingParentPanel.SetActive(false);
+        if (SettingParentPanel != null)
+        {
+            Debug.Log("설정 창 닫기 실행됨.");
+            SettingParentPanel.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("SettingParentPanel이 null입니다! Inspector에서 올바른 오브젝트를 할당하세요.");
+        }
     }
 
     // 계정 설정 패널 열기
