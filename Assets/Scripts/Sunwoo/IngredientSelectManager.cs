@@ -18,7 +18,7 @@ public class IngredientSelectManager : MonoBehaviour
     private BakingStartManager bakingStartManager; // 선택한 레시피 가져오기
 
     private List<string> selectedIngredients = new List<string>(); // 사용자가 선택한 재료 목록
-    private int ingredientScore = 30; // 초기 총점 30점
+    public int ingredientScore = 30; // 초기 총점 30점
 
     // 냉장고 & 선반 버튼 리스트
     public List<GameObject> refrigeratorButtons;

@@ -48,7 +48,7 @@ public class MixingGameManager : MonoBehaviour
     private float frameDuration = 30f / 85f;
     private bool isAnimating = false;
 
-    public int finalScore = 0;
+    public int mixingScore = 0;
 
     private void Start()
     {
@@ -203,12 +203,12 @@ public class MixingGameManager : MonoBehaviour
         mixingGamePanel.SetActive(false);
         finishMixingPanel.SetActive(true);
 
-        finalScore = Mathf.RoundToInt(score / 10f);
-        Debug.Log($"반죽 게임 최종 점수: {finalScore}/15");
+        mixingScore = Mathf.RoundToInt(score / 10f);
+        Debug.Log($"반죽 게임 최종 점수: {mixingScore}/15");
 
         // finalText에 최종 점수 표시
         finalText.gameObject.SetActive(true);
-        finalText.text = $"최종 점수: {finalScore} / 15";
+        finalText.text = $"최종 점수: {mixingScore} / 15";
     }
 
     private void Update()
