@@ -7,6 +7,10 @@ public class GameSettingsManager : MonoBehaviour
     public Toggle notificationToggle;
     public Text notificationStatusText;
 
+    // 두 개의 스프라이트 설정 (on과 off 상태)
+    public Sprite notificationOnImage;  // 알림 켜졌을 때 이미지
+    public Sprite notificationOffImage; // 알림 꺼졌을 때 이미지
+
     [Header("볼륨 설정")]
     public Slider systemVolumeSlider;
     public Slider bgmVolumeSlider;
@@ -50,6 +54,7 @@ public class GameSettingsManager : MonoBehaviour
     // 알림 설정
     private void SetNotification(bool isOn)
     {
+        Debug.Log("Toggle Changed: " + isOn); // 이벤트가 호출되는지 로그로 확인
         PlayerPrefs.SetInt("NotificationAllowed", isOn ? 1 : 0);
         UpdateNotificationUI();
     }
@@ -59,7 +64,28 @@ public class GameSettingsManager : MonoBehaviour
         bool isAllowed = PlayerPrefs.GetInt("NotificationAllowed", 1) == 1;
         notificationToggle.isOn = isAllowed;
         notificationStatusText.text = isAllowed ? "허용됨" : "비허용됨";
+
+        // Toggle 상태에 따라 이미지 변경
+        UpdateNotificationImage(isAllowed);
     }
+
+    private void UpdateNotificationImage(bool isOn)
+    {
+        // Toggle의 이미지 컴포넌트 가져오기
+        Image toggleImage = notificationToggle.GetComponent<Image>();
+
+        // Toggle 상태에 따라 이미지 변경
+        if (isOn)
+        {
+            toggleImage.sprite = notificationOnImage; // 켜졌을 때 이미지
+        }
+        else
+        {
+            toggleImage.sprite = notificationOffImage; // 꺼졌을 때 이미지
+        }
+    }
+
+
 
     // 볼륨 설정
     private void UpdateVolumeUI()
