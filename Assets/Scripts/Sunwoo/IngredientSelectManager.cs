@@ -64,7 +64,6 @@ public class IngredientSelectManager : MonoBehaviour
             {
                 button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() => OnIngredientButtonClick(buttonObj, ingredientName));
-                Debug.Log($"냉장고 재료: {ingredientName}, 소지 여부: {hasIngredient}");
             }
         }
 
@@ -80,7 +79,6 @@ public class IngredientSelectManager : MonoBehaviour
             {
                 button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() => OnIngredientButtonClick(buttonObj, ingredientName));
-                Debug.Log($"선반 재료: {ingredientName}, 소지 여부: {hasIngredient}");
             }
         }
     }
@@ -103,7 +101,6 @@ public class IngredientSelectManager : MonoBehaviour
             color.a = 1f; // 원래 불투명하게 설정
             imageAfter.color = color;
             inventoryManager.AddIngredient(ingredientName); // 개수 +1
-            Debug.Log($"재료 선택 해제: {ingredientName}");
         }
         else
         {
@@ -114,7 +111,6 @@ public class IngredientSelectManager : MonoBehaviour
                 Color color = imageAfter.color;
                 color.a = 0.3f; // 투명도를 30%로 설정
                 imageAfter.color = color;
-                Debug.Log($"재료 선택: {ingredientName}");
             }
             else
             {
@@ -136,38 +132,36 @@ public class IngredientSelectManager : MonoBehaviour
             return;
         }
 
-        if (VerifyIngredients(selectedRecipe.ingredients))
-        {
-            ingredientScore -= 5;
-            Debug.Log("재료가 레시피와 정확히 일치합니다!");
-        }
-        else
-        {
-            Debug.Log("선택한 재료가 레시피와 일치하지 않습니다.");
-        }
+        // 정확한 개수 및 재료 체크
+        ingredientScore = CalculateScore(selectedRecipe.ingredients, selectedIngredients);
 
-        // 최종 점수 출력 (Debug 로그)
+        // 최종 점수 출력
         Debug.Log($"최종 재료 점수: {ingredientScore}/30");
 
         ingredientSelectionPanel.SetActive(false);
         mixingGameManager.ActivateMixingPanel();
     }
 
-    // 선택한 재료가 레시피와 정확히 일치하는지 확인 (순서 고려 X)
-    private bool VerifyIngredients(List<string> requiredIngredients)
+    private int CalculateScore(List<string> requiredIngredients, List<string> selectedIngredients)
     {
-        if (selectedIngredients.Count != requiredIngredients.Count)
-        {
-            return false; // 개수가 다르면 실패
-        }
+        int score = 30;
 
+        // 올바른 재료 개수와 비교
+        int extraIngredients = selectedIngredients.Count - requiredIngredients.Count;
+
+        // 오버하거나 부족하면 -5점씩 감점
+        score -= Mathf.Abs(extraIngredients) * 5;
+
+        // 선택한 재료가 레시피에 없는 재료일 경우 -5점씩 감점
         foreach (string ingredient in selectedIngredients)
         {
             if (!requiredIngredients.Contains(ingredient))
             {
-                return false; // 불필요한 재료가 포함되면 실패
+                score -= 5;
             }
         }
-        return true;
+
+        // 최소 0점 보장
+        return Mathf.Max(0, score);
     }
 }
