@@ -13,6 +13,8 @@ public class RecipeBookManager : MonoBehaviour
     public TMP_Text recipeNameText;  // 레시피 이름 표시
     public TMP_Text ingredientsText; // 재료 목록 표시
 
+    public TMP_Text priceText; // 가격 표시시
+
     public Button NextButton;    // NEXT 버튼
     public Button PrevButton;    // PREV 버튼
     public Button RecipeContentIndex; // 목차 돌아가기 버튼
@@ -24,10 +26,8 @@ public class RecipeBookManager : MonoBehaviour
     public TMP_FontAsset customFont;
 
     private List<RecipeB> recipes = new List<RecipeB>();
+    private int currentRecipeIndex = 0;
     private bool isTableOfContentsPage = true;
-
-    private List<string> categoryList = new List<string>(); // 카테고리 목록
-    private int currentCategoryIndex = 0; // 현재 카테고리 인덱스
 
 
 
@@ -61,10 +61,10 @@ public class RecipeBookManager : MonoBehaviour
         // UI 초기화
         DisplayTableOfContents();
 
-        // 버튼 이벤트 연결
-        NextButton.onClick.AddListener(OnNextClicked);
-        PrevButton.onClick.AddListener(OnPrevClicked);
-        RecipeContentIndex.onClick.AddListener(OnRecipeContentIndexClicked);
+        // // 버튼 이벤트 연결
+        // NextButton.onClick.AddListener(OnNextClicked);
+        // PrevButton.onClick.AddListener(OnPrevClicked);
+        // RecipeContentIndex.onClick.AddListener(OnRecipeContentIndexClicked);
     }
 
     // CSV 파일에서 레시피 데이터 로드
@@ -219,205 +219,235 @@ public class RecipeBookManager : MonoBehaviour
 
 
     public void ShowRecipePage(string key)
+{
+    // // ✅ `pref1`이 동적으로 생성되지 않았다면, 새로 생성
+    // if (pref1 == null)
+    // {
+    //     Debug.LogError("pref1이 할당되지 않았습니다! Unity Inspector에서 Prefab을 지정해주세요.");
+    //     return;
+    // }
+
+    // // ✅ 기존에 생성된 `pref1`이 있다면 삭제
+    // GameObject existingPref1 = GameObject.Find(pref1.name + "(Clone)");
+    // if (existingPref1 != null)
+    // {
+    //     Destroy(existingPref1);
+    // }
+
+    // ✅ `pref1`을 동적으로 생성하여 UI에 추가
+    // GameObject newPref = Instantiate(pref1, RecipePagePanel.transform);  // RecipePagePanel의 자식으로 추가
+    // newPref.SetActive(true);  // 활성화
+    // Debug.Log("pref1이 생성되었습니다!");
+
+    // ✅ pref1 내부의 UI 요소 찾기
+    Transform recipeNametrans = panel.transform.Find("recipeNameText");
+    Transform ingredientsTrans = panel.transform.Find("ingredientsText");
+
+    if (recipeNametrans == null || ingredientsTrans == null)
     {
-        // // ✅ `pref1`이 동적으로 생성되지 않았다면, 새로 생성
-        // if (pref1 == null)
-        // {
-        //     Debug.LogError("pref1이 할당되지 않았습니다! Unity Inspector에서 Prefab을 지정해주세요.");
-        //     return;
-        // }
+        Debug.LogError("pref1 내부의 UI 요소를 찾을 수 없습니다!");
+        return;
+    }
 
-        // // ✅ 기존에 생성된 `pref1`이 있다면 삭제
-        // GameObject existingPref1 = GameObject.Find(pref1.name + "(Clone)");
-        // if (existingPref1 != null)
-        // {
-        //     Destroy(existingPref1);
-        // }
+    TextMeshProUGUI recipeName = recipeNametrans.GetComponent<TextMeshProUGUI>();
+    TextMeshProUGUI ingredientsName = ingredientsTrans.GetComponent<TextMeshProUGUI>();
 
-        // ✅ `pref1`을 동적으로 생성하여 UI에 추가
-        // GameObject newPref = Instantiate(pref1, RecipePagePanel.transform);  // RecipePagePanel의 자식으로 추가
-        // newPref.SetActive(true);  // 활성화
-        // Debug.Log("pref1이 생성되었습니다!");
+    if (recipeName == null || ingredientsName == null)
+    {
+        Debug.LogError("pref1의 TextMeshProUGUI 컴포넌트를 찾을 수 없습니다!");
+        return;
+    }
 
-        // ✅ pref1 내부의 UI 요소 찾기
-        Transform recipeNametrans = panel.transform.Find("recipeNameText");
-        Transform ingredientsTrans = panel.transform.Find("ingredientsText");
+    // ✅ UI에 데이터 적용
+    recipeName.text = key;  // 제품명 설정
 
-        if (recipeNametrans == null || ingredientsTrans == null)
+    RecipeB RealRecipe = recipes.FirstOrDefault(recipe => recipe.category == key);
+
+    if (RealRecipe != null)
+    {
+        ingredientsName.text = "재료: " + string.Join(", ", RealRecipe.ingredients);
+    }
+    else
+    {
+        ingredientsName.text = "재료 없음";
+        Debug.LogWarning($"[{key}] 카테고리의 레시피를 찾을 수 없습니다!");
+    }
+
+    ShowBakes(key);
+
+    RecipePagePanel.SetActive(true);
+    panel.SetActive(true);
+}
+
+
+private List<GameObject> activeBakes = new List<GameObject>();  // 현재 생성된 오브젝트 리스트
+private List<RecipeB> recipe_h = new List<RecipeB>();
+
+private void ShowBakes(string key)
+{
+    // ✅ 현재 생성된 개수가 4개 이상이면 생성 중단
+    if (activeBakes.Count >= 4)
+    {
+        Debug.LogWarning("최대 4개까지만 생성할 수 있습니다!");
+        return;
+    }
+
+    // ✅ key(category)와 같은 menu를 가진 레시피 리스트 추출
+    List<RecipeB> filteredRecipes = recipes.Where(recipe => recipe.category == key).ToList();
+
+    if (filteredRecipes.Count == 0)
+    {
+        Debug.LogWarning($"[{key}] 카테고리에 해당하는 메뉴가 없습니다!");
+        return;
+    }
+
+    // 🔍 필터링된 레시피 디버그 출력
+    Debug.Log($"[{key}] 카테고리에서 필터링된 메뉴 개수: {filteredRecipes.Count}");
+    foreach (var r in filteredRecipes)
+    {
+        Debug.Log($"메뉴: {r.menu}, 코인: {r.coin}");
+    }
+
+    // ✅ 4개까지만 추가되도록 설정
+    int itemsToCreate = Mathf.Min(filteredRecipes.Count, 4 - activeBakes.Count);
+
+    for (int i = 0; i < itemsToCreate; i++)
+    {
+        RecipeB recipe = filteredRecipes[i];
+
+        // ✅ `pref2`를 동적으로 생성하여 `panel`의 자식으로 추가
+        GameObject newPref = Instantiate(pref2, panel.transform);
+
+        // ✅ UI 요소 찾기
+        Transform nameTrans = newPref.transform.Find("bakeName");
+        Transform coinTrans = newPref.transform.Find("Money");
+        Transform MenuImage = newPref.transform.Find("bakeImage");
+
+        if (nameTrans == null || coinTrans == null)
         {
-            Debug.LogError("pref1 내부의 UI 요소를 찾을 수 없습니다!");
-            return;
+            Debug.LogError("pref2 내부의 UI 요소를 찾을 수 없습니다! (bakeName, Money 확인)");
+            continue;
         }
 
-        TextMeshProUGUI recipeName = recipeNametrans.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI ingredientsName = ingredientsTrans.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI nameText = nameTrans.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI coinText = coinTrans.GetComponent<TextMeshProUGUI>();
+        Image menuImg = MenuImage.GetComponent<Image>();
 
-        if (recipeName == null || ingredientsName == null)
+        if (nameText == null || coinText == null)
         {
-            Debug.LogError("pref1의 TextMeshProUGUI 컴포넌트를 찾을 수 없습니다!");
-            return;
+            Debug.LogError("TextMeshProUGUI 컴포넌트를 찾을 수 없습니다!");
+            continue;
         }
 
-        // ✅ UI에 데이터 적용
-        recipeName.text = key;  // 제품명 설정
+        // ✅ UI에 데이터 적용 (menu → bakeName, coin → Money)
+        nameText.text = $"{recipe.menu}";
+        coinText.text = $"{recipe.coin}";
+        menuImg.GetComponent<Image>().sprite = MenuSprites[recipe.index];
 
-        RecipeB RealRecipe = recipes.FirstOrDefault(recipe => recipe.category == key);
+        // 🔍 생성된 메뉴 및 코인 정보 디버그 출력
+        Debug.Log($"생성된 메뉴: {recipe.menu}, 코인: {recipe.coin}");
 
-        if (RealRecipe != null)
+        // ✅ y 좌표 계산 (160부터 시작, 110씩 감소)
+        int count = activeBakes.Count;
+        float posY = 160 - (count * 110);
+
+        // ✅ RectTransform을 사용하여 UI 위치 조정
+        RectTransform rectTransform = newPref.GetComponent<RectTransform>();
+        if (rectTransform != null)
         {
-            ingredientsName.text = "재료: " + string.Join(", ", RealRecipe.ingredients);
+            rectTransform.anchoredPosition = new Vector2(0, posY);  // X는 고정(0), Y는 순서에 따라 배치
         }
         else
         {
-            ingredientsName.text = "재료 없음";
-            Debug.LogWarning($"[{key}] 카테고리의 레시피를 찾을 수 없습니다!");
+            Debug.LogError("pref2에 RectTransform이 없습니다! UI 요소인지 확인하세요.");
         }
 
-        ShowBakes(key);
-
-        RecipePagePanel.SetActive(true);
-        panel.SetActive(true);
+        newPref.SetActive(true);  // 활성화
+        activeBakes.Add(newPref);  // 생성된 오브젝트 리스트에 추가
     }
 
+    // 🔍 최종 생성된 오브젝트 수 출력
+    Debug.Log($"현재 생성된 오브젝트 수: {activeBakes.Count}");
+}
 
-    private List<GameObject> activeBakes = new List<GameObject>();  // 현재 생성된 오브젝트 리스트
-    private List<RecipeB> recipe_h = new List<RecipeB>();
 
-    private void ShowBakes(string key)
-    {
-        // ✅ 현재 생성된 개수가 4개 이상이면 생성 중단
-        if (activeBakes.Count >= 4)
-        {
-            Debug.LogWarning("최대 4개까지만 생성할 수 있습니다!");
-            return;
-        }
 
-        // ✅ key(category)와 같은 menu를 가진 레시피 리스트 추출
-        List<RecipeB> filteredRecipes = recipes.Where(recipe => recipe.category == key).ToList();
 
-        if (filteredRecipes.Count == 0)
-        {
-            Debug.LogWarning($"[{key}] 카테고리에 해당하는 메뉴가 없습니다!");
-            return;
-        }
+    //레시피 페이지로 이동
+//     void ShowRecipePage(string category, List<RecipeB> categoryRecipes)
+// {
+//     TableOfContentsPanel.SetActive(false);
+//     RecipePagePanel.SetActive(true);
+//     isTableOfContentsPage = false;
 
-        // 🔍 필터링된 레시피 디버그 출력
-        Debug.Log($"[{key}] 카테고리에서 필터링된 메뉴 개수: {filteredRecipes.Count}");
-        foreach (var r in filteredRecipes)
-        {
-            Debug.Log($"메뉴: {r.menu}, 코인: {r.coin}");
-        }
+//     recipeNameText.text = $"[{category}] 레시피 목록";
 
-        // ✅ 4개까지만 추가되도록 설정
-        int itemsToCreate = Mathf.Min(filteredRecipes.Count, 4 - activeBakes.Count);
+//     // 기존 레시피 항목 제거
+//     foreach (Transform child in buttonContainer)
+//     {
+//         Destroy(child.gameObject);
+//     }
 
-        for (int i = 0; i < itemsToCreate; i++)
-        {
-            RecipeB recipe = filteredRecipes[i];
+//     for (int i = 0; i < categoryRecipes.Count; i++)
+//     {
+//         RecipeB recipe = categoryRecipes[i];
+//         GameObject newRecipeEntry = Instantiate(recipeEntryPrefab, buttonContainer);
+//         TMP_Text[] textComponents = newRecipeEntry.GetComponentsInChildren<TMP_Text>();
 
-            // ✅ `pref2`를 동적으로 생성하여 `panel`의 자식으로 추가
-            GameObject newPref = Instantiate(pref2, panel.transform);
+//         if (textComponents.Length >= 3)
+//         {
+//             textComponents[0].text = $"<b>{recipe.menu}</b>";  // 제품명
 
-            // ✅ UI 요소 찾기
-            Transform nameTrans = newPref.transform.Find("bakeName");
-            Transform coinTrans = newPref.transform.Find("Money");
-            Transform MenuImage = newPref.transform.Find("bakeImage");
+//             if (i == 0) // 카테고리의 첫 번째 레시피만 재료 표시
+//             {
+//                 textComponents[1].text = $"재료: {string.Join(", ", recipe.ingredients)}";  
+//             }
+//             else
+//             {
+//                 textComponents[1].text = ""; // 나머지는 빈 칸
+//             }
 
-            if (nameTrans == null || coinTrans == null)
-            {
-                Debug.LogError("pref2 내부의 UI 요소를 찾을 수 없습니다! (bakeName, Money 확인)");
-                continue;
-            }
+//             textComponents[2].text = $"가격: ???";  // 가격 (데이터가 있으면 여기에 넣으면 됨)
+//         }
+//     }
 
-            TextMeshProUGUI nameText = nameTrans.GetComponent<TextMeshProUGUI>();
-            TextMeshProUGUI coinText = coinTrans.GetComponent<TextMeshProUGUI>();
-            Image menuImg = MenuImage.GetComponent<Image>();
+//     // RecipeContentIndex 버튼 클릭 시 호출되는 메서드
+//     void OnRecipeContentIndexClicked()
+//     {
+//         RecipePagePanel.SetActive(false);
+//         TableOfContentsPanel.SetActive(true);
+//         SetButtonToFront(RecipeContentIndex);
 
-            if (nameText == null || coinText == null)
-            {
-                Debug.LogError("TextMeshProUGUI 컴포넌트를 찾을 수 없습니다!");
-                continue;
-            }
+//         // 현재 페이지가 목차 페이지임을 표시
+//         isTableOfContentsPage = true;
+//     }
 
-            // ✅ UI에 데이터 적용 (menu → bakeName, coin → Money)
-            nameText.text = $"{recipe.menu}";
-            coinText.text = $"{recipe.coin}";
-            menuImg.GetComponent<Image>().sprite = MenuSprites[recipe.index];
+    //     // ✅ NEXT 버튼 클릭 시 다음 카테고리의 레시피 페이지로 이동
+    // void OnNextClicked()
+    // {
+    //     if (currentCategoryIndex < categoryList.Count - 1)
+    //     {
+    //         currentCategoryIndex++;
+    //         ShowRecipePage(categoryList[currentCategoryIndex]);
+    //     }
+    // }
 
-            // 🔍 생성된 메뉴 및 코인 정보 디버그 출력
-            Debug.Log($"생성된 메뉴: {recipe.menu}, 코인: {recipe.coin}");
+    // // ✅ PREV 버튼 클릭 시 이전 카테고리의 레시피 페이지로 이동
+    // void OnPrevClicked()
+    // {
+    //     if (currentCategoryIndex > 0)
+    //     {
+    //         currentCategoryIndex--;
+    //         ShowRecipePage(categoryList[currentCategoryIndex]);
+    //     }
+    // }
 
-            // ✅ y 좌표 계산 (160부터 시작, 110씩 감소)
-            int count = activeBakes.Count;
-            float posY = 160 - (count * 110);
-
-            // ✅ RectTransform을 사용하여 UI 위치 조정
-            RectTransform rectTransform = newPref.GetComponent<RectTransform>();
-            if (rectTransform != null)
-            {
-                rectTransform.anchoredPosition = new Vector2(0, posY);  // X는 고정(0), Y는 순서에 따라 배치
-            }
-            else
-            {
-                Debug.LogError("pref2에 RectTransform이 없습니다! UI 요소인지 확인하세요.");
-            }
-
-            newPref.SetActive(true);  // 활성화
-            activeBakes.Add(newPref);  // 생성된 오브젝트 리스트에 추가
-        }
-
-        // 🔍 최종 생성된 오브젝트 수 출력
-        Debug.Log($"현재 생성된 오브젝트 수: {activeBakes.Count}");
-    }
-
-    // RecipeContentIndex 버튼 클릭 시 호출되는 메서드
-    void OnRecipeContentIndexClicked()
-    {
-        RecipePagePanel.SetActive(false);
-        TableOfContentsPanel.SetActive(true);
-        SetButtonToFront(RecipeContentIndex);
-
-        // 현재 페이지가 목차 페이지임을 표시
-        isTableOfContentsPage = true;
-    }
-
-    // 레시피에서 카테고리 목록을 추출하여 categoryList를 업데이트
-    void UpdateCategoryList()
-    {
-        categoryList = recipes
-            .Select(recipe => recipe.category)
-            .Distinct()
-            .ToList();
-    }
-
-    // ✅ NEXT 버튼 클릭 시 다음 카테고리의 레시피 페이지로 이동
-    void OnNextClicked()
-    {
-        if (currentCategoryIndex < categoryList.Count - 1)
-        {
-            currentCategoryIndex++;
-            ShowRecipePage(categoryList[currentCategoryIndex]);
-            UpdateNavigationButtons();
-        }
-    }
-
-    // ✅ PREV 버튼 클릭 시 이전 카테고리의 레시피 페이지로 이동
-    void OnPrevClicked()
-    {
-        if (currentCategoryIndex > 0)
-        {
-            currentCategoryIndex--;
-            ShowRecipePage(categoryList[currentCategoryIndex]);
-            UpdateNavigationButtons();
-        }
-    }
-
-    // ✅ 페이지 이동 버튼 활성화/비활성화
-    void UpdateNavigationButtons()
-    {
-        PrevButton.gameObject.SetActive(currentCategoryIndex > 0);
-        NextButton.gameObject.SetActive(currentCategoryIndex < categoryList.Count - 1);
-    }
+    // // ✅ 페이지 이동 버튼 활성화/비활성화
+    // void UpdateNavigationButtons()
+    // {
+    //     PrevButton.gameObject.SetActive(currentCategoryIndex > 0);
+    //     NextButton.gameObject.SetActive(currentCategoryIndex < categoryList.Count - 1);
+    // }
 
     
 

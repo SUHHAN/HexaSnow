@@ -6,7 +6,6 @@ public class LoginPanelManager : MonoBehaviour
     public GameObject LoginPanel; // 로그인 패널 (게스트/계정 로그인 선택)
     public ButtonManager buttonManager; // 버튼 관리자 참조
     public GuestLoginManager guestLoginManager; // 게스트 로그인 관리자 참조
-    public GameObject SettingButton; // 설정 버튼 UI
 
     private void Start()
     {
@@ -22,7 +21,6 @@ public class LoginPanelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        SettingButton.SetActive(true);
         bool isLoggedIn = guestLoginManager.IsGuestLoggedIn();
         Debug.Log($"게스트 로그인 상태: {isLoggedIn}");
 
@@ -40,11 +38,13 @@ public class LoginPanelManager : MonoBehaviour
         }
     }
 
+    // 게스트 로그인 버튼 클릭 시 호출
     public void OnGuestLogin()
     {
-        guestLoginManager.GuestLogin();
-        buttonManager.OnLoginSuccess();
-        LoginPanel.SetActive(false);
+        guestLoginManager.GuestLogin(); // 게스트 로그인 처리
+        Debug.Log("게스트 로그인 성공!");
+        buttonManager.OnLoginSuccess(); // 로그인 성공 후 버튼 표시
+        LoginPanel.SetActive(false); // 로그인 패널 숨기기
     }
 
     // 계정 로그인 버튼 클릭 시 호출 (추후 구현 가능)
@@ -52,6 +52,14 @@ public class LoginPanelManager : MonoBehaviour
     {
         Debug.Log("계정 로그인 버튼 클릭됨 - 추후 구현 필요");
         // 계정 로그인 로직을 여기에 추가 예정
+    }
+
+    // 로그인 패널 닫기 버튼 클릭 시 호출
+    public void OnCloseLoginPanel()
+    {
+        Debug.Log("로그인 패널 닫기");
+        LoginPanel.SetActive(false); // 로그인 패널 숨기기
+        buttonManager.ShowButtons(); // 버튼 다시 표시
     }
 }
 

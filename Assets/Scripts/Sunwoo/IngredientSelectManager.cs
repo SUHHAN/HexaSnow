@@ -17,7 +17,7 @@ public class IngredientSelectManager : MonoBehaviour
     public InventoryManager inventoryManager; // 재료 정보 관리
     private BakingStartManager bakingStartManager; // 선택한 레시피 가져오기
 
-    private List<int> selectedIngredients = new List<int>(); // 사용자가 선택한 재료 목록 (string → int)
+    private List<string> selectedIngredients = new List<string>(); // 사용자가 선택한 재료 목록
     public int ingredientScore = 30; // 초기 총점 30점
 
     // 냉장고 & 선반 버튼 리스트
@@ -54,12 +54,8 @@ public class IngredientSelectManager : MonoBehaviour
     {
         foreach (GameObject buttonObj in refrigeratorButtons)
         {
-            string ingredientEname = buttonObj.name.Replace("Button", ""); // 버튼에서 "Button" 제거
-            int ingredientIndex = inventoryManager.GetIngredientIndexFromEname(ingredientEname); // eName → index 변환
-
-            if (ingredientIndex == -1) continue; // 해당 재료가 없으면 무시
-
-            bool hasIngredient = inventoryManager.HasIngredient(ingredientIndex);
+            string ingredientName = buttonObj.name.Replace("Button", "");
+            bool hasIngredient = inventoryManager.HasIngredient(ingredientName);
 
             buttonObj.SetActive(hasIngredient);
             Button button = buttonObj.GetComponent<Button>();
@@ -67,18 +63,14 @@ public class IngredientSelectManager : MonoBehaviour
             if (hasIngredient && button != null)
             {
                 button.onClick.RemoveAllListeners();
-                button.onClick.AddListener(() => OnIngredientButtonClick(buttonObj, ingredientIndex)); // index 기반으로 변경
+                button.onClick.AddListener(() => OnIngredientButtonClick(buttonObj, ingredientName));
             }
         }
 
         foreach (GameObject buttonObj in shelfButtons)
         {
-            string ingredientEname = buttonObj.name.Replace("Button", "");
-            int ingredientIndex = inventoryManager.GetIngredientIndexFromEname(ingredientEname);
-
-            if (ingredientIndex == -1) continue;
-
-            bool hasIngredient = inventoryManager.HasIngredient(ingredientIndex);
+            string ingredientName = buttonObj.name.Replace("Button", "");
+            bool hasIngredient = inventoryManager.HasIngredient(ingredientName);
 
             buttonObj.SetActive(hasIngredient);
             Button button = buttonObj.GetComponent<Button>();
@@ -86,44 +78,43 @@ public class IngredientSelectManager : MonoBehaviour
             if (hasIngredient && button != null)
             {
                 button.onClick.RemoveAllListeners();
-                button.onClick.AddListener(() => OnIngredientButtonClick(buttonObj, ingredientIndex));
+                button.onClick.AddListener(() => OnIngredientButtonClick(buttonObj, ingredientName));
             }
         }
     }
 
-    // 재료 버튼 클릭 시 실행 (index 기반)
-    public void OnIngredientButtonClick(GameObject buttonObj, int ingredientIndex)
+    // 재료 버튼 클릭 시 투명도 조절 및 선택된 재료 리스트 업데이트
+    public void OnIngredientButtonClick(GameObject buttonObj, string ingredientName)
     {
-        string ingredientEname = inventoryManager.GetIngredientEname(ingredientIndex); // 인덱스를 영어 이름으로 변환
         Image imageAfter = buttonObj.transform.Find("Imageaft")?.GetComponent<Image>();
 
         if (imageAfter == null)
         {
-            Debug.LogError($"오류: {ingredientEname} 버튼에 'Imageaft'가 없습니다!");
+            Debug.LogError($"오류: {ingredientName} 버튼에 'Imageaft'가 없습니다!");
             return;
         }
 
-        if (selectedIngredients.Contains(ingredientIndex))
+        if (selectedIngredients.Contains(ingredientName))
         {
-            selectedIngredients.Remove(ingredientIndex);
+            selectedIngredients.Remove(ingredientName);
             Color color = imageAfter.color;
             color.a = 1f; // 원래 불투명하게 설정
             imageAfter.color = color;
-            inventoryManager.AddIngredient(ingredientIndex); // 개수 +1
+            inventoryManager.AddIngredient(ingredientName); // 개수 +1
         }
         else
         {
             // 선택 시: 개수 감소
-            if (inventoryManager.UseIngredient(ingredientIndex))
+            if (inventoryManager.UseIngredient(ingredientName))
             {
-                selectedIngredients.Add(ingredientIndex);
+                selectedIngredients.Add(ingredientName);
                 Color color = imageAfter.color;
                 color.a = 0.3f; // 투명도를 30%로 설정
                 imageAfter.color = color;
             }
             else
             {
-                Debug.LogError($"재료 {ingredientEname} 개수가 부족합니다!");
+                Debug.LogError($"재료 {ingredientName} 개수가 부족합니다!");
             }
         }
 
@@ -141,23 +132,8 @@ public class IngredientSelectManager : MonoBehaviour
             return;
         }
 
-        // 레시피의 재료 리스트(List<string>)를 인덱스 기반(List<int>)으로 변환
-        List<int> requiredIngredientIndices = new List<int>();
-        foreach (string ingredientName in selectedRecipe.ingredients)
-        {
-            int index = inventoryManager.GetIngredientIndexFromEname(ingredientName);
-            if (index != -1)
-            {
-                requiredIngredientIndices.Add(index);
-            }
-            else
-            {
-                Debug.LogError($"FinishIngredientSelection: '{ingredientName}'의 인덱스를 찾을 수 없습니다.");
-            }
-        }
-
-        // `CalculateScore()`가 List<int>를 받도록 변경
-        ingredientScore = CalculateScore(requiredIngredientIndices, selectedIngredients);
+        // 정확한 개수 및 재료 체크
+        ingredientScore = CalculateScore(selectedRecipe.ingredients, selectedIngredients);
 
         // 최종 점수 출력
         Debug.Log($"최종 재료 점수: {ingredientScore}/30");
@@ -166,7 +142,7 @@ public class IngredientSelectManager : MonoBehaviour
         mixingGameManager.ActivateMixingPanel();
     }
 
-    private int CalculateScore(List<int> requiredIngredients, List<int> selectedIngredients)
+    private int CalculateScore(List<string> requiredIngredients, List<string> selectedIngredients)
     {
         int score = 30;
 
@@ -177,9 +153,9 @@ public class IngredientSelectManager : MonoBehaviour
         score -= Mathf.Abs(extraIngredients) * 5;
 
         // 선택한 재료가 레시피에 없는 재료일 경우 -5점씩 감점
-        foreach (int ingredientIndex in selectedIngredients)
+        foreach (string ingredient in selectedIngredients)
         {
-            if (!requiredIngredients.Contains(ingredientIndex))
+            if (!requiredIngredients.Contains(ingredient))
             {
                 score -= 5;
             }

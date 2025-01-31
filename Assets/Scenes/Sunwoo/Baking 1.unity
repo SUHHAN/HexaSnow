@@ -10355,7 +10355,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1334194622
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14789,10 +14789,17 @@ MonoBehaviour:
   startToppingButton: {fileID: 1288554078}
   finishToppingButton: {fileID: 2019724135}
   inventoryManager: {fileID: 2059799789}
-  ovenGameManager: {fileID: 859194559}
   bakingImage: {fileID: 2071899538}
   oriImage1: {fileID: 1922873742}
   oriImage2: {fileID: 496638734}
+  refrigeratorButtons:
+  - {fileID: 879675803}
+  - {fileID: 1358543322}
+  - {fileID: 1189724413}
+  - {fileID: 1547329930}
+  - {fileID: 986041539}
+  - {fileID: 1735771703}
+  - {fileID: 1523300826}
   bakingStartManager: {fileID: 1003396150}
 --- !u!4 &1940962672
 Transform:
@@ -16537,8 +16544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57995ef827092540b8e6e5ac7452c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingreList: []
-  refrigeratorButtons: []
 --- !u!4 &2059799790
 Transform:
   m_ObjectHideFlags: 0

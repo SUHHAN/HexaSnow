@@ -26,6 +26,8 @@ public class MyRecipeList
 public class GameData
 {
     public bool isGuestLoggedIn;
+    public string guestId;
+    public string lastLoginDate;
     public int date;
     public int money;  
     public List<int> ingredientNum = new List<int>(); // 재료 개수 저장 리스트
@@ -70,7 +72,6 @@ public class DataManager : MonoBehaviour
     private void Awake()
     {
         gameDataPath = Path.Combine(Application.persistentDataPath, "GameData.json");
-
         if (Instance == null)
         {
             Instance = this;
@@ -80,27 +81,6 @@ public class DataManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    // 초기 게임 데이터 설정
-    private void SetInitialGameData()
-    {
-        gameData.isGuestLoggedIn = true;
-        gameData.date = 1;  
-        gameData.money = 2000;  
-        gameData.ingredientNum = new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; 
-        gameData.myBake = new List<MyRecipeList>();
-
-        Debug.Log("초기 게임 데이터 설정 완료");
-    }
-
-    // 초기 게임 데이터를 JSON 파일로 저장 (새로 시작할 때만 호출)
-    public void SaveInitialGameData()
-    {
-        SetInitialGameData();  // 초기 게임 데이터 설정
-        string json = JsonUtility.ToJson(gameData, true);
-        File.WriteAllText(gameDataPath, json);
-        Debug.Log("초기 게임 데이터가 저장되었습니다: " + gameDataPath);
     }
 
     // 게임 데이터를 JSON 파일로 저장

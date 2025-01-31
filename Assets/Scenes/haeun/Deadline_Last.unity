@@ -1107,10 +1107,7 @@ MonoBehaviour:
     isGuestLoggedIn: 0
     guestId: 
     lastLoginDate: 
-    date: 0
-    money: 0
     ingredientNum: 
-    myBake: []
 --- !u!1 &1498472700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,7 +1400,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "__\uC77C\uCC28 \uC601\uC5C5\uC744 \uC885\uB8CC\uD569\uB2C8\uB2E4."
+  m_text: "__\uC77C\uCC28 \uAC00\uAC8C\uB97C \uB9C8\uAC10\uD569\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
   m_sharedMaterial: {fileID: 68952158446488501, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
