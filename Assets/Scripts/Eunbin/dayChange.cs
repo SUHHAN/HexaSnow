@@ -28,7 +28,7 @@ public class DayChange : MonoBehaviour
         SpecialScript.currentDay=day;
         SpecialScript.CheckSpecialCustomerVisit();
 
-         if (day == 4 || day == 7)
+        if (day == 4 || day == 7)
         {
             orderScript.IncreaseAcceptOrder(2); // Order 스크립트에 메서드 호출
         }

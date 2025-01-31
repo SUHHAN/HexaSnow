@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
 using Microsoft.Unity.VisualStudio.Editor;
+using Unity.VisualScripting;
 
 public class BreadScrollbarManager : MonoBehaviour
 {
@@ -37,7 +39,6 @@ public class BreadScrollbarManager : MonoBehaviour
     }
 
     [System.Serializable]
-
     public class MyRecipeList
     {
         public int index;
@@ -69,6 +70,8 @@ public class BreadScrollbarManager : MonoBehaviour
     public Transform content; // Content 오브젝트
     [SerializeField] private GameObject BonusPanel;
     [SerializeField] private GameObject BlackBackground;
+    [SerializeField] private TextMeshProUGUI BonusPanelText;
+
 
 
 
@@ -133,6 +136,7 @@ public class BreadScrollbarManager : MonoBehaviour
             menu.SetIndex(me.index);
             menu.SetScore(me.score);
             menu.SetBonus(me.bonus);
+            menu.SetName(me.name);
 
             Transform menuImage = item.transform.Find("menuImage");
             menuImage.GetComponent<UnityEngine.UI.Image>().sprite = MenuSprites[me.menuID];
@@ -143,15 +147,15 @@ public class BreadScrollbarManager : MonoBehaviour
         }
     }
 
-    public void SlotClick()
+    public void SlotClick(string name)
     {
         BlackBackground.SetActive(true);
         BonusPanel.SetActive(true);
-    }
 
-    public void YesButtonClick()
-    {   
-        SceneManager.LoadScene("Match");
+        BonusPanelText.text = $"'{name}' (으)로\n추가 베이킹하시겠습니까?";
+
+        // ✅ 모든 슬롯의 버튼을 비활성화 (다른 슬롯 클릭 방지)
+        SetAllSlotsInteractable(false);
     }
 
     public void NoButtonClick()
@@ -160,6 +164,7 @@ public class BreadScrollbarManager : MonoBehaviour
         BonusPanel.SetActive(false);
 
         PlayerPrefs.DeleteKey("SelectedMenuIndex");
+        PlayerPrefs.DeleteKey("SelectedMenuScore");
         PlayerPrefs.Save(); // 변경 사항 저장
 
         // ✅ 키가 존재하는지 확인
@@ -172,6 +177,38 @@ public class BreadScrollbarManager : MonoBehaviour
         {
             Debug.LogWarning("⚠ 'SelectedMenuIndex' 키가 존재하지 않습니다.");
         }
+
+        // ✅ 모든 슬롯의 버튼을 다시 활성화
+        SetAllSlotsInteractable(true);
+    }
+
+    // ✅ 모든 슬롯의 버튼을 활성화/비활성화하는 함수
+    private void SetAllSlotsInteractable(bool interactable)
+    {
+        foreach (Transform ch in content)
+        {
+            Bread_h child = ch.GetComponent<Bread_h>();
+            
+            // 보너스 게임을 이미 진행한 요리의 경우, 변화를 주지 않도록 설정.
+            bool Select_bonus = child.ReturnBonus();
+
+            if(!Select_bonus) {
+                Button slotButton = child.GetComponent<Button>();
+
+                // Transform SelectImage = child.transform.Find("SelectImage");
+                // GameObject SelectImage_ = SelectImage.gameObject;
+
+                if (slotButton != null)
+                {
+                    slotButton.interactable = interactable;
+                }
+            }
+        }
+    }
+
+    public void YesButtonClick()
+    {   
+        SceneManager.LoadScene("Match");
     }
 
     // ✅ 더미 데이터 추가 함수
@@ -181,12 +218,15 @@ public class BreadScrollbarManager : MonoBehaviour
         MyList.Add(new MyRecipeList(1, 9, "블루베리 머핀", 50, false));
         MyList.Add(new MyRecipeList(2, 10, "오리지널 파운드케이크", 40, false));
         MyList.Add(new MyRecipeList(3, 14, "바스트 치즈케이크", 30, true));
-        MyList.Add(new MyRecipeList(4, 4, "오리지널 쿠키키", 20, false));
+        MyList.Add(new MyRecipeList(4, 4, "오리지널 쿠키", 20, false));
         MyList.Add(new MyRecipeList(5, 19, "초코 스콘", 10, false));
-        MyList.Add(new MyRecipeList(6, 5, "우유 마카롱", 5, false));
+        MyList.Add(new MyRecipeList(6, 24, "우유 마카롱", 5, false));
 
         Debug.Log("더미 데이터가 정상적으로 추가되었습니다.");
     }
+
+
+    
 
     
 
