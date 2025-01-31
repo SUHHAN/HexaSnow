@@ -40,7 +40,13 @@ public class MixingGameManager : MonoBehaviour
     private GameObject activeTouchPoint = null; // 현재 활성화된 터치 포인트
     private int previousIndex = -1; // 이전에 생성된 터치 포인트 인덱스 (-1은 초기값)
 
-    public Animator doughAnimator2;
+    // Mixing 애니메이션 관련
+    public Image doughImage; // UI Image (애니메이션을 표시할 대상)
+    public Image doughImage2; // UI Image
+    private Sprite[] doughSprites; // 스프라이트 배열
+    private int currentFrame = 0;
+    private float frameDuration = 30f / 85f; // 30초 동안 17장 애니메이션
+    private bool isAnimating = false;
 
     private void Start()
     {
@@ -58,6 +64,25 @@ public class MixingGameManager : MonoBehaviour
         // Start 버튼 클릭 이벤트 등록
         startButton.onClick.AddListener(StartMixingGame);
         nextButton.onClick.AddListener(GoToOvenPanel); // Next 버튼 클릭 이벤트 등록
+
+        // 애니메이션 스프라이트 로드
+        LoadDoughSprites();
+    }
+
+    // `Resources` 폴더에서 스프라이트 로드
+    private void LoadDoughSprites()
+    {
+        doughSprites = new Sprite[17];
+        for (int i = 0; i < 17; i++)
+        {
+            string path = $"Sunwoo/Mixing/ani_paste_{i + 1}";
+            doughSprites[i] = Resources.Load<Sprite>(path);
+
+            if (doughSprites[i] == null)
+            {
+                Debug.LogError($"애니메이션 이미지 로드 실패: {path}");
+            }
+        }
     }
 
     public void ActivateMixingPanel()
@@ -101,14 +126,13 @@ public class MixingGameManager : MonoBehaviour
     public void StartMixingGame()
     {
         startMixingPanel.SetActive(false); // StartMixing 패널 비활성화
+        mixingGamePanel.SetActive(true); // MixingGame 패널 활성화
         StartCoroutine(StartGameSequence());
     }
 
     // Ready?와 Start! 텍스트 표시 및 Mixing 게임 시작
     private IEnumerator StartGameSequence()
     {
-        mixingGamePanel.SetActive(true); // MixingGame 패널 활성화
-
         // Ready? 표시
         readyText.gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
@@ -118,6 +142,9 @@ public class MixingGameManager : MonoBehaviour
         startText.gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
         startText.gameObject.SetActive(false);
+
+        doughImage2.gameObject.SetActive(false);
+        doughImage.gameObject.SetActive(true);
 
         // 터치 포인트 모두 비활성화
         foreach (GameObject touchPoint in touchPointImages)
@@ -129,9 +156,25 @@ public class MixingGameManager : MonoBehaviour
         isGameRunning = true;
         remainingTime = gameDuration;
         Debug.Log("반죽 애니메이션 시작: IsMixing = true");
-        doughAnimator2.SetBool("IsMixing", true);
+        
         StartCoroutine(GameTimer());
+        StartCoroutine(PlayDoughAnimation());
         StartCoroutine(SpawnTouchPoints());
+    }
+
+    // 애니메이션 실행 (이미지 변경)
+    private IEnumerator PlayDoughAnimation()
+    {
+        isAnimating = true;
+        currentFrame = 0;
+
+        while (isGameRunning)
+        {
+            doughImage.sprite = doughSprites[currentFrame]; // 현재 프레임 변경
+            currentFrame = (currentFrame + 1) % doughSprites.Length; // 다음 프레임으로 변경
+
+            yield return new WaitForSeconds(frameDuration); // 프레임 지속 시간 대기
+        }
     }
 
     // 터치 포인트 스폰 (한 번에 하나만 활성화, 이전 위치 제외)
@@ -181,7 +224,7 @@ public class MixingGameManager : MonoBehaviour
         mixingGamePanel.SetActive(false); // MixingGame 패널 비활성화
         finishMixingPanel.SetActive(true); // FinishMixing 패널 활성화
         Debug.Log("반죽 애니메이션 종료: IsMixing = false");
-        doughAnimator2.SetBool("IsMixing", false);
+        isAnimating = false;
 
         // 점수에 따른 결과 표시
         if (score >= 65 && score <= 75)
@@ -233,17 +276,17 @@ public class MixingGameManager : MonoBehaviour
 
         if (distance <= 0.5)
         {
-            score += 5; // Perfect
+            score += 10; // Perfect
             Debug.Log("Perfect! +5");
         }
         else if (distance <= 1)
         {
-            score += 3; // Great
+            score += 6; // Great
             Debug.Log("Great! +3");
         }
         else if (distance <= 1.5)
         {
-            score += 1; // Good
+            score += 2; // Good
             Debug.Log("Good! +1");
         }
         else if (distance <= 2)
@@ -252,8 +295,8 @@ public class MixingGameManager : MonoBehaviour
         }
         else
         {
-            score -= 5; // Miss
-            Debug.Log("Miss! -5");
+            score -= 6; // Miss
+            Debug.Log("Miss! -3");
         }
     }
 
