@@ -38,24 +38,24 @@ public class BreadScrollbarManager : MonoBehaviour
         }
     }
 
-    [System.Serializable]
-    public class MyRecipeList
-    {
-        public int index;
-        public int menuID;
-        public string name;
-        public int score;
-        public bool bonus;
+    // [System.Serializable]
+    // public class MyRecipeList
+    // {
+    //     public int index;
+    //     public int menuID;
+    //     public string name;
+    //     public int score;
+    //     public bool bonus;
 
-        public MyRecipeList(int index, int menuID, string name, int score, bool bonus)
-        {
-            this.index = index;
-            this.menuID = menuID;
-            this.name = name;
-            this.score = score;
-            this.bonus = bonus;
-        }
-    }
+    //     public MyRecipeList(int index, int menuID, string name, int score, bool bonus)
+    //     {
+    //         this.index = index;
+    //         this.menuID = menuID;
+    //         this.name = name;
+    //         this.score = score;
+    //         this.bonus = bonus;
+    //     }
+    // }
 
 
     [SerializeField] private GameData ingredientGD = new GameData();
@@ -72,6 +72,9 @@ public class BreadScrollbarManager : MonoBehaviour
     [SerializeField] private GameObject BlackBackground;
     [SerializeField] private TextMeshProUGUI BonusPanelText;
 
+    [SerializeField] private GameData GD = new GameData();
+
+
 
 
 
@@ -82,14 +85,10 @@ public class BreadScrollbarManager : MonoBehaviour
 
     void Start()
     {
+        LoadRecipeDate();
 
         BonusPanel.SetActive(false);
         BlackBackground.SetActive(false);
-
-        // LoadIngredientsFromCSV();
-        // test 코드
-        AddDummyData();
-
 
         AddItems(); // 10개의 아이템 추가
 
@@ -98,33 +97,6 @@ public class BreadScrollbarManager : MonoBehaviour
 
     public void AddItems()
     {
-        // try {
-        //     foreach (var me in MyList)
-        //     {
-        //         if(me.bonus == false) {
-        //             GameObject item = Instantiate(itemPrefab, content);
-
-        //             // 카드 스프라이트의 인덱스 지정 변수
-        //             Bread_h menu = item.GetComponent<Bread_h>();
-        //             menu.SetMenuID(me.menuID);
-        //             menu.SetIndex(me.index);
-        //             menu.SetScore(me.score);
-        //             menu.SetBonus(me.bonus);
-
-        //             Transform menuImage = item.transform.Find("menuImage");
-        //             menuImage.GetComponent<UnityEngine.UI.Image>().sprite = MenuSprites[me.menuID];
-
-        //             //item의 색상을 각 등급에 맞는 색으로 지정하는 함수 작성하기
-        //             menu.SetMenuColor();
-        //             menu.SetButtonActive();
-        //         }
-        //     }
-        // }
-        // catch (System.Exception ex)
-        // {
-        //     Debug.LogError($"뭔가 이상이상: {ex.Message}");
-        // }
-
         foreach (var me in MyList)
         {
             
@@ -211,75 +183,12 @@ public class BreadScrollbarManager : MonoBehaviour
         SceneManager.LoadScene("Match");
     }
 
-    // ✅ 더미 데이터 추가 함수
-    private void AddDummyData()
-    {
-        MyList.Add(new MyRecipeList(0, 1, "오리지널 마들렌", 60, false));
-        MyList.Add(new MyRecipeList(1, 9, "블루베리 머핀", 50, false));
-        MyList.Add(new MyRecipeList(2, 10, "오리지널 파운드케이크", 40, false));
-        MyList.Add(new MyRecipeList(3, 14, "바스트 치즈케이크", 30, true));
-        MyList.Add(new MyRecipeList(4, 4, "오리지널 쿠키", 20, false));
-        MyList.Add(new MyRecipeList(5, 19, "초코 스콘", 10, false));
-        MyList.Add(new MyRecipeList(6, 24, "우유 마카롱", 5, false));
+    private void LoadRecipeDate() {
+        GD = DataManager.Instance.LoadGameData();
 
-        Debug.Log("더미 데이터가 정상적으로 추가되었습니다.");
+        foreach (MyRecipeList recipe in DataManager.Instance.gameData.myBake) {
+            MyList.Add(recipe);
+        }
     }
-
-    // public void InitAllNum()
-    // {
-    //     // 모든 아이템의 currentNum을 초기화
-    //     foreach (Transform child in content)
-    //     {
-    //         Ingredient_h ingredient = child.GetComponent<Ingredient_h>();
-    //         if (ingredient != null)
-    //         {
-    //             ingredient.currentNum = 0;
-    //             ingredient.InitNum(); // UI 갱신
-    //         }
-    //     }
-
-    //     // 사용 가능 점수를 초기 상태로 복구
-    //     CalculateNum();
-
-    //     Debug.Log("모든 currentNum이 초기화되고 점수가 복구되었습니다.");
-    // }
-
-    // 이건 혹시라도 내가 메뉴의 이름을 표시할 필요성이 있다면, csv가 필요하게 됨. -> 지금 당장은 필요가 없음
-    // private void LoadIngredientsFromCSV()
-    // {
-    //     try
-    //     {
-    //         TextAsset csvFile = Resources.Load<TextAsset>(Path.GetFileNameWithoutExtension(csvFileName));
-    //         if (csvFile == null)
-    //         {
-    //             Debug.LogError($"CSV 파일을 찾을 수 없습니다: {csvFileName}");
-    //             return;
-    //         }
-
-    //         string[] lines = csvFile.text.Split(new[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
-
-    //         // 첫 번째 줄 (헤더) 무시하고 읽기
-    //         for (int i = 1; i < lines.Length; i++)
-    //         {
-    //             string[] fields = lines[i].Split(',');
-    //             if (fields.Length < 4) continue;
-
-    //             int index = int.Parse(fields[0].Trim());
-    //             string name = fields[1].Trim();
-
-    //             MenuList.Add(new Recipe(index, name));
-    //         }
-
-    //         // Menu_Num 리스트를 재료 리스트 크기만큼 0으로 초기화
-    //         Menu_Num = new List<int>(new int[MenuList.Count + 1]);
-
-    //         Debug.Log($"총 {MenuList.Count}개의 레시피 리스트를 불러왔습니다.");
-    //     }
-    //     catch (System.Exception ex)
-    //     {
-    //         Debug.LogError($"CSV 파일 읽기 중 오류 발생: {ex.Message}");
-    //     }
-    // }
-
 }
 
