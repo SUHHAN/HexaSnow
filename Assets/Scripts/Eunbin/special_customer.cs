@@ -178,6 +178,7 @@ public class special_customer : MonoBehaviour
         setmenu.current_cus("오리지널 마들렌", "special"); 
         StartCoroutine(HandleCustomerInteraction(customer, day));
 
+        none.gameObject.SetActive(true);
         none.onClick.RemoveAllListeners();
         none.onClick.AddListener(() =>
         {
@@ -214,6 +215,7 @@ public class special_customer : MonoBehaviour
             else if(startId==1001){
                 speechBubble.SetActive(false);
                 MadeMenu.SetActive(true);
+                none.gameObject.SetActive(true);
                 return;
             }
             else{
@@ -247,6 +249,7 @@ public class special_customer : MonoBehaviour
         customer.SetActive(false);
         specialOrders.Remove(day);
         isOrderCompleted = false;
+        none.gameObject.SetActive(false);
         Spe_customer++;
 
         Debug.Log("특별 손님이 방문을 완료했습니다.");
@@ -256,6 +259,7 @@ public class special_customer : MonoBehaviour
     public void UpdateDialogue(string action)
     {
         speechBubble.SetActive(true);
+        none.gameObject.SetActive(false);
         MadeMenu.SetActive(false);
         if (action.Equals("none"))
         {

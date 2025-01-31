@@ -37,7 +37,7 @@ public class GameTime : MonoBehaviour
             currentTime -= Time.deltaTime; // 경과된 시간만큼 감소
             OnTimeUpdate?.Invoke(currentTime); // 시간 업데이트 이벤트 트리거
 
-            if (Mathf.Abs(currentTime - 355f) < 0.1f) // 5초 근처 확인
+            if (Mathf.Abs(currentTime - 120f) < 0.1f) // 5초 근처 확인
             {
                 OnSpecialTimeReached?.Invoke(); // 특정 시간 도달 이벤트 트리거
             }
@@ -54,7 +54,7 @@ public class GameTime : MonoBehaviour
         int minutes = (6-Mathf.FloorToInt(currentTime / 60f))+9;
         int seconds = (60-Mathf.FloorToInt(currentTime% 60f))-1;
 
-        timerText.text = $"{minutes:D2}:{seconds:D2}"; 
+        timerText.text = $"{minutes:D2}:{seconds:D2}";
     }
     public void StopTimer()
 {

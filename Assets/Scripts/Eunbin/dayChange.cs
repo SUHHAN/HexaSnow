@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Collections;
+using TMPro;
 
 public class DayChange : MonoBehaviour
 {
     public GameTime gametime;
     public Order order;
+    public TextMeshProUGUI timerText;
     public Button dayChangButton; // DayChange 버튼
     public Order orderScript; // Order 스크립트 참조
     public special_customer SpecialScript;
@@ -17,7 +21,6 @@ public class DayChange : MonoBehaviour
         dayChangButton.onClick.AddListener(() =>
         {
         OnDayChange();
-        gametime.currentTime=360f;
         });
     }
 
@@ -27,16 +30,17 @@ public class DayChange : MonoBehaviour
         order.openMenu(day);
         SpecialScript.currentDay=day;
 
+        gametime.StopTimer();
+        timerText.text = "영업 준비 중";
+
          if (day == 4 || day == 7)
         {
-            Debug.Log("메뉴 해금");
             orderScript.IncreaseAcceptOrder(2); // Order 스크립트에 메서드 호출
         }
 
         if (day==2 || day==5 || day==8){
             getMenuScript.currentDay = day; // 현재 날짜 업데이트
             SpecialScript.LoadDialoguesFromCSV();
-            Debug.Log("특별 손님 이벤트");
 
         if (!isSpecialCustomerSubscribed)
         {
