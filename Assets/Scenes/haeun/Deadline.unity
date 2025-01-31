@@ -207,7 +207,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1436513342}
         m_TargetAssemblyTypeName: deadline_h, Assembly-CSharp
-        m_MethodName: changeIngredient
+        m_MethodName: NoIngredientStore
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b650c318ed5ba13448bdead4f8a1248e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec4f9cbdff05b7444ad642f0ebb50c38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -592,7 +592,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -751,7 +751,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b650c318ed5ba13448bdead4f8a1248e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec4f9cbdff05b7444ad642f0ebb50c38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1197,7 +1197,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1436513342}
         m_TargetAssemblyTypeName: deadline_h, Assembly-CSharp
-        m_MethodName: changeIngredient
+        m_MethodName: YesIngredientStore
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1227,7 +1227,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b650c318ed5ba13448bdead4f8a1248e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec4f9cbdff05b7444ad642f0ebb50c38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1361,7 +1361,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b650c318ed5ba13448bdead4f8a1248e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec4f9cbdff05b7444ad642f0ebb50c38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1397,7 +1397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &561615719
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1442,7 +1442,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 987d5e76b4ffe4609a6b8fb64926ad59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64926ebe3cd0e794498789e1344b61ac, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1874,7 +1874,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b650c318ed5ba13448bdead4f8a1248e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec4f9cbdff05b7444ad642f0ebb50c38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2017,7 +2017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.33333334}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2060,7 +2060,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &997548145
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2105,7 +2105,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 987d5e76b4ffe4609a6b8fb64926ad59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64926ebe3cd0e794498789e1344b61ac, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2482,7 +2482,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 987d5e76b4ffe4609a6b8fb64926ad59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64926ebe3cd0e794498789e1344b61ac, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2849,7 +2849,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b650c318ed5ba13448bdead4f8a1248e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec4f9cbdff05b7444ad642f0ebb50c38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2957,7 +2957,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3127,7 +3127,11 @@ MonoBehaviour:
   MyMoneyText: {fileID: 467131409}
   MinMoneyText: {fileID: 190828017}
   BlackPanel: {fileID: 1906547960}
-  MyMoney: 400
+  GD:
+    isGuestLoggedIn: 0
+    guestId: 
+    lastLoginDate: 
+    ingredientNum: 
 --- !u!1 &1498472700
 GameObject:
   m_ObjectHideFlags: 0
@@ -3531,7 +3535,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1783013160
@@ -3922,7 +3926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1962834823
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3967,7 +3971,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 987d5e76b4ffe4609a6b8fb64926ad59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64926ebe3cd0e794498789e1344b61ac, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
