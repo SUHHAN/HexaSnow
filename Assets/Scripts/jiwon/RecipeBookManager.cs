@@ -187,6 +187,8 @@ public class RecipeBookManager : MonoBehaviour
             GameObject categoryButtonObj = new GameObject(group.Key);  // 카테고리 이름 사용
             categoryButtonObj.transform.SetParent(buttonContainer.transform); // ButtonContainer 아래로 배치
 
+            Debug.Log("카테고리 생성: " + group.Key); // 카테고리명 출력
+
             // 카테고리 버튼에 TextMeshProUGUI 컴포넌트 추가
             TextMeshProUGUI categoryButtonText = categoryButtonObj.AddComponent<TextMeshProUGUI>();
             categoryButtonText.text = group.Key;
