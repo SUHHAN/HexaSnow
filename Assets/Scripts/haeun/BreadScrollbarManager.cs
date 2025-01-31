@@ -39,7 +39,6 @@ public class BreadScrollbarManager : MonoBehaviour
     }
 
     [System.Serializable]
-
     public class MyRecipeList
     {
         public int index;
@@ -225,6 +224,9 @@ public class BreadScrollbarManager : MonoBehaviour
 
         Debug.Log("더미 데이터가 정상적으로 추가되었습니다.");
     }
+
+
+    
 
     
 
