@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Eunbin/SampleScene.unity
+    path: Assets/Scenes/Eunbin/order.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 0
     path: Assets/Scenes/jiwon/Login.unity
@@ -38,4 +38,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/haeun/Bonus.unity
     guid: 281a3ada80852bd4aaf4c99c0b12a84a
+  - enabled: 1
+    path: Assets/Scenes/jiwon/Main.unity
+    guid: d03dc93882614d745b3b95e61f222c28
   m_configObjects: {}
