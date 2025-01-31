@@ -16,6 +16,8 @@ public class DayChange : MonoBehaviour
     private int day = 1; // Day 값
     private bool isSpecialCustomerSubscribed = false;
 
+    [SerializeField] private GameData GD = new GameData();
+
     void Start()
     {
         dayChangButton.onClick.AddListener(() =>
@@ -58,6 +60,20 @@ public class DayChange : MonoBehaviour
         orderScript.ResetOrderSystem(day); // Order 시스템 초기화
         getMenuScript.currentDay = day; // 현재 날짜 업데이트
         
+    }
+
+    private void LoadDate() {
+
+        GD = DataManager.Instance.LoadGameData();
+
+        // !! 일차 업데이트하기
+        day = GD.date;
+    }
+
+    private void SaveDate() {
+        DataManager.Instance.gameData.date = day;
+
+        DataManager.Instance.SaveGameData();
     }
 }
 

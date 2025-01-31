@@ -45,12 +45,7 @@ public class getMenu : MonoBehaviour
         this.description=description;
     }
     }
-
     void Start(){
-        oldMan.SetActive(false);
-        child.SetActive(false);
-        man.SetActive(false);
-        girl.SetActive(false);
         customer_order.SetActive(false);
         speechBubble.SetActive(false);
         LoadDialoguesFromCSV(); // CSV 파일 로드
@@ -59,6 +54,7 @@ public class getMenu : MonoBehaviour
         customers.Add(man);
         customers.Add(child);
         customers.Add(girl);
+        
     }
      private void LoadDialoguesFromCSV()
     {
@@ -238,5 +234,6 @@ public class getMenu : MonoBehaviour
             isOrderCompleted = true;         
         }
     }
+
     
 }

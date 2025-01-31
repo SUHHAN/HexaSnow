@@ -14,6 +14,19 @@ public class SetMenu : MonoBehaviour
     private GameObject currentActiveButton; // 현재 활성화된 버튼
     public string currentcus;
     public string currentmenu;
+
+    [SerializeField] private GameData ingredientGD = new GameData();
+    // public List<Recipe> MenuList = new List<Recipe>(); // 재료 리스트
+    public List<MyRecipeList> MyList = new List<MyRecipeList>(); // 재료 리스트
+    // public List<int> Menu_Num = new List<int>();
+    [SerializeField] private Sprite[] MenuSprites; //제품 이미지
+
+    public GameObject itemPrefab; // 아이템 Prefab
+    public Transform content; // Content 오브젝트
+
+    [SerializeField] private GameData GD = new GameData();
+
+
     void Start()
     {
         if (menuObjects.Count == 0)
@@ -23,6 +36,11 @@ public class SetMenu : MonoBehaviour
         }
 
         InitializeMenus(); // 초기화
+
+        LoadRecipeDate();
+
+
+        AddItems(); // 10개의 아이템 추가
     }
 
     // 초기 메뉴 설정
@@ -170,4 +188,92 @@ public class SetMenu : MonoBehaviour
         currentcus=cus;
         Debug.Log($"current_cus 호출됨: 메뉴 - {menu}, 손님 유형 - {cus}");
 }
+
+public void AddItems()
+    {
+        Debug.Log("컴포넌트 추가 중");
+        foreach (var me in MyList)
+        {
+            Debug.Log("컴포넌트 추가");
+            GameObject item = Instantiate(itemPrefab, content);
+
+            // 카드 스프라이트의 인덱스 지정 변수
+            Bread_h menu = item.GetComponent<Bread_h>();
+            menu.SetMenuID(me.menuID);
+            menu.SetIndex(me.index);
+            menu.SetScore(me.score);
+            menu.SetBonus(me.bonus);
+            menu.SetName(me.name);
+
+            Transform menuImage = item.transform.Find("menuImage");
+            menuImage.GetComponent<Image>().sprite = MenuSprites[me.menuID];
+
+            //item의 색상을 각 등급에 맞는 색으로 지정하는 함수 작성하기
+            menu.SetMenuColor();
+            menu.SetButtonActive();
+        }
+    }
+
+    public void SlotClick(string name)
+    {
+
+        // ✅ 모든 슬롯의 버튼을 비활성화 (다른 슬롯 클릭 방지)
+        SetAllSlotsInteractable(false);
+    }
+
+    public void NoButtonClick()
+    {
+
+        PlayerPrefs.DeleteKey("SelectedMenuIndex");
+        PlayerPrefs.DeleteKey("SelectedMenuScore");
+        PlayerPrefs.Save(); // 변경 사항 저장
+
+        // ✅ 키가 존재하는지 확인
+        if (PlayerPrefs.HasKey("SelectedMenuIndex"))
+        {
+            int savedIndex = PlayerPrefs.GetInt("SelectedMenuIndex");
+            Debug.Log($"✔ 'SelectedMenuIndex' 키가 존재합니다. 저장된 값: {savedIndex}");
+        }
+        else
+        {
+            Debug.LogWarning("⚠ 'SelectedMenuIndex' 키가 존재하지 않습니다.");
+        }
+
+        // ✅ 모든 슬롯의 버튼을 다시 활성화
+        SetAllSlotsInteractable(true);
+    }
+
+    // ✅ 모든 슬롯의 버튼을 활성화/비활성화하는 함수
+    private void SetAllSlotsInteractable(bool interactable)
+    {
+        foreach (Transform ch in content)
+        {
+            Bread_h child = ch.GetComponent<Bread_h>();
+            
+            // 보너스 게임을 이미 진행한 요리의 경우, 변화를 주지 않도록 설정.
+            bool Select_bonus = child.ReturnBonus();
+
+            if(!Select_bonus) {
+                Button slotButton = child.GetComponent<Button>();
+
+                // Transform SelectImage = child.transform.Find("SelectImage");
+                // GameObject SelectImage_ = SelectImage.gameObject;
+
+                if (slotButton != null)
+                {
+                    slotButton.interactable = interactable;
+                }
+            }
+        }
+    }
+
+    private void LoadRecipeDate() {
+        GD = DataManager.Instance.LoadGameData();
+
+        foreach (MyRecipeList recipe in DataManager.Instance.gameData.myBake) {
+            MyList.Add(recipe);
+        }
+
+    }
+    
 } 
