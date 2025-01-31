@@ -137,7 +137,7 @@ public class deadline_h : MonoBehaviour
             GD = DataManager.Instance.LoadGameData();
         
             // 저장된 돈 가지고 오기
-            // MyMoney = DataManager.Instance.gameData.money; money에는 지원 언니가 정한 돈 관리 변수로 쓰기
+            //MyMoney = DataManager.Instance.gameData.money; // money에는 지원 언니가 정한 돈 관리 변수로 쓰기
         }
         else
         {
