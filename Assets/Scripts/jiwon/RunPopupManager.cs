@@ -24,8 +24,8 @@ public class RunPopupManager : MonoBehaviour
          */
 
         button_order.onClick.AddListener(() => {
-            Debug.Log("order 씬으로 이동");
-            SceneManager.LoadScene("order");
+            Debug.Log("tutorial 씬으로 이동");
+            SceneManager.LoadScene("tutorial");
     });
     }
 
