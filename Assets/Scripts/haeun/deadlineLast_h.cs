@@ -37,6 +37,8 @@ public class deadlineLast_h : MonoBehaviour
     }
 
     public void yesButton() {
+        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
+
         DeadlinePanel.SetActive(false);
         BlackPanel.SetActive(false);
 

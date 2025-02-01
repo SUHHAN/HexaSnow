@@ -121,6 +121,7 @@ public class BreadScrollbarManager : MonoBehaviour
 
     public void SlotClick(string name)
     {
+        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
         BlackBackground.SetActive(true);
         BonusPanel.SetActive(true);
 
@@ -180,6 +181,7 @@ public class BreadScrollbarManager : MonoBehaviour
 
     public void YesButtonClick()
     {   
+        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
         SceneManager.LoadScene("Match");
     }
 
