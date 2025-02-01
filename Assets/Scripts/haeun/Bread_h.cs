@@ -206,5 +206,4 @@ public class Bread_h : MonoBehaviour
         Transform panel = this.transform.Find("numPanel");
         Transform panel2 = this.transform.Find("pricePanel");
     }
-
 }
