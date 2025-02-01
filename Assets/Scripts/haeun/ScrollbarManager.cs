@@ -102,9 +102,11 @@ public class ScrollbarManager : MonoBehaviour
     
 
     public void OnGetButton() {
+        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
         foreach (Transform ch in content)
         {
             Button child = ch.GetComponent<Button>();
+
             
             child.interactable = false;
         }
@@ -139,6 +141,8 @@ public class ScrollbarManager : MonoBehaviour
 
     public void InitAllNum()
     {
+        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
+        
         // 모든 아이템의 currentNum을 초기화
         foreach (Transform child in content)
         {

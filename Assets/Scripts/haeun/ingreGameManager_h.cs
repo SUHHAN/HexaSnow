@@ -67,6 +67,8 @@ public class ingreGameManager_h : MonoBehaviour
 
     void Start()
     {
+        AudioManager.Instance.PlayBgm(AudioManager.Bgm.kitchen_minigame);
+        
         animator = PlayerIdle.GetComponent<Animator>();
 
 
@@ -232,12 +234,16 @@ public class ingreGameManager_h : MonoBehaviour
     {
         isFinalizingGame = true;
         ingamePlayScore.SetActive(false);
-        yield return new WaitForSeconds(1.5f);
+
+        yield return new WaitForSeconds(0f);
         GameOver();
     }
 
     public void GameOver()
     {
+        StopAllCoroutines();
+        DestroyAllItems();
+
         isGameOver = true;
         savedScore = voidScore + heartScore * 3;
 
@@ -249,8 +255,31 @@ public class ingreGameManager_h : MonoBehaviour
         ScrollbarManager.Instance.SetFinalScore(savedScore);
 
         FinishScoreText.text = "최종 점수 : " + savedScore + "점";
-        StopAllCoroutines();
+        
+        Invoke("showGameOver", 1.5f);
+    }
+
+    void showGameOver() {
         gameOverPanel.SetActive(true);
+    }
+
+    private void DestroyAllItems()
+    {
+        // 모든 BadItem 제거
+        GameObject[] badItems = GameObject.FindGameObjectsWithTag("BadItem");
+        foreach (GameObject item in badItems)
+        {
+            item.SetActive(false);
+        }
+
+        // 모든 GoodItem 제거
+        GameObject[] goodItems = GameObject.FindGameObjectsWithTag("GoodItem");
+        foreach (GameObject item in goodItems)
+        {
+            Destroy(item);
+        }
+
+        Debug.Log("모든 아이템이 제거되었습니다.");
     }
 
     
@@ -258,6 +287,7 @@ public class ingreGameManager_h : MonoBehaviour
     // 상점 떠나기 버튼을 눌렀다면 아래 함수로 이동하도록
     public void OnOutStoreButton()
     {
+        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
         SceneManager.LoadScene("Deadline_Last");
     }
 
