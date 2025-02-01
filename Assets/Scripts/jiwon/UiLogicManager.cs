@@ -49,7 +49,7 @@ public class UiLogicManager : MonoBehaviour
 
         Button HomeButton = HomeButtonGO.GetComponent<Button>();
 
-        KitchButton.onClick.AddListener(GoBonusScene);
+        HomeButton.onClick.AddListener(GoBonusScene);
 
 
         LoadCalendarDate();
