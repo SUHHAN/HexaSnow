@@ -48,7 +48,7 @@ public class BakingStartManager : MonoBehaviour
 
         // 초기 UI 설정
         startPanel.SetActive(true);
-        recipeSelectionPopup.SetActive(false);
+        recipeSelectionPopup.SetActive(true);
         messagePopup.SetActive(false);
         nextButton.gameObject.SetActive(false);
         ingredientSelectionPanel.SetActive(false);
