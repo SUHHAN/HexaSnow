@@ -6742,10 +6742,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b42e27c6f6312f14e938266aeea063ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runPopupPanel: {fileID: 0}
-  button_order: {fileID: 0}
-  backgroundClickArea: {fileID: 0}
-  ContinueButton: {fileID: 0}
+  runPopupPanel: {fileID: 1394281061}
+  button_order: {fileID: 805118397}
+  backgroundClickArea: {fileID: 1243338629}
+  ContinueButton: {fileID: 177818304}
 --- !u!4 &1583566123
 Transform:
   m_ObjectHideFlags: 0
