@@ -30,7 +30,7 @@ public class BakingStartManager : MonoBehaviour
         { "Cookie", 4 },
         { "Pound Cake", 10 },
         { "Financier", 10 },
-        { "Basque Cheesecake", 10 },
+        { "Basque Cheesecake", 14 },
         { "Scone", 10 },
         { "Tart", 10 },
         { "Slice Cake", 10 },
