@@ -37,10 +37,7 @@ public class SetMenu : MonoBehaviour
 
         InitializeMenus(); // 초기화
 
-        LoadRecipeDate();
-
-
-        AddItems(); // 10개의 아이템 추가
+        
     }
 
     // 초기 메뉴 설정
@@ -187,6 +184,10 @@ public class SetMenu : MonoBehaviour
         currentmenu=menu;
         currentcus=cus;
         Debug.Log($"current_cus 호출됨: 메뉴 - {menu}, 손님 유형 - {cus}");
+        LoadRecipeDate();
+
+        AddItems(); // 10개의 아이템 추가
+
 }
 
 public void AddItems()
@@ -272,6 +273,7 @@ public void AddItems()
 
         foreach (MyRecipeList recipe in DataManager.Instance.gameData.myBake) {
             MyList.Add(recipe);
+            Debug.Log("리스트 추가");
         }
 
     }

@@ -385,10 +385,10 @@ RectTransform:
   - {fileID: 182838425}
   m_Father: {fileID: 2068216229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 590, y: -80}
+  m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &46917167
 MonoBehaviour:
@@ -1649,8 +1649,8 @@ MonoBehaviour:
   csvFileNameMan: specialGuest_man.csv
   Spe_customer: 0
   currentDay: 0
-  MadeMenu: {fileID: 2068216228}
-  setmenu: {fileID: 2068216230}
+  MadeMenu: {fileID: 345036485}
+  setmenu: {fileID: 345036489}
 --- !u!1 &345036485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,7 +1760,6 @@ MonoBehaviour:
     myBake: []
   MyList: []
   MenuSprites:
-  - {fileID: 0}
   - {fileID: 21300000, guid: 299621287da7fe947a5c010daeb28eca, type: 3}
   - {fileID: 21300000, guid: 24681faf84573b842abe2791825f9df0, type: 3}
   - {fileID: 21300000, guid: 2ed8a767b6cfea542992dbcf024d40ba, type: 3}
@@ -3222,10 +3221,10 @@ RectTransform:
   - {fileID: 1288551173}
   m_Father: {fileID: 2068216229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 760, y: -80}
+  m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &537028632
 MonoBehaviour:
@@ -3299,10 +3298,10 @@ RectTransform:
   - {fileID: 1158232911}
   m_Father: {fileID: 2068216229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -80}
+  m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &578228098
 MonoBehaviour:
@@ -3640,7 +3639,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &632511861
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5175,10 +5174,10 @@ RectTransform:
   - {fileID: 1430041556}
   m_Father: {fileID: 2068216229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 930, y: -80}
+  m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1107238195
 MonoBehaviour:
@@ -5566,9 +5565,9 @@ MonoBehaviour:
   speechBubble: {fileID: 1054238339}
   nameBubble: {fileID: 86975095}
   csvFileName_guest: guest.csv
-  MadeMenu: {fileID: 2068216228}
+  MadeMenu: {fileID: 345036485}
   menuName: 
-  setmenu: {fileID: 2068216230}
+  setmenu: {fileID: 345036489}
 --- !u!1 &1158232910
 GameObject:
   m_ObjectHideFlags: 0
@@ -5900,10 +5899,10 @@ RectTransform:
   - {fileID: 157353174}
   m_Father: {fileID: 2068216229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 420, y: -80}
+  m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1198448138
 MonoBehaviour:
@@ -7231,10 +7230,10 @@ RectTransform:
   - {fileID: 337130171}
   m_Father: {fileID: 2068216229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 80, y: -80}
+  m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1592359251
 MonoBehaviour:
@@ -7779,7 +7778,7 @@ MonoBehaviour:
   nameBubble: {fileID: 1490473245}
   popup: {fileID: 2003282274}
   popupText: {fileID: 683587854}
-  Mademenu: {fileID: 2068216228}
+  Mademenu: {fileID: 345036485}
 --- !u!1 &1774307320
 GameObject:
   m_ObjectHideFlags: 0
@@ -8947,13 +8946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   getmenu: {fileID: 1157648016}
   SpecialScript: {fileID: 338788619}
-  menuObjects:
-  - {fileID: 1592359247}
-  - {fileID: 578228095}
-  - {fileID: 1198448134}
-  - {fileID: 46917163}
-  - {fileID: 537028630}
-  - {fileID: 1107238193}
+  menuObjects: []
   made_menu:
   - "\uC624\uB9AC\uC9C0\uB110 \uB9C8\uB4E4\uB80C"
   - "\uB808\uBAAC \uB9C8\uB4E4\uB80C"

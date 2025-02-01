@@ -44,6 +44,9 @@ public class Order : MonoBehaviour
     private int openmenuIndex=1;
     private bool isPopupCoroutineRunning=false;
     public GameObject Mademenu;
+
+
+
     public struct DialogueLine{
     public string id;
     public string menu;
@@ -132,7 +135,6 @@ public class Order : MonoBehaviour
     {
         try
         {
-            // 메뉴 해금 팝업용 CSV 파일 읽기
             TextAsset csvFile = Resources.Load<TextAsset>(Path.GetFileNameWithoutExtension(csvFileName_menu));
             if (csvFile == null)
             {
@@ -272,6 +274,7 @@ private void InitializeButtons(){
     acceptButton.onClick.AddListener(() => {
         order_menu_id = currentDialogueIndex;
         order_deadLine.Add(deadline);
+        
         getMenuScript.ReceiveOrders(currentNicknameIndex, order_menu_id);
         NextDialogue();
     });
@@ -306,7 +309,6 @@ public void openMenu(int day){
 
 public void ResetOrderSystem(int day)
     {
-        Debug.Log($"Resetting Order System for Day {day}");
         postman.SetActive(true);
         orderCheck.gameObject.SetActive(true);
         order.SetActive(true);

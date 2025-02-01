@@ -39,6 +39,8 @@ EditorBuildSettings:
     path: Assets/Scenes/haeun/Bonus.unity
     guid: 281a3ada80852bd4aaf4c99c0b12a84a
   - enabled: 1
+    path: Assets/Scenes/jiwon/Main.unity
+    guid: d03dc93882614d745b3b95e61f222c28
     path: Assets/Scenes/haeun/DayEnd.unity
     guid: 3e96e88abea6c64439048c1db30ad486
   m_configObjects: {}
