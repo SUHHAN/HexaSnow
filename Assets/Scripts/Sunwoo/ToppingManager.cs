@@ -26,6 +26,13 @@ public class ToppingManager : MonoBehaviour
     public Image oriImage1;
     public Image oriImage2;
 
+    private int selectedDessertIndex = 1; // 기본값 1
+    private string selectedDessert;
+
+
+    // 디저트 인덱스에 맞는 이미지 저장
+    public List<Sprite> dessertSprites;
+
     public BakingStartManager bakingStartManager;
 
     private int selectedToppingIndex = -1; // int 타입으로 변경하여 인덱스로 관리
@@ -71,6 +78,26 @@ public class ToppingManager : MonoBehaviour
             }
         }
         Debug.Log($"CSV에서 {menuDictionary.Count}개의 메뉴 데이터를 불러왔습니다.");
+    }
+
+    public void SetSelectedDessert(string dessertName, int index)
+    {
+        selectedDessert = dessertName;
+        selectedDessertIndex = index;
+        SetOriginalImages();
+    }
+
+    private void SetOriginalImages()
+    {
+        if (selectedDessertIndex < dessertSprites.Count)
+        {
+            oriImage1.sprite = dessertSprites[selectedDessertIndex];
+            oriImage2.sprite = dessertSprites[selectedDessertIndex];
+        }
+        else
+        {
+            Debug.LogError($"SetOriginalImages: 인덱스 {selectedDessertIndex}에 해당하는 이미지가 없습니다.");
+        }
     }
 
     // 토핑 선택 패널 열기
@@ -154,20 +181,6 @@ public class ToppingManager : MonoBehaviour
         SaveBakingResult();
 
         SceneManager.LoadScene("Bonus");
-    }
-
-    // 선택한 디저트의 원본 이미지 설정
-    private void SetOriginalImages()
-    {
-        string selectedDessert = bakingStartManager.GetSelectedDessert();
-        string originalImagePath = $"Sunwoo/Images/menu_{selectedDessert.ToLower()}_original";
-
-        Sprite originalSprite = Resources.Load<Sprite>(originalImagePath);
-        if (originalSprite != null)
-        {
-            oriImage1.sprite = originalSprite;
-            oriImage2.sprite = originalSprite;
-        }
     }
 
     // 선택한 디저트와 토핑을 반영하여 최종 이미지 업데이트
