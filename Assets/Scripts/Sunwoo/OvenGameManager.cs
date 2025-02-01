@@ -152,12 +152,20 @@ public class OvenGameManager : MonoBehaviour
             (gaugeLeftEdge >= targetZoneStart && gaugeRightEdge <= targetZoneEnd))
         {
             ovenScore = 5; // 성공 시 5점
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.oven_succ); // 오븐 성공 효과음 실행
+            }
             resultText.text = "통과!";
             Debug.Log("오븐 게임 성공: +5점");
         }
         else
         {
             ovenScore = 0; // 실패 시 0점
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.oven_fail); // 오븐 실패 효과음 실행
+            }
             resultText.text = "실패!";
             Debug.Log("오븐 게임 실패: +0점");
         }
