@@ -88,7 +88,7 @@ public class DataManager : MonoBehaviour
         gameData.isGuestLoggedIn = true;
         gameData.date = 1;  
         gameData.money = 5000;  
-        gameData.ingredientNum = gameData.ingredientNum = new List<int>{0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0};
+        gameData.ingredientNum = gameData.ingredientNum = new List<int>{0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0};
         gameData.myBake = new List<MyRecipeList>();
         Debug.Log("초기 게임 데이터 설정 완료");
     }
