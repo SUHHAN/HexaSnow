@@ -123,6 +123,7 @@ public class BreadScrollbarManager : MonoBehaviour
 
     public void SlotClick(string name)
     {
+        
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         BlackBackground.SetActive(true);
         BonusPanel.SetActive(true);

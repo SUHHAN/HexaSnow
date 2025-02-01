@@ -4362,8 +4362,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5406417d60882e949b716f82dbad2665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmSlider: {fileID: 0}
-  sfxSlider: {fileID: 0}
+  bgmSlider: {fileID: 2055078139}
+  sfxSlider: {fileID: 1405203279}
 --- !u!114 &843092487
 MonoBehaviour:
   m_ObjectHideFlags: 0
