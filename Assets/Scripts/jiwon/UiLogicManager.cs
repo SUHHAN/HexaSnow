@@ -63,7 +63,7 @@ public class UiLogicManager : MonoBehaviour
 
         }
 
-        if (currentSceneName == "Baking1") {
+        if (currentSceneName == "Baking 1") {
             KitchenButtonGO.SetActive(false);
             HomeButtonGO.SetActive(false);
             SettingButtonGO.SetActive(true);
@@ -95,6 +95,8 @@ public class UiLogicManager : MonoBehaviour
             timePanel.SetActive(true);          
             order_buttonGO.SetActive(true);        
             RecipeBookGO.SetActive(true);
+
+            KitchButton.onClick.AddListener(GoKitchenScene);
         }
 
         if (currentSceneName == "Deadline" || currentSceneName == "Deadline_Last") {

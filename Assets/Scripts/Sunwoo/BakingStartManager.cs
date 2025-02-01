@@ -2,26 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class BakingStartManager : MonoBehaviour
 {
-    public GameObject startPanel; // ½ÃÀÛ ÆÐ³Î
-    public GameObject recipeSelectionPopup; // ·¹½ÃÇÇ ¼±ÅÃ ÆË¾÷
-    public GameObject messagePopup; // ¸Þ½ÃÁö ÆË¾÷
-    public GameObject ingredientSelectionPanel; // Àç·á ¼±ÅÃ ÆÐ³Î
+    public GameObject startPanel; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½
+    public GameObject recipeSelectionPopup; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½
+    public GameObject messagePopup; // ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½
+    public GameObject ingredientSelectionPanel; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½
 
-    public TextMeshProUGUI messageText; // ¸Þ½ÃÁö ÅØ½ºÆ®
+    public TextMeshProUGUI messageText; // ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®
 
-    public Button startButton; // ½ÃÀÛ ¹öÆ°
-    public Button nextButton; // '´ÙÀ½' ¹öÆ°
-    public RecipeBook recipeBook; // ·¹½ÃÇÇ µ¥ÀÌÅÍ
-    private Recipe selectedRecipe = null; // ¼±ÅÃµÈ ·¹½ÃÇÇ
+    public Button startButton; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+    public Button nextButton; // 'ï¿½ï¿½ï¿½ï¿½' ï¿½ï¿½Æ°
+    public RecipeBook recipeBook; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private Recipe selectedRecipe = null; // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    public ToppingManager toppingManager; // ToppingManager ÂüÁ¶
+    public ToppingManager toppingManager; // ToppingManager ï¿½ï¿½ï¿½ï¿½
 
-    public List<Button> recipeButtons; // ·¹½ÃÇÇ ¹öÆ° ¸®½ºÆ® (Inspector¿¡¼­ ÇÒ´ç)
-    private Dictionary<Button, Color> originalButtonColors = new Dictionary<Button, Color>(); // ¹öÆ° ¿ø·¡ »ö»ó ÀúÀå
+    public List<Button> recipeButtons; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½Æ® (Inspectorï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½)
+    private Dictionary<Button, Color> originalButtonColors = new Dictionary<Button, Color>(); // ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     private Dictionary<string, int> dessertIndexMap = new Dictionary<string, int>()
     {
@@ -37,37 +38,39 @@ public class BakingStartManager : MonoBehaviour
         { "Doughnut", 10 }
     };
 
-    private int selectedDessertIndex = 1; // ±âº»°ª 1
+    private int selectedDessertIndex = 1; // ï¿½âº»ï¿½ï¿½ 1
 
     void Start()
     {
         if (AudioManager.Instance != null)
         {
-            AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking); // Baking 1 ¾À BGM ½ÇÇà
+            AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking); // Baking 1 ï¿½ï¿½ BGM ï¿½ï¿½ï¿½ï¿½
         }
 
-        // ÃÊ±â UI ¼³Á¤
+        SceneManager.LoadScene("Main", LoadSceneMode.Additive);
+
+        // ï¿½Ê±ï¿½ UI ï¿½ï¿½ï¿½ï¿½
         startPanel.SetActive(true);
-        recipeSelectionPopup.SetActive(false);
+        recipeSelectionPopup.SetActive(true);
         messagePopup.SetActive(false);
         nextButton.gameObject.SetActive(false);
         ingredientSelectionPanel.SetActive(false);
 
-        // ¹öÆ° ÀÌº¥Æ® µî·Ï
+        // ï¿½ï¿½Æ° ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½
         nextButton.onClick.AddListener(GoToIngredientSelection);
 
-        // ·¹½ÃÇÇ ¹öÆ° ÀÌº¥Æ® µî·Ï
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½
         foreach (Button button in recipeButtons)
         {
             string recipeName = button.name;
-            originalButtonColors[button] = button.image.color; // ¿ø·¡ »ö»ó ÀúÀå
+            originalButtonColors[button] = button.image.color; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             button.onClick.AddListener(() => SelectRecipe(button, recipeName));
         }
 
         UpdateRecipeButtons();
     }
 
-    // ·¹½ÃÇÇ ¹öÆ° È°¼ºÈ­/ºñÈ°¼ºÈ­ ¾÷µ¥ÀÌÆ®
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° È°ï¿½ï¿½È­/ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     private void UpdateRecipeButtons()
     {
         foreach (Button button in recipeButtons)
@@ -77,11 +80,11 @@ public class BakingStartManager : MonoBehaviour
 
             if (recipe != null && recipe.canBake)
             {
-                button.interactable = true; // ÇØ±ÝµÈ ·¹½ÃÇÇ¸¸ È°¼ºÈ­
+                button.interactable = true; // ï¿½Ø±Ýµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ È°ï¿½ï¿½È­
             }
             else
             {
-                button.interactable = true; // ¹öÆ° Å¬¸¯ °¡´ÉÇÏ°Ô À¯Áö
+                button.interactable = true; // ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
             }
         }
     }
@@ -94,10 +97,10 @@ public class BakingStartManager : MonoBehaviour
         }
         else
         {
-            selectedDessertIndex = 1; // ±âº»°ª
+            selectedDessertIndex = 1; // ï¿½âº»ï¿½ï¿½
         }
 
-        // ¼±ÅÃÇÑ µðÀúÆ® Á¤º¸ ToppingManager·Î Àü´Þ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ToppingManagerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (toppingManager != null)
         {
             toppingManager.SetSelectedDessert(dessertName, selectedDessertIndex);
@@ -109,7 +112,7 @@ public class BakingStartManager : MonoBehaviour
         return selectedDessertIndex;
     }
 
-    // ·¹½ÃÇÇ ¼±ÅÃ ½Ã ½ÇÇà
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void SelectRecipe(Button clickedButton, string recipeName)
     {
         Recipe recipe = recipeBook.GetRecipeByName(recipeName);
@@ -118,44 +121,44 @@ public class BakingStartManager : MonoBehaviour
         {
             if (selectedRecipe != null && selectedRecipe.recipeName == recipeName)
             {
-                // ÀÌ¹Ì ¼±ÅÃÇÑ ·¹½ÃÇÇ¸¦ ´Ù½Ã Å¬¸¯ÇÏ¸é Ãë¼Ò
-                clickedButton.image.color = originalButtonColors[clickedButton]; // ¿ø·¡ »ö»ó º¹¿ø
+                // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ ï¿½Ù½ï¿½ Å¬ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½
+                clickedButton.image.color = originalButtonColors[clickedButton]; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 selectedRecipe = null;
                 nextButton.gameObject.SetActive(false);
             }
             else
             {
-                // »õ·Î¿î ·¹½ÃÇÇ ¼±ÅÃ
-                DeselectAllRecipeButtons(); // ÀÌÀü ¼±ÅÃ ÇØÁ¦
+                // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                DeselectAllRecipeButtons(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 Color newColor = clickedButton.image.color;
-                newColor.a = 0.5f; // Åõ¸íµµ¸¦ 50%·Î ³·Ãã
+                newColor.a = 0.5f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 50%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 clickedButton.image.color = newColor;
 
                 selectedRecipe = recipe;
-                Debug.Log($"¼±ÅÃµÈ Á¦°ú: {selectedRecipe.recipeName}");
+                Debug.Log($"ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½: {selectedRecipe.recipeName}");
 
                 nextButton.gameObject.SetActive(true);
             }
         }
         else
         {
-            StartCoroutine(ShowMessage("ÇØ±ÝµÇÁö ¾ÊÀº ·¹½ÃÇÇÀÔ´Ï´Ù!"));
+            StartCoroutine(ShowMessage("ï¿½Ø±Ýµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½!"));
         }
     }
 
-    // ¸ðµç ·¹½ÃÇÇ ¹öÆ° »ö»óÀ» ¿ø·¡´ë·Î µÇµ¹¸²
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½
     private void DeselectAllRecipeButtons()
     {
         foreach (Button button in recipeButtons)
         {
             if (originalButtonColors.ContainsKey(button))
             {
-                button.image.color = originalButtonColors[button]; // ¿ø·¡ »ö»ó º¹¿ø
+                button.image.color = originalButtonColors[button]; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             }
         }
     }
 
-    // ¸Þ½ÃÁö ÆË¾÷À» ÀÏÁ¤ ½Ã°£ µ¿¾È Ç¥½Ã ÈÄ ¼û±è
+    // ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private IEnumerator ShowMessage(string message)
     {
         messageText.text = message;
@@ -164,7 +167,7 @@ public class BakingStartManager : MonoBehaviour
         messagePopup.SetActive(false);
     }
 
-    // '´ÙÀ½' ¹öÆ° Å¬¸¯ ½Ã Àç·á ¼±ÅÃ ÆÐ³Î·Î ÀÌµ¿
+    // 'ï¿½ï¿½ï¿½ï¿½' ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³Î·ï¿½ ï¿½Ìµï¿½
     private void GoToIngredientSelection()
     {
         if (selectedRecipe != null)
@@ -174,13 +177,13 @@ public class BakingStartManager : MonoBehaviour
         }
     }
 
-    // ¼±ÅÃÇÑ ·¹½ÃÇÇ ¹ÝÈ¯ ÅäÇÎ ´Ü°è¿¡¼­ ¾²±â À§ÇØ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ ï¿½Ü°è¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public string GetSelectedDessert()
     {
         return selectedRecipe != null ? selectedRecipe.recipeName : null;
     }
 
-    // ¼±ÅÃÇÑ ·¹½ÃÇÇ ¹ÝÈ¯ Àç·á °ËÁõ¿¡¼­ ¾²±â
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public Recipe GetSelectedRecipe()
     {
         return selectedRecipe;

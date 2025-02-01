@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class BKStartSceneManager : MonoBehaviour
 {
     public Button startButton; // Start 버튼
+    public GameObject StartPanel;
 
     void Start()
     {
@@ -21,8 +22,9 @@ public class BKStartSceneManager : MonoBehaviour
         }
     }
 
-    private void LoadBakingScene()
+    // Start 버튼 클릭 시 실행할 메서드
+    public void LoadBakingScene()
     {
-        SceneManager.LoadScene("Baking 1"); 
+        SceneManager.LoadScene("Baking 1");
     }
 }
