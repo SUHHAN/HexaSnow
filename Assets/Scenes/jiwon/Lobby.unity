@@ -5075,24 +5075,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmClips:
-  - {fileID: 8300000, guid: 1b19fa64efe92cf4cb2c46dec19913dd, type: 3}
-  - {fileID: 8300000, guid: 45d86975dab2db64b9ce1f79a1261809, type: 3}
-  - {fileID: 8300000, guid: 9f72298c149ec7949b4532f914667642, type: 3}
-  - {fileID: 8300000, guid: a96da9233ba357d4ab43950619804216, type: 3}
+  - {fileID: 8300000, guid: f179f7863dd5d7041b2c73b83725dee2, type: 3}
+  - {fileID: 8300000, guid: 88b296f8410306549a9cfb44bf299ba4, type: 3}
+  - {fileID: 8300000, guid: 69ab8b9a17dcb9b44822abe72b761209, type: 3}
   bgmVolume: 0.5
   sfxClips:
+  - {fileID: 8300000, guid: 813b3daf5bbc8a2409a64dbcc2c068fb, type: 3}
   - {fileID: 8300000, guid: 46b76ceea1f29d84a95712b166e0d93a, type: 3}
+  - {fileID: 8300000, guid: 945b264214b60414a9a04e7b3d89d5b4, type: 3}
   - {fileID: 8300000, guid: 9a09f52b92f0cc5409191996e6d78344, type: 3}
+  - {fileID: 8300000, guid: d0c314d6373872943a68cb18bee26590, type: 3}
   - {fileID: 8300000, guid: e45230ed15a4bea4a97b29dbbe10bd74, type: 3}
   - {fileID: 8300000, guid: d20d0c920324bd249b6a1b1dba3f8ec2, type: 3}
-  sfxVolume: 0.5
-  sfxChannels: 4
-  sysClips:
-  - {fileID: 8300000, guid: 813b3daf5bbc8a2409a64dbcc2c068fb, type: 3}
-  - {fileID: 8300000, guid: 945b264214b60414a9a04e7b3d89d5b4, type: 3}
   - {fileID: 8300000, guid: 21faf9adfeac0d94e8e95183531911ac, type: 3}
-  sysVolume: 0.5
-  sysChannels: 3
+  sfxVolume: 0.5
 --- !u!4 &843092488
 Transform:
   m_ObjectHideFlags: 0

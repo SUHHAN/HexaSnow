@@ -41,14 +41,14 @@ public class GameSettingsManager : MonoBehaviour
 
         systemVolumeSlider.value = AudioManager.Instance.bgmVolume;
         bgmVolumeSlider.value = AudioManager.Instance.sfxVolume;
-        effectVolumeSlider.value = AudioManager.Instance.sysVolume;
+        // effectVolumeSlider.value = AudioManager.Instance.sysVolume;
 
         // **볼륨 조절 슬라이더 이벤트 리스너 등록**
         // systemVolumeSlider.onValueChanged.AddListener(delegate { SetSystemVolume(); });
         // bgmVolumeSlider.onValueChanged.AddListener(delegate { SetBGMVolume(); });
         // effectVolumeSlider.onValueChanged.AddListener(delegate { SetEffectVolume(); });
 
-        systemVolumeSlider.onValueChanged.AddListener(SetSystemVolume);
+        // systemVolumeSlider.onValueChanged.AddListener(SetSystemVolume);
         bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
         effectVolumeSlider.onValueChanged.AddListener(SetEffectVolume);
 
@@ -111,12 +111,12 @@ public class GameSettingsManager : MonoBehaviour
         // effectVolumeText.text = ((int)effectVolumeSlider.value).ToString();
     }
 
-    public void SetSystemVolume(float volume)
-    {
-        // AudioListener.volume = systemVolumeSlider.value / 100f;
-        AudioManager.Instance.SetSystemVolume(volume);
+    // public void SetSystemVolume(float volume)
+    // {
+    //     // AudioListener.volume = systemVolumeSlider.value / 100f;
+    //     AudioManager.Instance.SetSystemVolume(volume);
 
-    }
+    // }
 
     public void SetBGMVolume(float volume)
     {

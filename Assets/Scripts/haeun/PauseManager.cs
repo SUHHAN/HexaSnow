@@ -22,7 +22,7 @@ public class PauseManager : MonoBehaviour
         if(!ingreGameManager_h.Instance.IsGameStarting()) {
             if (isPaused) return; // 이미 정지 상태면 아무 작업도 하지 않음
 
-            AudioManager.Instance.PlaySys(AudioManager.Sys.button);
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
 
 
             isPaused = true;
@@ -37,8 +37,7 @@ public class PauseManager : MonoBehaviour
         if(!ingreGameManager_h.Instance.IsGameStarting()) {
             if (!isPaused) return; // 이미 실행 중이면 아무 작업도 하지 않음
 
-            AudioManager.Instance.PlaySys(AudioManager.Sys.button);
-
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
 
             pausePanel.SetActive(false); // 일시 정지 UI 숨김
             player_h.SetPauseState(false); // 플레이어 입력 활성화
