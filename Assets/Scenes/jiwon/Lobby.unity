@@ -1398,7 +1398,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 177818305}
   m_OnClick:
     m_PersistentCalls:
@@ -1472,7 +1472,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &217908394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1624,7 +1624,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textComponent: {fileID: 217908396}
   fadeDuration: 1
-  SavePointButton: {fileID: 0}
+  SavePointButton: {fileID: 500738474}
+  SaveIng: {fileID: 0}
 --- !u!1 &218853649
 GameObject:
   m_ObjectHideFlags: 0
@@ -2473,6 +2474,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2014360781}
         m_TargetAssemblyTypeName: TextFadeEffect, Assembly-CSharp
         m_MethodName: ShowTextAndHide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 718956063}
+        m_TargetAssemblyTypeName: DataManager, Assembly-CSharp
+        m_MethodName: SaveGameData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3429,6 +3442,7 @@ MonoBehaviour:
     isGuestLoggedIn: 0
     date: 0
     money: 0
+    time: 0
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
@@ -6330,6 +6344,7 @@ MonoBehaviour:
   runPopupPanel: {fileID: 1394281061}
   button_order: {fileID: 0}
   backgroundClickArea: {fileID: 1243338629}
+  ContinueButton: {fileID: 177818304}
 --- !u!4 &1583566123
 Transform:
   m_ObjectHideFlags: 0
@@ -8045,6 +8060,7 @@ MonoBehaviour:
   textComponent: {fileID: 217908396}
   fadeDuration: 1
   SavePointButton: {fileID: 500738474}
+  SaveIng: {fileID: 217908393}
 --- !u!4 &2014360782
 Transform:
   m_ObjectHideFlags: 0
@@ -8122,19 +8138,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2018202895}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 718956063}
-        m_TargetAssemblyTypeName: DataManager, Assembly-CSharp
-        m_MethodName: SaveGameData
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2018202895
 MonoBehaviour:
   m_ObjectHideFlags: 0

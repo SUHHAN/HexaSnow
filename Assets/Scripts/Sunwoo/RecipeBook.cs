@@ -13,7 +13,7 @@ public class RecipeBook : MonoBehaviour
         {
             new Recipe("Madeleine", new List<string> { "Butter", "Egg", "Flour", "Sugar" }, true),
             new Recipe("Muffin", new List<string> { "Butter", "Egg", "Sugar", "Flour", "BakingPowder" }, false),
-            new Recipe("Cookie", new List<string> { "Butter", "Sugar", "SugarPowder", "EggYellow", "Flour", "AlmondPowder" }, false),
+            new Recipe("Cookie", new List<string> { "Butter", "Sugar", "SugarPowder", "EggYellow", "Flour", "AlmondPowder" }, true),
             new Recipe("Pound Cake", new List<string> { "Butter", "Egg", "Flour", "Sugar" }, false),
             new Recipe("Basque Cheesecake", new List<string> { "CreamCheese", "Sugar", "Egg", "WhCream" }, false),
             new Recipe("Financier", new List<string> { "EggWhites", "AlmondPowder", "Flour", "Honey", "Sugar", "BrownedButter" }, false),
@@ -37,12 +37,11 @@ public class RecipeBook : MonoBehaviour
         int currentDate = DataManager.Instance.gameData.date;
         Debug.Log($"현재 날짜: {currentDate}");
 
-        if (currentDate >= 1) UnlockRecipe("Madeleine");               // Day 1
-        if (currentDate >= 2) { UnlockRecipe("Muffin"); UnlockRecipe("Cookie"); }  // Day 2
-        if (currentDate >= 3) { UnlockRecipe("Pound Cake"); UnlockRecipe("Basque Cheesecake"); }  // Day 3
-        if (currentDate >= 4) { UnlockRecipe("Financier"); UnlockRecipe("Scone"); }  // Day 4
-        if (currentDate >= 5) { UnlockRecipe("Tart"); UnlockRecipe("Slice Cake"); }  // Day 5
-        if (currentDate >= 6) UnlockRecipe("Doughnut");               // Day 6
+        if (currentDate >= 1) { UnlockRecipe("Madeleine"); UnlockRecipe("Cookie"); }               // Day 1
+        if (currentDate >= 2) { UnlockRecipe("Muffin"); UnlockRecipe("Pound Cake"); }  // Day 2
+        if (currentDate >= 3) { UnlockRecipe("Financier"); UnlockRecipe("Basque Cheesecake"); }  // Day 3
+        if (currentDate >= 4) { UnlockRecipe("Tart"); UnlockRecipe("Scone"); }  // Day 4
+        if (currentDate >= 5) { UnlockRecipe("Doughnut"); UnlockRecipe("Slice Cake"); }  // Day 5
 
         Debug.Log("레시피 해금 완료!");
     }

@@ -61,7 +61,7 @@ public class UiLogicManager : MonoBehaviour
             HomeButtonGO.SetActive(false);
             SettingButtonGO.SetActive(true);
             datePanel.SetActive(true);
-            timePanel.SetActive(true);
+            timePanel.SetActive(false);
             order_buttonGO.SetActive(true);
             RecipeBookGO.SetActive(true);     // 'order'씬에 가는게 목적
 
