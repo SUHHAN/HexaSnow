@@ -330,7 +330,8 @@ public void ResetOrderSystem(int day)
         
     }
     private void showPopup(){
-        Debug.Log($"openmenuIndex, unlocked_menu.Count {openmenuIndex}, {unlocked_menu.Count}");
+        //Debug.Log($"openmenuIndex, unlocked_menu.Count {openmenuIndex, unlocked_menu.Count}");
+
     if (openmenuIndex < unlocked_menu.Count)
     {
         string unlockedMenu1 = unlocked_menu[openmenuIndex];
