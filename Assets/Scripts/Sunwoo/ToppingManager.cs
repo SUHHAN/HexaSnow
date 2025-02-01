@@ -17,6 +17,7 @@ public class ToppingManager : MonoBehaviour
     // 버튼
     public Button startToppingButton;
     public Button finishToppingButton;
+    public Button finishButton;
 
     // 기타 참조
     public InventoryManager inventoryManager;
@@ -40,6 +41,7 @@ public class ToppingManager : MonoBehaviour
 
         startToppingButton.onClick.AddListener(OpenToppingSelection);
         finishToppingButton.onClick.AddListener(FinishToppingSelection);
+        finishButton.onClick.AddListener(FinishBaking);
 
         UpdateToppingButtons();
         SetOriginalImages();
@@ -145,6 +147,10 @@ public class ToppingManager : MonoBehaviour
         addToppingPanel.SetActive(false);
         finishBakingPanel.SetActive(true);
         UpdateBakingImage();
+    }
+
+    private void FinishBaking()
+    {
         SaveBakingResult();
 
         SceneManager.LoadScene("Bonus");

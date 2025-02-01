@@ -11,7 +11,7 @@ public class RecipeBook : MonoBehaviour
         // 레시피 데이터 초기화
         recipes = new List<Recipe>
         {
-            new Recipe("Madeleine", new List<string> { "Butter", "Egg", "Flour", "Sugar" }, false),
+            new Recipe("Madeleine", new List<string> { "Butter", "Egg", "Flour", "Sugar" }, true),
             new Recipe("Muffin", new List<string> { "Butter", "Egg", "Sugar", "Flour", "BakingPowder" }, false),
             new Recipe("Cookie", new List<string> { "Butter", "Sugar", "SugarPowder", "EggYellow", "Flour", "AlmondPowder" }, false),
             new Recipe("Pound Cake", new List<string> { "Butter", "Egg", "Flour", "Sugar" }, false),

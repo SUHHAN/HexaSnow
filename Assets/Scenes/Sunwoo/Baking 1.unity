@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 44619049}
   - component: {fileID: 44619048}
   m_Layer: 5
-  m_Name: EggButton
+  m_Name: eggButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -926,7 +926,7 @@ GameObject:
   - component: {fileID: 115943658}
   - component: {fileID: 115943657}
   m_Layer: 5
-  m_Name: EggYellowButton
+  m_Name: eggyellowButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2309,7 +2309,7 @@ GameObject:
   - component: {fileID: 300123578}
   - component: {fileID: 300123577}
   m_Layer: 5
-  m_Name: MilkButton
+  m_Name: milkButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2430,7 +2430,7 @@ GameObject:
   - component: {fileID: 312563696}
   - component: {fileID: 312563695}
   m_Layer: 5
-  m_Name: BrownedButterButton
+  m_Name: brownedbutterButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2551,7 +2551,7 @@ GameObject:
   - component: {fileID: 317340589}
   - component: {fileID: 317340588}
   m_Layer: 5
-  m_Name: SugarButton
+  m_Name: sugarButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4469,7 +4469,7 @@ GameObject:
   - component: {fileID: 616533164}
   - component: {fileID: 616533163}
   m_Layer: 5
-  m_Name: AlmondPowderButton
+  m_Name: almondpowderButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5142,7 +5142,7 @@ GameObject:
   - component: {fileID: 697308787}
   - component: {fileID: 697308786}
   m_Layer: 5
-  m_Name: ConMilk
+  m_Name: conmilkButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6038,7 +6038,7 @@ GameObject:
   - component: {fileID: 879675806}
   - component: {fileID: 879675805}
   m_Layer: 5
-  m_Name: BananaButton
+  m_Name: bananaButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6159,7 +6159,7 @@ GameObject:
   - component: {fileID: 890102772}
   - component: {fileID: 890102771}
   m_Layer: 5
-  m_Name: HoneyButton
+  m_Name: honeyButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6280,7 +6280,7 @@ GameObject:
   - component: {fileID: 904016009}
   - component: {fileID: 904016008}
   m_Layer: 5
-  m_Name: FlourButton
+  m_Name: flourButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6817,7 +6817,7 @@ GameObject:
   - component: {fileID: 967815489}
   - component: {fileID: 967815488}
   m_Layer: 5
-  m_Name: BakingPowderButton
+  m_Name: bakingpowderButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7088,7 +7088,7 @@ GameObject:
   - component: {fileID: 986041542}
   - component: {fileID: 986041541}
   m_Layer: 5
-  m_Name: LemonButton
+  m_Name: lemonButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7347,7 +7347,7 @@ GameObject:
   - component: {fileID: 1005786007}
   - component: {fileID: 1005786006}
   m_Layer: 5
-  m_Name: CreamCheeseButton
+  m_Name: creamcheeseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8263,7 +8263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1131758452
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8679,7 +8679,7 @@ GameObject:
   - component: {fileID: 1189724416}
   - component: {fileID: 1189724415}
   m_Layer: 5
-  m_Name: CaramelButton
+  m_Name: caramelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10641,7 +10641,7 @@ GameObject:
   - component: {fileID: 1358543325}
   - component: {fileID: 1358543324}
   m_Layer: 5
-  m_Name: BlueBerryButton
+  m_Name: blueberryButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11540,7 +11540,7 @@ GameObject:
   - component: {fileID: 1518929491}
   - component: {fileID: 1518929490}
   m_Layer: 5
-  m_Name: EggWhitesButton
+  m_Name: eggwhitesButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11661,7 +11661,7 @@ GameObject:
   - component: {fileID: 1523300829}
   - component: {fileID: 1523300828}
   m_Layer: 5
-  m_Name: StrawBerryButton
+  m_Name: strawberryButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11960,7 +11960,7 @@ GameObject:
   - component: {fileID: 1547329933}
   - component: {fileID: 1547329932}
   m_Layer: 5
-  m_Name: ChocoButton
+  m_Name: chocoButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12368,7 +12368,7 @@ GameObject:
   - component: {fileID: 1566752497}
   - component: {fileID: 1566752496}
   m_Layer: 5
-  m_Name: SugarPowderButton
+  m_Name: sugarpowderButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12489,7 +12489,7 @@ GameObject:
   - component: {fileID: 1584351579}
   - component: {fileID: 1584351578}
   m_Layer: 5
-  m_Name: ButterButton
+  m_Name: butterButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13448,7 +13448,7 @@ GameObject:
   - component: {fileID: 1735771706}
   - component: {fileID: 1735771705}
   m_Layer: 5
-  m_Name: AlmondButton
+  m_Name: almondButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14542,7 +14542,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1915734806
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14788,6 +14788,7 @@ MonoBehaviour:
   finishBakingPanel: {fileID: 1131758451}
   startToppingButton: {fileID: 1288554078}
   finishToppingButton: {fileID: 2019724135}
+  finishButton: {fileID: 1979543550}
   inventoryManager: {fileID: 2059799789}
   ovenGameManager: {fileID: 859194559}
   bakingImage: {fileID: 2071899538}
@@ -15106,7 +15107,7 @@ GameObject:
   - component: {fileID: 1979543551}
   - component: {fileID: 1979543550}
   m_Layer: 5
-  m_Name: FinishToppingButton
+  m_Name: FinishButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16365,7 +16366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2036366188
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17158,7 +17159,7 @@ GameObject:
   - component: {fileID: 2124218038}
   - component: {fileID: 2124218037}
   m_Layer: 5
-  m_Name: WhCreamButton
+  m_Name: whcreamButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
