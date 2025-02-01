@@ -113,11 +113,9 @@ public class PostmanController : MonoBehaviour
         {
             DialogueLine currentLine = dialogues[currentDialogueIndex];
             if(currentLine.id=="1"){
-                AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre); // 오디오 매니저를 통한 BGM 재생
                 AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell); // 효과음 재생
             }
-                if(currentLine.id=="40")
-                    AudioManager.Instance.StopBgm(); // BGM 정지
+
                 if(currentLine.id=="20")
                     letter.SetActive(true);
                     

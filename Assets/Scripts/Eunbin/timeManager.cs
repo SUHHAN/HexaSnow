@@ -3,20 +3,22 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-public class GameTime : MonoBehaviour
+public class timeManager : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
-    private float gameTime = 360f;
+    private float gameTime = 0f;
     public float currentTime;
     public event Action<float> OnTimeUpdate; // 시간 업데이트 이벤트
     public event Action OnSpecialTimeReached; // 특정 시간 도달 이벤트
     private bool isGameRunning = false;
-    public DayChange daychange;
     private Coroutine timerCoroutine; // 코루틴을 저장할 변수
 
      [SerializeField] private GameData GD = new GameData();
     void Start()
     {
+        Loadtime();
+        gameTime = currentTime;
+        StartGameTimer();
     }
 
     public void StartGameTimer()
@@ -30,10 +32,9 @@ public class GameTime : MonoBehaviour
     }
 
     private IEnumerator TimerCoroutine()
-    {
-        Loadtime();
-      
+    {      
         currentTime=gameTime;
+        Debug.Log(currentTime);
         
         while (currentTime > 0)
         {
@@ -74,13 +75,11 @@ public class GameTime : MonoBehaviour
     public void OnTimerEnd()
     {
         Debug.Log("6분이 끝났습니다");
-        daychange.OnDayChange();
         StopTimer();
     }
     private void Loadtime() {
 
         GD = DataManager.Instance.LoadGameData();
-
         // !! 일차 업데이트하기
         currentTime = GD.time;
     }
