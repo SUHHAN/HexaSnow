@@ -61,6 +61,7 @@ public class Order : MonoBehaviour
   }
     void Start()
     {
+        AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
         SceneManager.LoadScene("Main", LoadSceneMode.Additive); //기본 UI 띄우기 
         postman.SetActive(true);
         orderCheck.gameObject.SetActive(true);
@@ -329,6 +330,7 @@ public void ResetOrderSystem(int day)
         
     }
     private void showPopup(){
+        Debug.Log($"openmenuIndex, unlocked_menu.Count {openmenuIndex, nlocked_menu.Count}");
     if (openmenuIndex < unlocked_menu.Count)
     {
         string unlockedMenu1 = unlocked_menu[openmenuIndex];
