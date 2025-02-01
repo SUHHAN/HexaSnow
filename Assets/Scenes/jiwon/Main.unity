@@ -7191,6 +7191,8 @@ MonoBehaviour:
   order_button: {fileID: 339853704}
   RecipeBook: {fileID: 784770406}
   RecipeButton: {fileID: 1951779734}
+  calendarText: {fileID: 838943963}
+  customFont: {fileID: 11400000, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
 --- !u!4 &1985920503
 Transform:
   m_ObjectHideFlags: 0
