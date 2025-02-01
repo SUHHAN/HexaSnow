@@ -76,7 +76,7 @@ public class MatchGame_h : MonoBehaviour
             LoadBakeData(menuIndex);
         }
 
-        AudioManager.Instance.PlayBgm(AudioManager.Bgm.kitchen_minigame);
+        AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
 
 
         Board_h board = FindObjectOfType<Board_h>();
@@ -237,7 +237,7 @@ public class MatchGame_h : MonoBehaviour
 
     // 이 코드는 다시 시작 코드가 아니라, 변한 점수, 등급 과 보너스 게임 bool 변수를 true로 바꾼 값을 저장한 뒤에 Bonus 씬으로 넘어가기
     public void MatchRestartGame(){
-        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
 
         SceneManager.LoadScene("Bonus");
         // SceneManager.LoadScene("Match");
@@ -245,7 +245,7 @@ public class MatchGame_h : MonoBehaviour
 
     public void PauseGame() {
         if (!isPaused && !isFlipping && !isGameOver) {
-            AudioManager.Instance.PlaySys(AudioManager.Sys.button);
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
             pausePanel.SetActive(true);
             isPaused = true;
         }
@@ -253,7 +253,7 @@ public class MatchGame_h : MonoBehaviour
 
     public void ResumeGame() {
         if (isPaused) {
-            AudioManager.Instance.PlaySys(AudioManager.Sys.button);
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
             pausePanel.SetActive(false);
             StartCoroutine(ResumeReadyGoRoutine());
         }

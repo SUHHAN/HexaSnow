@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
     public float bgmVolume = 0.5f;
     AudioSource[] bgmPlayers;
     private int currentBgmIndex = -1;  // 현재 재생 중인 BGM 인덱스 (-1: 아무것도 재생 안 함)
-    public enum Bgm {dead, inside, kitchen_minigame, main};
+    public enum Bgm {inside_kitchen_baking, main_bonus_ingre, tutorial};
 
 
 
@@ -21,24 +21,24 @@ public class AudioManager : MonoBehaviour
     public float sfxVolume = 0.5f;
 
     // 동시다발적으로 많은 효과음을 내기 위해서 channel 분리
-    public int sfxChannels = 4;
+    private int sfxChannels = 8;
     AudioSource[] sfxPlayers;
     int sfxChannelIndex;
     
-    public enum Sfx {bonus_card, ingre_fail, oven_suss, oven_fail};
+    public enum Sfx {bell, bonus_card, button, ingre_fail, ingre_succ, oven_fail, oven_succ, recipe_order};
 
 
-    // 시스템 변수
-    [Header("#SYS")]
-    public AudioClip[] sysClips;
-    public float sysVolume = 0.5f;
+    // // 시스템 변수
+    // [Header("#SYS")]
+    // public AudioClip[] sysClips;
+    // public float sysVolume = 0.5f;
 
-    // 동시다발적으로 많은 효과음을 내기 위해서 channel 분리
-    public int sysChannels = 3;
-    AudioSource[] sysPlayers;
-    int sysChannelIndex;
+    // // 동시다발적으로 많은 효과음을 내기 위해서 channel 분리
+    // public int sysChannels = 3;
+    // AudioSource[] sysPlayers;
+    // int sysChannelIndex;
     
-    public enum Sys {bell, button, recipe_order};
+    // public enum Sys {bell, button, recipe_order};
 
     void Awake() {
         // 싱글톤 인스턴스 생성
@@ -73,7 +73,7 @@ public class AudioManager : MonoBehaviour
         // 2. 효과음 플레이어 초기화
         GameObject sfxObject = new GameObject("SfxPlayer");
         sfxObject.transform.parent = transform;
-        sfxChannels = 4;
+        sfxChannels = 8;
         sfxPlayers = new AudioSource[sfxChannels];
 
         for (int index = 0; index < sfxPlayers.Length; index++) {
@@ -82,31 +82,31 @@ public class AudioManager : MonoBehaviour
             // sfxPlayers[index].volume = sfxVolume;
         }
 
-        // 3. 환경음 플레이어 초기화
-        GameObject envObject = new GameObject("EnvPlayer");
-        envObject.transform.parent = transform;
-        sysChannels = 3;
-        sysPlayers = new AudioSource[sysChannels];
+        // // 3. 환경음 플레이어 초기화
+        // GameObject envObject = new GameObject("EnvPlayer");
+        // envObject.transform.parent = transform;
+        // sysChannels = 3;
+        // sysPlayers = new AudioSource[sysChannels];
 
-        for (int index = 0; index < sysPlayers.Length; index++) {
-            sysPlayers[index] = envObject.AddComponent<AudioSource>();
-            sysPlayers[index].playOnAwake = false;
-            // sysPlayers[index].volume = sysVolume;
-        }
+        // for (int index = 0; index < sysPlayers.Length; index++) {
+        //     sysPlayers[index] = envObject.AddComponent<AudioSource>();
+        //     sysPlayers[index].playOnAwake = false;
+        //     // sysPlayers[index].volume = sysVolume;
+        // }
 
         // 3. 볼륨 로드 및 설정
         bgmVolume = PlayerPrefs.GetFloat("BGMVolume", 1f);
         sfxVolume = PlayerPrefs.GetFloat("EffectVolume", 1f);
-        sysVolume = PlayerPrefs.GetFloat("SystemVolume", 1f);
+        // sysVolume = PlayerPrefs.GetFloat("SystemVolume", 1f);
 
         SetBgmVolume(bgmVolume);
         SetSfxVolume(sfxVolume);
-        SetSystemVolume(sysVolume);
+        // SetSystemVolume(sysVolume);
 
         // 4. 기본 BGM 설정 (아무것도 재생되지 않았다면 "main" 자동 재생)
         if (currentBgmIndex == -1) {
-            currentBgmIndex = 3;
-            PlayBgm(Bgm.main);
+            currentBgmIndex = 1;
+            PlayBgm(Bgm.main_bonus_ingre);
         }
     }
 
@@ -126,13 +126,13 @@ public class AudioManager : MonoBehaviour
         PlayerPrefs.SetFloat("EffectVolume", sfxVolume); // 볼륨 값 저장
     }
 
-    public void SetSystemVolume(float volume) {
-        sysVolume = volume;
-        foreach (var sysPlayer in sysPlayers) {
-            sysPlayer.volume = sysVolume;
-        }
-        PlayerPrefs.SetFloat("SystemVolume", sysVolume); // 볼륨 값 저장
-    }
+    // public void SetSystemVolume(float volume) {
+    //     sysVolume = volume;
+    //     foreach (var sysPlayer in sysPlayers) {
+    //         sysPlayer.volume = sysVolume;
+    //     }
+    //     PlayerPrefs.SetFloat("SystemVolume", sysVolume); // 볼륨 값 저장
+    // }
 
     public void PlaySfx(Sfx sfx) {
         for (int index = 0; index < sfxPlayers.Length; index++) {
@@ -155,26 +155,26 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySys(Sys sys) {
-        for (int index = 0; index < sysPlayers.Length; index++) {
-            int loopIndex = (index + sysChannelIndex) % sysPlayers.Length;
+    // public void PlaySys(Sys sys) {
+    //     for (int index = 0; index < sysPlayers.Length; index++) {
+    //         int loopIndex = (index + sysChannelIndex) % sysPlayers.Length;
 
-            if (sysPlayers[loopIndex].isPlaying)
-            continue;
+    //         if (sysPlayers[loopIndex].isPlaying)
+    //         continue;
 
-            // 랜덤으로 2가지 이상의 효과음을 선택하고 싶을 때
-            int ranIndex = 0;
-            // if (sfx == Sfx.Hit || sfx == Sfx.Hit) {
-            //       ranIndex = Random.Range(0,2);
-            // }
+    //         // 랜덤으로 2가지 이상의 효과음을 선택하고 싶을 때
+    //         int ranIndex = 0;
+    //         // if (sfx == Sfx.Hit || sfx == Sfx.Hit) {
+    //         //       ranIndex = Random.Range(0,2);
+    //         // }
 
-            sysChannelIndex = loopIndex;
-            sysPlayers[sysChannelIndex].clip = sysClips[(int)sys + ranIndex];
-            sysPlayers[sysChannelIndex].Play();
+    //         sysChannelIndex = loopIndex;
+    //         sysPlayers[sysChannelIndex].clip = sysClips[(int)sys + ranIndex];
+    //         sysPlayers[sysChannelIndex].Play();
 
-            break;
-        }
-    }
+    //         break;
+    //     }
+    // }
 
      // 🎵 특정 BGM을 선택하여 재생 (기존 BGM 정지 후 새 BGM 실행)
     public void PlayBgm(Bgm bgmType)

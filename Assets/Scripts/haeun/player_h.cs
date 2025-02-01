@@ -200,7 +200,13 @@ public class player_h : MonoBehaviour
     {
         if (collision.gameObject.tag == "BadItem")
         {
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_fail);
             StartCoroutine(HandleBadItemCollision());
+        }
+
+        if (collision.gameObject.tag == "GoodItem")
+        {
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_succ);
         }
     }
 
@@ -230,14 +236,10 @@ public class player_h : MonoBehaviour
 
             rigidbody_h.velocity = new Vector2(horizontal * speed, rigidbody_h.velocity.y);
                         
-            animator.SetBool("badItem", true); // badItem 애니메이션 실행
-            if (ingreGameManager_h.Instance.heartScore >= 0)
-            
-            AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_fail);
+            animator.SetBool("badItem", true); // badItem 애니메이션 실행            
             
             yield return new WaitForSeconds(1f); // 1초 대기
 
-        
             animator.SetBool("badItem", false); // 다시 달리는 상태로 복귀
         }
     }
