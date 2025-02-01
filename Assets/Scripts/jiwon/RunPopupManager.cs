@@ -8,20 +8,24 @@ public class RunPopupManager : MonoBehaviour
     public GameObject runPopupPanel; // Run Story 팝업 패널
     public Button button_order;
     public GameObject backgroundClickArea;
+    public Button ContinueButton;
 
     void Start()
     {
         runPopupPanel.SetActive(false); // 시작 시 Run 팝업 비활성화
 
         // 배경 클릭 감지 영역에 클릭 이벤트 추가
-      /*  if (backgroundClickArea != null)
-        {
-            backgroundClickArea.GetComponent<Button>().onClick.AddListener(() =>
-            {
-                HideRunPopup(); // 바깥 클릭 시 팝업 닫기
-           });
-         }
-         */
+        /*  if (backgroundClickArea != null)
+          {
+              backgroundClickArea.GetComponent<Button>().onClick.AddListener(() =>
+              {
+                  HideRunPopup(); // 바깥 클릭 시 팝업 닫기
+             });
+           }
+           */
+
+        GameData loadedData = DataManager.Instance.LoadGameData();
+        ContinueButton.interactable = (loadedData != null);
 
         button_order.onClick.AddListener(() => {
             Debug.Log("tutorial 씬으로 이동");
@@ -33,7 +37,6 @@ public class RunPopupManager : MonoBehaviour
     public void ShowRunPopup()
     {
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
-        Debug.Log("범인??");
         runPopupPanel.SetActive(true);
         backgroundClickArea.SetActive(true);
     }
@@ -71,7 +74,6 @@ public class RunPopupManager : MonoBehaviour
         else
         {
             Debug.LogWarning("저장된 데이터가 없어 새 게임을 시작합니다.");
-            StartNewGame();
         }
     }
 

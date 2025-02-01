@@ -47,6 +47,10 @@ public class UiLogicManager : MonoBehaviour
 
         KitchButton.onClick.AddListener(GoKitchenScene);
 
+        Button HomeButton = HomeButtonGO.GetComponent<Button>();
+
+        HomeButton.onClick.AddListener(GoBonusScene);
+
 
         LoadCalendarDate();
 
@@ -57,7 +61,7 @@ public class UiLogicManager : MonoBehaviour
             HomeButtonGO.SetActive(false);
             SettingButtonGO.SetActive(true);
             datePanel.SetActive(true);
-            timePanel.SetActive(true);
+            timePanel.SetActive(false);
             order_buttonGO.SetActive(true);
             RecipeBookGO.SetActive(true);     // 'order'씬에 가는게 목적
 
@@ -81,10 +85,6 @@ public class UiLogicManager : MonoBehaviour
             timePanel.SetActive(true);          
             order_buttonGO.SetActive(false);        
             RecipeBookGO.SetActive(false);  
-
-            Button HomeButton = HomeButtonGO.GetComponent<Button>();
-
-            KitchButton.onClick.AddListener(GoBonusScene);
         }
 
         if (currentSceneName == "Bouns") {

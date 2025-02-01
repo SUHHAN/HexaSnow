@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class AudioSettings : MonoBehaviour 
 {
@@ -8,21 +9,43 @@ public class AudioSettings : MonoBehaviour
 
     void Start()
     {
-        if (bgmSlider == null || sfxSlider == null )
+        // 씬에서 슬라이더 자동 검색
+        if (bgmSlider == null || sfxSlider == null)
         {
-            Debug.LogError("슬라이더가 할당되지 않았습니다. bgmSlider: " + bgmSlider + ", sfxSlider: " + sfxSlider);
+            FindAndAssignSliders();
+        }
+
+        if (bgmSlider == null || sfxSlider == null)
+        {
+            Debug.LogError("슬라이더를 찾을 수 없습니다.");
             return;
         }
 
         // 슬라이더 초기값 설정
         bgmSlider.value = AudioManager.Instance.bgmVolume;
         sfxSlider.value = AudioManager.Instance.sfxVolume;
-        // systemSlider.value = AudioManager.Instance.sysVolume;
 
         // 슬라이더의 OnValueChanged 이벤트에 메서드 연결
         bgmSlider.onValueChanged.AddListener(SetBgmVolume);
         sfxSlider.onValueChanged.AddListener(SetSfxVolume);
-        // systemSlider.onValueChanged.AddListener(SetSystemVolume);
+    }
+
+    void FindAndAssignSliders()
+    {
+        // 모든 씬의 활성화된 슬라이더를 찾음
+        Slider[] allSliders = FindObjectsOfType<Slider>(true);
+
+        foreach (Slider slider in allSliders)
+        {
+            if (slider.name.Contains("BGM")) 
+            {
+                bgmSlider = slider;
+            }
+            else if (slider.name.Contains("Effect")) 
+            {
+                sfxSlider = slider;
+            }
+        }
     }
 
     public void SetBgmVolume(float volume)
@@ -34,9 +57,4 @@ public class AudioSettings : MonoBehaviour
     {
         AudioManager.Instance.SetSfxVolume(volume);
     }
-
-    // public void SetSystemVolume(float volume)
-    // {
-    //     AudioManager.Instance.SetSystemVolume(volume);
-    // }
 }
