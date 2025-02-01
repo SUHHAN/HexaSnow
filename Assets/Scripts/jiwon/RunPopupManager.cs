@@ -46,7 +46,7 @@ public class RunPopupManager : MonoBehaviour
     {
         DataManager.Instance.gameData = new GameData(); // 새로운 데이터로 초기화
         DataManager.Instance.SaveInitialGameData(); // 저장
-        //SceneManager.LoadScene("tutorial"); // 새 게임 씬으로 이동
+        SceneManager.LoadScene("order"); // 새 게임 씬으로 이동
         Debug.Log("새로하기 초기화-튜토리얼 씬으로 이동");
     }
 
