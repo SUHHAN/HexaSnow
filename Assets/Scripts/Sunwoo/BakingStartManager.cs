@@ -54,7 +54,6 @@ public class BakingStartManager : MonoBehaviour
         ingredientSelectionPanel.SetActive(false);
 
         // 버튼 이벤트 등록
-        startButton.onClick.AddListener(OpenRecipeSelection);
         nextButton.onClick.AddListener(GoToIngredientSelection);
 
         // 레시피 버튼 이벤트 등록
@@ -108,12 +107,6 @@ public class BakingStartManager : MonoBehaviour
     public int GetSelectedDessertIndex()
     {
         return selectedDessertIndex;
-    }
-
-    // 시작 버튼 클릭 시 레시피 선택 팝업 활성화
-    private void OpenRecipeSelection()
-    {
-        recipeSelectionPopup.SetActive(true);
     }
 
     // 레시피 선택 시 실행

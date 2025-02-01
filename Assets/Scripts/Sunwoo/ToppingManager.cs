@@ -206,7 +206,7 @@ public class ToppingManager : MonoBehaviour
     private void FinishBaking()
     {
         SaveBakingResult();
-        SceneManager.LoadScene("Bonus");
+        SceneManager.LoadScene("BakingStart");
     }
 
     // 베이킹 결과 저장
