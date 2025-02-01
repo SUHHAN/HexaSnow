@@ -33,9 +33,10 @@ public class DayChange : MonoBehaviour
         SaveDate();
         order.openMenu(day);
         SpecialScript.currentDay=day;
+        Debug.Log("날짜 변경");
 
         gametime.StopTimer();
-        timerText.text = "영업 준비 중";
+        timerText.text = "준비 중";
 
         if (day == 4 || day == 7)
         {
