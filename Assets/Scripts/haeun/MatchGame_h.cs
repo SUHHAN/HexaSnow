@@ -69,14 +69,14 @@ public class MatchGame_h : MonoBehaviour
         // 이전 씬에서 넘어온 Menu_Index 값을 가져오기
         if (PlayerPrefs.HasKey("SelectedMenuIndex"))
         {
-            int menuIndex = PlayerPrefs.GetInt("SelectedMenuIndex");
+            int menuIndex = PlayerPrefs.GetInt("SelectedMenuIndex") - 1;
             Debug.Log("받은 Menu_Index 값: " + menuIndex);
 
             // 필요한 로직 추가 (예: 특정 메뉴 정보 불러오기)
             LoadBakeData(menuIndex);
         }
 
-        AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
+        // AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
 
 
         Board_h board = FindObjectOfType<Board_h>();
@@ -138,7 +138,7 @@ public class MatchGame_h : MonoBehaviour
             return;
         }
         card.FilpCard();
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.bonus_card);
+        // AudioManager.Instance.PlaySfx(AudioManager.Sfx.bonus_card);
 
         if (filppedCard == null) { // filppedCard 안에 값이 없으면, 현 카드를 입력
             filppedCard = card;
@@ -199,6 +199,7 @@ public class MatchGame_h : MonoBehaviour
             }
 
             SaveBakeData(menuIndex);
+
             Invoke("ShowGameOverPanel", 2f);
         }
     }
@@ -285,23 +286,32 @@ public class MatchGame_h : MonoBehaviour
     {
         if (DataManager.Instance != null)
         {   
-            // 저장되어 있던 재료 리스트 로드
             GD = DataManager.Instance.LoadGameData();
-            // 내가 올리기를 원하는 순서(index)의 저장된 베이킹 점수 데이터를 변수에 넣어주기
-            myRecipe = GD.myBake[num];
 
+            // 리스트 크기 확인 후 접근
+            if (GD.myBake == null || num >= GD.myBake.Count)
+            {
+                Debug.LogError($"myBake 리스트의 인덱스 {num}가 범위를 벗어났습니다! 리스트 크기: {GD.myBake?.Count}");
+                return;
+            }
+
+            // 정상적으로 접근 가능할 경우 데이터 로드
+            myRecipe = GD.myBake[num];
             BakingScore = myRecipe.score;
         }
         else
         {
             Debug.LogError("DataManager 인스턴스를 찾을 수 없습니다.");
         }
-        
     }
+
 
     private void SaveBakeData(int num) {
         if (DataManager.Instance != null)
         {   
+            num = num - 1;
+            Debug.Log($"GameData에 {num} 저장 완료!");
+            
             Debug.Log($"FinalScore: {FinalScore} SaveBakeData 확인");
             // 돈을 저장한 뒤에 넘기기
             DataManager.Instance.gameData.myBake[num].score = FinalScore;

@@ -23,7 +23,7 @@ public class deadline_h : MonoBehaviour
 
 
     private int MyMoney;
-    private int minMoney = 500;
+    private int minMoney = 3000;
 
     void Start()
     {
@@ -33,7 +33,8 @@ public class deadline_h : MonoBehaviour
         SceneManager.LoadScene("Main", LoadSceneMode.Additive);
 
         // 오디오 관리
-        AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
+        // AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
+        AudioManager.Instance.StopBgm();
 
         // 기본적으로 패널 및 불투명 블랙 다 비활성화 상태
         BlackPanel.SetActive(false);

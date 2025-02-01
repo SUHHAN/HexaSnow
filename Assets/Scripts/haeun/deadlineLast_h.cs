@@ -23,7 +23,8 @@ public class deadlineLast_h : MonoBehaviour
         // 데이터 로드
         LoadDate();
 
-        SceneManager.LoadScene("Main", LoadSceneMode.Additive);
+        // SceneManager.LoadScene("Main", LoadSceneMode.Additive);
+        AudioManager.Instance.StopBgm();
 
         // 오디오 관리
         AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);

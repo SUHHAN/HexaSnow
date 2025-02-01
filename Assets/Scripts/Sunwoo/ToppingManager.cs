@@ -109,6 +109,8 @@ public class ToppingManager : MonoBehaviour
         selectedDessertIndex = index;
         selectedToppingIndex = -1; // 토핑 선택 초기화
         finalImageIndex = index; // 기본적으로 원본 이미지 설정
+        Debug.Log($"[ToppingManager] 선택된 디저트: {selectedDessert}, 인덱스: {selectedDessertIndex}");
+
         SetOriginalImages();
         UpdateToppingButtons();
     }
@@ -132,18 +134,18 @@ public class ToppingManager : MonoBehaviour
     {
         foreach (GameObject button in toppingButtons)
         {
-            button.SetActive(false); // 모든 버튼 비활성화
-            SetButtonOpacity(button, 1f); // 모든 버튼 투명도 초기화
+            button.SetActive(false);
+            ResetToppingButtonImage(button); // ResetToppingButtonOpacity → ResetToppingButtonImage로 변경
         }
 
         if (dessertToppingMap.ContainsKey(selectedDessertIndex))
         {
             foreach (int toppingIndex in dessertToppingMap[selectedDessertIndex])
             {
-                if (toppingIndex - 1 < toppingButtons.Count)
+                if (toppingIndex - 1 < toppingButtons.Count && inventoryManager.HasIngredient(toppingIndex))
                 {
                     toppingButtons[toppingIndex - 1].SetActive(true);
-                    int index = toppingIndex; // 클로저 문제 방지
+                    int index = toppingIndex;
                     toppingButtons[toppingIndex - 1].GetComponent<Button>().onClick.RemoveAllListeners();
                     toppingButtons[toppingIndex - 1].GetComponent<Button>().onClick.AddListener(() => SelectSingleTopping(index));
                 }
@@ -156,20 +158,35 @@ public class ToppingManager : MonoBehaviour
     {
         if (selectedToppingIndex == toppingIndex)
         {
-            selectedToppingIndex = -1; // 같은 토핑 다시 누르면 선택 해제
-            finalImageIndex = selectedDessertIndex; // 원래 디저트 이미지로 되돌림
+            inventoryManager.AddIngredient(toppingIndex); // 개수 복구
+            selectedToppingIndex = -1; // 선택 해제
+            finalImageIndex = selectedDessertIndex; // 기본 이미지로 되돌림
         }
         else
         {
-            selectedToppingIndex = toppingIndex;
-            if (toppingImageMap.ContainsKey((selectedDessertIndex, toppingIndex)))
+            if (selectedToppingIndex != -1)
             {
-                finalImageIndex = toppingImageMap[(selectedDessertIndex, toppingIndex)];
+                inventoryManager.AddIngredient(selectedToppingIndex);
+                ResetToppingButtonImage(toppingButtons[selectedToppingIndex - 1]); // 기존 선택된 버튼 원래대로 복구
+            }
+
+            if (inventoryManager.UseIngredient(toppingIndex)) // 선택 시 개수 감소
+            {
+                selectedToppingIndex = toppingIndex;
+                if (toppingImageMap.ContainsKey((selectedDessertIndex, toppingIndex)))
+                {
+                    finalImageIndex = toppingImageMap[(selectedDessertIndex, toppingIndex)];
+                }
+            }
+            else
+            {
+                Debug.LogError($"토핑 {toppingIndex} 개수가 부족합니다!");
+                return;
             }
         }
 
         UpdateBakingImage();
-        UpdateToppingButtonOpacity();
+        UpdateToppingButtonImage();
     }
 
     // 선택한 디저트와 토핑을 반영하여 최종 이미지 업데이트
@@ -193,27 +210,34 @@ public class ToppingManager : MonoBehaviour
     }
 
     // 선택한 버튼은 투명해지게
-    private void UpdateToppingButtonOpacity()
+    private void UpdateToppingButtonImage()
     {
         foreach (GameObject button in toppingButtons)
         {
-            SetButtonOpacity(button, 1f); // 기본값 1 (불투명)
+            ResetToppingButtonImage(button);
         }
 
         if (selectedToppingIndex != -1 && selectedToppingIndex - 1 < toppingButtons.Count)
         {
-            SetButtonOpacity(toppingButtons[selectedToppingIndex - 1], 0.3f); // 선택한 버튼 투명도 30%
+            GameObject selectedButton = toppingButtons[selectedToppingIndex - 1];
+            Image buttonImage = selectedButton.transform.Find("Imageaft")?.GetComponent<Image>();
+            if (buttonImage != null)
+            {
+                Color color = buttonImage.color;
+                color.a = 0.3f;
+                buttonImage.color = color;
+            }
         }
     }
 
-    // 투명도 설정
-    private void SetButtonOpacity(GameObject buttonObj, float alpha)
+    // 버튼 내부 이미지를 원래대로 복원
+    private void ResetToppingButtonImage(GameObject buttonObj)
     {
-        Image buttonImage = buttonObj.GetComponent<Image>();
+        Image buttonImage = buttonObj.transform.Find("Imageaft")?.GetComponent<Image>();
         if (buttonImage != null)
         {
             Color color = buttonImage.color;
-            color.a = alpha;
+            color.a = 1f;
             buttonImage.color = color;
         }
     }
@@ -257,8 +281,8 @@ public class ToppingManager : MonoBehaviour
 
         MyRecipeList newRecipe = new MyRecipeList(
             DataManager.Instance.gameData.myBake.Count + 1,
-            finalImageIndex, // 저장되는 최종 이미지 인덱스
-            finalDessertName, // CSV에서 가져온 메뉴 이름
+            finalImageIndex,
+            finalDessertName,
             totalScore,
             false
         );
