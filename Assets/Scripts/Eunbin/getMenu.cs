@@ -18,7 +18,7 @@ public class getMenu : MonoBehaviour
     private List<GameObject> customers = new List<GameObject>();
     public string csvFileName = "orderStatement_main.csv";
     public string csvFileName_nickname="orderStatement_nickname.csv";
-    private List<DialogueLine> dialogues = new List<DialogueLine>(); // 주문 데이터 저장 리스트
+    private List<DialogueLine> dialogues = new List<DialogueLine>(); // 주문 데이터 저장 리스
     private List<string> nicknames = new List<string>();
     public int currentDay = 1; // 현재 날짜를 추적
     public GameObject customer_order; // 주문 UI
@@ -30,12 +30,16 @@ public class getMenu : MonoBehaviour
     private int NicknameIndex=0;
     bool isOrderCompleted = false;
     public string csvFileName_guest="guest.csv";
+    private List<DialogueLine> guestDialogues = new List<DialogueLine>(); // 주문 데이터 저장 리스트
+    private Dictionary<string, List<DialogueLine>> guestDialoguesByState = new Dictionary<string, List<DialogueLine>>(); // 상태별 대화 그룹화
+
 
     public GameObject MadeMenu;
     public string menuName;
     public SetMenu setmenu;
 
     [SerializeField] private GameData GD = new GameData();
+    
     public struct DialogueLine{
     public string id;
     public string menu;
@@ -115,6 +119,47 @@ public class getMenu : MonoBehaviour
             Debug.LogError($"닉네임 CSV 파일 읽기 중 오류 발생: {ex.Message}");
         }
     }
+
+private void LoadGuestFromCSV()
+{
+    try
+    {
+        // Resources 폴더에서 CSV 파일 읽기
+        TextAsset csvFile = Resources.Load<TextAsset>(Path.GetFileNameWithoutExtension(csvFileName_guest));
+        if (csvFile == null)
+        {
+            Debug.LogError($"CSV 파일을 찾을 수 없습니다: {csvFileName_guest}");
+            return;
+        }
+
+        // 줄 단위로 나누기
+        string[] lines = csvFile.text.Split(new[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
+        foreach (string line in lines)
+        {
+            // 쉼표로 구분된 데이터 파싱
+            string[] fields = ParseCSVLine(line);
+            if (fields.Length < 3) continue; // 최소 3개 필드가 있어야 함
+
+            string index = fields[0].Trim();   // 대화 인덱스
+            string state = fields[1].Trim();   // 상태 값
+            string dialogue = fields[2].Trim();        // 대화 내용
+
+            // 대화 라인 생성
+            DialogueLine dialogueLine = new DialogueLine(index, state, dialogue);
+
+            // 해당 상태에 맞는 대화 추가
+            if (!guestDialoguesByState.ContainsKey(state))
+            {
+                guestDialoguesByState[state] = new List<DialogueLine>();
+            }
+            guestDialoguesByState[state].Add(dialogueLine);
+        }
+    }
+    catch (System.Exception ex)
+    {
+        Debug.LogError($"CSV 파일 읽기 중 오류 발생: {ex.Message}");
+    }
+}
     private string[] ParseCSVLine(string line){
         List<string> result=new List<string>();
         bool inQuotes=false;
@@ -196,7 +241,7 @@ public class getMenu : MonoBehaviour
         
         none.onClick.AddListener(() => {
             Debug.Log($"손님 {customer.name}이(가) 메뉴를 받지 못했습니다.");
-            UpdateDialogue("none");
+            UpdateDialogue(5);
             isOrderCompleted = true;
         });
 
@@ -219,7 +264,30 @@ public class getMenu : MonoBehaviour
     private GameObject GetRandomCustomer(){
         int randomIndex=Random.Range(0, customers.Count);
         return customers[randomIndex];
+        
     }
+ public string GetRandomDialogue(string state)
+{
+    // 해당 state에 대한 대화 리스트가
+    Debug.Log($"[디버깅] 현재 저장된 state 목록: {string.Join(", ", guestDialoguesByState.Keys)}");
+
+    if (guestDialoguesByState.ContainsKey(state))
+    {
+        List<DialogueLine> dialoguesForState = guestDialoguesByState[state];
+
+        // 대화 리스트가 비어있지 않으면 랜덤으로 하나 선택
+        if (dialoguesForState.Count > 0)
+        {
+            int randomIndex = Random.Range(0, dialoguesForState.Count);
+            return dialoguesForState[randomIndex].description; // 랜덤 대화 반환
+
+        }
+    }
+
+    return "대화 없음"; // 해당 state에 대한 대화가 없을 경우
+}
+
+
 
     private void ShowOrder(int order){
         customer_order.SetActive(true);
@@ -228,18 +296,11 @@ public class getMenu : MonoBehaviour
         dialogueText.text="주문한 거 나왔나요?";
 
     }
-    public void UpdateDialogue(string action){
-        if(action.Equals("none")){
-            dialogueText.text="안만들었다고요?";
-        }
-        else if(action.Equals("True")){
-            dialogueText.text="감사합니다.";
-            isOrderCompleted = true;
-        }
-        else if(action.Equals("False")){
-            dialogueText.text="이거 아니잖아요!";   
-            isOrderCompleted = true;         
-        }
+    public void UpdateDialogue(int state){
+        isOrderCompleted = true; 
+          
+        dialogueText.text=GetRandomDialogue(state.ToString());
+
     }
 private void LoadDate()
 {
@@ -263,22 +324,56 @@ private void LoadDate()
         dailyOrders = new Dictionary<int, List<List<int>>>(deserializedData.ToDictionary()); // 복원
     }
 }
+
+[System.Serializable]
+public class OrderItem
+{
+    public List<int> items;  // 내부 리스트를 클래스로 감싸기
+}
+
+[System.Serializable]
+public class OrderListWrapper
+{
+    public List<OrderItem> orders = new List<OrderItem>(); // OrderItem을 사용
+}
+
 private void SaveDate()
 {
-    // dailyOrders 복사해서 새로운 딕셔너리 생성
-    Dictionary<int, List<List<int>>> ordersToSave = new Dictionary<int, List<List<int>>>(dailyOrders);
+    // 새로운 Dictionary<int, OrderListWrapper> 생성
+    Dictionary<int, OrderListWrapper> wrappedOrdersToSave = new Dictionary<int, OrderListWrapper>();
 
-    foreach (var dayOrder in ordersToSave)
+    foreach (var dayOrder in dailyOrders)
     {
-        Debug.Log($"날짜 {dayOrder.Key} : {string.Join(", ", dayOrder.Value.Select(order => $"[{string.Join(", ", order)}]"))}");
+        OrderListWrapper wrapper = new OrderListWrapper();
+
+        // 기존 List<List<int>> → List<OrderItem> 변환
+        foreach (var order in dayOrder.Value)
+        {
+            wrapper.orders.Add(new OrderItem { items = order });
+        }
+
+        wrappedOrdersToSave[dayOrder.Key] = wrapper;
     }
-    string json = JsonUtility.ToJson(new SerializableDictionary<int, List<List<int>>>(ordersToSave));
 
-    // 직렬화된 JSON 문자열을 GameData에 저장
-    GD.serializedDailyOrders = json;  // 직렬화된 데이터를 GameData에 저장
-    DataManager.Instance.gameData.serializedDailyOrders = json;  // DataManager에 저장
-    DataManager.Instance.SaveGameData();  // 게임 데이터 저장
+    // SerializableDictionary로 변환
+    SerializableDictionary<int, OrderListWrapper> serializableOrders = new SerializableDictionary<int, OrderListWrapper>(wrappedOrdersToSave);
 
+    // 디버깅 로그: serializableOrders 확인
+    foreach (var pair in serializableOrders.keyValuePairs)
+    {
+        Debug.Log($"[serializableOrders] 날짜 {pair.Key} : {string.Join(", ", pair.Value.orders.Select(order => $"[{string.Join(", ", order.items)}]"))}");
+    }
+
+    // JSON 직렬화 (한 줄로 저장)
+    string json = JsonUtility.ToJson(serializableOrders, false);
+
+    // JSON 디버깅
+    Debug.Log($"[JSON] serializedDailyOrders : {json}");
+
+    // 저장
+    GD.serializedDailyOrders = json;
+    DataManager.Instance.gameData.serializedDailyOrders = json;
+    DataManager.Instance.SaveGameData();
 }
 
 }

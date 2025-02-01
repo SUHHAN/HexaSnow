@@ -1158,14 +1158,27 @@ MonoBehaviour:
   currentmenu: 
   ingredientGD:
     isGuestLoggedIn: 0
-    guestId: 
-    lastLoginDate: 
     date: 0
     money: 0
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
-  MyList: []
+  MyList:
+  - index: 0
+    menuID: 0
+    name: "\uC624\uB9AC\uC9C0\uB110 \uB9C8\uB4E4\uB80C"
+    score: 50
+    bonus: 0
+  - index: 1
+    menuID: 1
+    name: "\uCD08\uCF54 \uB9C8\uB4E4\uB80C"
+    score: 9
+    bonus: 0
+  - index: 3
+    menuID: 2
+    name: "\uB808\uBAAC \uB9C8\uB4E4\uB80C"
+    score: 22
+    bonus: 0
   MenuSprites:
   - {fileID: 21300000, guid: 299621287da7fe947a5c010daeb28eca, type: 3}
   - {fileID: 21300000, guid: 24681faf84573b842abe2791825f9df0, type: 3}
@@ -1198,8 +1211,6 @@ MonoBehaviour:
   content: {fileID: 1908224902}
   GD:
     isGuestLoggedIn: 0
-    guestId: 
-    lastLoginDate: 
     date: 0
     money: 0
     ingredientNum: 
@@ -2309,8 +2320,6 @@ MonoBehaviour:
   getMenuScript: {fileID: 1157648016}
   GD:
     isGuestLoggedIn: 0
-    guestId: 
-    lastLoginDate: 
     date: 0
     money: 0
     ingredientNum: 
@@ -3060,8 +3069,6 @@ MonoBehaviour:
   setmenu: {fileID: 345036489}
   GD:
     isGuestLoggedIn: 0
-    guestId: 
-    lastLoginDate: 
     date: 0
     money: 0
     ingredientNum: 
