@@ -28,6 +28,7 @@ public class GameData
     public bool isGuestLoggedIn;
     public int date;
     public int money;  
+    public float time;
     public List<int> ingredientNum = new List<int>(); // 재료 개수 저장 리스트
     public List<MyRecipeList> myBake = new List<MyRecipeList>(); // 내가 만든 요리~
     public string serializedDailyOrders; //주문서
