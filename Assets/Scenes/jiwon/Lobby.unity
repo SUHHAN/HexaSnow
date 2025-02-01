@@ -1398,7 +1398,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 177818305}
   m_OnClick:
     m_PersistentCalls:
@@ -3442,6 +3442,7 @@ MonoBehaviour:
     isGuestLoggedIn: 0
     date: 0
     money: 0
+    time: 0
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
@@ -6343,6 +6344,7 @@ MonoBehaviour:
   runPopupPanel: {fileID: 1394281061}
   button_order: {fileID: 0}
   backgroundClickArea: {fileID: 1243338629}
+  ContinueButton: {fileID: 177818304}
 --- !u!4 &1583566123
 Transform:
   m_ObjectHideFlags: 0
