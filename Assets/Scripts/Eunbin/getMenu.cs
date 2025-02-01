@@ -5,12 +5,14 @@ using System.IO;
 using TMPro;
 using UnityEngine.UI;
 using System.Linq;
+
 public class getMenu : MonoBehaviour
 {
+    public CharacterManager characterManager; 
     public Order orderScript; // Order 스크립트 참조
-    public GameObject oldMan;
+
     public GameObject man;
-    public GameObject child;
+    public GameObject shortgirl;
     public GameObject girl;
     
     public Button none;
@@ -38,6 +40,7 @@ public class getMenu : MonoBehaviour
     public string menuName;
     public SetMenu setmenu;
 
+    private GameObject customer; 
     [SerializeField] private GameData GD = new GameData();
     
     public struct DialogueLine{
@@ -56,10 +59,12 @@ public class getMenu : MonoBehaviour
         speechBubble.SetActive(false);
         LoadDialoguesFromCSV(); // CSV 파일 로드
         LoadNicknameFromCSV();
-        customers.Add(oldMan);
+        LoadGuestFromCSV();
+
         customers.Add(man);
-        customers.Add(child);
         customers.Add(girl);
+        customers.Add(shortgirl);
+        
         
     }
      private void LoadDialoguesFromCSV()
@@ -142,7 +147,7 @@ private void LoadGuestFromCSV()
 
             string index = fields[0].Trim();   // 대화 인덱스
             string state = fields[1].Trim();   // 상태 값
-            string dialogue = fields[2].Trim();        // 대화 내용
+            string dialogue = fields[2].Trim(); // 대화 내용
 
             // 대화 라인 생성
             DialogueLine dialogueLine = new DialogueLine(index, state, dialogue);
@@ -226,7 +231,7 @@ private void LoadGuestFromCSV()
         int nicknameIndex = order[1];
         menuName=dialogues[orderId].menu;
 
-        GameObject customer = GetRandomCustomer();
+        customer = GetRandomCustomer();
         customer.SetActive(true);
         dialogueName.text = nicknames[nicknameIndex];
 
@@ -242,6 +247,7 @@ private void LoadGuestFromCSV()
         none.onClick.AddListener(() => {
             Debug.Log($"손님 {customer.name}이(가) 메뉴를 받지 못했습니다.");
             UpdateDialogue(5);
+
             isOrderCompleted = true;
         });
 
@@ -253,6 +259,7 @@ private void LoadGuestFromCSV()
         speechBubble.SetActive(false);
 
         Debug.Log($"손님 {customer.name}이(가) 메뉴를 받아갔습니다!");
+        characterManager.ChangeFace(customer, Expression.set);
     }
 
     dailyOrders[dayToProcess].Clear(); // 해당 날짜의 주문 처리 완료
@@ -288,20 +295,35 @@ private void LoadGuestFromCSV()
 }
 
 
-
     private void ShowOrder(int order){
         customer_order.SetActive(true);
         dialogueOrder.text = dialogues[order].description;
         speechBubble.SetActive(true);
-        dialogueText.text="주문한 거 나왔나요?";
+        dialogueText.text=guestDialoguesByState["0"][0].description;
 
     }
     public void UpdateDialogue(int state){
         isOrderCompleted = true; 
           
         dialogueText.text=GetRandomDialogue(state.ToString());
+        ChangeFace(state);
 
     }
+    private void ChangeFace(int state)
+{
+    Debug.Log($"[GetchangeFace] 상태: {state}");
+    Expression expression = Expression.set; // 기본값을 'Normal'로 설정
+
+    // 상태 값에 맞는 표현식을 매핑
+    if (state == 1) expression = Expression.Happy;
+    else if (state == 2) expression = Expression.Normal;
+    else if (state == 3 || state == 4 || state == 5) expression = Expression.Bad;
+
+    // 표정 변경
+    characterManager.ChangeFace(customer, expression);
+}
+
+
 private void LoadDate()
 {
      if (GD == null)

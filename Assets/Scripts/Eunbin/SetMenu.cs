@@ -176,8 +176,13 @@ private void CheckMenu(string menu, int score){
             }
     }
     else{
+        if(currentcus.Equals("cus")){
         Debug.Log($"선택된 메뉴가 올바르지 않습니다: {menu}");
         getmenu.UpdateDialogue(4);
+        }
+        else if(currentcus.Equals("special")){
+                SpecialScript.UpdateDialogue("False");
+            }
     }
 }
 
