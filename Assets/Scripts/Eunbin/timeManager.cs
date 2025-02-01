@@ -2,23 +2,23 @@ using System;
 using System.Collections;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 
-public class GameTime : MonoBehaviour
+public class timeManager : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
-    private float gameTime = 20f;
+    private float gameTime = 0f;
     public float currentTime;
     public event Action<float> OnTimeUpdate; // 시간 업데이트 이벤트
     public event Action OnSpecialTimeReached; // 특정 시간 도달 이벤트
     private bool isGameRunning = false;
-    public DayChange daychange;
     private Coroutine timerCoroutine; // 코루틴을 저장할 변수
-    private bool specialEventTriggered = false;
 
      [SerializeField] private GameData GD = new GameData();
     void Start()
     {
+        Loadtime();
+        gameTime = currentTime;
+        StartGameTimer();
     }
 
     public void StartGameTimer()
@@ -32,10 +32,9 @@ public class GameTime : MonoBehaviour
     }
 
     private IEnumerator TimerCoroutine()
-    {
-        Loadtime();
-      
+    {      
         currentTime=gameTime;
+        Debug.Log(currentTime);
         
         while (currentTime > 0)
         {
@@ -45,10 +44,9 @@ public class GameTime : MonoBehaviour
             Savetime();
             OnTimeUpdate?.Invoke(currentTime); // 시간 업데이트 이벤트 트리거
 
-            if (currentTime <= 10 && !specialEventTriggered)
+            if (Mathf.Abs(currentTime - 120f) < 0.1f) // 5초 근처 확인
             {
                 OnSpecialTimeReached?.Invoke(); // 특정 시간 도달 이벤트 트리거
-                specialEventTriggered = true;
             }
             UpdateTimerUI(currentTime);
         }
@@ -77,16 +75,11 @@ public class GameTime : MonoBehaviour
     public void OnTimerEnd()
     {
         Debug.Log("6분이 끝났습니다");
-        specialEventTriggered = false;
-        SceneManager.LoadScene("Deadline");
-        daychange.OnDayChange();
         StopTimer();
-        
     }
     private void Loadtime() {
 
         GD = DataManager.Instance.LoadGameData();
-
         // !! 일차 업데이트하기
         currentTime = GD.time;
     }
