@@ -25,9 +25,11 @@ public class RecipeBookManager : MonoBehaviour
 
     private List<RecipeB> recipes = new List<RecipeB>();
     private bool isTableOfContentsPage = true;
+    private bool IsRecipePagePanel = false;
 
-    private List<string> categoryList = new List<string>(); // 카테고리 목록
-    private int currentCategoryIndex = 0; // 현재 카테고리 인덱스
+    private List<string> categoryList; // 카테고리 목록
+    private string currentCategoryKey;
+    private int currentIndex;
 
 
 
@@ -60,6 +62,7 @@ public class RecipeBookManager : MonoBehaviour
 
         // UI 초기화
         DisplayTableOfContents();
+        UpdateButtonStates();
 
         // 버튼 이벤트 연결
         NextButton.onClick.AddListener(OnNextClicked);
@@ -180,6 +183,21 @@ public class RecipeBookManager : MonoBehaviour
             .GroupBy(recipe => recipe.category)  // 카테고리별로 그룹화
             .ToList();
 
+        // 레시피 목록에서 카테고리만 추출하여 고유한 리스트로 저장
+        categoryList = recipes.Select(recipe => recipe.category).Distinct().ToList();
+
+        // 카테고리 리스트가 비어있는지 확인
+        if (categoryList.Count == 0)
+        {
+            Debug.LogError("categoryList가 비어있습니다! Recipes 리스트에 카테고리 정보가 없습니다.");
+        }
+        else
+        {
+            // categoryList가 비어 있지 않다면, 리스트의 내용을 출력
+            Debug.Log("categoryList: " + string.Join(", ", categoryList));
+        }
+
+
         // 카테고리 버튼 생성
         foreach (var group in groupedRecipes)
         {
@@ -213,6 +231,8 @@ public class RecipeBookManager : MonoBehaviour
             categoryButtonObj.AddComponent<Button>().onClick.AddListener(() =>
             {
                 ShowRecipePage(group.Key);  // 해당 카테고리에 맞는 레시피 페이지로 이동
+                currentCategoryKey = group.Key;
+                currentIndex = categoryList.IndexOf(currentCategoryKey);
             });
         }
     }
@@ -238,16 +258,6 @@ public class RecipeBookManager : MonoBehaviour
         // GameObject newPref = Instantiate(pref1, RecipePagePanel.transform);  // RecipePagePanel의 자식으로 추가
         // newPref.SetActive(true);  // 활성화
         // Debug.Log("pref1이 생성되었습니다!");
-
-        // 해당 카테고리의 레시피들만 필터링
-        var filteredRecipes = recipes.Where(recipe => recipe.category == key).ToList();
-
-        // 필터링된 레시피가 없다면 경고 출력
-        if (!filteredRecipes.Any())
-        {
-            Debug.LogWarning($"[{key}] 카테고리에는 레시피가 없습니다!");
-            return;
-        }
 
         // pref1 내부의 UI 요소 찾기
         Transform recipeNametrans = panel.transform.Find("recipeNameText");
@@ -286,6 +296,8 @@ public class RecipeBookManager : MonoBehaviour
         ShowBakes(key);
 
         RecipePagePanel.SetActive(true);
+        UpdateButtonStates();
+        Debug.Log(RecipePagePanel.activeSelf);
         panel.SetActive(true);
     }
 
@@ -293,8 +305,21 @@ public class RecipeBookManager : MonoBehaviour
     private List<GameObject> activeBakes = new List<GameObject>();  // 현재 생성된 오브젝트 리스트
     private List<RecipeB> recipe_h = new List<RecipeB>();
 
+    private void ResetBakes()
+    {
+        // 기존에 생성된 오브젝트 삭제
+        foreach (GameObject obj in activeBakes)
+        {
+            Destroy(obj);
+        }
+        activeBakes.Clear(); // 리스트 초기화
+
+        Debug.Log("기존의 생성된 오브젝트를 초기화했습니다.");
+    }
+
     private void ShowBakes(string key)
     {
+        ResetBakes();
         // ✅ 현재 생성된 개수가 4개 이상이면 생성 중단
         if (activeBakes.Count >= 4)
         {
@@ -385,51 +410,117 @@ public class RecipeBookManager : MonoBehaviour
     {
         RecipePagePanel.SetActive(false);
         TableOfContentsPanel.SetActive(true);
+        UpdateButtonStates();
         SetButtonToFront(RecipeContentIndex);
 
         // 현재 페이지가 목차 페이지임을 표시
         isTableOfContentsPage = true;
     }
 
-    // 레시피에서 카테고리 목록을 추출하여 categoryList를 업데이트
-    void UpdateCategoryList()
-    {
-        categoryList = recipes
-            .Select(recipe => recipe.category)
-            .Distinct()
-            .ToList();
-    }
-
-    // ✅ NEXT 버튼 클릭 시 다음 카테고리의 레시피 페이지로 이동
+    // '다음' 버튼을 클릭했을 때 동작
     void OnNextClicked()
     {
-        if (currentCategoryIndex < categoryList.Count - 1)
+        Debug.Log("클릭");
+        Debug.Log(RecipePagePanel.activeSelf);
+        // 현재 페이지가 목차 페이지인지 확인 
+        if (RecipePagePanel.activeSelf == false)
         {
-            currentCategoryIndex++;
-            ShowRecipePage(categoryList[currentCategoryIndex]);
-            UpdateNavigationButtons();
+            // 만약 목차 페이지라면, 첫 번째 카테고리로 이동
+            if (categoryList.Count > 0)
+            {
+                // 첫 번째 카테고리 (인덱스 0)로 이동
+                string currentCategory = categoryList[0];
+
+                // 현재 카테고리 키를 첫 번째 카테고리로 업데이트
+                currentCategoryKey = currentCategory;
+
+                // 첫 번째 카테고리에 해당하는 레시피 페이지를 보여줌
+                ShowRecipePage(currentCategory);  // ShowRecipePage 함수 호출하여 첫 번째 카테고리로 레시피 페이지 표시
+
+                // 버튼 상태를 업데이트
+                UpdateButtonStates();
+
+                // 디버그 로그로 이동된 카테고리를 출력
+                Debug.Log("첫 번째 카테고리로 이동: " + currentCategory);
+                Debug.Log(currentIndex);
+            }
+            else
+            {
+                // 카테고리 리스트가 비어있을 경우 에러 로그 출력
+                Debug.LogError("카테고리 리스트가 비어있습니다!");
+                Debug.Log("categoryList: " + string.Join(", ", categoryList));
+            }
+        }
+        else
+        {
+            // 카테고리 리스트에서 마지막이 아니면, 다음 카테고리로 이동
+            if (currentIndex < categoryList.Count - 1)
+            {   
+                currentIndex = currentIndex + 1;
+                // 다음 카테고리의 키를 가져옴
+                string currentCategory = categoryList[currentIndex];
+                Debug.Log(currentCategory);
+                Debug.Log(currentIndex);
+
+                // 다음 카테고리에 해당하는 레시피 페이지를 보여줌
+                ShowRecipePage(currentCategory);  // ShowRecipePage 함수 호출하여 다음 카테고리로 레시피 페이지 표시
+
+                // 현재 카테고리 키를 다음 카테고리로 업데이트
+                currentCategoryKey = currentCategory;
+
+                // 버튼 상태를 업데이트
+                UpdateButtonStates();
+
+                // 디버그 로그로 이동된 카테고리를 출력
+                Debug.Log("다음 카테고리로 이동: " + currentCategory);
+            }
+            else
+            {
+                // 마지막 카테고리일 경우, 더 이상 이동할 수 없다는 로그 출력
+                Debug.Log("마지막 카테고리입니다. 더 이상 이동할 수 없습니다.");
+            }
         }
     }
 
-    // ✅ PREV 버튼 클릭 시 이전 카테고리의 레시피 페이지로 이동
+    // '이전' 버튼 클릭 시 동작
     void OnPrevClicked()
     {
-        if (currentCategoryIndex > 0)
+
+        // 카테고리 리스트에서 첫 번째 카테고리가 아니면 이전 카테고리로 이동합니다.
+        if (currentIndex > 0)
         {
-            currentCategoryIndex--;
-            ShowRecipePage(categoryList[currentCategoryIndex]);
-            UpdateNavigationButtons();
+            currentIndex = currentIndex - 1;
+            // 이전 카테고리 키를 가져옵니다.
+            string currentCategory = categoryList[currentIndex];
+
+            // 이전 카테고리에 해당하는 레시피 페이지를 표시합니다.
+            ShowRecipePage(currentCategory);
+
+            // currentCategoryKey를 이전 카테고리로 업데이트합니다.
+            currentCategoryKey = currentCategory;
+
+            // 디버그 로그로 이동된 카테고리를 출력
+            Debug.Log("이전 카테고리로 이동: " + currentCategory);
+            UpdateButtonStates();  // 버튼 상태 업데이트
+        }
+        else
+        {
+            RecipePagePanel.SetActive(false);
+            UpdateButtonStates();
+            Debug.Log(RecipePagePanel.activeSelf);
+            Debug.Log("목차 페이지로 이동");
         }
     }
 
-    // ✅ 페이지 이동 버튼 활성화/비활성화
-    void UpdateNavigationButtons()
+    // 버튼의 상태(활성화/비활성화)를 업데이트하는 함수
+    void UpdateButtonStates()
     {
-        PrevButton.gameObject.SetActive(currentCategoryIndex > 0);
-        NextButton.gameObject.SetActive(currentCategoryIndex < categoryList.Count - 1);
-    }
+        // 목차 페이지에 있는 경우 '이전' 버튼을 비활성화
+        PrevButton.interactable = RecipePagePanel.activeSelf;
 
-    
+        // 마지막 카테고리일 경우 '다음' 버튼을 비활성화
+        NextButton.interactable = currentIndex < categoryList.Count - 1;
+    }
 
     // 버튼을 앞쪽으로 보내기
     private void SetButtonToFront(Button button)
