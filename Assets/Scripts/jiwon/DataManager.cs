@@ -27,10 +27,10 @@ public class GameData
 {
     public bool isGuestLoggedIn;
     public int date;
-    public int money;
+    public int money;  
     public List<int> ingredientNum = new List<int>(); // 재료 개수 저장 리스트
     public List<MyRecipeList> myBake = new List<MyRecipeList>(); // 내가 만든 요리~
-    
+    public string serializedDailyOrders; //주문서
 
     public void SetIngredient(List<int> newIngredientNum)
     {
@@ -136,3 +136,36 @@ public class DataManager : MonoBehaviour
         return data != null && data.isGuestLoggedIn;
     }
 }
+[System.Serializable]
+public class SerializableDictionary<TKey, TValue>
+{
+    [System.Serializable]
+    public struct KeyValuePair
+    {
+        public TKey Key;
+        public TValue Value;
+    }
+
+    public List<KeyValuePair> keyValuePairs = new List<KeyValuePair>();
+
+    public SerializableDictionary(Dictionary<TKey, TValue> dictionary)
+    {
+        foreach (var pair in dictionary)
+        {
+            keyValuePairs.Add(new KeyValuePair { Key = pair.Key, Value = pair.Value });
+        }
+    }
+
+    public Dictionary<TKey, TValue> ToDictionary()
+    {
+        Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
+
+        foreach (var pair in keyValuePairs)
+        {
+            dictionary[pair.Key] = pair.Value;
+        }
+
+        return dictionary;
+    }
+}
+

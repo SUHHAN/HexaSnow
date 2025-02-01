@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 public class getMenu : MonoBehaviour
 {
     public Order orderScript; // Order 스크립트 참조
@@ -33,7 +34,8 @@ public class getMenu : MonoBehaviour
     public GameObject MadeMenu;
     public string menuName;
     public SetMenu setmenu;
-    
+
+    [SerializeField] private GameData GD = new GameData();
     public struct DialogueLine{
     public string id;
     public string menu;
@@ -142,14 +144,19 @@ public class getMenu : MonoBehaviour
         return result.ToArray();
     }
 
-    public void ReceiveOrders(int NicknameIndex, int order_id)
-{
+    public void ReceiveOrders(int NicknameIndex, int order_id){
+
+     if (GD == null) {
+        Debug.LogError("GD 객체가 null입니다!");
+        LoadDate(); // GD가 null이면 로드하여 처리
+    }
     if (!dailyOrders.ContainsKey(currentDay))
         {
             dailyOrders[currentDay] = new List<List<int>>();
         }
     Debug.Log($"현재 {currentDay}일의 주문 상태: {dailyOrders[currentDay].Count}개의 주문이 있습니다.");
     dailyOrders[currentDay].Add(new List<int> { order_id, NicknameIndex});
+    SaveDate();
 
     }
 
@@ -234,6 +241,39 @@ public class getMenu : MonoBehaviour
             isOrderCompleted = true;         
         }
     }
+private void LoadDate()
+{
+     if (GD == null)
+    {
+        Debug.LogError("GD 객체가 null입니다!");
+        return;
+    }
+    GD = DataManager.Instance.LoadGameData(); // GameData 로드
+    if (GD == null)
+    {
+        Debug.LogError("저장된 GameData가 없습니다. LoadGameData()가 null을 반환했습니다.");
+        return;
+    }
 
-    
+    if (!string.IsNullOrEmpty(GD.serializedDailyOrders))
+    {
+        SerializableDictionary<int, List<List<int>>> deserializedData =
+            JsonUtility.FromJson<SerializableDictionary<int, List<List<int>>>>(GD.serializedDailyOrders);
+
+        dailyOrders = new Dictionary<int, List<List<int>>>(deserializedData.ToDictionary()); // 복원
+}
+private void SaveDate()
+{
+    // dailyOrders 복사해서 새로운 딕셔너리 생성
+    Dictionary<int, List<List<int>>> ordersToSave = new Dictionary<int, List<List<int>>>(dailyOrders);
+    // 직렬화
+    string json = JsonUtility.ToJson(new SerializableDictionary<int, List<List<int>>>(ordersToSave));
+
+    // 직렬화된 JSON 문자열을 GameData에 저장
+    GD.serializedDailyOrders = json;  // 직렬화된 데이터를 GameData에 저장
+    DataManager.Instance.gameData.serializedDailyOrders = json;  // DataManager에 저장
+    DataManager.Instance.SaveGameData();  // 게임 데이터 저장
+
+}
+
 }
