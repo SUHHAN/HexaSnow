@@ -39,6 +39,9 @@ public class ToppingManager : MonoBehaviour
     // 디저트 인덱스에 맞는 이미지 저장
     public List<Sprite> dessertSprites;
 
+    // CSV에서 index와 menu를 저장하는 딕셔너리
+    private Dictionary<int, string> menuDictionary = new Dictionary<int, string>();
+
     // 디저트 별 활성화할 토핑 버튼
     private Dictionary<int, List<int>> dessertToppingMap = new Dictionary<int, List<int>>()
     {
@@ -60,6 +63,8 @@ public class ToppingManager : MonoBehaviour
 
     void Start()
     {
+        LoadRecipeCSV();
+
         startToppingPanel.SetActive(true);
         addToppingPanel.SetActive(false);
         finishBakingPanel.SetActive(false);
@@ -70,6 +75,32 @@ public class ToppingManager : MonoBehaviour
 
         UpdateToppingButtons();
         SetOriginalImages();
+    }
+
+    // CSV에서 index와 menu 값을 읽어 menuDictionary에 저장
+    private void LoadRecipeCSV()
+    {
+        TextAsset csvFile = Resources.Load<TextAsset>("recipe");
+        if (csvFile == null)
+        {
+            Debug.LogError("CSV 파일을 찾을 수 없습니다: recipe.csv");
+            return;
+        }
+
+        string[] lines = csvFile.text.Split('\n');
+        for (int i = 1; i < lines.Length; i++)
+        {
+            string[] fields = lines[i].Split(',');
+            if (fields.Length < 2) continue;
+
+            int id;
+            if (int.TryParse(fields[0].Trim(), out id))
+            {
+                string menuName = fields[1].Trim();
+                menuDictionary[id] = menuName;
+            }
+        }
+        Debug.Log($"CSV에서 {menuDictionary.Count}개의 메뉴 데이터를 불러왔습니다.");
     }
 
     public void SetSelectedDessert(string dessertName, int index)
@@ -218,14 +249,16 @@ public class ToppingManager : MonoBehaviour
             return;
         }
 
-        string dessertName = bakingStartManager.GetSelectedDessert();
         int totalScore = ovenGameManager.GetTotalScore();
+        string finalDessertName = menuDictionary.ContainsKey(finalImageIndex) ? menuDictionary[finalImageIndex] : "알 수 없음";
+
         Debug.Log($"최종 총점: {totalScore}");
+        Debug.Log($"최종 저장할 디저트: {finalDessertName}");
 
         MyRecipeList newRecipe = new MyRecipeList(
             DataManager.Instance.gameData.myBake.Count + 1,
             finalImageIndex, // 저장되는 최종 이미지 인덱스
-            dessertName,
+            finalDessertName, // CSV에서 가져온 메뉴 이름
             totalScore,
             false
         );
@@ -233,6 +266,6 @@ public class ToppingManager : MonoBehaviour
         DataManager.Instance.gameData.myBake.Add(newRecipe);
         DataManager.Instance.SaveGameData();
 
-        Debug.Log($"저장 완료: {dessertName} | 이미지 인덱스: {finalImageIndex} | 점수: {totalScore}");
+        Debug.Log($"저장 완료: {finalDessertName} | 이미지 인덱스: {finalImageIndex} | 점수: {totalScore}");
     }
 }
