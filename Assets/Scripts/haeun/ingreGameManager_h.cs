@@ -67,7 +67,7 @@ public class ingreGameManager_h : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Instance.PlayBgm(AudioManager.Bgm.kitchen_minigame);
+        AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
         
         animator = PlayerIdle.GetComponent<Animator>();
 
@@ -287,7 +287,7 @@ public class ingreGameManager_h : MonoBehaviour
     // 상점 떠나기 버튼을 눌렀다면 아래 함수로 이동하도록
     public void OnOutStoreButton()
     {
-        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         SceneManager.LoadScene("Deadline_Last");
     }
 

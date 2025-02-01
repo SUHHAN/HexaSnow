@@ -27,9 +27,11 @@ public class deadline_h : MonoBehaviour
 
     void Start()
     {
-
         // 돈 관리
         LoadMoneyData();
+
+        // 오디오 관리
+        AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
 
         // 기본적으로 패널 및 불투명 블랙 다 비활성화 상태
         BlackPanel.SetActive(false);
@@ -48,15 +50,16 @@ public class deadline_h : MonoBehaviour
     }
 
     public void yesButton() {
-        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         GoStorePanel.SetActive(false);
         WhereStorePanel.SetActive(true);
     }
 
     public void noButton() {
-        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         GoStorePanel.SetActive(false);
         // 만약에, no 버튼을 누르면 재료 상점을 이용하지 않는 걸로 하기
+        SceneManager.LoadScene("Deadline_Last");
     }
 
     public void ShowIngredientGoldPanel() {
@@ -89,7 +92,8 @@ public class deadline_h : MonoBehaviour
     // }
 
     public void YesIngredientStore() {
-        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+
         if (MyMoney >= minMoney) {
 
             MyMoney = MyMoney - minMoney;
@@ -113,7 +117,7 @@ public class deadline_h : MonoBehaviour
     }
 
     public void NoIngredientStore() {
-        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         IngredientStoreGoldPanel.SetActive(false);
 
         // 경고창 끈다음에 하루가 넘어가도록 하는 씬 추가

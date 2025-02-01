@@ -18,12 +18,12 @@ public class AudioSettings : MonoBehaviour
         // 슬라이더 초기값 설정
         bgmSlider.value = AudioManager.Instance.bgmVolume;
         sfxSlider.value = AudioManager.Instance.sfxVolume;
-        systemSlider.value = AudioManager.Instance.sysVolume;
+        // systemSlider.value = AudioManager.Instance.sysVolume;
 
         // 슬라이더의 OnValueChanged 이벤트에 메서드 연결
         bgmSlider.onValueChanged.AddListener(SetBgmVolume);
         sfxSlider.onValueChanged.AddListener(SetSfxVolume);
-        systemSlider.onValueChanged.AddListener(SetSystemVolume);
+        // systemSlider.onValueChanged.AddListener(SetSystemVolume);
     }
 
     public void SetBgmVolume(float volume)
@@ -36,8 +36,8 @@ public class AudioSettings : MonoBehaviour
         AudioManager.Instance.SetSfxVolume(volume);
     }
 
-    public void SetSystemVolume(float volume)
-    {
-        AudioManager.Instance.SetSystemVolume(volume);
-    }
+    // public void SetSystemVolume(float volume)
+    // {
+    //     AudioManager.Instance.SetSystemVolume(volume);
+    // }
 }

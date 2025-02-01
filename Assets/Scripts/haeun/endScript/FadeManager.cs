@@ -14,6 +14,7 @@ public class FadeManager : MonoBehaviour
 
     void Start()
     {
+        AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
         StartCoroutine(HandlePanelTransition());
     }
 
