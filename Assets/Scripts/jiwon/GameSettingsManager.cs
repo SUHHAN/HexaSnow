@@ -16,9 +16,9 @@ public class GameSettingsManager : MonoBehaviour
     public Slider bgmVolumeSlider;
     public Slider effectVolumeSlider;
 
-    public Text systemVolumeText;
-    public Text bgmVolumeText;
-    public Text effectVolumeText;
+    // public Text systemVolumeText;
+    // public Text bgmVolumeText;
+    // public Text effectVolumeText;
 
     [Header("언어 설정")]
     public Button koreanButton;
@@ -98,9 +98,9 @@ public class GameSettingsManager : MonoBehaviour
     // 볼륨 설정
     private void UpdateVolumeUI()
     {
-        systemVolumeText.text = ((int)systemVolumeSlider.value).ToString();
-        bgmVolumeText.text = ((int)bgmVolumeSlider.value).ToString();
-        effectVolumeText.text = ((int)effectVolumeSlider.value).ToString();
+        // systemVolumeText.text = ((int)systemVolumeSlider.value).ToString();
+        // bgmVolumeText.text = ((int)bgmVolumeSlider.value).ToString();
+        // effectVolumeText.text = ((int)effectVolumeSlider.value).ToString();
     }
 
     public void SetSystemVolume()
