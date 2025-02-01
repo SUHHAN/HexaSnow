@@ -14795,6 +14795,15 @@ MonoBehaviour:
   bakingImage: {fileID: 2071899538}
   oriImage1: {fileID: 1922873742}
   oriImage2: {fileID: 496638734}
+  bakingStartManager: {fileID: 1003396150}
+  toppingButtons:
+  - {fileID: 879675803}
+  - {fileID: 1358543322}
+  - {fileID: 1189724413}
+  - {fileID: 1547329930}
+  - {fileID: 986041539}
+  - {fileID: 1735771703}
+  - {fileID: 1523300826}
   dessertSprites:
   - {fileID: 21300000, guid: 7ec7e65f540b9d841b860dbda10a9baf, type: 3}
   - {fileID: 21300000, guid: 7ec7e65f540b9d841b860dbda10a9baf, type: 3}
@@ -14810,7 +14819,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bc0750c200fab77409d4703ca19015b0, type: 3}
   - {fileID: 21300000, guid: ada0ff8e5c029e440bcf22225dc5bf38, type: 3}
   - {fileID: 21300000, guid: 1b5f98d8dc6a6ac49bdd764e7d9a899a, type: 3}
-  bakingStartManager: {fileID: 1003396150}
 --- !u!4 &1940962672
 Transform:
   m_ObjectHideFlags: 0
