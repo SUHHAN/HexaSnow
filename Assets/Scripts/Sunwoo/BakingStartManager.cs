@@ -23,6 +23,11 @@ public class BakingStartManager : MonoBehaviour
 
     void Start()
     {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking); // Baking 1 씬 BGM 실행
+        }
+
         // 초기 UI 설정
         startPanel.SetActive(true);
         recipeSelectionPopup.SetActive(false);
