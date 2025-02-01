@@ -657,12 +657,11 @@ MonoBehaviour:
   targetY: 560
   GD:
     isGuestLoggedIn: 0
-    guestId: 
-    lastLoginDate: 
     date: 0
     money: 0
     ingredientNum: 
     myBake: []
+    serializedDailyOrders: 
   mydate: 0
 --- !u!4 &1221115801
 Transform:

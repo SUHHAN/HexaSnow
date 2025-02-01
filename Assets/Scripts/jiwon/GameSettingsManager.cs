@@ -12,7 +12,6 @@ public class GameSettingsManager : MonoBehaviour
     public Sprite notificationOffImage; // 알림 꺼졌을 때 이미지
 
     [Header("볼륨 설정")]
-    public Slider systemVolumeSlider;
     public Slider bgmVolumeSlider;
     public Slider effectVolumeSlider;
 
@@ -39,8 +38,8 @@ public class GameSettingsManager : MonoBehaviour
         // bgmVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume", 50);
         // effectVolumeSlider.value = PlayerPrefs.GetFloat("EffectVolume", 50);
 
-        systemVolumeSlider.value = AudioManager.Instance.bgmVolume;
-        bgmVolumeSlider.value = AudioManager.Instance.sfxVolume;
+        bgmVolumeSlider.value = AudioManager.Instance.bgmVolume;
+        effectVolumeSlider.value = AudioManager.Instance.sfxVolume;
         // effectVolumeSlider.value = AudioManager.Instance.sysVolume;
 
         // **볼륨 조절 슬라이더 이벤트 리스너 등록**
@@ -60,7 +59,7 @@ public class GameSettingsManager : MonoBehaviour
         preparingText.color = new Color(0.5f, 0.5f, 0.5f, 1F); // 회색 처리
 
         // **슬라이더 크기 및 위치 설정 (선택 사항)**
-        SetSliderDimensions(systemVolumeSlider, "SystemVolume");
+        // SetSliderDimensions(systemVolumeSlider, "SystemVolume");
         SetSliderDimensions(bgmVolumeSlider, "BGMVolume");
         SetSliderDimensions(effectVolumeSlider, "EffectVolume");
     }
