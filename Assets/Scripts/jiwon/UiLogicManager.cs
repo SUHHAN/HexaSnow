@@ -95,6 +95,8 @@ public class UiLogicManager : MonoBehaviour
             timePanel.SetActive(true);          
             order_buttonGO.SetActive(true);        
             RecipeBookGO.SetActive(true);
+
+            KitchButton.onClick.AddListener(GoKitchenScene);
         }
 
         if (currentSceneName == "Deadline" || currentSceneName == "Deadline_Last") {

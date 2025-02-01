@@ -7,24 +7,24 @@ using UnityEngine.SceneManagement;
 
 public class BKStartSceneManager : MonoBehaviour
 {
-    public Button startButton; // Start ï¿½ï¿½Æ°
+    public Button startButton; // Start ¹öÆ°
+    public GameObject StartPanel;
 
     void Start()
     {
-        SceneManager.LoadScene("Main", LoadSceneMode.Additive);
-
         if (startButton != null)
         {
-            startButton.onClick.AddListener(LoadBakingScene); // ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½
+            startButton.onClick.AddListener(LoadBakingScene); // ¹öÆ° Å¬¸¯ ÀÌº¥Æ® µî·Ï
         }
         else
         {
-            Debug.LogError("Start ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
+            Debug.LogError("Start ¹öÆ°ÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
         }
     }
 
+    // Start ¹öÆ° Å¬¸¯ ½Ã ½ÇÇàÇÒ ¸Þ¼­µå
     public void LoadBakingScene()
     {
-        SceneManager.LoadScene("Baking 1"); 
+        SceneManager.LoadScene("Baking 1");
     }
 }
