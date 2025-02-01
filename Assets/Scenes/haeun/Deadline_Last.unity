@@ -1105,12 +1105,11 @@ MonoBehaviour:
   BlackPanel: {fileID: 1906547960}
   GD:
     isGuestLoggedIn: 0
-    guestId: 
-    lastLoginDate: 
     date: 0
     money: 0
     ingredientNum: 
     myBake: []
+    serializedDailyOrders: 
 --- !u!1 &1498472700
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,6 +45,8 @@ public class InventoryManager : MonoBehaviour
 
         // 냉장고 재료 버튼 업데이트
         UpdateRefrigeratorButtons();
+
+        PrintIngredientList();
     }
 
     // 냉장고 재료 버튼 업데이트 (index 기반으로 버튼 활성화)
@@ -143,7 +145,7 @@ public class InventoryManager : MonoBehaviour
                 string name = fields[1].Trim();
                 int type = int.Parse(fields[2].Trim());
                 int price = int.Parse(fields[3].Trim());
-                string ename = fields[4].Trim(); // ename 추가
+                string ename = fields[4].Trim().ToLower(); // ename 추가
 
                 ingreList.Add(new Ingred(index, name, type, price, ename));
 
@@ -196,6 +198,9 @@ public class InventoryManager : MonoBehaviour
     // 영어 이름(ename)으로 인덱스 찾기
     public int GetIngredientIndexFromEname(string ename)
     {
+        ename = ename.Trim().ToLower();
+        Debug.Log($"Searching for Ingredient: '{ename}'");
+
         foreach (var ingredient in ingreList)
         {
             if (ingredient.ename == ename) // ename 기준으로 조회
@@ -204,11 +209,11 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        Debug.LogError($"GetIngredientIndexFromEname: 재료 영어 이름 '{ename}'을 찾을 수 없습니다. 현재 ingreList의 ename 목록: ");
-        foreach (var ingredient in ingreList)
+        //Debug.LogError($"GetIngredientIndexFromEname: 재료 영어 이름 '{ename}'을 찾을 수 없습니다. 현재 ingreList의 ename 목록: ");
+        /*foreach (var ingredient in ingreList)
         {
             Debug.Log($"- {ingredient.ename}");
-        }
+        }*/
 
         return -1;
     }
@@ -235,6 +240,15 @@ public class InventoryManager : MonoBehaviour
         {
             string ename = GetIngredientEname(ingredient.Key);
             Debug.Log($"- {ename} ({ingredient.Key}): {ingredient.Value}개");
+        }
+    }
+
+    private void PrintIngredientList()
+    {
+        Debug.Log("현재 ingreList의 재료 목록:");
+        foreach (var ingredient in ingreList)
+        {
+            Debug.Log($"- Index: {ingredient.index}, Name: {ingredient.name}, eName: {ingredient.ename}");
         }
     }
 }

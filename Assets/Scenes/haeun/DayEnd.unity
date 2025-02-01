@@ -153,7 +153,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelTransform: {fileID: 1583406000}
   targetY: 0
-  moveDuration: 1.5
 --- !u!4 &97607568
 Transform:
   m_ObjectHideFlags: 0

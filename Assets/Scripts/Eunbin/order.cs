@@ -4,11 +4,14 @@ using UnityEngine;
 using System.IO;
 using TMPro;
 using UnityEngine.UI;
-
 using UnityEngine.SceneManagement;
 
 public class Order : MonoBehaviour
 {
+    private AudioSource audioSource;
+    public AudioClip button; 
+    public AudioClip bell; 
+    public AudioClip recipe_order; 
     public GameTime gametime;
     public getMenu getMenuScript;
     public special_customer SpecialScript;
@@ -46,7 +49,6 @@ public class Order : MonoBehaviour
     private int openmenuIndex=1;
     private bool isPopupCoroutineRunning=false;
     public GameObject Mademenu;
-    public Button but;
 
 
 
@@ -63,15 +65,13 @@ public class Order : MonoBehaviour
   }
     void Start()
     {
-        but.onClick.AddListener(() => {
-        SceneManager.LoadScene("Lobby");
-    });
-        AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
-        
+        SceneManager.LoadScene("Main", LoadSceneMode.Additive); //기본 UI 띄우기 
         postman.SetActive(true);
         orderCheck.gameObject.SetActive(true);
         order.SetActive(true); // 주문 UI 비활성화
         Mademenu.SetActive(false);
+
+        audioSource = GetComponent<AudioSource>();
 
         InitializeButtons(); // 버튼 초기화
         LoadDialoguesFromCSV(); // CSV 파일 로드
@@ -197,7 +197,7 @@ public class Order : MonoBehaviour
     }
 
     private void OpenOrderUI(){
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+        audioSource.PlayOneShot(button);
         orderCheck.gameObject.SetActive(false);
         order.SetActive(true);
         SetRandomDialogueIndex();
@@ -205,7 +205,7 @@ public class Order : MonoBehaviour
 
     }
     private void Postmanment(){
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell); 
+        audioSource.PlayOneShot(bell);
         dialogueText.text=dialogues[1].description;
         dialogueName.text=dialogues[1].menu;
 
@@ -229,7 +229,7 @@ public class Order : MonoBehaviour
 
     private void NextDialogue()
     {
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);  // 대화 종료 효과음
+        audioSource.PlayOneShot(recipe_order);
         SetRandomDialogueIndex(); // 다음 대화도 랜덤으로 선택
 
         if (order_count==accept_order)
@@ -245,7 +245,7 @@ public class Order : MonoBehaviour
 
     private void CloseDialogue()
     {
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);  // 대화 종료 효과음
+        audioSource.PlayOneShot(recipe_order);
         gametime.StartGameTimer();
         order.SetActive(false); // UI 비활성화
         currentDialogueIndex = 0; // 대화 인덱스 초기화
@@ -285,8 +285,7 @@ private void InitializeButtons(){
     // 기존 리스너 제거 후 새로 추가
     acceptButton.onClick.RemoveAllListeners();
     acceptButton.onClick.AddListener(() => {
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);  // 대화 종료 효과음
-        
+        audioSource.PlayOneShot(recipe_order);
         order_menu_id = currentDialogueIndex;
         order_deadLine.Add(deadline);
         
@@ -355,7 +354,7 @@ public void ResetOrderSystem(int day)
     // 팝업이 활성화된 상태에서 클릭 감지
     if (popup.activeSelf && Input.GetMouseButtonDown(0))
     {
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+        audioSource.PlayOneShot(button);
         popup.SetActive(false); // 팝업 비활성화
     }
 }
