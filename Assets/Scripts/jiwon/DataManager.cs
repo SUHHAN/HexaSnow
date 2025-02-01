@@ -88,7 +88,7 @@ public class DataManager : MonoBehaviour
         gameData.isGuestLoggedIn = true;
         gameData.date = 1;  
         gameData.money = 2000;  
-        gameData.ingredientNum = new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; 
+        gameData.ingredientNum = new List<int>(new int[23]);
         gameData.myBake = new List<MyRecipeList>();
 
         Debug.Log("초기 게임 데이터 설정 완료");
@@ -136,6 +136,7 @@ public class DataManager : MonoBehaviour
         return data != null && data.isGuestLoggedIn;
     }
 }
+
 [System.Serializable]
 public class SerializableDictionary<TKey, TValue>
 {

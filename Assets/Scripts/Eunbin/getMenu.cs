@@ -261,6 +261,7 @@ private void LoadDate()
             JsonUtility.FromJson<SerializableDictionary<int, List<List<int>>>>(GD.serializedDailyOrders);
 
         dailyOrders = new Dictionary<int, List<List<int>>>(deserializedData.ToDictionary()); // 복원
+    }
 }
 private void SaveDate()
 {
