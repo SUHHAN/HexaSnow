@@ -91,7 +91,7 @@ MonoBehaviour:
   Menu_ID: 0
   Menu_Index: 0
   Menu_Score: 0
-  Menu_Level: 48
+  Menu_Level: 0
   Menu_Bonus: 0
   Menu_Name: 
 --- !u!1 &1253690887438666038
@@ -317,7 +317,7 @@ MonoBehaviour:
   Menu_ID: 0
   Menu_Index: 0
   Menu_Score: 0
-  Menu_Level: 48
+  Menu_Level: 0
   Menu_Bonus: 0
   Menu_Name: 
 --- !u!1 &5972407869610111521
