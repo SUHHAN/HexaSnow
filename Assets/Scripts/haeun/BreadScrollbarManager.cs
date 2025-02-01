@@ -84,6 +84,8 @@ public class BreadScrollbarManager : MonoBehaviour
         // 데이터 업로드
         LoadRecipeDate();
 
+        SceneManager.LoadScene("Main", LoadSceneMode.Additive);
+
         // 오디오 관리
         AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
 
