@@ -24,14 +24,16 @@ public class RunPopupManager : MonoBehaviour
          */
 
         button_order.onClick.AddListener(() => {
-            Debug.Log("order 씬으로 이동");
-            SceneManager.LoadScene("order");
+            Debug.Log("tutorial 씬으로 이동");
+            SceneManager.LoadScene("tutorial");
     });
     }
 
     // Run Story 팝업 표시
     public void ShowRunPopup()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+        Debug.Log("범인??");
         runPopupPanel.SetActive(true);
         backgroundClickArea.SetActive(true);
     }
@@ -39,6 +41,8 @@ public class RunPopupManager : MonoBehaviour
     // Run Story 팝업 숨기기
     public void HideRunPopup()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+        Debug.Log("범인???");
         runPopupPanel.SetActive(false);
         backgroundClickArea.SetActive(false);
     }
@@ -46,15 +50,19 @@ public class RunPopupManager : MonoBehaviour
     // 새로운 게임 시작 (기존 데이터 삭제 후 새로 시작)
     public void StartNewGame()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+        Debug.Log("범인????");
         DataManager.Instance.gameData = new GameData(); // 새로운 데이터로 초기화
         DataManager.Instance.SaveInitialGameData(); // 저장
-        SceneManager.LoadScene("order"); // 새 게임 씬으로 이동
+        SceneManager.LoadScene("tutorial"); // 새 게임 씬으로 이동
         Debug.Log("새로하기 초기화-튜토리얼 씬으로 이동");
     }
 
     // 이어하기 (저장된 데이터 불러와 게임 시작)
     public void ContinueGame()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+        Debug.Log("범인?????");
         GameData loadedData = DataManager.Instance.LoadGameData();
 
         if (loadedData != null)

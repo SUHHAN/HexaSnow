@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class tutorial : MonoBehaviour
 {
+    private AudioSource audioSource;
+    public AudioClip deadBgm; 
+    public AudioClip bell; 
+
     public PostmanController postman;
     public GameObject Tutorial;
     public GameObject front;
@@ -33,6 +37,7 @@ public class tutorial : MonoBehaviour
     }
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         LoadDialoguesFromCSV();
 
         
@@ -113,6 +118,10 @@ public class tutorial : MonoBehaviour
             DialogueLine currentLine = dialogues[currentDialogueIndex];
                 speechBubble.SetActive(true);
                 UpdateDialogueUI(currentLine);
+                if(currentLine.id=="6"){
+                    audioSource.clip = deadBgm; // 사운드 클립 설정
+                    audioSource.Play();
+                }
                 if(currentLine.id=="8"){
                     room.SetActive(false);
                 }
@@ -121,7 +130,10 @@ public class tutorial : MonoBehaviour
                 }
                 if(currentLine.id=="16"){
                     front.SetActive(false);
+                    audioSource.PlayOneShot(bell);
                 }
+                if(currentLine.id=="19")
+                    audioSource.PlayOneShot(bell);
         }
         else
         {

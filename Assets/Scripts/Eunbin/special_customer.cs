@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class special_customer : MonoBehaviour
 {
+    private AudioSource audioSource;
+    public AudioClip success; 
+    public AudioClip bell; 
+    public AudioClip fail; 
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
     public GameObject speechBubble;
@@ -56,6 +60,8 @@ public class special_customer : MonoBehaviour
         customers.Add(child);
         customers.Add(oldMan);
         customers.Add(man);
+
+        audioSource = GetComponent<AudioSource>();
 
         speechBubble.SetActive(false);
         gametime.OnSpecialTimeReached += OnSpecialTimeReached;
@@ -156,6 +162,7 @@ public class special_customer : MonoBehaviour
             customerObj.SetActive(false); // 모든 손님 비활성화
         }
         Debug.Log($"특별 손님 등장{Spe_customer}");
+        audioSource.PlayOneShot(bell);
         customer = customers[Spe_customer];
         customer.SetActive(true);
 
@@ -175,7 +182,7 @@ public class special_customer : MonoBehaviour
         customer.SetActive(true);
         current_startId=1001;
         PlayDialogue(current_startId);
-        setmenu.current_cus("오리지널 마들렌", "special"); 
+        setmenu.current_cus("딸기 케이크", "special"); 
         StartCoroutine(HandleCustomerInteraction(customer, day));
 
         none.gameObject.SetActive(true);
@@ -184,6 +191,7 @@ public class special_customer : MonoBehaviour
         {
             Debug.Log($"손님 {customer.name}이(가) 메뉴를 받지 못했습니다.");
             UpdateDialogue("none");
+            audioSource.PlayOneShot(fail);
         });
     }
     private void PlayDialogue(int startId)
@@ -268,12 +276,14 @@ public class special_customer : MonoBehaviour
         }
         else if (action.Equals("True"))
         {
+            audioSource.PlayOneShot(success);
             current_startId=2001;
             PlayDialogue(current_startId);
             Debug.Log("특별 손님이 제품을 받아갔습니다!");
         }
         else if (action.Equals("False"))
         {
+            audioSource.PlayOneShot(fail);
             current_startId=3001;
             PlayDialogue(current_startId);
             Debug.Log("특별 손님이 제품을 잘못 받아갔습니다!");

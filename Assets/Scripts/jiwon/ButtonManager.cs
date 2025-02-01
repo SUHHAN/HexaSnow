@@ -9,6 +9,7 @@ public class ButtonManager : MonoBehaviour
     public GameObject SettingParentPanel;  // 설정 패널
     public GameObject QuitPopupPanel;  // 종료 팝업 패널
     public GameObject LobbyDim; // 배경 어둡게 하는 이미지
+    
 
     private bool isLoggedIn = false;  // 로그인 상태
 

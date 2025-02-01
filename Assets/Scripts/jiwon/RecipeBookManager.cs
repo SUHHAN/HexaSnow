@@ -240,6 +240,7 @@ public class RecipeBookManager : MonoBehaviour
 
     public void ShowRecipePage(string key)
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
         // // ✅ `pref1`이 동적으로 생성되지 않았다면, 새로 생성
         // if (pref1 == null)
         // {
@@ -408,6 +409,7 @@ public class RecipeBookManager : MonoBehaviour
     // RecipeContentIndex 버튼 클릭 시 호출되는 메서드
     void OnRecipeContentIndexClicked()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
         RecipePagePanel.SetActive(false);
         TableOfContentsPanel.SetActive(true);
         UpdateButtonStates();
@@ -485,7 +487,6 @@ public class RecipeBookManager : MonoBehaviour
     // '이전' 버튼 클릭 시 동작
     void OnPrevClicked()
     {
-
         // 카테고리 리스트에서 첫 번째 카테고리가 아니면 이전 카테고리로 이동합니다.
         if (currentIndex > 0)
         {

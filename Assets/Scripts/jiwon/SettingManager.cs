@@ -26,13 +26,15 @@ public class SettingsManager : MonoBehaviour
         // 나머지 버튼을 뒤로 보내기
         SetButtonToBack(GameSettingsButton);
         SetButtonToBack(SaveButton);
-        // 기본적으로 AccountPanel 열기
-        OpenAccountPanel();
+        AccountPanel.SetActive(true);
+        GameSettingsPanel.SetActive(false);
+        SavePanel.SetActive(false); // 저장 패널 열기
     }
 
     // 설정 창 열기
     public void OpenSettings()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         if (SettingParentPanel != null)
         {
             SettingParentPanel.SetActive(true);
@@ -48,6 +50,7 @@ public class SettingsManager : MonoBehaviour
     // 설정 창 닫기
     public void CloseSettings()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         if (SettingParentPanel != null)
         {
             Debug.Log("설정 창 닫기 실행됨.");
@@ -62,6 +65,7 @@ public class SettingsManager : MonoBehaviour
     // 계정 설정 패널 열기
     private void OpenAccountPanel()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         AccountPanel.SetActive(true);
         GameSettingsPanel.SetActive(false);
         SavePanel.SetActive(false); // AccountPanel이 열릴 때 SavePanel은 닫기
@@ -76,6 +80,7 @@ public class SettingsManager : MonoBehaviour
     // 게임 설정 패널 열기
     private void OpenGameSettingsPanel()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         AccountPanel.SetActive(false);
         GameSettingsPanel.SetActive(true);
         SavePanel.SetActive(false); // GameSettingsPanel이 열릴 때 SavePanel은 닫기
@@ -90,6 +95,7 @@ public class SettingsManager : MonoBehaviour
     // 저장 패널 열기 (새로 추가된 기능)
     private void OpenSavePanel()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         AccountPanel.SetActive(false);
         GameSettingsPanel.SetActive(false);
         SavePanel.SetActive(true); // 저장 패널 열기
