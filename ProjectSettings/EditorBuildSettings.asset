@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Eunbin/tutorial.unity
     guid: 8e03f0e30bc3c4bf5ae667dfb0a7fb7b
   - enabled: 1
+    path: Assets/Scenes/Eunbin/tutorial2.unity
+    guid: e5af6d0f4aac14783be870ba048cb959
+  - enabled: 1
     path: Assets/Scenes/Eunbin/order.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 0

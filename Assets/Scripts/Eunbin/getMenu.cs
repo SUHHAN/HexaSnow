@@ -8,11 +8,6 @@ using System.Linq;
 
 public class getMenu : MonoBehaviour
 {
-
-    private AudioSource audioSource;
-    public AudioClip success; 
-    public AudioClip bell; 
-    public AudioClip fail; 
     public CharacterManager characterManager; 
     public Order orderScript; // Order 스크립트 참조
 
@@ -65,8 +60,6 @@ public class getMenu : MonoBehaviour
         LoadDialoguesFromCSV(); // CSV 파일 로드
         LoadNicknameFromCSV();
         LoadGuestFromCSV();
-
-        audioSource = GetComponent<AudioSource>();
 
         customers.Add(man);
         customers.Add(girl);
@@ -240,7 +233,7 @@ private void LoadGuestFromCSV()
 
         customer = GetRandomCustomer();
         customer.SetActive(true);
-        audioSource.PlayOneShot(bell);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
         dialogueName.text = nicknames[nicknameIndex];
 
         Debug.Log($"손님 {customer.name}이(가) 메뉴 {menuName}을(를) 받으러 왔습니다!");
@@ -253,7 +246,7 @@ private void LoadGuestFromCSV()
         none.onClick.RemoveAllListeners();
         
         none.onClick.AddListener(() => {
-            audioSource.PlayOneShot(fail);
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_fail);
             Debug.Log($"손님 {customer.name}이(가) 메뉴를 받지 못했습니다.");
             UpdateDialogue(5);
 
@@ -326,14 +319,14 @@ private void LoadGuestFromCSV()
     // 상태 값에 맞는 표현식을 매핑
     if (state == 1) {
         expression = Expression.Happy;
-        audioSource.PlayOneShot(success);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_succ);
     }
     else if (state == 2){
          expression = Expression.Normal;
-         audioSource.PlayOneShot(success);
+         AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_succ);
     }
     else if (state == 3 || state == 4 || state == 5){
-        audioSource.PlayOneShot(fail);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_fail);
         expression = Expression.Bad;
 }
 

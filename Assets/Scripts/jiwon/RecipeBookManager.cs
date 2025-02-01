@@ -6,6 +6,7 @@ using TMPro;
 using System.Drawing;
 using System.Linq;
 using Unity.Collections;
+using System;
 
 public class RecipeBookManager : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class RecipeBookManager : MonoBehaviour
     private string currentCategoryKey;
     private int currentIndex;
     private int currentDate;
+    private int categoriesToShow;
+    private List<bool> categoryAvailability;
 
 
 
@@ -62,6 +65,7 @@ public class RecipeBookManager : MonoBehaviour
         LoadRecipesFromCSV("Assets/Resources/recipe.csv");
 
         // UI 초기화
+        LoadCalendarDate();
         DisplayTableOfContents();
         UpdateButtonStates();
 
@@ -201,7 +205,24 @@ public class RecipeBookManager : MonoBehaviour
 
         // 레시피 목록에서 카테고리만 추출하여 고유한 리스트로 저장
         categoryList = recipes.Select(recipe => recipe.category).Distinct().ToList();
-        
+        categoriesToShow = Math.Min(currentDate * 2, categoryList.Count);
+        Debug.Log(currentDate);
+        Debug.Log(categoriesToShow);
+
+        categoryAvailability = new List<bool>();
+        for (int i = 0; i < categoryList.Count; i++)
+        {
+            // Mark categories up to the calculated number for the day as true
+            if (i < categoriesToShow)
+            {
+                categoryAvailability.Add(true);
+            }
+            else
+            {
+                categoryAvailability.Add(false);
+            }
+        }
+        Debug.Log(string.Join(", ", categoryAvailability.Select(b => b.ToString()).ToArray()));
 
         // 카테고리 리스트가 비어있는지 확인
         if (categoryList.Count == 0)
@@ -244,12 +265,20 @@ public class RecipeBookManager : MonoBehaviour
             RectTransform rectTransform = categoryButtonObj.GetComponent<RectTransform>();
             rectTransform.sizeDelta = new Vector2(300, 50);  // 버튼 크기 설정 (300x50)
 
-            // 카테고리 버튼 클릭 시 해당 카테고리의 레시피 페이지로 이동
-            categoryButtonObj.AddComponent<Button>().onClick.AddListener(() =>
+            Button categoryButton = categoryButtonObj.AddComponent<Button>();
+
+            int availableIndex = categoryList.IndexOf(group.Key);
+            if (categoryAvailability[availableIndex] == false)
             {
-                ShowRecipePage(group.Key);  // 해당 카테고리에 맞는 레시피 페이지로 이동
+                categoryButton.interactable = false;  // 버튼 비활성화
+            }
+
+            // 카테고리 버튼 클릭 시 해당 카테고리의 레시피 페이지로 이동
+            categoryButton.onClick.AddListener(() =>
+            {
                 currentCategoryKey = group.Key;
                 currentIndex = categoryList.IndexOf(currentCategoryKey);
+                ShowRecipePage(group.Key);  // 해당 카테고리에 맞는 레시피 페이지로 이동
             });
         }
     }
@@ -537,7 +566,7 @@ public class RecipeBookManager : MonoBehaviour
         PrevButton.interactable = RecipePagePanel.activeSelf;
 
         // 마지막 카테고리일 경우 '다음' 버튼을 비활성화
-        NextButton.interactable = currentIndex < categoryList.Count - 1;
+        NextButton.interactable = (categoryAvailability[currentIndex + 1] == true) && (currentIndex < categoryList.Count - 1);
     }
 
     // 버튼을 앞쪽으로 보내기
