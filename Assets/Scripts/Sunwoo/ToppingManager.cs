@@ -8,57 +8,57 @@ using UnityEngine.SceneManagement;
 
 public class ToppingManager : MonoBehaviour
 {
-    // ÅäÇÎ ÆÐ³Î
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½
     public GameObject toppingPanel;
     public GameObject startToppingPanel;
     public GameObject addToppingPanel;
     public GameObject finishBakingPanel;
 
-    // ¹öÆ°
+    // ï¿½ï¿½Æ°
     public Button startToppingButton;
     public Button finishToppingButton;
     public Button finishButton;
 
-    // ±âÅ¸ ÂüÁ¶
+    // ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½
     public InventoryManager inventoryManager;
     public OvenGameManager ovenGameManager;
     public Image bakingImage;
     public Image oriImage1;
     public Image oriImage2;
 
-    private int selectedDessertIndex = 1; // ±âº»°ª 1
-    private int selectedToppingIndex = -1; // ¼±ÅÃÇÑ ÅäÇÎ ÀÎµ¦½º (-1Àº ¼±ÅÃ ¾È ÇÔ)
-    private int finalImageIndex = 1; // ÃÖÁ¾ °á°ú ÀÌ¹ÌÁö ÀÎµ¦½º
+    private int selectedDessertIndex = 1; // ï¿½âº»ï¿½ï¿½ 1
+    private int selectedToppingIndex = -1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ (-1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½)
+    private int finalImageIndex = 1; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
     private string selectedDessert;
 
     public BakingStartManager bakingStartManager;
 
-    // ÅäÇÎ ¹öÆ° ¸®½ºÆ® (Inspector¿¡¼­ ÇÒ´ç)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½Æ® (Inspectorï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½)
     public List<GameObject> toppingButtons;
 
-    // µðÀúÆ® ÀÎµ¦½º¿¡ ¸Â´Â ÀÌ¹ÌÁö ÀúÀå
+    // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â´ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public List<Sprite> dessertSprites;
 
-    // CSV¿¡¼­ index¿Í menu¸¦ ÀúÀåÇÏ´Â µñ¼Å³Ê¸®
+    // CSVï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ menuï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Å³Ê¸ï¿½
     private Dictionary<int, string> menuDictionary = new Dictionary<int, string>();
 
-    // µðÀúÆ® º° È°¼ºÈ­ÇÒ ÅäÇÎ ¹öÆ°
+    // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
     private Dictionary<int, List<int>> dessertToppingMap = new Dictionary<int, List<int>>()
     {
-        { 1, new List<int> { 4, 5 } }, // Madeleine: ÅäÇÎ 4, 5¸¸ È°¼ºÈ­
-        { 4, new List<int> { 4, 6 } }, // Cookie: ÅäÇÎ 4, 6¸¸ È°¼ºÈ­
-        { 7, new List<int> { 2, 4 } }, // Muffin: ÅäÇÎ 2, 4¸¸ È°¼ºÈ­
-        { 10, new List<int> { 1, 4, 5 } }, // ÆÄ¿îµåÄÉÀÌÅ© (ÅäÇÎ 1, 4, 5 È°¼ºÈ­)
-        { 14, new List<int>() }        // ¹Ù½ºÅ© Ä¡ÁîÄÉÀÌÅ©
+        { 1, new List<int> { 4, 5 } }, // Madeleine: ï¿½ï¿½ï¿½ï¿½ 4, 5ï¿½ï¿½ È°ï¿½ï¿½È­
+        { 4, new List<int> { 4, 6 } }, // Cookie: ï¿½ï¿½ï¿½ï¿½ 4, 6ï¿½ï¿½ È°ï¿½ï¿½È­
+        { 7, new List<int> { 2, 4 } }, // Muffin: ï¿½ï¿½ï¿½ï¿½ 2, 4ï¿½ï¿½ È°ï¿½ï¿½È­
+        { 10, new List<int> { 1, 4, 5 } }, // ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å© (ï¿½ï¿½ï¿½ï¿½ 1, 4, 5 È°ï¿½ï¿½È­)
+        { 14, new List<int>() }        // ï¿½Ù½ï¿½Å© Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å©
     };
 
-    // ÅäÇÎ ¼±ÅÃ¿¡ µû¸¥ BakingImage º¯°æ (µðÀúÆ® ÀÎµ¦½º, ÅäÇÎ ÀÎµ¦½º ¡æ °á°ú ÀÌ¹ÌÁö ÀÎµ¦½º)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½ï¿½ BakingImage ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Îµï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½)
     private Dictionary<(int, int), int> toppingImageMap = new Dictionary<(int, int), int>()
     {
-        { (1, 4), 2 }, { (1, 5), 3 }, // Madeleine ¡æ 2: ÅäÇÎ4, 3: ÅäÇÎ5
-        { (4, 4), 5 }, { (4, 6), 6 }, // Cookie ¡æ 5: ÅäÇÎ4, 6: ÅäÇÎ6
-        { (7, 2), 8 }, { (7, 4), 9 }, // Muffin ¡æ 8: ÅäÇÎ2, 9: ÅäÇÎ4
-        { (10, 4), 11 }, { (10, 5), 12 }, { (10, 1), 13 } // ÆÄ¿îµåÄÉÀÌÅ©
+        { (1, 4), 2 }, { (1, 5), 3 }, // Madeleine ï¿½ï¿½ 2: ï¿½ï¿½ï¿½ï¿½4, 3: ï¿½ï¿½ï¿½ï¿½5
+        { (4, 4), 5 }, { (4, 6), 6 }, // Cookie ï¿½ï¿½ 5: ï¿½ï¿½ï¿½ï¿½4, 6: ï¿½ï¿½ï¿½ï¿½6
+        { (7, 2), 8 }, { (7, 4), 9 }, // Muffin ï¿½ï¿½ 8: ï¿½ï¿½ï¿½ï¿½2, 9: ï¿½ï¿½ï¿½ï¿½4
+        { (10, 4), 11 }, { (10, 5), 12 }, { (10, 1), 13 } // ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å©
     };
 
     void Start()
@@ -77,13 +77,13 @@ public class ToppingManager : MonoBehaviour
         SetOriginalImages();
     }
 
-    // CSV¿¡¼­ index¿Í menu °ªÀ» ÀÐ¾î menuDictionary¿¡ ÀúÀå
+    // CSVï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ menu ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ menuDictionaryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void LoadRecipeCSV()
     {
         TextAsset csvFile = Resources.Load<TextAsset>("recipe");
         if (csvFile == null)
         {
-            Debug.LogError("CSV ÆÄÀÏÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù: recipe.csv");
+            Debug.LogError("CSV ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½: recipe.csv");
             return;
         }
 
@@ -100,15 +100,15 @@ public class ToppingManager : MonoBehaviour
                 menuDictionary[id] = menuName;
             }
         }
-        Debug.Log($"CSV¿¡¼­ {menuDictionary.Count}°³ÀÇ ¸Þ´º µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ô½À´Ï´Ù.");
+        Debug.Log($"CSVï¿½ï¿½ï¿½ï¿½ {menuDictionary.Count}ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ò·ï¿½ï¿½Ô½ï¿½ï¿½Ï´ï¿½.");
     }
 
     public void SetSelectedDessert(string dessertName, int index)
     {
         selectedDessert = dessertName;
         selectedDessertIndex = index;
-        selectedToppingIndex = -1; // ÅäÇÎ ¼±ÅÃ ÃÊ±âÈ­
-        finalImageIndex = index; // ±âº»ÀûÀ¸·Î ¿øº» ÀÌ¹ÌÁö ¼³Á¤
+        selectedToppingIndex = -1; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+        finalImageIndex = index; // ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         SetOriginalImages();
         UpdateToppingButtons();
     }
@@ -119,21 +119,21 @@ public class ToppingManager : MonoBehaviour
         {
             oriImage1.sprite = dessertSprites[selectedDessertIndex];
             oriImage2.sprite = dessertSprites[selectedDessertIndex];
-            bakingImage.sprite = dessertSprites[selectedDessertIndex]; // ±âº» ÀÌ¹ÌÁö ¼³Á¤
+            bakingImage.sprite = dessertSprites[selectedDessertIndex]; // ï¿½âº» ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         else
         {
-            Debug.LogError($"SetOriginalImages: ÀÎµ¦½º {selectedDessertIndex}¿¡ ÇØ´çÇÏ´Â ÀÌ¹ÌÁö°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogError($"SetOriginalImages: ï¿½Îµï¿½ï¿½ï¿½ {selectedDessertIndex}ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
     }
 
-    // ¼ÒÁöÇÑ ÅäÇÎ ¹öÆ° È°¼ºÈ­
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° È°ï¿½ï¿½È­
     private void UpdateToppingButtons()
     {
         foreach (GameObject button in toppingButtons)
         {
-            button.SetActive(false); // ¸ðµç ¹öÆ° ºñÈ°¼ºÈ­
-            SetButtonOpacity(button, 1f); // ¸ðµç ¹öÆ° Åõ¸íµµ ÃÊ±âÈ­
+            button.SetActive(false); // ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½È°ï¿½ï¿½È­
+            SetButtonOpacity(button, 1f); // ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         }
 
         if (dessertToppingMap.ContainsKey(selectedDessertIndex))
@@ -143,7 +143,7 @@ public class ToppingManager : MonoBehaviour
                 if (toppingIndex - 1 < toppingButtons.Count)
                 {
                     toppingButtons[toppingIndex - 1].SetActive(true);
-                    int index = toppingIndex; // Å¬·ÎÀú ¹®Á¦ ¹æÁö
+                    int index = toppingIndex; // Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                     toppingButtons[toppingIndex - 1].GetComponent<Button>().onClick.RemoveAllListeners();
                     toppingButtons[toppingIndex - 1].GetComponent<Button>().onClick.AddListener(() => SelectSingleTopping(index));
                 }
@@ -151,13 +151,13 @@ public class ToppingManager : MonoBehaviour
         }
     }
 
-    // ÅäÇÎ ÇÏ³ª¸¸ ¼±ÅÃ °¡´ÉÇÏµµ·Ï ¼³Á¤
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void SelectSingleTopping(int toppingIndex)
     {
         if (selectedToppingIndex == toppingIndex)
         {
-            selectedToppingIndex = -1; // °°Àº ÅäÇÎ ´Ù½Ã ´©¸£¸é ¼±ÅÃ ÇØÁ¦
-            finalImageIndex = selectedDessertIndex; // ¿ø·¡ µðÀúÆ® ÀÌ¹ÌÁö·Î µÇµ¹¸²
+            selectedToppingIndex = -1; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            finalImageIndex = selectedDessertIndex; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½
         }
         else
         {
@@ -172,7 +172,7 @@ public class ToppingManager : MonoBehaviour
         UpdateToppingButtonOpacity();
     }
 
-    // ¼±ÅÃÇÑ µðÀúÆ®¿Í ÅäÇÎÀ» ¹Ý¿µÇÏ¿© ÃÖÁ¾ ÀÌ¹ÌÁö ¾÷µ¥ÀÌÆ®
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¿ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     private void UpdateBakingImage()
     {
         int newImageIndex = selectedDessertIndex;
@@ -188,25 +188,25 @@ public class ToppingManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"UpdateBakingImage: ÀÎµ¦½º {newImageIndex}¿¡ ÇØ´çÇÏ´Â ÀÌ¹ÌÁö°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogError($"UpdateBakingImage: ï¿½Îµï¿½ï¿½ï¿½ {newImageIndex}ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
     }
 
-    // ¼±ÅÃÇÑ ¹öÆ°Àº Åõ¸íÇØÁö°Ô
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private void UpdateToppingButtonOpacity()
     {
         foreach (GameObject button in toppingButtons)
         {
-            SetButtonOpacity(button, 1f); // ±âº»°ª 1 (ºÒÅõ¸í)
+            SetButtonOpacity(button, 1f); // ï¿½âº»ï¿½ï¿½ 1 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
         }
 
         if (selectedToppingIndex != -1 && selectedToppingIndex - 1 < toppingButtons.Count)
         {
-            SetButtonOpacity(toppingButtons[selectedToppingIndex - 1], 0.3f); // ¼±ÅÃÇÑ ¹öÆ° Åõ¸íµµ 30%
+            SetButtonOpacity(toppingButtons[selectedToppingIndex - 1], 0.3f); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 30%
         }
     }
 
-    // Åõ¸íµµ ¼³Á¤
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void SetButtonOpacity(GameObject buttonObj, float alpha)
     {
         Image buttonImage = buttonObj.GetComponent<Image>();
@@ -218,7 +218,7 @@ public class ToppingManager : MonoBehaviour
         }
     }
 
-    // ÅäÇÎ ¼±ÅÃ ¿Ï·á
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½
     private void FinishToppingSelection()
     {
         addToppingPanel.SetActive(false);
@@ -226,7 +226,7 @@ public class ToppingManager : MonoBehaviour
         UpdateBakingImage();
     }
 
-    // ÅäÇÎ ¼±ÅÃ ÆÐ³Î ¿­±â
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void OpenToppingSelection()
     {
         startToppingPanel.SetActive(false);
@@ -240,25 +240,25 @@ public class ToppingManager : MonoBehaviour
         SceneManager.LoadScene("BakingStart");
     }
 
-    // º£ÀÌÅ· °á°ú ÀúÀå
+    // ï¿½ï¿½ï¿½ï¿½Å· ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void SaveBakingResult()
     {
         if (DataManager.Instance == null)
         {
-            Debug.LogError("DataManager ÀÎ½ºÅÏ½º¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù!");
+            Debug.LogError("DataManager ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!");
             return;
         }
 
         int totalScore = ovenGameManager.GetTotalScore();
-        string finalDessertName = menuDictionary.ContainsKey(finalImageIndex) ? menuDictionary[finalImageIndex] : "¾Ë ¼ö ¾øÀ½";
+        string finalDessertName = menuDictionary.ContainsKey(finalImageIndex) ? menuDictionary[finalImageIndex] : "ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
 
-        Debug.Log($"ÃÖÁ¾ ÃÑÁ¡: {totalScore}");
-        Debug.Log($"ÃÖÁ¾ ÀúÀåÇÒ µðÀúÆ®: {finalDessertName}");
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {totalScore}");
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®: {finalDessertName}");
 
         MyRecipeList newRecipe = new MyRecipeList(
             DataManager.Instance.gameData.myBake.Count + 1,
-            finalImageIndex, // ÀúÀåµÇ´Â ÃÖÁ¾ ÀÌ¹ÌÁö ÀÎµ¦½º
-            finalDessertName, // CSV¿¡¼­ °¡Á®¿Â ¸Þ´º ÀÌ¸§
+            finalImageIndex, // ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
+            finalDessertName, // CSVï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½Ì¸ï¿½
             totalScore,
             false
         );
@@ -266,6 +266,6 @@ public class ToppingManager : MonoBehaviour
         DataManager.Instance.gameData.myBake.Add(newRecipe);
         DataManager.Instance.SaveGameData();
 
-        Debug.Log($"ÀúÀå ¿Ï·á: {finalDessertName} | ÀÌ¹ÌÁö ÀÎµ¦½º: {finalImageIndex} | Á¡¼ö: {totalScore}");
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½: {finalDessertName} | ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½: {finalImageIndex} | ï¿½ï¿½ï¿½ï¿½: {totalScore}");
     }
 }
