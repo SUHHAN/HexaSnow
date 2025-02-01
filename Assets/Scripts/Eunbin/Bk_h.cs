@@ -97,6 +97,10 @@ public int GetIndex()
 {
     return Menu_Index;
 }
+public int GetScore()
+{
+    return Menu_Score;
+}
 
     // 나의 요리의 등급에 따라서 색상을 표시해줌
     public void SetMenuColor() {
