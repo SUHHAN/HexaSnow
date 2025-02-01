@@ -2162,7 +2162,7 @@ MonoBehaviour:
   OrderCustomer: {fileID: 395431450}
   nextButton: {fileID: 1477118776}
   prevButton: {fileID: 793179839}
-  mainCsvFile: {fileID: 4900000, guid: 0bf5809f8fd3646cc9338f11ee068b28, type: 3}
+  mainCsvFile: {fileID: 4900000, guid: 4225cf343dac0404e87ad37464b133a7, type: 3}
   nicknameCsvFile: {fileID: 4900000, guid: 35c1608a74785459ca268d4e90c045d8, type: 3}
   customFont: {fileID: 11400000, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
 --- !u!4 &495767422
