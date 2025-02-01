@@ -239,7 +239,17 @@ public class RecipeBookManager : MonoBehaviour
         // newPref.SetActive(true);  // 활성화
         // Debug.Log("pref1이 생성되었습니다!");
 
-        // ✅ pref1 내부의 UI 요소 찾기
+        // 해당 카테고리의 레시피들만 필터링
+        var filteredRecipes = recipes.Where(recipe => recipe.category == key).ToList();
+
+        // 필터링된 레시피가 없다면 경고 출력
+        if (!filteredRecipes.Any())
+        {
+            Debug.LogWarning($"[{key}] 카테고리에는 레시피가 없습니다!");
+            return;
+        }
+
+        // pref1 내부의 UI 요소 찾기
         Transform recipeNametrans = panel.transform.Find("recipeNameText");
         Transform ingredientsTrans = panel.transform.Find("ingredientsText");
 
@@ -258,7 +268,7 @@ public class RecipeBookManager : MonoBehaviour
             return;
         }
 
-        // ✅ UI에 데이터 적용
+        // UI에 데이터 적용
         recipeName.text = key;  // 제품명 설정
 
         RecipeB RealRecipe = recipes.FirstOrDefault(recipe => recipe.category == key);

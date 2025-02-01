@@ -1103,9 +1103,6 @@ MonoBehaviour:
   systemVolumeSlider: {fileID: 2003388373}
   bgmVolumeSlider: {fileID: 1166661382}
   effectVolumeSlider: {fileID: 626052484}
-  systemVolumeText: {fileID: 0}
-  bgmVolumeText: {fileID: 0}
-  effectVolumeText: {fileID: 0}
   koreanButton: {fileID: 329650713}
   preparingText: {fileID: 0}
 --- !u!114 &314016934
@@ -2935,7 +2932,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1849575861}
-  - {fileID: 1730368353}
   - {fileID: 1476401762}
   m_Father: {fileID: 784770407}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6012,6 +6008,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1730368353}
   - {fileID: 606369795}
   m_Father: {fileID: 784770407}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6166,11 +6163,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 768100836}
+  m_Father: {fileID: 1628821886}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -229, y: 250}
+  m_AnchoredPosition: {x: -160, y: 250}
   m_SizeDelta: {x: 106, y: 38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1730368354
@@ -7189,6 +7186,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OrderBook: {fileID: 1704805154}
   order_button: {fileID: 339853704}
+  OrderContent: {fileID: 0}
+  OrderCustomer: {fileID: 0}
   RecipeBook: {fileID: 784770406}
   RecipeButton: {fileID: 1951779734}
   calendarText: {fileID: 838943963}
