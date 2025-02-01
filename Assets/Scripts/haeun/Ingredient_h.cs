@@ -52,6 +52,8 @@ public class Ingredient_h : MonoBehaviour
 
     public void GetIngredient()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+
         // 필요한 배점 계산
         int requiredScore = ScoreMultiplier;
 

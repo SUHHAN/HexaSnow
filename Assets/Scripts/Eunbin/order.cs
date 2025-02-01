@@ -329,7 +329,7 @@ public void ResetOrderSystem(int day)
         if (!string.IsNullOrEmpty(unlockedMenu1) && !string.IsNullOrEmpty(unlockedMenu2))
         {
             popup.SetActive(true);
-            popupText.text = $"{unlockedMenu1}, {unlockedMenu2} 레시피가\n해금되었습니다!";
+            popupText.text = $"{unlockedMenu1}, {unlockedMenu2}\n레시피가 해금되었습니다!";
         }
         
         openmenuIndex += 2;

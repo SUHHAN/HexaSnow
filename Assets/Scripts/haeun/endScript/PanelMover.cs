@@ -33,11 +33,14 @@ public class PanelMover : MonoBehaviour
         LoadDate();
 
         newDateText.text = $"{mydate}일차 가게 오픈";
+
         StartCoroutine(MovePanelSequence());
     }
 
     IEnumerator MovePanelSequence()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
+
         // 1️⃣ 위에서 아래로 천천히 이동
         yield return StartCoroutine(MovePanel(startY, targetY));
 

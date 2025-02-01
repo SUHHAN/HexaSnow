@@ -12,7 +12,6 @@ public class GameSettingsManager : MonoBehaviour
     public Sprite notificationOffImage; // 알림 꺼졌을 때 이미지
 
     [Header("볼륨 설정")]
-    public Slider systemVolumeSlider;
     public Slider bgmVolumeSlider;
     public Slider effectVolumeSlider;
 
@@ -35,14 +34,22 @@ public class GameSettingsManager : MonoBehaviour
         notificationToggle.onValueChanged.AddListener(SetNotification);
 
         // **저장된 볼륨 값 불러오기** (저장된 값이 없으면 기본값 50 사용)
-        systemVolumeSlider.value = PlayerPrefs.GetFloat("SystemVolume", 50);
-        bgmVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume", 50);
-        effectVolumeSlider.value = PlayerPrefs.GetFloat("EffectVolume", 50);
+        // systemVolumeSlider.value = PlayerPrefs.GetFloat("SystemVolume", 50);
+        // bgmVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume", 50);
+        // effectVolumeSlider.value = PlayerPrefs.GetFloat("EffectVolume", 50);
+
+        bgmVolumeSlider.value = AudioManager.Instance.bgmVolume;
+        effectVolumeSlider.value = AudioManager.Instance.sfxVolume;
+        // effectVolumeSlider.value = AudioManager.Instance.sysVolume;
 
         // **볼륨 조절 슬라이더 이벤트 리스너 등록**
-        systemVolumeSlider.onValueChanged.AddListener(delegate { SetSystemVolume(); });
-        bgmVolumeSlider.onValueChanged.AddListener(delegate { SetBGMVolume(); });
-        effectVolumeSlider.onValueChanged.AddListener(delegate { SetEffectVolume(); });
+        // systemVolumeSlider.onValueChanged.AddListener(delegate { SetSystemVolume(); });
+        // bgmVolumeSlider.onValueChanged.AddListener(delegate { SetBGMVolume(); });
+        // effectVolumeSlider.onValueChanged.AddListener(delegate { SetEffectVolume(); });
+
+        // systemVolumeSlider.onValueChanged.AddListener(SetSystemVolume);
+        bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
+        effectVolumeSlider.onValueChanged.AddListener(SetEffectVolume);
 
         // **UI 업데이트**
         UpdateVolumeUI();
@@ -52,7 +59,7 @@ public class GameSettingsManager : MonoBehaviour
         preparingText.color = new Color(0.5f, 0.5f, 0.5f, 1F); // 회색 처리
 
         // **슬라이더 크기 및 위치 설정 (선택 사항)**
-        SetSliderDimensions(systemVolumeSlider, "SystemVolume");
+        // SetSliderDimensions(systemVolumeSlider, "SystemVolume");
         SetSliderDimensions(bgmVolumeSlider, "BGMVolume");
         SetSliderDimensions(effectVolumeSlider, "EffectVolume");
     }
@@ -103,22 +110,24 @@ public class GameSettingsManager : MonoBehaviour
         // effectVolumeText.text = ((int)effectVolumeSlider.value).ToString();
     }
 
-    public void SetSystemVolume()
-    {
-        AudioListener.volume = systemVolumeSlider.value / 100f;
-        UpdateVolumeUI();
-    }
+    // public void SetSystemVolume(float volume)
+    // {
+    //     // AudioListener.volume = systemVolumeSlider.value / 100f;
+    //     AudioManager.Instance.SetSystemVolume(volume);
 
-    public void SetBGMVolume()
+    // }
+
+    public void SetBGMVolume(float volume)
     {
         // BGM 오디오 소스 볼륨 조절
-        UpdateVolumeUI();
+        AudioManager.Instance.SetBgmVolume(volume);
     }
 
-    public void SetEffectVolume()
+    public void SetEffectVolume(float volume)
     {
         // 효과음 오디오 소스 볼륨 조절
-        UpdateVolumeUI();
+        AudioManager.Instance.SetSfxVolume(volume);
+
     }
 
     // 언어 설정

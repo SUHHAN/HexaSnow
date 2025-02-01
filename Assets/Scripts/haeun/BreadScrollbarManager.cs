@@ -74,10 +74,6 @@ public class BreadScrollbarManager : MonoBehaviour
 
     [SerializeField] private GameData GD = new GameData();
 
-
-
-
-
     private int FinalSc = 0; // 초기 점수
     private int SumSc;
 
@@ -85,7 +81,11 @@ public class BreadScrollbarManager : MonoBehaviour
 
     void Start()
     {
+        // 데이터 업로드
         LoadRecipeDate();
+
+        // 오디오 관리
+        AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
 
         BonusPanel.SetActive(false);
         BlackBackground.SetActive(false);
@@ -121,6 +121,7 @@ public class BreadScrollbarManager : MonoBehaviour
 
     public void SlotClick(string name)
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         BlackBackground.SetActive(true);
         BonusPanel.SetActive(true);
 
@@ -180,6 +181,7 @@ public class BreadScrollbarManager : MonoBehaviour
 
     public void YesButtonClick()
     {   
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         SceneManager.LoadScene("Match");
     }
 
