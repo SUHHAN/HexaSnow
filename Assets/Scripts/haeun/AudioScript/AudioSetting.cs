@@ -3,13 +3,12 @@ using UnityEngine.UI;
 
 public class AudioSettings : MonoBehaviour 
 {
-    public Slider systemSlider; // 시스템 슬라이더
     public Slider bgmSlider; // 배경음 슬라이더
     public Slider sfxSlider; // 효과음 슬라이더
 
     void Start()
     {
-        if (bgmSlider == null || sfxSlider == null || systemSlider == null)
+        if (bgmSlider == null || sfxSlider == null )
         {
             Debug.LogError("슬라이더가 할당되지 않았습니다. bgmSlider: " + bgmSlider + ", sfxSlider: " + sfxSlider);
             return;
