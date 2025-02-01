@@ -255,7 +255,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f7c6e314a042d6743bb3832bad8911f0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 12bc6f03adea92b44b139cfb2996ec37, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1394,6 +1394,20 @@ MonoBehaviour:
   BonusScoreText: {fileID: 762072916}
   gameOverPanel: {fileID: 831910941}
   gameOverText: {fileID: 291748250}
+  GD:
+    isGuestLoggedIn: 0
+    guestId: 
+    lastLoginDate: 
+    date: 0
+    money: 0
+    ingredientNum: 
+    myBake: []
+  myRecipe:
+    index: 0
+    menuID: 0
+    name: 
+    score: 0
+    bonus: 0
 --- !u!4 &895717536
 Transform:
   m_ObjectHideFlags: 0
@@ -2056,16 +2070,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 3300763532523261809, guid: d75777f1084c2c24f89295c256adaf35, type: 3}
   cardSprites:
-  - {fileID: 21300000, guid: b567150941229fb4bb6c443cb0706324, type: 3}
-  - {fileID: 21300000, guid: f50a8c2ed503da24aac114a9020d7662, type: 3}
-  - {fileID: 21300000, guid: 2182cfceb56b64d48ae3c95448616a21, type: 3}
-  - {fileID: 21300000, guid: efc0f55af9dd18c49844968b81b7fffd, type: 3}
-  - {fileID: 21300000, guid: 2360c0ea594ad5c4d923f11ef24ec22c, type: 3}
-  - {fileID: 21300000, guid: b33379e39bb2f624da502bb6cb747191, type: 3}
-  - {fileID: 21300000, guid: 226e2442bfe99d243b64b1ca08df799f, type: 3}
-  - {fileID: 21300000, guid: 371b13a417541224aa0410f96d2c0436, type: 3}
-  - {fileID: 21300000, guid: c4a418e5afa779243a79539354296656, type: 3}
-  - {fileID: 21300000, guid: fc2bce16283f1a0499c318ca5a4f921c, type: 3}
+  - {fileID: 21300000, guid: 7ce2c201b303a97419e662edcf6d543d, type: 3}
+  - {fileID: 21300000, guid: 0f1d86e275aee0041a98ead5744b90df, type: 3}
+  - {fileID: 21300000, guid: 1652d010dbd51da4aa1f0b812deae4ee, type: 3}
+  - {fileID: 21300000, guid: a7a76b3a72591ed4dadc0ebb5d065c1c, type: 3}
+  - {fileID: 21300000, guid: 4150bf19ca837da45af9d404871e9b65, type: 3}
+  - {fileID: 21300000, guid: 3b9e88d2982afae489d23363e9978482, type: 3}
+  - {fileID: 21300000, guid: 2b8763d1fcae64c4eb2dad3d71e82654, type: 3}
+  - {fileID: 21300000, guid: 7f36fed571f67a64d8e8d098589568b3, type: 3}
+  - {fileID: 21300000, guid: 19acb63e6ba99fc4ba53f781a6356e15, type: 3}
+  - {fileID: 21300000, guid: 02604f7752d03154c95a51b492ca8ec4, type: 3}
 --- !u!4 &1283253643
 Transform:
   m_ObjectHideFlags: 0
