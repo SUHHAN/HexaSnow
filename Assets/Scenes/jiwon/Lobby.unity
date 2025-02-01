@@ -5059,9 +5059,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5406417d60882e949b716f82dbad2665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  systemSlider: {fileID: 558355858}
-  bgmSlider: {fileID: 834268371}
-  sfxSlider: {fileID: 1374471466}
 --- !u!114 &843092487
 MonoBehaviour:
   m_ObjectHideFlags: 0
