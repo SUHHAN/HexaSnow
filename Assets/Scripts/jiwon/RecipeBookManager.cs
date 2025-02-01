@@ -62,7 +62,7 @@ public class RecipeBookManager : MonoBehaviour
     void Start()
     {
         // CSV 파일 로드
-        LoadRecipesFromCSV("Assets/Resources/recipe.csv");
+        LoadRecipesFromCSV("Assets/Resources/recipem.csv");
 
         // UI 초기화
         LoadCalendarDate();
