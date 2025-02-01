@@ -89,5 +89,10 @@ public class RunPopupManager : MonoBehaviour
     {
         SceneManager.LoadScene("Bonus");
     }
+
+    public void Baking()
+    {
+        SceneManager.LoadScene("Baking 1");
+    }
 }
 

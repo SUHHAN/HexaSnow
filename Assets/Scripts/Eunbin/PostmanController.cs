@@ -11,9 +11,11 @@ public class PostmanController : MonoBehaviour
     public GameObject speechBubble;
     public GameObject nameBubble;
     public GameObject letterBubble;
+    public GameObject letter;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
     public TextMeshProUGUI letterText;
+    public GameObject recipe;
 
 
     private List<DialogueLine> dialogues = new List<DialogueLine>();
@@ -110,10 +112,21 @@ public class PostmanController : MonoBehaviour
         if (currentDialogueIndex < dialogues.Count)
         {
             DialogueLine currentLine = dialogues[currentDialogueIndex];
-
+            if(currentLine.id=="1"){
+                AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre); // 오디오 매니저를 통한 BGM 재생
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell); // 효과음 재생
+            }
+                if(currentLine.id=="40")
+                    AudioManager.Instance.StopBgm(); // BGM 정지
+                if(currentLine.id=="20")
+                    letter.SetActive(true);
+                    
+                if(currentLine.id=="26")
+                    recipe.SetActive(true);
             if (currentLine.id == "27")
             {
                 // 편지 UI 활성화
+                letter.SetActive(false);
                 letterBubble.SetActive(true);
                 letterText.text = currentLine.dialogue.Replace("\\n", "\n");
                 speechBubble.SetActive(false);
@@ -166,7 +179,7 @@ public class PostmanController : MonoBehaviour
             //speechBubble.SetActive(false);
             //letterBubble.SetActive(false);
             //postman.SetActive(false);
-            SceneManager.LoadScene("order");
+            SceneManager.LoadScene("tutorial2");
         }
         else
         {
