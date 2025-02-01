@@ -267,7 +267,11 @@ private void SaveDate()
 {
     // dailyOrders 복사해서 새로운 딕셔너리 생성
     Dictionary<int, List<List<int>>> ordersToSave = new Dictionary<int, List<List<int>>>(dailyOrders);
-    // 직렬화
+
+    foreach (var dayOrder in ordersToSave)
+    {
+        Debug.Log($"날짜 {dayOrder.Key} : {string.Join(", ", dayOrder.Value.Select(order => $"[{string.Join(", ", order)}]"))}");
+    }
     string json = JsonUtility.ToJson(new SerializableDictionary<int, List<List<int>>>(ordersToSave));
 
     // 직렬화된 JSON 문자열을 GameData에 저장

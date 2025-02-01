@@ -91,7 +91,7 @@ MonoBehaviour:
   Menu_ID: 0
   Menu_Index: 0
   Menu_Score: 0
-  Menu_Level: 0
+  Menu_Level: 50
   Menu_Bonus: 0
   Menu_Name: 
 --- !u!1 &1253690887438666038
@@ -317,7 +317,7 @@ MonoBehaviour:
   Menu_ID: 0
   Menu_Index: 0
   Menu_Score: 0
-  Menu_Level: 0
+  Menu_Level: 50
   Menu_Bonus: 0
   Menu_Name: 
 --- !u!1 &5972407869610111521
@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 4537437105443934326}
   - component: {fileID: 919380686759855050}
   - component: {fileID: 4472443926595742617}
-  - component: {fileID: 6324538759067153761}
+  - component: {fileID: 6945529356179113210}
   m_Layer: 5
   m_Name: bkButton
   m_TagString: Untagged
@@ -591,7 +591,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6324538759067153761
+--- !u!114 &6945529356179113210
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -600,14 +600,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8334110117767044011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6aff2b4981411546a3c9ab2113c5408, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fe61ce606a384f0b9e039c4e5f96af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Menu_ID: 0
   Menu_Index: 0
   Menu_Score: 0
-  Menu_Level: 51
-  Menu_Bonus: 0
+  Menu_Level: 50
   Menu_Name: 
 --- !u!1 &8337822582850637035
 GameObject:
