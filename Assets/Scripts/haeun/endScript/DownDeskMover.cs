@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class DownDeskMover : MonoBehaviour
 {
-    public RectTransform panelTransform; // 이동할 UI 패널 (하단)
-    public float targetY = 0f;  // 최종적으로 올라올 위치
-    public float moveDuration = 1.5f; // 이동에 걸리는 시간
+    [SerializeField] private RectTransform panelTransform; // 이동할 UI 패널 (하단)
+    [SerializeField] private float targetY = 0f;  // 최종적으로 올라올 위치
+    [SerializeField] private float moveDuration = 1f; // 이동에 걸리는 시간
 
     private float startY = -470f; // 시작 위치 (화면 아래)
 
