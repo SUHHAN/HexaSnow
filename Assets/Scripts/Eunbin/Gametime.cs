@@ -5,6 +5,20 @@ using TMPro;
 
 public class GameTime : MonoBehaviour
 {
+    private static GameTime instance;
+    public static GameTime Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                GameObject obj = Instantiate(Resources.Load<GameObject>("GameTimePrefab")); // 프리팹 로드
+                instance = obj.GetComponent<GameTime>();
+                DontDestroyOnLoad(obj);
+            }
+            return instance;
+        }
+    }
     public TextMeshProUGUI timerText;
     private float gameTime = 360f;
     public float currentTime;
@@ -17,6 +31,20 @@ public class GameTime : MonoBehaviour
 
     void Start()
     {
+
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject); // 중복 방지
+        }
     }
 
     public void StartGameTimer()
@@ -74,6 +102,20 @@ public class GameTime : MonoBehaviour
         daychange.OnDayChange();
         StartGameTimer();
     }
+    public void SaveTime()
+{
+    PlayerPrefs.SetFloat("SavedTime", currentTime);
+    PlayerPrefs.Save();
+}
+
+public void LoadTime()
+{
+    if (PlayerPrefs.HasKey("SavedTime"))
+    {
+        currentTime = PlayerPrefs.GetFloat("SavedTime");
+    }
+}
+
 }
 
 

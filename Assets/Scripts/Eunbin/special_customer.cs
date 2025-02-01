@@ -58,7 +58,7 @@ public class special_customer : MonoBehaviour
         customers.Add(man);
 
         speechBubble.SetActive(false);
-        gametime.OnSpecialTimeReached += OnSpecialTimeReached;
+        //gametime.OnSpecialTimeReached += OnSpecialTimeReached;
     }
 
     public void LoadDialoguesFromCSV()

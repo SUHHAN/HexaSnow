@@ -4362,8 +4362,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5406417d60882e949b716f82dbad2665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmSlider: {fileID: 0}
-  sfxSlider: {fileID: 0}
+  bgmSlider: {fileID: 2055078139}
+  sfxSlider: {fileID: 1405203279}
 --- !u!114 &843092487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9030,7 +9030,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998222814}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef6ecd0c9680b7e42b17e46bca9acf63, type: 3}
   m_Name: 
