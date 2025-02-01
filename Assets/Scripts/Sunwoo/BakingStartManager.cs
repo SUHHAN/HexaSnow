@@ -7,158 +7,124 @@ using TMPro;
 
 public class BakingStartManager : MonoBehaviour
 {
-    public GameObject startPanel; // ���� �г�
-    public GameObject recipeSelectionPopup; // ������ ���� �˾�
-    public GameObject messagePopup; // �޽��� �˾�
-    public GameObject ingredientSelectionPanel; // ��� ���� �г�
+    public GameObject startPanel;
+    public GameObject recipeSelectionPopup;
+    public GameObject messagePopup;
+    public GameObject ingredientSelectionPanel;
 
-    public TextMeshProUGUI messageText; // �޽��� �ؽ�Ʈ
+    public TextMeshProUGUI messageText;
 
-    public Button startButton; // ���� ��ư
-    public Button nextButton; // '����' ��ư
-    public RecipeBook recipeBook; // ������ ������
-    private Recipe selectedRecipe = null; // ���õ� ������
+    public Button nextButton;
+    public RecipeBook recipeBook;
+    private Recipe selectedRecipe = null;
 
-    public ToppingManager toppingManager; // ToppingManager ����
+    public ToppingManager toppingManager;
 
-    public List<Button> recipeButtons; // ������ ��ư ����Ʈ (Inspector���� �Ҵ�)
-    private Dictionary<Button, Color> originalButtonColors = new Dictionary<Button, Color>(); // ��ư ���� ���� ����
+    public List<Button> recipeButtons;
+    private Dictionary<Button, Color> originalButtonColors = new Dictionary<Button, Color>();
 
-    private Dictionary<string, int> dessertIndexMap = new Dictionary<string, int>()
+    private int selectedDessertIndex = 10; // 기본값 10
+    private string selectedDessert = "";
+    private Button lastSelectedButton = null; // 마지막으로 선택한 버튼을 저장
+
+    private Dictionary<int, int> buttonIndexToDessertIndex = new Dictionary<int, int>()
     {
-        { "Madeleine", 1 },
-        { "Muffin", 7 },
-        { "Cookie", 4 },
-        { "Pound Cake", 10 },
-        { "Financier", 10 },
-        { "Basque Cheesecake", 14 },
-        { "Scone", 10 },
-        { "Tart", 10 },
-        { "Slice Cake", 10 },
-        { "Doughnut", 10 }
+        { 0, 1 },  // 버튼 0 → 마들렌 (1)
+        { 2, 4 },  // 버튼 2 → 머핀 (7)
+        { 3, 7 },  // 버튼 3 → 쿠키 (4)
+        { 4, 10 }, // 버튼 4 → 파운드케이크 (10)
+        { 6, 14 }  // 버튼 6 → 바스크 치즈케이크 (14)
+        // 나머지는 기본값 10 (파운드케이크)
     };
-
-    private int selectedDessertIndex = 1; // �⺻�� 1
 
     void Start()
     {
         if (AudioManager.Instance != null)
         {
-            AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking); // Baking 1 �� BGM ����
+            AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
         }
 
         SceneManager.LoadScene("Main", LoadSceneMode.Additive);
 
-        // �ʱ� UI ����
         startPanel.SetActive(true);
         recipeSelectionPopup.SetActive(true);
         messagePopup.SetActive(false);
         nextButton.gameObject.SetActive(false);
         ingredientSelectionPanel.SetActive(false);
 
-        // ��ư �̺�Ʈ ���
         nextButton.onClick.AddListener(GoToIngredientSelection);
 
-        // ������ ��ư �̺�Ʈ ���
-        foreach (Button button in recipeButtons)
+        for (int i = 0; i < recipeButtons.Count; i++)
         {
-            string recipeName = button.name;
-            originalButtonColors[button] = button.image.color; // ���� ���� ����
-            button.onClick.AddListener(() => SelectRecipe(button, recipeName));
+            int buttonIndex = i; // 로컬 변수로 캡처
+            Button button = recipeButtons[i];
+            originalButtonColors[button] = button.image.color;
+            button.onClick.AddListener(() => SelectRecipe(button, buttonIndex));
         }
 
         UpdateRecipeButtons();
     }
 
-    // ������ ��ư Ȱ��ȭ/��Ȱ��ȭ ������Ʈ
     private void UpdateRecipeButtons()
     {
         foreach (Button button in recipeButtons)
         {
-            string recipeName = button.name;
-            Recipe recipe = recipeBook.GetRecipeByName(recipeName);
-
-            if (recipe != null && recipe.canBake)
-            {
-                button.interactable = true; // �رݵ� �����Ǹ� Ȱ��ȭ
-            }
-            else
-            {
-                button.interactable = true; // ��ư Ŭ�� �����ϰ� ����
-            }
+            button.interactable = true;
         }
     }
 
-    public void OnDessertSelected(string dessertName)
+    private void SelectRecipe(Button clickedButton, int buttonIndex)
     {
-        if (dessertIndexMap.ContainsKey(dessertName))
-        {
-            selectedDessertIndex = dessertIndexMap[dessertName];
-        }
-        else
-        {
-            selectedDessertIndex = 1; // �⺻��
-        }
-
-        // ������ ����Ʈ ���� ToppingManager�� ����
-        if (toppingManager != null)
-        {
-            toppingManager.SetSelectedDessert(dessertName, selectedDessertIndex);
-        }
-    }
-
-    public int GetSelectedDessertIndex()
-    {
-        return selectedDessertIndex;
-    }
-
-    // ������ ���� �� ����
-    private void SelectRecipe(Button clickedButton, string recipeName)
-    {
-        Recipe recipe = recipeBook.GetRecipeByName(recipeName);
+        string recipeName = clickedButton.name; // 버튼 이름을 기반으로 레시피 찾기
+        Recipe recipe = recipeBook.GetRecipeByName(recipeName); // RecipeBook에서 레시피 찾기
 
         if (recipe != null && recipe.canBake)
         {
-            if (selectedRecipe != null && selectedRecipe.recipeName == recipeName)
+            if (selectedRecipe != null && selectedRecipe.recipeName == recipe.recipeName)
             {
-                // �̹� ������ �����Ǹ� �ٽ� Ŭ���ϸ� ���
-                clickedButton.image.color = originalButtonColors[clickedButton]; // ���� ���� ����
+                // 이미 선택된 버튼을 다시 클릭하면 취소
+                ResetButtonColor(clickedButton);
                 selectedRecipe = null;
+                selectedDessertIndex = 10;  // 기본값으로 리셋
+                selectedDessert = "";
                 nextButton.gameObject.SetActive(false);
+                lastSelectedButton = null;
             }
             else
             {
-                // ���ο� ������ ����
-                DeselectAllRecipeButtons(); // ���� ���� ����
-                Color newColor = clickedButton.image.color;
-                newColor.a = 0.5f; // �������� 50%�� ����
-                clickedButton.image.color = newColor;
+                // 이전에 선택한 버튼이 있으면 색상 복원
+                if (lastSelectedButton != null)
+                {
+                    ResetButtonColor(lastSelectedButton);
+                }
 
+                // 새로운 레시피 선택
+                clickedButton.image.color = new Color(clickedButton.image.color.r, clickedButton.image.color.g, clickedButton.image.color.b, 0.5f); // 투명도 50%
                 selectedRecipe = recipe;
-                Debug.Log($"���õ� ����: {selectedRecipe.recipeName}");
+                selectedDessert = recipe.recipeName;
+                selectedDessertIndex = buttonIndexToDessertIndex.ContainsKey(buttonIndex) ? buttonIndexToDessertIndex[buttonIndex] : 10;
+                lastSelectedButton = clickedButton;
+
+                Debug.Log($"선택된 제과: {selectedDessert}, 인덱스: {selectedDessertIndex}");
 
                 nextButton.gameObject.SetActive(true);
             }
         }
         else
         {
-            StartCoroutine(ShowMessage("�رݵ��� ���� �������Դϴ�!"));
+            StartCoroutine(ShowMessage("레시피가 해금되지 않았습니다!"));
         }
     }
 
-    // ��� ������ ��ư ������ ������� �ǵ���
-    private void DeselectAllRecipeButtons()
+    // 버튼 색상 복원
+    private void ResetButtonColor(Button button)
     {
-        foreach (Button button in recipeButtons)
+        if (button != null && originalButtonColors.ContainsKey(button))
         {
-            if (originalButtonColors.ContainsKey(button))
-            {
-                button.image.color = originalButtonColors[button]; // ���� ���� ����
-            }
+            button.image.color = originalButtonColors[button]; // 원래 색상 복원
         }
     }
 
-    // �޽��� �˾��� ���� �ð� ���� ǥ�� �� ����
     private IEnumerator ShowMessage(string message)
     {
         messageText.text = message;
@@ -167,23 +133,30 @@ public class BakingStartManager : MonoBehaviour
         messagePopup.SetActive(false);
     }
 
-    // '����' ��ư Ŭ�� �� ��� ���� �гη� �̵�
     private void GoToIngredientSelection()
     {
         if (selectedRecipe != null)
         {
             startPanel.SetActive(false);
             ingredientSelectionPanel.SetActive(true);
+
+            if (toppingManager != null)
+            {
+                toppingManager.SetSelectedDessert(selectedDessert, selectedDessertIndex);
+            }
         }
     }
 
-    // ������ ������ ��ȯ ���� �ܰ迡�� ���� ����
     public string GetSelectedDessert()
     {
-        return selectedRecipe != null ? selectedRecipe.recipeName : null;
+        return selectedDessert;
     }
 
-    // ������ ������ ��ȯ ��� �������� ����
+    public int GetSelectedDessertIndex()
+    {
+        return selectedDessertIndex;
+    }
+
     public Recipe GetSelectedRecipe()
     {
         return selectedRecipe;
