@@ -79,6 +79,7 @@ public class ScrollbarManager : MonoBehaviour
 
                     // 카드 스프라이트의 인덱스 지정 변수
                     Ingredient_h ingredient = item.GetComponent<Ingredient_h>();
+
                     ingredient.SetIngredientID(ingre.index);
                     ingredient.SetPrice(ingre.price);
 
@@ -212,13 +213,15 @@ public class ScrollbarManager : MonoBehaviour
         {   
             // 저장되어 있던 재료 리스트 로드
             ingredientGD = DataManager.Instance.LoadGameData();
+
+            Debug.LogError($"CSV 파일 읽기 중 오류 발생: {ingredientGD.ingredientNum.Count}, {ingre_Num.Count} ");
         
             // 리스트 크기가 같을 경우 각 요소를 더함
             if (ingredientGD.ingredientNum.Count == ingre_Num.Count)
             {
-                for (int i = 0; i < ingre_Num.Count; i++)
+                for (int i = 1; i < ingre_Num.Count; i++)
                 {
-                    ingre_Num[i] += ingredientGD.ingredientNum[i];
+                    ingredientGD.ingredientNum[i - 1] += ingre_Num[i];
                 }
             }
             else
@@ -227,7 +230,7 @@ public class ScrollbarManager : MonoBehaviour
                 return;
             }
 
-            DataManager.Instance.gameData.SetIngredient(ingre_Num);
+            // DataManager.Instance.gameData.SetIngredient(ingre_Num);
             DataManager.Instance.SaveGameData(); // 저장 함수 호출
             Debug.Log("GameData에 ingre_Num 저장 완료!");
         }
