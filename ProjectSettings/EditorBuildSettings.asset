@@ -47,4 +47,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/haeun/DayEnd.unity
     guid: 3e96e88abea6c64439048c1db30ad486
+  - enabled: 1
+    path: Assets/Scenes/test/Main 1.unity
+    guid: 579c7d2ab7189c2468d5747840b428d1
   m_configObjects: {}

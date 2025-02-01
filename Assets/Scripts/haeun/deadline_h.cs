@@ -30,6 +30,8 @@ public class deadline_h : MonoBehaviour
         // 돈 관리
         LoadMoneyData();
 
+        SceneManager.LoadScene("Main 1", LoadSceneMode.Additive);
+
         // 오디오 관리
         AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
 
@@ -63,6 +65,8 @@ public class deadline_h : MonoBehaviour
     }
 
     public void ShowIngredientGoldPanel() {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+
         WhereStorePanel.SetActive(false);
 
         MyMoneyText.text = $"보유 골드 : {MyMoney} G";

@@ -25,18 +25,18 @@ public class BreadScrollbarManager : MonoBehaviour
         }
     }
 
-    [System.Serializable]
-    public class Recipe
-    {
-        public int index;
-        public string name;
+    // [System.Serializable]
+    // public class Recipe
+    // {
+    //     public int index;
+    //     public string name;
 
-        public Recipe(int index, string name)
-        {
-            this.index = index;
-            this.name = name;
-        }
-    }
+    //     public Recipe(int index, string name)
+    //     {
+    //         this.index = index;
+    //         this.name = name;
+    //     }
+    // }
 
     // [System.Serializable]
     // public class MyRecipeList
@@ -101,6 +101,8 @@ public class BreadScrollbarManager : MonoBehaviour
         {
             
             GameObject item = Instantiate(itemPrefab, content);
+
+            Debug.Log($"{me.index}, {me.menuID}, {me.score}, {me.bonus}, {me.name}");
 
             // 카드 스프라이트의 인덱스 지정 변수
             Bread_h menu = item.GetComponent<Bread_h>();
@@ -186,6 +188,20 @@ public class BreadScrollbarManager : MonoBehaviour
     }
 
     private void LoadRecipeDate() {
+        PlayerPrefs.DeleteKey("SelectedMenuIndex");
+        PlayerPrefs.DeleteKey("SelectedMenuScore");
+        PlayerPrefs.Save(); // 변경 사항 저장
+
+        if (PlayerPrefs.HasKey("SelectedMenuIndex"))
+        {
+            int savedIndex = PlayerPrefs.GetInt("SelectedMenuIndex");
+            Debug.Log($"✔ 'SelectedMenuIndex' 키가 존재합니다. 저장된 값: {savedIndex}");
+        }
+        else
+        {
+            Debug.LogWarning("⚠ 'SelectedMenuIndex' 키가 존재하지 않습니다.");
+        }
+
         GD = DataManager.Instance.LoadGameData();
 
         foreach (MyRecipeList recipe in DataManager.Instance.gameData.myBake) {

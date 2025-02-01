@@ -35,10 +35,10 @@ public class MatchGame_h : MonoBehaviour
 
 
     [Header("베이킹 점수 관리")]
-    [SerializeField] private int BakingScore; // 이거 선우언니 점수와 연결하기
+    private int BakingScore; // 이거 선우언니 점수와 연결하기
 
-    public int FinalScore;
-    public char FinalLevel;
+    private int FinalScore;
+    private char FinalLevel;
 
     [SerializeField] private TextMeshProUGUI FinalScoreText;
     [SerializeField] private TextMeshProUGUI BonusScoreText;
@@ -181,7 +181,6 @@ public class MatchGame_h : MonoBehaviour
             isGameOver = true;
             
             int menuIndex = PlayerPrefs.GetInt("SelectedMenuIndex");
-            SaveBakeData(menuIndex);
 
             // 저장되어 있던 키를 삭제하기
             PlayerPrefs.DeleteKey("SelectedMenuIndex");
@@ -191,12 +190,15 @@ public class MatchGame_h : MonoBehaviour
             StopCoroutine("CountDownTimeRoutine");
             SetScoreText();
 
+            Debug.Log($"FinalScore: {FinalScore} 확인");
+
             if (success) {
                 gameOverText.SetText("보너스 게임 종료!");
             } else {
                 gameOverText.SetText("보너스 게임 종료!");
             }
 
+            SaveBakeData(menuIndex);
             Invoke("ShowGameOverPanel", 2f);
         }
     }
@@ -212,6 +214,8 @@ public class MatchGame_h : MonoBehaviour
 
         FinalScoreText.text = $"총 베이킹 점수 : {FinalScore}, {FinalLevel}";
         BonusScoreText.text = $"얻은 보너스 점수 : {matchesFound}";
+
+        Debug.Log($"FinalScore: {FinalScore} 확인");
 
     }
 
@@ -233,12 +237,14 @@ public class MatchGame_h : MonoBehaviour
 
     void ShowGameOverPanel() {
         gameOverPanel.SetActive(true);
+
+        Debug.Log($"FinalScore: {FinalScore} 확인");
     }
 
     // 이 코드는 다시 시작 코드가 아니라, 변한 점수, 등급 과 보너스 게임 bool 변수를 true로 바꾼 값을 저장한 뒤에 Bonus 씬으로 넘어가기
     public void MatchRestartGame(){
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
-
+        Debug.Log($"FinalScore: {FinalScore} 확인");
         SceneManager.LoadScene("Bonus");
         // SceneManager.LoadScene("Match");
     }
@@ -296,13 +302,12 @@ public class MatchGame_h : MonoBehaviour
     private void SaveBakeData(int num) {
         if (DataManager.Instance != null)
         {   
-            myRecipe.bonus = true;
-            myRecipe.score = FinalScore;
-
+            Debug.Log($"FinalScore: {FinalScore} SaveBakeData 확인");
             // 돈을 저장한 뒤에 넘기기
-            DataManager.Instance.gameData.myBake[num] = myRecipe;
+            DataManager.Instance.gameData.myBake[num].score = FinalScore;
+            DataManager.Instance.gameData.myBake[num].bonus = true;
             DataManager.Instance.SaveGameData(); // 저장 함수 호출
-            Debug.Log("GameData에 money 저장 완료!");
+            Debug.Log($"GameData에 {DataManager.Instance.gameData.myBake[num].score},{DataManager.Instance.gameData.myBake[num].bonus} 저장 완료!");
         }
         else
         {
