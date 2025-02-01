@@ -8,14 +8,14 @@ public class TextFadeEffect : MonoBehaviour
     public TextMeshProUGUI textComponent;  // UI 텍스트
     public float fadeDuration = 1.0f;  // 페이드 지속 시간
     public Button SavePointButton;
+    public GameObject SaveIng;
 
     private void Start()
     {
         // 처음에는 투명하게 설정
         Color color = textComponent.color;
         textComponent.color = new Color(color.r, color.g, color.b, 0);
-
-        
+        SaveIng.SetActive(true);
     }
 
     // 텍스트를 천천히 나타나게 하기
