@@ -29,6 +29,8 @@ public class QuitPopupManager : MonoBehaviour
     // Quit 팝업 표시
     public void ShowQuitPopup()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+        Debug.Log("범인");
         quitPopupPanel.SetActive(true);
         isPopupActive = true;  // 팝업이 활성화 되었음을 표시
     }
@@ -36,6 +38,8 @@ public class QuitPopupManager : MonoBehaviour
     // Quit 팝업 숨기기
     public void HideQuitPopup()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+        Debug.Log("범인?");
         quitPopupPanel.SetActive(false);
         isPopupActive = false;  // 팝업이 비활성화 되었음을 표시
     }
@@ -43,6 +47,7 @@ public class QuitPopupManager : MonoBehaviour
     // 게임 종료 확인
     public void ConfirmQuit()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         Debug.Log("게임 종료");
         Application.Quit();
 

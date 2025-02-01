@@ -26,11 +26,13 @@ public class UiManager : MonoBehaviour
 
     void OnOrderBook()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         OrderBook.SetActive(!OrderBook.activeSelf);
     }
 
     void OnRecipeBook()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         RecipeBook.SetActive(!RecipeBook.activeSelf);
     }
 
