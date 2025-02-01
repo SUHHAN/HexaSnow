@@ -236,19 +236,19 @@ public class MixingGameManager : MonoBehaviour
 
         if (distance <= 0.5)
         {
-            point = 10;
+            point = 5;
         }
         else if (distance <= 1)
         {
-            point = 6;
+            point = 3;
         }
         else if (distance <= 1.5)
         {
-            point = 2;
+            point = 1;
         }
         else
         {
-            point = -6;
+            point = -3;
         }
 
         score += point;
