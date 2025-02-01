@@ -132,9 +132,6 @@ public class tutorial : MonoBehaviour
                     front.SetActive(false);
                     audioSource.PlayOneShot(bell);
                 }
-                if(currentLine.id=="18"){
-                    audioSource.Stop();
-                }
                 if(currentLine.id=="19")
                     audioSource.PlayOneShot(bell);
         }
