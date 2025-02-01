@@ -1682,7 +1682,6 @@ MonoBehaviour:
   notificationStatusText: {fileID: 0}
   notificationOnImage: {fileID: 0}
   notificationOffImage: {fileID: 0}
-  systemVolumeSlider: {fileID: 558355858}
   bgmVolumeSlider: {fileID: 834268371}
   effectVolumeSlider: {fileID: 1374471466}
   koreanButton: {fileID: 1715529709}
@@ -5059,6 +5058,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5406417d60882e949b716f82dbad2665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgmSlider: {fileID: 834268371}
+  sfxSlider: {fileID: 1374471466}
 --- !u!114 &843092487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9898,7 +9899,6 @@ MonoBehaviour:
   notificationStatusText: {fileID: 0}
   notificationOnImage: {fileID: 21300000, guid: 6e25bd0c315431944b8f6b814bfb3fa0, type: 3}
   notificationOffImage: {fileID: 21300000, guid: 8e23e6df57ca66f4ebbb35141bba545e, type: 3}
-  systemVolumeSlider: {fileID: 558355858}
   bgmVolumeSlider: {fileID: 834268371}
   effectVolumeSlider: {fileID: 1374471466}
   koreanButton: {fileID: 1715529709}
