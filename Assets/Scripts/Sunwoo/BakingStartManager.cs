@@ -18,8 +18,26 @@ public class BakingStartManager : MonoBehaviour
     public RecipeBook recipeBook; // 레시피 데이터
     private Recipe selectedRecipe = null; // 선택된 레시피
 
+    public ToppingManager toppingManager; // ToppingManager 참조
+
     public List<Button> recipeButtons; // 레시피 버튼 리스트 (Inspector에서 할당)
     private Dictionary<Button, Color> originalButtonColors = new Dictionary<Button, Color>(); // 버튼 원래 색상 저장
+
+    private Dictionary<string, int> dessertIndexMap = new Dictionary<string, int>()
+    {
+        { "Madeleine", 1 },
+        { "Muffin", 7 },
+        { "Cookie", 4 },
+        { "Pound Cake", 10 },
+        { "Financier", 10 },
+        { "Basque Cheesecake", 10 },
+        { "Scone", 10 },
+        { "Tart", 10 },
+        { "Slice Cake", 10 },
+        { "Doughnut", 10 }
+    };
+
+    private int selectedDessertIndex = 1; // 기본값 1
 
     void Start()
     {
@@ -67,6 +85,29 @@ public class BakingStartManager : MonoBehaviour
                 button.interactable = true; // 버튼 클릭 가능하게 유지
             }
         }
+    }
+
+    public void OnDessertSelected(string dessertName)
+    {
+        if (dessertIndexMap.ContainsKey(dessertName))
+        {
+            selectedDessertIndex = dessertIndexMap[dessertName];
+        }
+        else
+        {
+            selectedDessertIndex = 1; // 기본값
+        }
+
+        // 선택한 디저트 정보 ToppingManager로 전달
+        if (toppingManager != null)
+        {
+            toppingManager.SetSelectedDessert(dessertName, selectedDessertIndex);
+        }
+    }
+
+    public int GetSelectedDessertIndex()
+    {
+        return selectedDessertIndex;
     }
 
     // 시작 버튼 클릭 시 레시피 선택 팝업 활성화
