@@ -63,7 +63,7 @@ public class UiLogicManager : MonoBehaviour
 
         }
 
-        if (currentSceneName == "Baking1") {
+        if (currentSceneName == "Baking 1") {
             KitchenButtonGO.SetActive(false);
             HomeButtonGO.SetActive(false);
             SettingButtonGO.SetActive(true);
