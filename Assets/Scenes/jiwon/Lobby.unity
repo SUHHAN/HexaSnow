@@ -327,7 +327,7 @@ RectTransform:
   m_Father: {fileID: 350346863}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 29, y: 13}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1070,7 +1070,7 @@ RectTransform:
   m_Father: {fileID: 1023745190}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1685,9 +1685,6 @@ MonoBehaviour:
   systemVolumeSlider: {fileID: 558355858}
   bgmVolumeSlider: {fileID: 834268371}
   effectVolumeSlider: {fileID: 1374471466}
-  systemVolumeText: {fileID: 0}
-  bgmVolumeText: {fileID: 0}
-  effectVolumeText: {fileID: 0}
   koreanButton: {fileID: 1715529709}
   preparingText: {fileID: 0}
 --- !u!1 &242961383
@@ -5062,9 +5059,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5406417d60882e949b716f82dbad2665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  systemSlider: {fileID: 558355858}
-  bgmSlider: {fileID: 834268371}
-  sfxSlider: {fileID: 1374471466}
 --- !u!114 &843092487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5556,7 +5550,7 @@ RectTransform:
   m_Father: {fileID: 484459932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6391,7 +6385,7 @@ RectTransform:
   m_Father: {fileID: 1657996278}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 29, y: 13}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8399,7 +8393,7 @@ RectTransform:
   m_Father: {fileID: 447536596}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8729,7 +8723,7 @@ RectTransform:
   m_Father: {fileID: 1953197578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 29, y: 13}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9457,7 +9451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1916574984
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9899,9 +9893,6 @@ MonoBehaviour:
   systemVolumeSlider: {fileID: 558355858}
   bgmVolumeSlider: {fileID: 834268371}
   effectVolumeSlider: {fileID: 1374471466}
-  systemVolumeText: {fileID: 0}
-  bgmVolumeText: {fileID: 0}
-  effectVolumeText: {fileID: 0}
   koreanButton: {fileID: 1715529709}
   preparingText: {fileID: 0}
 --- !u!4 &1998222816
