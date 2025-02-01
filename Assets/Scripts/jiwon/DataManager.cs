@@ -28,6 +28,7 @@ public class GameData
     public bool isGuestLoggedIn;
     public int date;
     public int money;  
+    public float time;
     public List<int> ingredientNum = new List<int>(); // 재료 개수 저장 리스트
     public List<MyRecipeList> myBake = new List<MyRecipeList>(); // 내가 만든 요리~
     public string serializedDailyOrders; //주문서
@@ -88,7 +89,7 @@ public class DataManager : MonoBehaviour
         gameData.isGuestLoggedIn = true;
         gameData.date = 1;  
         gameData.money = 5000;  
-        gameData.ingredientNum = gameData.ingredientNum = new List<int>{0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0};
+        gameData.ingredientNum = gameData.ingredientNum = new List<int>{0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0};
         gameData.myBake = new List<MyRecipeList>();
         Debug.Log("초기 게임 데이터 설정 완료");
     }

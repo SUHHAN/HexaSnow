@@ -5,20 +5,6 @@ using TMPro;
 
 public class GameTime : MonoBehaviour
 {
-    private static GameTime instance;
-    public static GameTime Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                GameObject obj = Instantiate(Resources.Load<GameObject>("GameTimePrefab")); // 프리팹 로드
-                instance = obj.GetComponent<GameTime>();
-                DontDestroyOnLoad(obj);
-            }
-            return instance;
-        }
-    }
     public TextMeshProUGUI timerText;
     private float gameTime = 360f;
     public float currentTime;
@@ -27,24 +13,10 @@ public class GameTime : MonoBehaviour
     private bool isGameRunning = false;
     public DayChange daychange;
     private Coroutine timerCoroutine; // 코루틴을 저장할 변수
-    private bool specialEventTriggered = false; 
 
+     [SerializeField] private GameData GD = new GameData();
     void Start()
     {
-
-    }
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject); // 중복 방지
-        }
     }
 
     public void StartGameTimer()
@@ -52,7 +24,6 @@ public class GameTime : MonoBehaviour
         if (isGameRunning && timerCoroutine != null)
         {
              StopCoroutine(timerCoroutine); // 기존 코루틴 중단
-             isGameRunning = false;
         }
         isGameRunning = true;
         timerCoroutine = StartCoroutine(TimerCoroutine());
@@ -60,17 +31,21 @@ public class GameTime : MonoBehaviour
 
     private IEnumerator TimerCoroutine()
     {
+        Loadtime();
+      
         currentTime=gameTime;
+        
         while (currentTime > 0)
         {
             yield return null; // 매 프레임마다 실행
+            
             currentTime -= Time.deltaTime; // 경과된 시간만큼 감소
+            Savetime();
             OnTimeUpdate?.Invoke(currentTime); // 시간 업데이트 이벤트 트리거
 
-            if (currentTime<=350 && !specialEventTriggered)
+            if (Mathf.Abs(currentTime - 350f) < 0.1f) // 5초 근처 확인
             {
                 OnSpecialTimeReached?.Invoke(); // 특정 시간 도달 이벤트 트리거
-                specialEventTriggered = true; 
             }
             UpdateTimerUI(currentTime);
         }
@@ -102,20 +77,19 @@ public class GameTime : MonoBehaviour
         daychange.OnDayChange();
         StartGameTimer();
     }
-    public void SaveTime()
-{
-    PlayerPrefs.SetFloat("SavedTime", currentTime);
-    PlayerPrefs.Save();
-}
+    private void Loadtime() {
 
-public void LoadTime()
-{
-    if (PlayerPrefs.HasKey("SavedTime"))
-    {
-        currentTime = PlayerPrefs.GetFloat("SavedTime");
+        GD = DataManager.Instance.LoadGameData();
+
+        // !! 일차 업데이트하기
+        currentTime = GD.time;
     }
-}
 
+    private void Savetime() {
+        DataManager.Instance.gameData.time = currentTime;
+
+        DataManager.Instance.SaveGameData();
+    }
 }
 
 
