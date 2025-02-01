@@ -1,70 +1,56 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI; // UI 관련 네임스페이스 추가
-using System.Collections.Generic;
-using System;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class UiManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public GameObject OrderBook;  // OrderBook 패널
-    public Button order_button;    // Order 버튼
+    public Button KitchenButton;
 
-    public GameObject RecipeBook;
+    public Button SettingButton;
+    public GameObject SettingParentPanel;
+
+    public GameObject Calender;
+    public GameObject Clock;
+
+    public Button order_button;
+    public GameObject OrderBook;
     public Button RecipeButton;
+    public GameObject RecipeBook;
 
-    public TMP_Text calendarText;
-    public TMP_FontAsset customFont;
+
+
+    // Additive로 UI 씬을 로드하는 함수
+    public void LoadUIScene()
+    {
+        SceneManager.LoadSceneAsync("Main", LoadSceneMode.Additive);
+    }
+
+    // Additive로 로드된 UI 씬을 언로드하는 함수
+    public void UnloadUIScene()
+    {
+        SceneManager.UnloadSceneAsync("Main");
+    }
 
     void Start()
     {
-        // OrderButton 클릭 이벤트 등록
-        order_button.onClick.AddListener(OnOrderBook);
-        RecipeButton.onClick.AddListener(OnRecipeBook);
-        LoadCalendarDate();
+        // UI 씬을 Additive 방식으로 로드
+        LoadUIScene();
 
-    }
-
-    void OnOrderBook()
-    {
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
-        OrderBook.SetActive(!OrderBook.activeSelf);
-    }
-
-    void OnRecipeBook()
-    {
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
-        RecipeBook.SetActive(!RecipeBook.activeSelf);
-    }
-
-    public void LoadCalendarDate()
-    {
-        // DataManager.Instance가 null인지 확인
-        if (DataManager.Instance == null)
+        // 현재 씬에 따라 버튼을 다르게 활성화/비활성화
+        if (SceneManager.GetActiveScene().name == "tutorial")
         {
-            Debug.LogError("DataManager.Instance가 null입니다! DataManager가 씬에 존재하는지 확인하세요.");
-            return;
+            // settingsButton.gameObject.SetActive(true);  // A 씬에서는 설정 버튼만 활성화
+            // button1.gameObject.SetActive(false);
+            // button2.gameObject.SetActive(false);
+            // button3.gameObject.SetActive(false);
         }
-
-        // LoadGameData()를 통해 GameData 가져오기
-        GameData dateGD = DataManager.Instance.LoadGameData();
-
-
-        // 정상적으로 값이 있으면 텍스트 설정
-        calendarText.text = $"{dateGD.date}일차";
-        Debug.Log($"Calendar updated with date: {dateGD.date}일차");
-
-        // 폰트 설정
-        if (customFont != null)
+        else if (SceneManager.GetActiveScene().name == "Lobby")
         {
-            calendarText.font = customFont; // 커스텀 폰트를 설정
+            SettingButton.gameObject.SetActive(true);
+            Calender.gameObject.SetActive(false);  // B 씬에서는 3개 버튼만 활성화
+            Clock.gameObject.SetActive(false);
+            order_button.gameObject.SetActive(false);
+            RecipeButton.gameObject.SetActive(false);  // B 씬에서는 3개 버튼만 활성화
         }
-        else
-        {
-            Debug.LogError("폰트가 설정되지 않았습니다! Unity Inspector에서 customFont를 설정하세요.");
-        }
-
-        // 텍스트 속성 설정
-        calendarText.color = UnityEngine.Color.black;  // 텍스트 색상 설정
-        calendarText.fontSize = 30;  // 폰트 크기 설정
     }
 }
