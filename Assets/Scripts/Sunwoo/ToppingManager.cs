@@ -28,6 +28,7 @@ public class ToppingManager : MonoBehaviour
 
     private int selectedDessertIndex = 1; // 기본값 1
     private int selectedToppingIndex = -1; // 선택한 토핑 인덱스 (-1은 선택 안 함)
+    private int finalImageIndex = 1; // 최종 결과 이미지 인덱스
     private string selectedDessert;
 
     public BakingStartManager bakingStartManager;
@@ -44,7 +45,8 @@ public class ToppingManager : MonoBehaviour
         { 1, new List<int> { 4, 5 } }, // Madeleine: 토핑 4, 5만 활성화
         { 4, new List<int> { 4, 6 } }, // Cookie: 토핑 4, 6만 활성화
         { 7, new List<int> { 2, 4 } }, // Muffin: 토핑 2, 4만 활성화
-        { 10, new List<int>() }        // 나머지: 토핑 없음
+        { 10, new List<int> { 1, 4, 5 } }, // 파운드케이크 (토핑 1, 4, 5 활성화)
+        { 14, new List<int>() }        // 바스크 치즈케이크
     };
 
     // 토핑 선택에 따른 BakingImage 변경 (디저트 인덱스, 토핑 인덱스 → 결과 이미지 인덱스)
@@ -52,7 +54,8 @@ public class ToppingManager : MonoBehaviour
     {
         { (1, 4), 2 }, { (1, 5), 3 }, // Madeleine → 2: 토핑4, 3: 토핑5
         { (4, 4), 5 }, { (4, 6), 6 }, // Cookie → 5: 토핑4, 6: 토핑6
-        { (7, 2), 8 }, { (7, 4), 9 }  // Muffin → 8: 토핑2, 9: 토핑4
+        { (7, 2), 8 }, { (7, 4), 9 }, // Muffin → 8: 토핑2, 9: 토핑4
+        { (10, 4), 11 }, { (10, 5), 12 }, { (10, 1), 13 } // 파운드케이크
     };
 
     void Start()
@@ -74,6 +77,7 @@ public class ToppingManager : MonoBehaviour
         selectedDessert = dessertName;
         selectedDessertIndex = index;
         selectedToppingIndex = -1; // 토핑 선택 초기화
+        finalImageIndex = index; // 기본적으로 원본 이미지 설정
         SetOriginalImages();
         UpdateToppingButtons();
     }
@@ -98,6 +102,7 @@ public class ToppingManager : MonoBehaviour
         foreach (GameObject button in toppingButtons)
         {
             button.SetActive(false); // 모든 버튼 비활성화
+            SetButtonOpacity(button, 1f); // 모든 버튼 투명도 초기화
         }
 
         if (dessertToppingMap.ContainsKey(selectedDessertIndex))
@@ -121,10 +126,15 @@ public class ToppingManager : MonoBehaviour
         if (selectedToppingIndex == toppingIndex)
         {
             selectedToppingIndex = -1; // 같은 토핑 다시 누르면 선택 해제
+            finalImageIndex = selectedDessertIndex; // 원래 디저트 이미지로 되돌림
         }
         else
         {
             selectedToppingIndex = toppingIndex;
+            if (toppingImageMap.ContainsKey((selectedDessertIndex, toppingIndex)))
+            {
+                finalImageIndex = toppingImageMap[(selectedDessertIndex, toppingIndex)];
+            }
         }
 
         UpdateBakingImage();
@@ -196,8 +206,7 @@ public class ToppingManager : MonoBehaviour
     private void FinishBaking()
     {
         SaveBakingResult();
-
-        SceneManager.LoadScene("Bonus");
+        SceneManager.LoadScene("BakingStart");
     }
 
     // 베이킹 결과 저장
@@ -213,23 +222,17 @@ public class ToppingManager : MonoBehaviour
         int totalScore = ovenGameManager.GetTotalScore();
         Debug.Log($"최종 총점: {totalScore}");
 
-        bool isBonusGame = false;
-
-        string finalName = selectedToppingIndex != -1
-            ? $"{inventoryManager.GetIngredientEname(selectedToppingIndex)} {dessertName}"
-            : $"오리지널 {dessertName}";
-
         MyRecipeList newRecipe = new MyRecipeList(
             DataManager.Instance.gameData.myBake.Count + 1,
-            selectedDessertIndex,
-            finalName,
+            finalImageIndex, // 저장되는 최종 이미지 인덱스
+            dessertName,
             totalScore,
-            isBonusGame
+            false
         );
 
         DataManager.Instance.gameData.myBake.Add(newRecipe);
         DataManager.Instance.SaveGameData();
 
-        Debug.Log($"저장 완료: {finalName} | 점수: {totalScore} | 보너스 여부: {isBonusGame}");
+        Debug.Log($"저장 완료: {dessertName} | 이미지 인덱스: {finalImageIndex} | 점수: {totalScore}");
     }
 }

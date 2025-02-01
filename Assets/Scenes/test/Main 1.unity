@@ -7458,7 +7458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1985920503}
-  - component: {fileID: 1985920502}
+  - component: {fileID: 1985920504}
   m_Layer: 0
   m_Name: UiManager
   m_TagString: Untagged
@@ -7466,24 +7466,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1985920502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1985920501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bedcce2b68f87bc46bfc6b406337c045, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OrderBook: {fileID: 1704805154}
-  order_button: {fileID: 339853704}
-  RecipeBook: {fileID: 784770406}
-  RecipeButton: {fileID: 1951779734}
-  calendarText: {fileID: 838943963}
-  customFont: {fileID: 11400000, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
 --- !u!4 &1985920503
 Transform:
   m_ObjectHideFlags: 0
@@ -7499,6 +7481,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1985920504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985920501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 074ca530a3bbbe746b609442c08d43e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OrderBook: {fileID: 1704805154}
+  order_button: {fileID: 339853704}
+  order_buttonGO: {fileID: 339853702}
+  RecipeBook: {fileID: 784770406}
+  RecipeButton: {fileID: 1951779734}
+  RecipeBookGO: {fileID: 1951779732}
+  CookButton: {fileID: 322428707}
+  datePanel: {fileID: 1975250150}
+  timePanel: {fileID: 2085557633}
+  calendarText: {fileID: 838943963}
+  customFont: {fileID: 11400000, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
 --- !u!1 &1993456021
 GameObject:
   m_ObjectHideFlags: 0
