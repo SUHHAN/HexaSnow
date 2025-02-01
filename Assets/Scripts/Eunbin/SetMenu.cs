@@ -33,6 +33,7 @@ public class SetMenu : MonoBehaviour
     public GameObject itemPrefab; // 아이템 Prefab
     public Transform content; // Content 오브젝트
     private Bk_h currentSlot;
+    private Bk_h bakerySlotData;
 
     [SerializeField] private GameData GD = new GameData();
 
@@ -107,6 +108,7 @@ public void AddItems()
                 currentSlot = child;
                 slotFound = true;
 
+                bakerySlotData = child;
                 // "확인" 버튼 생성
                 GameObject confirmButton = Instantiate(actionButtonPrefab, currentSlot.transform);
                 confirmButton.name = "ConfirmButton";
@@ -120,7 +122,7 @@ public void AddItems()
                     actionButton.onClick.RemoveAllListeners();
                     actionButton.onClick.AddListener(() =>
                     {
-                        OnActionButtonClick(currentSlot.GetMenuName());
+                        OnActionButtonClick(bakerySlotData);
                     });
                 }
                 break;
@@ -128,17 +130,56 @@ public void AddItems()
         }
     }
 
-    if (!slotFound)
-    {
-        Debug.LogError($"슬롯 '{name}', 인덱스 '{index}'를 찾을 수 없습니다.");
-    }
+   // if (!slotFound)
+    //{
+     //   Debug.LogError($"슬롯 '{name}', 인덱스 '{index}'를 찾을 수 없습니다.");
+   // }
 }
 
-    private void OnActionButtonClick(string name)
+    private void OnActionButtonClick(Bk_h bakerySlot){
+    if (bakerySlot == null)
     {
-        Debug.Log($"'{name}' 메뉴가 확인되었습니다!");
-        
+        Debug.LogError("저장된 베이커리 슬롯 데이터를 찾을 수 없음!");
+        return;
     }
+    Debug.Log($"메뉴: {bakerySlot.GetMenuName()}, 인덱스: {bakerySlot.GetIndex()}");
+    CheckMenu(bakerySlot.GetMenuName(), bakerySlot.GetScore());
+
+    MyList.RemoveAll(item => item.name == bakerySlot.GetMenuName() && item.index == bakerySlot.GetIndex());
+    
+    DataManager.Instance.gameData.myBake.RemoveAll(item => item.name == bakerySlot.GetMenuName() && item.index == bakerySlot.GetIndex());
+
+    // ✅ 변경된 데이터 저장
+    DataManager.Instance.SaveGameData();
+    // ✅ 슬롯 UI 삭제
+    Debug.Log($"🗑️ 슬롯 삭제 및 리스트에서 제거: {bakerySlot.GetMenuName()}");
+    Destroy(bakerySlot.gameObject);
+
+}
+private void CheckMenu(string menu, int score){
+    Debug.Log($"[디버깅] 입력값: '{menu}' / 기대값: '{currentmenu}'");
+    if(menu.Equals(currentmenu)){
+        Debug.Log($"선택된 메뉴가 올바릅니다: {menu}");
+        if(currentcus.Equals("cus")){
+            if(score>40){
+                getmenu.UpdateDialogue(1);
+            }
+            else if(score > 20){
+                getmenu.UpdateDialogue(2);
+            }
+            else{
+                getmenu.UpdateDialogue(3);
+            }
+            }
+        else if(currentcus.Equals("special")){
+                SpecialScript.UpdateDialogue("True");
+            }
+    }
+    else{
+        Debug.Log($"선택된 메뉴가 올바르지 않습니다: {menu}");
+        getmenu.UpdateDialogue(4);
+    }
+}
 
     public void NoButtonClick()
     {
@@ -179,15 +220,6 @@ public void AddItems()
         }
 
     }
-void Awake()
-{
-    if (_instance != null && _instance != this)
-    {
-        Destroy(this.gameObject); // 중복된 인스턴스 제거
-        return;
-    }
-    _instance = this;
-}
 
     }
  

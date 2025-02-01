@@ -90,7 +90,6 @@ public class DataManager : MonoBehaviour
         gameData.money = 2000;  
         gameData.ingredientNum = new List<int>(new int[23]);
         gameData.myBake = new List<MyRecipeList>();
-
         Debug.Log("초기 게임 데이터 설정 완료");
     }
 
@@ -163,7 +162,7 @@ public class SerializableDictionary<TKey, TValue>
 
         foreach (var pair in keyValuePairs)
         {
-            dictionary[pair.Key] = pair.Value;
+            dictionary[pair.Key] = pair.Value;  // Key와 Value를 제대로 할당
         }
 
         return dictionary;

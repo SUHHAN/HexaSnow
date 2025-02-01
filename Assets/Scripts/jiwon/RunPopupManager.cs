@@ -14,15 +14,17 @@ public class RunPopupManager : MonoBehaviour
         runPopupPanel.SetActive(false); // 시작 시 Run 팝업 비활성화
 
         // 배경 클릭 감지 영역에 클릭 이벤트 추가
-        if (backgroundClickArea != null)
+      /*  if (backgroundClickArea != null)
         {
             backgroundClickArea.GetComponent<Button>().onClick.AddListener(() =>
             {
                 HideRunPopup(); // 바깥 클릭 시 팝업 닫기
-            });
-        }
+           });
+         }
+         */
 
         button_order.onClick.AddListener(() => {
+            Debug.Log("order 씬으로 이동");
             SceneManager.LoadScene("order");
     });
     }
