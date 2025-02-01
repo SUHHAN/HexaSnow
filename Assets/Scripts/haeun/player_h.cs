@@ -229,18 +229,17 @@ public class player_h : MonoBehaviour
             }
 
             rigidbody_h.velocity = new Vector2(horizontal * speed, rigidbody_h.velocity.y);
-            
+                        
             animator.SetBool("badItem", true); // badItem 애니메이션 실행
+            if (ingreGameManager_h.Instance.heartScore >= 0)
+            
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_fail);
+            
             yield return new WaitForSeconds(1f); // 1초 대기
 
-        // if (ingreGameManager_h.Instance.heartScore > 0)
-        // {
-            animator.SetBool("badItem", false); // 다시 달리는 상태로 복귀
-        // }
-
-        }
-
         
+            animator.SetBool("badItem", false); // 다시 달리는 상태로 복귀
+        }
     }
 
     public void GameOver()

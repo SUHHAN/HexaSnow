@@ -48,11 +48,13 @@ public class deadline_h : MonoBehaviour
     }
 
     public void yesButton() {
+        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
         GoStorePanel.SetActive(false);
         WhereStorePanel.SetActive(true);
     }
 
     public void noButton() {
+        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
         GoStorePanel.SetActive(false);
         // 만약에, no 버튼을 누르면 재료 상점을 이용하지 않는 걸로 하기
     }
@@ -87,6 +89,7 @@ public class deadline_h : MonoBehaviour
     // }
 
     public void YesIngredientStore() {
+        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
         if (MyMoney >= minMoney) {
 
             MyMoney = MyMoney - minMoney;
@@ -110,6 +113,7 @@ public class deadline_h : MonoBehaviour
     }
 
     public void NoIngredientStore() {
+        AudioManager.Instance.PlaySys(AudioManager.Sys.button);
         IngredientStoreGoldPanel.SetActive(false);
 
         // 경고창 끈다음에 하루가 넘어가도록 하는 씬 추가

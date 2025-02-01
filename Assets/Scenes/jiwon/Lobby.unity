@@ -327,7 +327,7 @@ RectTransform:
   m_Father: {fileID: 350346863}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 29, y: 13}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1070,7 +1070,7 @@ RectTransform:
   m_Father: {fileID: 1023745190}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1685,9 +1685,6 @@ MonoBehaviour:
   systemVolumeSlider: {fileID: 558355858}
   bgmVolumeSlider: {fileID: 834268371}
   effectVolumeSlider: {fileID: 1374471466}
-  systemVolumeText: {fileID: 0}
-  bgmVolumeText: {fileID: 0}
-  effectVolumeText: {fileID: 0}
   koreanButton: {fileID: 1715529709}
   preparingText: {fileID: 0}
 --- !u!1 &242961383
@@ -5062,9 +5059,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5406417d60882e949b716f82dbad2665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  systemSlider: {fileID: 558355858}
-  bgmSlider: {fileID: 834268371}
-  sfxSlider: {fileID: 1374471466}
 --- !u!114 &843092487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5089,13 +5083,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e45230ed15a4bea4a97b29dbbe10bd74, type: 3}
   - {fileID: 8300000, guid: d20d0c920324bd249b6a1b1dba3f8ec2, type: 3}
   sfxVolume: 0.5
-  sfxChannels: 16
+  sfxChannels: 4
   sysClips:
   - {fileID: 8300000, guid: 813b3daf5bbc8a2409a64dbcc2c068fb, type: 3}
   - {fileID: 8300000, guid: 945b264214b60414a9a04e7b3d89d5b4, type: 3}
   - {fileID: 8300000, guid: 21faf9adfeac0d94e8e95183531911ac, type: 3}
   sysVolume: 0.5
-  sysChannels: 16
+  sysChannels: 3
 --- !u!4 &843092488
 Transform:
   m_ObjectHideFlags: 0
@@ -5556,7 +5550,7 @@ RectTransform:
   m_Father: {fileID: 484459932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6167,6 +6161,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 718956063}
+        m_TargetAssemblyTypeName: DataManager, Assembly-CSharp
+        m_MethodName: SaveInitialGameData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1004653582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6391,7 +6397,7 @@ RectTransform:
   m_Father: {fileID: 1657996278}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 29, y: 13}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8399,7 +8405,7 @@ RectTransform:
   m_Father: {fileID: 447536596}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8729,7 +8735,7 @@ RectTransform:
   m_Father: {fileID: 1953197578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 29, y: 13}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9457,7 +9463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1916574984
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9899,9 +9905,6 @@ MonoBehaviour:
   systemVolumeSlider: {fileID: 558355858}
   bgmVolumeSlider: {fileID: 834268371}
   effectVolumeSlider: {fileID: 1374471466}
-  systemVolumeText: {fileID: 0}
-  bgmVolumeText: {fileID: 0}
-  effectVolumeText: {fileID: 0}
   koreanButton: {fileID: 1715529709}
   preparingText: {fileID: 0}
 --- !u!4 &1998222816
