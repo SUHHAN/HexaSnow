@@ -1387,21 +1387,17 @@ MonoBehaviour:
   ReadyText: {fileID: 1664994367}
   GoText: {fileID: 401294292}
   pausePanel: {fileID: 958339572}
-  BakingScore: 40
-  FinalScore: 0
-  FinalLevel: 61
   FinalScoreText: {fileID: 1067408712}
   BonusScoreText: {fileID: 762072916}
   gameOverPanel: {fileID: 831910941}
   gameOverText: {fileID: 291748250}
   GD:
     isGuestLoggedIn: 0
-    guestId: 
-    lastLoginDate: 
     date: 0
     money: 0
     ingredientNum: 
     myBake: []
+    serializedDailyOrders: 
   myRecipe:
     index: 0
     menuID: 0

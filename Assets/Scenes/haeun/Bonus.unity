@@ -392,19 +392,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 234431814}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1536210604}
-        m_TargetAssemblyTypeName: BreadScrollbarManager, Assembly-CSharp
-        m_MethodName: YesButtonClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &234431814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,6 +431,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 234431811}
   m_CullTransparentMesh: 1
+--- !u!1 &270775013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 270775016}
+  - component: {fileID: 270775015}
+  - component: {fileID: 270775014}
+  m_Layer: 0
+  m_Name: AudioManger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &270775014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270775013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5406417d60882e949b716f82dbad2665, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
+--- !u!114 &270775015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270775013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44f61c58526da3e41b08a33175b9abc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmClips:
+  - {fileID: 8300000, guid: f179f7863dd5d7041b2c73b83725dee2, type: 3}
+  - {fileID: 8300000, guid: 88b296f8410306549a9cfb44bf299ba4, type: 3}
+  - {fileID: 8300000, guid: 69ab8b9a17dcb9b44822abe72b761209, type: 3}
+  bgmVolume: 0.5
+  sfxClips:
+  - {fileID: 8300000, guid: 813b3daf5bbc8a2409a64dbcc2c068fb, type: 3}
+  - {fileID: 8300000, guid: 46b76ceea1f29d84a95712b166e0d93a, type: 3}
+  - {fileID: 8300000, guid: 945b264214b60414a9a04e7b3d89d5b4, type: 3}
+  - {fileID: 8300000, guid: 9a09f52b92f0cc5409191996e6d78344, type: 3}
+  - {fileID: 8300000, guid: d0c314d6373872943a68cb18bee26590, type: 3}
+  - {fileID: 8300000, guid: e45230ed15a4bea4a97b29dbbe10bd74, type: 3}
+  - {fileID: 8300000, guid: d20d0c920324bd249b6a1b1dba3f8ec2, type: 3}
+  - {fileID: 8300000, guid: 21faf9adfeac0d94e8e95183531911ac, type: 3}
+  sfxVolume: 0.5
+--- !u!4 &270775016
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270775013}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &352366478
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,7 +568,7 @@ MonoBehaviour:
   m_Viewport: {fileID: 1106291188}
   m_HorizontalScrollbar: {fileID: 1537580436}
   m_VerticalScrollbar: {fileID: 0}
-  m_HorizontalScrollbarVisibility: 2
+  m_HorizontalScrollbarVisibility: 0
   m_VerticalScrollbarVisibility: 2
   m_HorizontalScrollbarSpacing: -3
   m_VerticalScrollbarSpacing: -3
@@ -1078,9 +1140,9 @@ RectTransform:
   m_Father: {fileID: 352366479}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -9}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1106291189
 MonoBehaviour:
@@ -1350,6 +1412,77 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1220585123}
   m_CullTransparentMesh: 1
+--- !u!1 &1225388493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1225388495}
+  - component: {fileID: 1225388494}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1225388494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225388493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54271108d9c32cc46b5154fbe7de1f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameData:
+    isGuestLoggedIn: 0
+    date: 2
+    money: 2000
+    ingredientNum: 
+    myBake:
+    - index: 0
+      menuID: 1
+      name: "\uC624\uB9AC\uC9C0\uB110 \uB9C8\uB4E4\uB80C"
+      score: 30
+      bonus: 0
+    - index: 1
+      menuID: 10
+      name: "\uC624\uB9AC\uC9C0\uB110 \uD30C\uC6B4\uB4DC\uCF00\uC774\uD06C"
+      score: 0
+      bonus: 0
+    - index: 2
+      menuID: 13
+      name: "\uBC14\uB098\uB098 \uD30C\uC6B4\uB4DC\uCF00\uC774\uD06C"
+      score: 50
+      bonus: 0
+    - index: 3
+      menuID: 13
+      name: "\uBC14\uB098\uB098 \uD30C\uC6B4\uB4DC\uCF00\uC774\uD06C"
+      score: 55
+      bonus: 0
+    serializedDailyOrders: 
+--- !u!4 &1225388495
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225388493}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 360, y: 640, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1498472700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1594,10 +1727,30 @@ MonoBehaviour:
   BonusPanelText: {fileID: 1783013160}
   GD:
     isGuestLoggedIn: 0
-    date: 0
-    money: 0
+    date: 2
+    money: 30000
     ingredientNum: 
-    myBake: []
+    myBake:
+    - index: 0
+      menuID: 1
+      name: "\uC624\uB9AC\uC9C0\uB110 \uB9C8\uB4E4\uB80C"
+      score: 20
+      bonus: 0
+    - index: 0
+      menuID: 10
+      name: "\uC624\uB9AC\uC9C0\uB110 \uD30C\uC6B4\uB4DC\uCF00\uC774\uD06C"
+      score: 30
+      bonus: 0
+    - index: 0
+      menuID: 13
+      name: "\uBC14\uB098\uB098 \uD30C\uC6B4\uB4DC\uCF00\uC774\uD06C"
+      score: 49
+      bonus: 1
+    - index: 0
+      menuID: 13
+      name: "\uBC14\uB098\uB098 \uD30C\uC6B4\uB4DC\uCF00\uC774\uD06C"
+      score: 59
+      bonus: 0
     serializedDailyOrders: 
 --- !u!4 &1536210605
 Transform:
@@ -1874,37 +2027,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1545779121}
   m_CullTransparentMesh: 1
---- !u!1 &1575056069
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1575056070}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1575056070
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575056069}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1648290225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2612,4 +2734,5 @@ SceneRoots:
   - {fileID: 1939620166}
   - {fileID: 1746503381}
   - {fileID: 1536210605}
-  - {fileID: 1575056070}
+  - {fileID: 270775016}
+  - {fileID: 1225388495}

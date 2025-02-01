@@ -1100,7 +1100,6 @@ MonoBehaviour:
   notificationStatusText: {fileID: 0}
   notificationOnImage: {fileID: 0}
   notificationOffImage: {fileID: 0}
-  systemVolumeSlider: {fileID: 2003388373}
   bgmVolumeSlider: {fileID: 1166661382}
   effectVolumeSlider: {fileID: 626052484}
   koreanButton: {fileID: 329650713}
@@ -6404,7 +6403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1704805155
 RectTransform:
   m_ObjectHideFlags: 0

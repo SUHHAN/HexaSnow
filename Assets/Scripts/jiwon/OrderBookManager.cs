@@ -230,6 +230,7 @@ public class OrderBookManager : MonoBehaviour
 
     void ShowNextOrder()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
         if (currentOrderIndex < orderPairs.Count - 1)
         {
             currentOrderIndex++;
@@ -239,6 +240,7 @@ public class OrderBookManager : MonoBehaviour
 
     void ShowPreviousOrder()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
         if (currentOrderIndex > 0)
         {
             currentOrderIndex--;

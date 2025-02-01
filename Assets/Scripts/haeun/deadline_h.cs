@@ -63,6 +63,8 @@ public class deadline_h : MonoBehaviour
     }
 
     public void ShowIngredientGoldPanel() {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+
         WhereStorePanel.SetActive(false);
 
         MyMoneyText.text = $"보유 골드 : {MyMoney} G";
