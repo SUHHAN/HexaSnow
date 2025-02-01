@@ -42,12 +42,14 @@ public class OrderBookManager : MonoBehaviour
 
     void Start()
     {
-        // OrderButton 클릭 이벤트 등록
         nextButton.onClick.AddListener(ShowNextOrder);
         prevButton.onClick.AddListener(ShowPreviousOrder);
         LoadCsvData();
         LoadOrderBook();
+        order_button.onClick.AddListener(LoadOrderBook);
     }
+
+
 
     // CSV 파일을 읽고 데이터를 파싱하는 함수
     private void LoadCsvData()
@@ -105,6 +107,7 @@ public class OrderBookManager : MonoBehaviour
 
     public void LoadOrderBook()
     {
+
         if (DataManager.Instance == null)
         {
             Debug.LogError("DataManager가 존재하지 않습니다! DataManager가 씬에 있는지 확인하세요.");
@@ -178,7 +181,7 @@ public class OrderBookManager : MonoBehaviour
     
 
     void ShowOrder(int orderIndex)
-    {   
+    {
         Debug.Log("글자 보여주기");
         if (orderPairs.Count == 0)
         {
