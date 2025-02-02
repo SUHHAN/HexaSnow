@@ -30,13 +30,6 @@ public class UiLogicManager : MonoBehaviour
 
     void Start()
     {
-        // KitchenButtonGO.SetActive(true);
-        // HomeButtonGO.SetActive(true);
-        // datePanel.SetActive(true);
-        // timePanel.SetActive(true);
-        // order_buttonGO.SetActive(true);
-        // RecipeBookGO.SetActive(true);
-        // SettingButtonGO.SetActive(true);
 
         string currentSceneName = SceneManager.GetActiveScene().name;
 
@@ -87,7 +80,7 @@ public class UiLogicManager : MonoBehaviour
             RecipeBookGO.SetActive(false);  
         }
 
-        if (currentSceneName == "Bouns") {
+        if (currentSceneName == "Bonus") {
             KitchenButtonGO.SetActive(true);
             HomeButtonGO.SetActive(false);         // 이걸 다른 함수로 넣기 -> 메인을 내껄로 착각하도록 하면 된다. -> 대신 여기에 UI 띄우기
             SettingButtonGO.SetActive(true);
@@ -95,8 +88,6 @@ public class UiLogicManager : MonoBehaviour
             timePanel.SetActive(true);          
             order_buttonGO.SetActive(true);        
             RecipeBookGO.SetActive(true);
-
-            KitchButton.onClick.AddListener(GoKitchenScene);
         }
 
         if (currentSceneName == "Deadline" || currentSceneName == "Deadline_Last") {

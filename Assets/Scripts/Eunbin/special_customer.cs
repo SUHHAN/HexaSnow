@@ -270,7 +270,7 @@ public class special_customer : MonoBehaviour
         }
         else if (action.Equals("True"))
         {
-            AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_succ);
+            // AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_succ);
             current_startId=2001;
             PlayDialogue(current_startId);
             Debug.Log("특별 손님이 제품을 받아갔습니다!");
