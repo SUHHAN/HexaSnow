@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using System.IO;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
-using Microsoft.Unity.VisualStudio.Editor;
+// using Microsoft.Unity.VisualStudio.Editor;
 using Unity.VisualScripting;
 
 public class BreadScrollbarManager : MonoBehaviour
