@@ -10,6 +10,7 @@ public class BakingStartManager : MonoBehaviour
     public GameObject startPanel;
     public GameObject recipeSelectionPopup;
     public GameObject messagePopup;
+    public GameObject BlackPanel;
     public GameObject ingredientSelectionPanel;
 
     public TextMeshProUGUI messageText;
@@ -37,6 +38,8 @@ public class BakingStartManager : MonoBehaviour
         // 나머지는 기본값 10 (파운드케이크)
     };
 
+    public UiLogicManager uiLogicManager;
+
     void Start()
     {
         if (AudioManager.Instance != null)
@@ -51,6 +54,7 @@ public class BakingStartManager : MonoBehaviour
         messagePopup.SetActive(false);
         nextButton.gameObject.SetActive(false);
         ingredientSelectionPanel.SetActive(false);
+        BlackPanel.SetActive(false);
 
         nextButton.onClick.AddListener(GoToIngredientSelection);
 
@@ -63,6 +67,8 @@ public class BakingStartManager : MonoBehaviour
         }
 
         UpdateRecipeButtons();
+        // UiLogicManager.Instance.LoadMoneyData();
+        uiLogicManager.LoadMoneyData();
     }
 
     private void UpdateRecipeButtons()
@@ -112,7 +118,16 @@ public class BakingStartManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ShowMessage("레시피가 해금되지 않았습니다!"));
+            // 이전에 선택한 버튼이 있으면 색상 복원
+            if (lastSelectedButton != null)
+            {
+                ResetButtonColor(lastSelectedButton);
+                selectedRecipe = null;
+                selectedDessertIndex = 10;  // 기본값으로 리셋
+                selectedDessert = "";
+                nextButton.gameObject.SetActive(false);
+            }
+            StartCoroutine(ShowMessage("해금되지 않은\n레시피입니다."));
         }
     }
 
@@ -129,8 +144,10 @@ public class BakingStartManager : MonoBehaviour
     {
         messageText.text = message;
         messagePopup.SetActive(true);
+        BlackPanel.SetActive(true);
         yield return new WaitForSeconds(1f);
         messagePopup.SetActive(false);
+        BlackPanel.SetActive(false);
     }
 
     private void GoToIngredientSelection()

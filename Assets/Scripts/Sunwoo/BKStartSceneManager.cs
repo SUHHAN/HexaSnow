@@ -22,6 +22,8 @@ public class BKStartSceneManager : MonoBehaviour
         {
             Debug.LogError("Start ��ư�� �Ҵ���� �ʾҽ��ϴ�!");
         }
+        UiLogicManager.Instance.LoadMoneyData();
+
     }
 
     // Start ��ư Ŭ�� �� ������ �޼���

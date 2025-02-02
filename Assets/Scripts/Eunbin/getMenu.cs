@@ -5,6 +5,7 @@ using System.IO;
 using TMPro;
 using UnityEngine.UI;
 using System.Linq;
+using System.Data.SqlTypes;
 
 public class getMenu : MonoBehaviour
 {
@@ -41,6 +42,9 @@ public class getMenu : MonoBehaviour
     public SetMenu setmenu;
 
     private GameObject customer; 
+
+    private int DataMoney;
+
     [SerializeField] private GameData GD = new GameData();
     
     public struct DialogueLine{
@@ -200,7 +204,7 @@ private void LoadGuestFromCSV()
     public void ReceiveOrders(int NicknameIndex, int order_id){
         GameData dateGD = DataManager.Instance.LoadGameData();
 
-     if (GD == null) {
+    if (GD == null) {
         Debug.LogError("GD 객체가 null입니다!");
         LoadDate(); // GD가 null이면 로드하여 처리
     }
@@ -253,6 +257,10 @@ private void LoadGuestFromCSV()
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_fail);
             Debug.Log($"손님 {customer.name}이(가) 메뉴를 받지 못했습니다.");
             UpdateDialogue(5);
+
+            LoadMoData();
+
+            UiLogicManager.Instance.LoadMoneyData();
 
             isOrderCompleted = true;
         });
@@ -439,5 +447,9 @@ private void SaveDate()
 
     Debug.Log("[SaveDate] 데이터 저장 완료!");
 }
-
+private void LoadMoData() {
+        GD = DataManager.Instance.LoadGameData();
+        GD.money -= 500;
+        DataManager.Instance.SaveGameData();
+}
 }
