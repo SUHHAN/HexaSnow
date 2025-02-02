@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class timeManager : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class timeManager : MonoBehaviour
             Savetime();
             OnTimeUpdate?.Invoke(currentTime); // 시간 업데이트 이벤트 트리거
 
-            if (Mathf.Abs(currentTime - 120f) < 0.1f) // 5초 근처 확인
+            if (Mathf.Abs(currentTime - 330f) < 0.1f) // 5초 근처 확인
             {
                 OnSpecialTimeReached?.Invoke(); // 특정 시간 도달 이벤트 트리거
             }
@@ -69,6 +70,7 @@ public class timeManager : MonoBehaviour
     {
         StopCoroutine(timerCoroutine); // 코루틴 중지
         timerCoroutine = null; // 변수 초기화
+        
     }
 }
 
@@ -76,6 +78,7 @@ public class timeManager : MonoBehaviour
     {
         Debug.Log("6분이 끝났습니다");
         StopTimer();
+
     }
     private void Loadtime() {
 

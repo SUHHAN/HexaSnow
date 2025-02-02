@@ -68,6 +68,7 @@ public class deadlineLast_h : MonoBehaviour
     {
         DeadlindText.text = $"{mydate}일차 영업을 종료합니다.";
 
+
         yield return new WaitForSeconds(1f); // 1초 대기
         DeadlinePanel.SetActive(true);       // 패널 활성화
         BlackPanel.SetActive(true);
@@ -82,7 +83,8 @@ public class deadlineLast_h : MonoBehaviour
     }
 
     private void SaveDate() {
-        DataManager.Instance.gameData.date = mydate;
+        DataManager.Instance.gameData.date = mydate+1;
+        DataManager.Instance.gameData.time=360f;
         DataManager.Instance.SaveGameData();
     }
 

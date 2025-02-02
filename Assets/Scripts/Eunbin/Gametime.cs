@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameTime : MonoBehaviour
 {
+    public static GameTime Instance { get; private set; }
     public TextMeshProUGUI timerText;
     private float gameTime = 360f;
     public float currentTime;
@@ -45,7 +46,7 @@ public class GameTime : MonoBehaviour
             Savetime();
             OnTimeUpdate?.Invoke(currentTime); // 시간 업데이트 이벤트 트리거
 
-            if (currentTime <= 120 && !specialEventTriggered)
+            if (currentTime <= 330 && !specialEventTriggered)
             {
                 OnSpecialTimeReached?.Invoke(); // 특정 시간 도달 이벤트 트리거
                 specialEventTriggered = true;

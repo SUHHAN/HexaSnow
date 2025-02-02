@@ -1164,22 +1164,7 @@ MonoBehaviour:
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
-  MyList:
-  - index: 0
-    menuID: 1
-    name: "\uC624\uB9AC\uC9C0\uB110 \uB9C8\uB4E4\uB80C"
-    score: 50
-    bonus: 0
-  - index: 1
-    menuID: 2
-    name: "\uCD08\uCF54 \uB9C8\uB4E4\uB80C"
-    score: 9
-    bonus: 0
-  - index: 2
-    menuID: 3
-    name: "\uB808\uBAAC \uB9C8\uB4E4\uB80C"
-    score: 22
-    bonus: 0
+  MyList: []
   MenuSprites:
   - {fileID: 21300000, guid: 9d054584fd222fa4dac41a4dd5cdcbe3, type: 3}
   - {fileID: 21300000, guid: 299621287da7fe947a5c010daeb28eca, type: 3}

@@ -108,7 +108,7 @@ public class DataManager : MonoBehaviour
     {
         string json = JsonUtility.ToJson(gameData, true);
         File.WriteAllText(gameDataPath, json);
-        Debug.Log("게임 데이터가 저장되었습니다: " + gameDataPath);
+       // Debug.Log("게임 데이터가 저장되었습니다: " + gameDataPath);
     }
 
     // 저장된 게임 데이터 불러오기

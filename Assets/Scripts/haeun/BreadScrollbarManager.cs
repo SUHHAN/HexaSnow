@@ -12,6 +12,7 @@ using Unity.VisualScripting;
 
 public class BreadScrollbarManager : MonoBehaviour
 {
+    public Button orderScene;
     private static BreadScrollbarManager _instance;
     public static BreadScrollbarManager Instance
     {
@@ -95,6 +96,10 @@ public class BreadScrollbarManager : MonoBehaviour
         AddItems(); // 10개의 아이템 추가
 
         // PrintIngredients(); // 확인용
+
+        orderScene.onClick.AddListener(() => {
+           SceneManager.LoadScene("Deadline");
+    });
     }
 
     public void AddItems()

@@ -29,7 +29,7 @@ public class DayChange : MonoBehaviour
     public void OnDayChange()
     {
         LoadDate();
-        day++;
+        //day++;
         SaveDate();
         order.openMenu(day);
         SpecialScript.currentDay=day;

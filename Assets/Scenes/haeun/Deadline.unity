@@ -3131,9 +3131,11 @@ MonoBehaviour:
     isGuestLoggedIn: 0
     date: 0
     money: 0
+    time: 0
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
+  orderScene: {fileID: 0}
 --- !u!1 &1498472700
 GameObject:
   m_ObjectHideFlags: 0
