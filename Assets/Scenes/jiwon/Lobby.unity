@@ -4386,7 +4386,7 @@ MonoBehaviour:
   AccountButton: {fileID: 613207978}
   GameSettingsButton: {fileID: 114098515}
   SaveButton: {fileID: 2018202894}
-  BlackPanel: {fileID: 308935584}
+  BlackPanel: {fileID: 685595571}
 --- !u!4 &845176552
 Transform:
   m_ObjectHideFlags: 0
