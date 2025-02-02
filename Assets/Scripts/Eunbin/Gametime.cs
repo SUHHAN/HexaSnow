@@ -46,7 +46,7 @@ public class GameTime : MonoBehaviour
             Savetime();
             OnTimeUpdate?.Invoke(currentTime); // 시간 업데이트 이벤트 트리거
 
-            if (currentTime <= 330 && !specialEventTriggered)
+            if (currentTime <= 350 && !specialEventTriggered)
             {
                 OnSpecialTimeReached?.Invoke(); // 특정 시간 도달 이벤트 트리거
                 specialEventTriggered = true;
