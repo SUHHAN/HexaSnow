@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine.UI;
 
 public class ScrollbarManager : MonoBehaviour
