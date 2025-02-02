@@ -16,7 +16,7 @@ public class GameSettingsManager : MonoBehaviour
 
     [Header("언어 설정")]
     public Button koreanButton;
-    public Text preparingText;
+    // public Text preparingText;
 
     private void Start()
     {
@@ -51,7 +51,7 @@ public class GameSettingsManager : MonoBehaviour
 
         // **언어 선택 버튼 설정**
         koreanButton.onClick.AddListener(SelectKorean);
-        preparingText.color = new Color(0.5f, 0.5f, 0.5f, 1F); // 회색 처리
+        // preparingText.color = new Color(0.5f, 0.5f, 0.5f, 1F); // 회색 처리
 
         // **슬라이더 크기 및 위치 설정 (선택 사항)**
         // SetSliderDimensions(systemVolumeSlider, "SystemVolume");
