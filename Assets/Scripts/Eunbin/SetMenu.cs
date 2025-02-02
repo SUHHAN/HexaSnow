@@ -3,6 +3,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems; 
+using System.IO;
+
 
 public class SetMenu : MonoBehaviour
 {
@@ -19,6 +21,16 @@ public class SetMenu : MonoBehaviour
             return _instance;
         }
     }
+
+    [System.Serializable]
+    public class RecipeC
+    {
+        public int index;                 // 레시피 인덱스
+        public string menu;                // 메뉴 이름
+        public int coin;
+
+    }
+
     public getMenu getmenu; // 메뉴 검증용 스크립트
     public special_customer SpecialScript;
     public string currentcus;
@@ -36,11 +48,15 @@ public class SetMenu : MonoBehaviour
     private Bk_h bakerySlotData;
 
     [SerializeField] private GameData GD = new GameData();
+    private List<RecipeC> recipes = new List<RecipeC>();
+
+    private int coin = 0;
 
 
     void Start()
     {
         LoadRecipeDate();
+        LoadRecipesFromCSV("Assets/Resources/recipe.csv");
         AddItems();
     }
 
@@ -148,9 +164,14 @@ public void AddItems()
     MyList.RemoveAll(item => item.name == bakerySlot.GetMenuName() && item.index == bakerySlot.GetIndex());
     
     DataManager.Instance.gameData.myBake.RemoveAll(item => item.name == bakerySlot.GetMenuName() && item.index == bakerySlot.GetIndex());
+    DataManager.Instance.gameData.money += coin;
+    Debug.LogWarning($"[돈 확인] {DataManager.Instance.gameData.money}");
 
     // ✅ 변경된 데이터 저장
     DataManager.Instance.SaveGameData();
+
+    UiLogicManager.Instance.LoadMoneyData();
+    
     // ✅ 슬롯 UI 삭제
     Debug.Log($"🗑️ 슬롯 삭제 및 리스트에서 제거: {bakerySlot.GetMenuName()}");
     Destroy(bakerySlot.gameObject);
@@ -158,22 +179,50 @@ public void AddItems()
 }
 private void CheckMenu(string menu, int score){
     Debug.Log($"[디버깅] 입력값: '{menu}' / 기대값: '{currentmenu}'");
+
+    
+    foreach(RecipeC re in recipes) {
+
+        if(menu == re.menu) {
+            coin = re.coin;
+        }
+    }
+
     if(menu.Equals(currentmenu)){
         Debug.Log($"선택된 메뉴가 올바릅니다: {menu}");
         if(currentcus.Equals("cus")){
-            if(score>40){
-                getmenu.UpdateDialogue(1);
+            if(score >= 60) {
+                getmenu.UpdateDialogue(1); // s
+                coin += 1200;
+            }
+            else if(score > 50) {
+                getmenu.UpdateDialogue(1); //a
+                coin += 1000;
+            }
+            else if(score>40){
+                getmenu.UpdateDialogue(2); //b
+                coin += 500;
+            }
+            else if(score > 30){
+                getmenu.UpdateDialogue(2); //c
+                coin += 100;
             }
             else if(score > 20){
-                getmenu.UpdateDialogue(2);
+                getmenu.UpdateDialogue(3); //d
+                coin += 0;
+            }
+            else if(score > 10){
+                getmenu.UpdateDialogue(3); //f
+                coin -= 500;
             }
             else{
-                getmenu.UpdateDialogue(3);
+                getmenu.UpdateDialogue(3); //f
+                coin -= 500;
             }
-            }
+        }
         else if(currentcus.Equals("special")){
                 SpecialScript.UpdateDialogue("True");
-            }
+        }
     }
     else{
         if(currentcus.Equals("cus")){
@@ -223,8 +272,91 @@ private void CheckMenu(string menu, int score){
             MyList.Add(recipe);
             Debug.Log("리스트 추가");
         }
+    }
+
+    // CSV 파일에서 레시피 데이터 로드
+    void LoadRecipesFromCSV(string filePath)
+    {
+        string[] lines = File.ReadAllLines(filePath);
+
+        for (int i = 1; i < lines.Length; i++)
+        {
+            string line = lines[i];
+            // 커스텀 파서로 CSV 행을 파싱
+            var columns = ParseCSVLine(line);
+
+
+            // 데이터 개수 확인
+            if (columns.Length < 6)
+            {
+                Debug.LogWarning($"잘못된 CSV 데이터: {line}");
+                continue;
+            }
+
+            int index, coin;
+
+            // 안전한 정수 변환 (TryParse 사용)
+            if (!int.TryParse(columns[0], out index)) index = 0;
+            if (!int.TryParse(columns[5], out coin)) coin = 0;
+
+            string menu = columns[1];
+
+            // RecipeB 객체 생성
+            RecipeC recipe = new RecipeC()
+            {
+                index = index,
+                menu = menu,
+                coin = coin
+            };
+
+            // RecipeB 객체 출력 (콘솔에)
+            Debug.Log(recipe.ToString());
+
+            recipes.Add(recipe);
+            
+        }
+
+        foreach (RecipeC re in recipes) {
+            Debug.LogWarning($"[레시피 가격 저장] {re.index},{re.menu},{re.coin}");
+        }
 
     }
 
+    // 커스텀 CSV 라인 파서
+    string[] ParseCSVLine(string line)
+    {
+        var columns = new List<string>();
+        bool insideQuotes = false;
+        string currentColumn = "";
+
+        foreach (char c in line)
+        {
+            if (c == '"' && !insideQuotes)
+            {
+                insideQuotes = true;  // 따옴표 안으로 들어감
+            }
+            else if (c == '"' && insideQuotes)
+            {
+                insideQuotes = false;  // 따옴표 밖으로 나감
+            }
+            else if (c == ',' && !insideQuotes)
+            {
+                columns.Add(currentColumn.Trim());
+                currentColumn = "";  // 새로운 컬럼 시작
+            }
+            else
+            {
+                currentColumn += c;  // 현재 컬럼에 문자 추가
+            }
+        }
+
+        // 마지막 컬럼 추가
+        if (!string.IsNullOrEmpty(currentColumn))
+        {
+            columns.Add(currentColumn.Trim());
+        }
+
+        return columns.ToArray();
     }
- 
+
+}

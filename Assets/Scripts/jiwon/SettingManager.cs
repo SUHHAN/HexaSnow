@@ -15,6 +15,8 @@ public class SettingsManager : MonoBehaviour
     public Button GameSettingsButton;
     public Button SaveButton; // 새 저장 버튼
 
+    public GameObject BlackPanel;
+
     private void Start()
     {
         // 버튼 클릭 이벤트 등록
@@ -24,6 +26,8 @@ public class SettingsManager : MonoBehaviour
 
         // 계정 버튼을 앞쪽으로 보내기
         SetButtonToFront(AccountButton);
+        BlackPanel.SetActive(false);
+
         // 나머지 버튼을 뒤로 보내기
         SetButtonToBack(GameSettingsButton);
         SetButtonToBack(SaveButton);
@@ -38,6 +42,7 @@ public class SettingsManager : MonoBehaviour
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         if (SettingParentPanel != null)
         {
+            BlackPanel.SetActive(true);
             SettingParentPanel.SetActive(true);
             OpenAccountPanel(); // 기본적으로 AccountPanel 열기
         }
@@ -55,6 +60,7 @@ public class SettingsManager : MonoBehaviour
         if (SettingParentPanel != null)
         {
             Debug.Log("설정 창 닫기 실행됨.");
+            BlackPanel.SetActive(false);
             SettingParentPanel.SetActive(false);
         }
         else

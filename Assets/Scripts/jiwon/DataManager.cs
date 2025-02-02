@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
+using System;
+
 
 [System.Serializable]
 
@@ -67,6 +69,8 @@ public class DataManager : MonoBehaviour
     private string gameDataPath; // 저장할 JSON 파일 경로
     public static DataManager Instance { get; private set; }
     public GameData gameData = new GameData();
+
+    public event Action OnDataChanged;
 
     private void Awake()
     {
