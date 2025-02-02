@@ -5,7 +5,6 @@ public class GameSettingsManager : MonoBehaviour
 {
     [Header("알림 설정")]
     public Toggle notificationToggle;
-    public Text notificationStatusText;
 
     // 두 개의 스프라이트 설정 (on과 off 상태)
     public Sprite notificationOnImage;  // 알림 켜졌을 때 이미지
@@ -14,10 +13,6 @@ public class GameSettingsManager : MonoBehaviour
     [Header("볼륨 설정")]
     public Slider bgmVolumeSlider;
     public Slider effectVolumeSlider;
-
-    // public Text systemVolumeText;
-    // public Text bgmVolumeText;
-    // public Text effectVolumeText;
 
     [Header("언어 설정")]
     public Button koreanButton;
@@ -78,7 +73,6 @@ public class GameSettingsManager : MonoBehaviour
     {
         bool isAllowed = PlayerPrefs.GetInt("NotificationAllowed", 1) == 1;
         notificationToggle.isOn = isAllowed;
-        notificationStatusText.text = isAllowed ? "허용됨" : "비허용됨";
 
         // Toggle 상태에 따라 이미지 변경
         UpdateNotificationImage(isAllowed);
