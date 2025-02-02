@@ -6,7 +6,6 @@ public class RunPopupManager : MonoBehaviour
 
 {
     public GameObject runPopupPanel; // Run Story 팝업 패널
-    public Button button_order;
     public GameObject backgroundClickArea;
     public Button ContinueButton;
 
@@ -14,23 +13,8 @@ public class RunPopupManager : MonoBehaviour
     {
         runPopupPanel.SetActive(false); // 시작 시 Run 팝업 비활성화
 
-        // 배경 클릭 감지 영역에 클릭 이벤트 추가
-        /*  if (backgroundClickArea != null)
-          {
-              backgroundClickArea.GetComponent<Button>().onClick.AddListener(() =>
-              {
-                  HideRunPopup(); // 바깥 클릭 시 팝업 닫기
-             });
-           }
-           */
-
         GameData loadedData = DataManager.Instance.LoadGameData();
         ContinueButton.interactable = (loadedData != null);
-
-        button_order.onClick.AddListener(() => {
-            Debug.Log("tutorial 씬으로 이동");
-            SceneManager.LoadScene("tutorial");
-    });
     }
 
     // Run Story 팝업 표시
@@ -75,26 +59,6 @@ public class RunPopupManager : MonoBehaviour
         {
             Debug.LogWarning("저장된 데이터가 없어 새 게임을 시작합니다.");
         }
-    }
-
-    public void RestartGame()
-    {
-        SceneManager.LoadScene("Ingredient");
-    }
-
-    public void deadline()
-    {
-        SceneManager.LoadScene("Deadline");
-    }
-
-    public void bonus()
-    {
-        SceneManager.LoadScene("Bonus");
-    }
-
-    public void Baking()
-    {
-        SceneManager.LoadScene("Baking 1");
     }
 }
 

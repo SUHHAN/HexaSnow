@@ -6743,7 +6743,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runPopupPanel: {fileID: 1394281061}
-  button_order: {fileID: 805118397}
   backgroundClickArea: {fileID: 1243338629}
   ContinueButton: {fileID: 177818304}
 --- !u!4 &1583566123
