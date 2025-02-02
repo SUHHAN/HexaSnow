@@ -55,6 +55,9 @@ public class getMenu : MonoBehaviour
     }
     }
     void Start(){
+
+        Debug.Log("[Start] 씬이 시작됨! 데이터 로드 시도...");
+        LoadDate();
         customer_order.SetActive(false);
         speechBubble.SetActive(false);
         LoadDialoguesFromCSV(); // CSV 파일 로드
@@ -195,17 +198,18 @@ private void LoadGuestFromCSV()
     }
 
     public void ReceiveOrders(int NicknameIndex, int order_id){
+        GameData dateGD = DataManager.Instance.LoadGameData();
 
      if (GD == null) {
         Debug.LogError("GD 객체가 null입니다!");
         LoadDate(); // GD가 null이면 로드하여 처리
     }
-    if (!dailyOrders.ContainsKey(currentDay))
+    if (!dailyOrders.ContainsKey(dateGD.date))
         {
-            dailyOrders[currentDay] = new List<List<int>>();
+            dailyOrders[dateGD.date] = new List<List<int>>();
         }
-    Debug.Log($"현재 {currentDay}일의 주문 상태: {dailyOrders[currentDay].Count}개의 주문이 있습니다.");
-    dailyOrders[currentDay].Add(new List<int> { order_id, NicknameIndex});
+    Debug.Log($"현재 {dateGD.date}일의 주문 상태: {dailyOrders[dateGD.date].Count}개의 주문이 있습니다.");
+    dailyOrders[dateGD.date].Add(new List<int> { order_id, NicknameIndex});
     SaveDate();
 
     }
@@ -335,29 +339,6 @@ private void LoadGuestFromCSV()
 }
 
 
-private void LoadDate()
-{
-     if (GD == null)
-    {
-        Debug.LogError("GD 객체가 null입니다!");
-        return;
-    }
-    GD = DataManager.Instance.LoadGameData(); // GameData 로드
-    if (GD == null)
-    {
-        Debug.LogError("저장된 GameData가 없습니다. LoadGameData()가 null을 반환했습니다.");
-        return;
-    }
-
-    if (!string.IsNullOrEmpty(GD.serializedDailyOrders))
-    {
-        SerializableDictionary<int, List<List<int>>> deserializedData =
-            JsonUtility.FromJson<SerializableDictionary<int, List<List<int>>>>(GD.serializedDailyOrders);
-
-        dailyOrders = new Dictionary<int, List<List<int>>>(deserializedData.ToDictionary()); // 복원
-    }
-}
-
 [System.Serializable]
 public class OrderItem
 {
@@ -368,45 +349,95 @@ public class OrderItem
 public class OrderListWrapper
 {
     public List<OrderItem> orders = new List<OrderItem>(); // OrderItem을 사용
+
+}
+private void LoadDate()
+{
+    Debug.Log("[LoadDate] 데이터 로드 시작");
+
+    if (GD == null)
+    {
+        Debug.LogError("[LoadDate] GD 객체가 null입니다! 데이터를 불러올 수 없습니다.");
+        return;
+    }
+
+    GD = DataManager.Instance.LoadGameData(); // GameData 로드
+    if (GD == null)
+    {
+        Debug.LogError("[LoadDate] 저장된 GameData가 없습니다. LoadGameData()가 null을 반환했습니다.");
+        return;
+    }
+
+    // 🔥 씬 이동 후 JSON 데이터가 잘 불러와지는지 확인!
+    Debug.Log($"[LoadDate] 불러온 JSON 데이터 (씬 이동 후): {GD.serializedDailyOrders}");
+
+    if (!string.IsNullOrEmpty(GD.serializedDailyOrders))
+    {
+        SerializableDictionary<int, OrderListWrapper> deserializedData =
+            JsonUtility.FromJson<SerializableDictionary<int, OrderListWrapper>>(GD.serializedDailyOrders);
+
+        dailyOrders = new Dictionary<int, List<List<int>>>();
+
+        foreach (var pair in deserializedData.ToDictionary())
+        {
+            Debug.Log($"[LoadDate] 날짜 {pair.Key} 데이터 복원 중...");
+            List<List<int>> orderList = new List<List<int>>();
+
+            foreach (var orderItem in pair.Value.orders)
+            {
+                orderList.Add(orderItem.items);
+                Debug.Log($"[LoadDate] 날짜 {pair.Key} - 복원된 주문 데이터: [{string.Join(", ", orderItem.items)}]");
+            }
+
+            dailyOrders[pair.Key] = orderList;
+        }
+    }
+
+    Debug.Log("[LoadDate] 데이터 로드 완료!");
 }
 
 private void SaveDate()
 {
+    Debug.Log("[SaveDate] 데이터 저장 시작");
+
     // 새로운 Dictionary<int, OrderListWrapper> 생성
     Dictionary<int, OrderListWrapper> wrappedOrdersToSave = new Dictionary<int, OrderListWrapper>();
 
     foreach (var dayOrder in dailyOrders)
     {
         OrderListWrapper wrapper = new OrderListWrapper();
+        Debug.Log($"[SaveDate] 날짜 {dayOrder.Key} 데이터 변환 중...");
 
         // 기존 List<List<int>> → List<OrderItem> 변환
         foreach (var order in dayOrder.Value)
         {
             wrapper.orders.Add(new OrderItem { items = order });
+            Debug.Log($"[SaveDate] 날짜 {dayOrder.Key} - 저장할 주문: [{string.Join(", ", order)}]");
         }
 
         wrappedOrdersToSave[dayOrder.Key] = wrapper;
     }
 
     // SerializableDictionary로 변환
-    SerializableDictionary<int, OrderListWrapper> serializableOrders = new SerializableDictionary<int, OrderListWrapper>(wrappedOrdersToSave);
+    SerializableDictionary<int, OrderListWrapper> serializableOrders = 
+        new SerializableDictionary<int, OrderListWrapper>(wrappedOrdersToSave);
 
     // 디버깅 로그: serializableOrders 확인
     foreach (var pair in serializableOrders.keyValuePairs)
     {
-        Debug.Log($"[serializableOrders] 날짜 {pair.Key} : {string.Join(", ", pair.Value.orders.Select(order => $"[{string.Join(", ", order.items)}]"))}");
+        Debug.Log($"[SaveDate] 변환된 데이터 - 날짜 {pair.Key} : {string.Join(", ", pair.Value.orders.Select(order => $"[{string.Join(", ", order.items)}]"))}");
     }
 
     // JSON 직렬화 (한 줄로 저장)
     string json = JsonUtility.ToJson(serializableOrders, false);
-
-    // JSON 디버깅
-    Debug.Log($"[JSON] serializedDailyOrders : {json}");
+    Debug.Log($"[SaveDate] 직렬화된 JSON 데이터: {json}");
 
     // 저장
     GD.serializedDailyOrders = json;
     DataManager.Instance.gameData.serializedDailyOrders = json;
     DataManager.Instance.SaveGameData();
+
+    Debug.Log("[SaveDate] 데이터 저장 완료!");
 }
 
 }

@@ -82,7 +82,7 @@ public class deadlineLast_h : MonoBehaviour
     }
 
     private void SaveDate() {
-        DataManager.Instance.gameData.date = mydate + 1;
+        DataManager.Instance.gameData.date = mydate;
         DataManager.Instance.SaveGameData();
     }
 

@@ -109,9 +109,6 @@ public class tutorial : MonoBehaviour
 
     private void ShowDialogue()
     {
-
-        Debug.Log($"현재 대화 인덱스: {currentDialogueIndex} / 총 대화 개수: {dialogues.Count}"); // ✅ 디버깅 코드 추가
-
         if (currentDialogueIndex < dialogues.Count)
         {
             DialogueLine currentLine = dialogues[currentDialogueIndex];

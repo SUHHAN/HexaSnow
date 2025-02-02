@@ -42,7 +42,6 @@ public class Order : MonoBehaviour
 
     public GameObject popup;
     public TextMeshProUGUI popupText;
-    private int openmenuIndex=1;
     private bool isPopupCoroutineRunning=false;
     public GameObject Mademenu;
 
@@ -73,8 +72,9 @@ public class Order : MonoBehaviour
         LoadNicknameFromCSV();
         LoadMenuForPopup(); // 메뉴 해금 팝업용 CSV 로드
         Postmanment();
+        GameData dateGD = DataManager.Instance.LoadGameData();
 
-        openMenu(1);
+        openMenu(dateGD.date);
     }
 
     private void LoadDialoguesFromCSV()
@@ -248,11 +248,11 @@ public class Order : MonoBehaviour
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
 
-     int previousDay = getMenuScript.currentDay - 1;
+     GameData dateGD = DataManager.Instance.LoadGameData();
     
         if (getMenuScript.gameObject.activeSelf)
         {
-            getMenuScript.StartCoroutine(getMenuScript.ProcessCustomers(previousDay));
+            getMenuScript.StartCoroutine(getMenuScript.ProcessCustomers(dateGD.date-1));
         }
     else
     {
@@ -318,31 +318,31 @@ public void openMenu(int day){
 
 public void ResetOrderSystem(int day)
     {
-        postman.SetActive(true);
-        orderCheck.gameObject.SetActive(true);
-        order.SetActive(true);
+        //postman.SetActive(true);
+        //orderCheck.gameObject.SetActive(true);
+        //order.SetActive(true);
         order_nickname.Clear();
         order_deadLine.Clear();
-        speechBubble.SetActive(true);
-        nameBubble.SetActive(true);
+        //speechBubble.SetActive(true);
+        //nameBubble.SetActive(true);
         order_count = 0;
         Postmanment();
         
     }
     private void showPopup(){
+        GameData dateGD = DataManager.Instance.LoadGameData();
+        int openmenuIndex=dateGD.date*2-1;
         Debug.Log($"openmenuIndex, unlocked_menu.Count {openmenuIndex}, {unlocked_menu.Count}");
     if (openmenuIndex < unlocked_menu.Count)
     {
         string unlockedMenu1 = unlocked_menu[openmenuIndex];
-        string unlockedMenu2 = (openmenuIndex + 1 < unlocked_menu.Count) ? unlocked_menu[openmenuIndex + 1] : null;
+        string unlockedMenu2 = (openmenuIndex+1 < unlocked_menu.Count) ? unlocked_menu[openmenuIndex+1] : null;
 
         if (!string.IsNullOrEmpty(unlockedMenu1) && !string.IsNullOrEmpty(unlockedMenu2))
         {
             popup.SetActive(true);
             popupText.text = $"{unlockedMenu1}, {unlockedMenu2}\n레시피가 해금되었습니다!";
         }
-        
-        openmenuIndex += 2;
 }
     }
     void Update()
