@@ -19,6 +19,7 @@ public class UiLogicManager : MonoBehaviour
 
 
     public TMP_Text calendarText;
+    public TextMeshProUGUI MoneyText;
     public TMP_FontAsset customFont;
 
     public GameObject SettingButtonGO;
@@ -27,6 +28,20 @@ public class UiLogicManager : MonoBehaviour
     public GameObject HomeButtonGO;
     public GameObject datePanel;
     public GameObject timePanel;
+
+    private static UiLogicManager _instance;
+    public static UiLogicManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<UiLogicManager>();
+            }
+            return _instance;
+        }
+    }
+
 
     void Start()
     {
@@ -46,6 +61,7 @@ public class UiLogicManager : MonoBehaviour
 
 
         LoadCalendarDate();
+        // LoadMoneyData();
 
         // 씬 이름에 따라 버튼 활성화 설정
         if (currentSceneName == "order")
@@ -114,6 +130,14 @@ public class UiLogicManager : MonoBehaviour
         SceneManager.LoadScene("BakingStart");
     }
 
+    public void GoLobbyScene() {
+        AudioManager.Instance.StopBgm();
+        AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+
+        SceneManager.LoadScene("Lobby");
+    }
+
     void OnOrderBook()
     {
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
@@ -156,5 +180,37 @@ public class UiLogicManager : MonoBehaviour
         // 텍스트 속성 설정
         calendarText.color = UnityEngine.Color.black;  // 텍스트 색상 설정
         calendarText.fontSize = 30;  // 폰트 크기 설정
+    }
+
+    public void LoadMoneyData()
+    {
+        // DataManager.Instance가 null인지 확인
+        if (DataManager.Instance == null)
+        {
+            Debug.LogError("DataManager.Instance가 null입니다! DataManager가 씬에 존재하는지 확인하세요.");
+            return;
+        }
+
+        // LoadGameData()를 통해 GameData 가져오기
+        GameData moneyGD = DataManager.Instance.LoadGameData();
+
+
+        // 정상적으로 값이 있으면 텍스트 설정
+        MoneyText.text = $"{moneyGD.money}";
+        Debug.Log($"Money: {moneyGD.money}일차");
+
+        // // 폰트 설정
+        // if (customFont != null)
+        // {
+        //     calendarText.font = customFont; // 커스텀 폰트를 설정
+        // }
+        // else
+        // {
+        //     Debug.LogError("폰트가 설정되지 않았습니다! Unity Inspector에서 customFont를 설정하세요.");
+        // }
+
+        // // 텍스트 속성 설정
+        // calendarText.color = UnityEngine.Color.black;  // 텍스트 색상 설정
+        // calendarText.fontSize = 30;  // 폰트 크기 설정
     }
 }
