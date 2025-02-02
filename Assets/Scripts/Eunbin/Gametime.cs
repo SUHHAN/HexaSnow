@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameTime : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
-    private float gameTime = 20f;
+    private float gameTime = 360f;
     public float currentTime;
     public event Action<float> OnTimeUpdate; // 시간 업데이트 이벤트
     public event Action OnSpecialTimeReached; // 특정 시간 도달 이벤트
@@ -45,7 +45,7 @@ public class GameTime : MonoBehaviour
             Savetime();
             OnTimeUpdate?.Invoke(currentTime); // 시간 업데이트 이벤트 트리거
 
-            if (currentTime <= 10 && !specialEventTriggered)
+            if (currentTime <= 120 && !specialEventTriggered)
             {
                 OnSpecialTimeReached?.Invoke(); // 특정 시간 도달 이벤트 트리거
                 specialEventTriggered = true;

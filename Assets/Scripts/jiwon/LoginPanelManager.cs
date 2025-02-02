@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LoginPanelManager : MonoBehaviour
 {
@@ -7,6 +9,7 @@ public class LoginPanelManager : MonoBehaviour
     public ButtonManager buttonManager; // 버튼 관리자 참조
     public GuestLoginManager guestLoginManager; // 게스트 로그인 관리자 참조
     public GameObject SettingButton; // 설정 버튼 UI
+    public Button button;
 
     private void Start()
     {
@@ -15,6 +18,7 @@ public class LoginPanelManager : MonoBehaviour
 
         // 4초 후 로그인 상태 확인
         StartCoroutine(ShowLoginPanelAfterDelay(4f));
+        button.onClick.AddListener(Deadline);
     }
 
     // 지연 후 로그인 상태 확인 및 UI 업데이트
@@ -52,6 +56,11 @@ public class LoginPanelManager : MonoBehaviour
     {
         Debug.Log("계정 로그인 버튼 클릭됨 - 추후 구현 필요");
         // 계정 로그인 로직을 여기에 추가 예정
+    }
+
+    public void Deadline()
+    {
+        SceneManager.LoadScene("Deadline");
     }
 }
 

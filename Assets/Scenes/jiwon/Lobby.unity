@@ -587,7 +587,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0034965beafedf84695e0fb951212fc1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 46215d04273757541b255f9907c06f47, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3896,6 +3896,7 @@ MonoBehaviour:
   buttonManager: {fileID: 13599435}
   guestLoginManager: {fileID: 170394755}
   SettingButton: {fileID: 1699194385}
+  button: {fileID: 804412015}
 --- !u!4 &759219295
 Transform:
   m_ObjectHideFlags: 0
@@ -3929,7 +3930,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &804412014
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3993,19 +3994,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 804412016}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1583566122}
-        m_TargetAssemblyTypeName: RunPopupManager, Assembly-CSharp
-        m_MethodName: deadline
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &804412016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7188,7 +7177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1702819835
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8690,7 +8679,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 46215d04273757541b255f9907c06f47, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0034965beafedf84695e0fb951212fc1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

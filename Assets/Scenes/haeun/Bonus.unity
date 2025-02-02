@@ -328,7 +328,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &234431812
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1537,6 +1537,7 @@ MonoBehaviour:
     isGuestLoggedIn: 0
     date: 0
     money: 0
+    time: 0
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
@@ -1584,6 +1585,7 @@ MonoBehaviour:
     isGuestLoggedIn: 0
     date: 2
     money: 30000
+    time: 0
     ingredientNum: 
     myBake:
     - index: 0
