@@ -5,74 +5,74 @@ using TMPro;
 
 public class OvenGameManager : MonoBehaviour
 {
-    // ¿Àºì °ÔÀÓ ÆÐ³Î °ü¸®
-    public GameObject ovenPanel; // ¿Àºì ÀüÃ¼ ÆÐ³Î
-    public GameObject ovenStartPanel; // ¿Àºì °ÔÀÓ ½ÃÀÛ ÆÐ³Î
-    public GameObject ovenGamePanel; // ¿Àºì °ÔÀÓ ÁøÇà ÆÐ³Î
-    public GameObject ovenFinishPanel; // ¿Àºì °ÔÀÓ Á¾·á ÆÐ³Î
-    public GameObject toppingPanel; // ÅäÇÎ ÆÐ³Î
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public GameObject ovenPanel; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½Ð³ï¿½
+    public GameObject ovenStartPanel; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½
+    public GameObject ovenGamePanel; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½
+    public GameObject ovenFinishPanel; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½
+    public GameObject toppingPanel; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½
 
-    // UI ¿ä¼Ò
-    public Button startOvenButton; // ¿Àºì °ÔÀÓ ½ÃÀÛ ¹öÆ°
-    public Button stopButton; // ½ºÅé ¹öÆ° (°ÔÀÌÁö ¸ØÃß±â)
-    public Button nextButton; // ´ÙÀ½ ¹öÆ° (ÅäÇÎ ÆÐ³Î·Î ÀÌµ¿)
-    public Image temperatureBar; // ¿Âµµ °ÔÀÌÁö ¹Ù
-    public Image gaugeIndicator; // ÀÌµ¿ÇÏ´Â ´«±Ý Ç¥½Ã
-    public Image targetZone; // ·£´ýÇÑ ¸ñÇ¥ ÁöÁ¡ (ºÓÀº ¿µ¿ª)
-    public TextMeshProUGUI resultText; // °á°ú ÅØ½ºÆ® (¼º°ø/½ÇÆÐ)
-    public TextMeshProUGUI finalScoreText; // ÃÖÁ¾ Á¡¼ö Ç¥½Ã
+    // UI ï¿½ï¿½ï¿½
+    public Button startOvenButton; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+    public Button stopButton; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß±ï¿½)
+    public Button nextButton; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° (ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³Î·ï¿½ ï¿½Ìµï¿½)
+    public Image temperatureBar; // ï¿½Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    public Image gaugeIndicator; // ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
+    public Image targetZone; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    public TextMeshProUGUI resultText; // ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ® (ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½)
+    public TextMeshProUGUI finalScoreText; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
 
-    // ¿ÜºÎ Á¡¼ö ¿¬µ¿ (Àç·á ¼±ÅÃ, ¹ÝÁ× °ÔÀÓ)
-    public IngredientSelectManager ingredientSelectManager; // Àç·á ¼±ÅÃ ¸Å´ÏÀú
-    public MixingGameManager mixingGameManager; // ¹ÝÁ× °ÔÀÓ ¸Å´ÏÀú
+    // ï¿½Üºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    public IngredientSelectManager ingredientSelectManager; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½
+    public MixingGameManager mixingGameManager; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½
 
-    // ¿Àºì °ÔÀÓ ¼³Á¤
-    public float gaugeSpeed = 2f; // °ÔÀÌÁö ÀÌµ¿ ¼Óµµ
-    public float targetZoneWidth = 100f; // ¸ñÇ¥ ¿µ¿ª ³Êºñ
-    public float gaugeWidth = 10f; // ´«±Ý ³Êºñ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float gaugeSpeed = 2f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Óµï¿½
+    public float targetZoneWidth = 100f; // ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½Êºï¿½
+    public float gaugeWidth = 10f; // ï¿½ï¿½ï¿½ï¿½ ï¿½Êºï¿½
 
-    private float minGaugePosition; // ´«±Ý ÃÖ¼Ò xÁÂÇ¥
-    private float maxGaugePosition; // ´«±Ý ÃÖ´ë xÁÂÇ¥
-    private float gaugePosition; // ÇöÀç ´«±Ý À§Ä¡
-    private float targetZoneStart; // ¸ñÇ¥ ¿µ¿ª ½ÃÀÛ xÁÂÇ¥
-    private float targetZoneEnd; // ¸ñÇ¥ ¿µ¿ª ³¡ xÁÂÇ¥
+    private float minGaugePosition; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ xï¿½ï¿½Ç¥
+    private float maxGaugePosition; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ xï¿½ï¿½Ç¥
+    private float gaugePosition; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+    private float targetZoneStart; // ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ xï¿½ï¿½Ç¥
+    private float targetZoneEnd; // ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ xï¿½ï¿½Ç¥
 
-    private bool isGaugeMoving = false; // ´«±Ý ÀÌµ¿ ¿©ºÎ
-    private bool isGaugeIncreasing = true; // ´«±Ý ÀÌµ¿ ¹æÇâ (true: ¿À¸¥ÂÊ, false: ¿ÞÂÊ)
+    private bool isGaugeMoving = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
+    private bool isGaugeIncreasing = true; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ (true: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, false: ï¿½ï¿½ï¿½ï¿½)
 
-    private int ovenScore = 0; // ¿Àºì °ÔÀÓ Á¡¼ö (¼º°ø ½Ã 5Á¡, ½ÇÆÐ ½Ã 0Á¡)
-    private int totalScore = 0; // ÃÖÁ¾ Á¡¼ö
+    private int ovenScore = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 5ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 0ï¿½ï¿½)
+    private int totalScore = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     void Start()
     {
-        // ÃÊ±â UI »óÅÂ ¼³Á¤
-        ovenStartPanel.SetActive(true); // ½ÃÀÛ ÆÐ³Î È°¼ºÈ­
-        ovenGamePanel.SetActive(false); // °ÔÀÓ ÆÐ³Î ºñÈ°¼ºÈ­
-        ovenFinishPanel.SetActive(false); // Á¾·á ÆÐ³Î ºñÈ°¼ºÈ­
-        toppingPanel.SetActive(false); // ÅäÇÎ ÆÐ³Î ºñÈ°¼ºÈ­
+        // ï¿½Ê±ï¿½ UI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        ovenStartPanel.SetActive(true); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ È°ï¿½ï¿½È­
+        ovenGamePanel.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+        ovenFinishPanel.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+        toppingPanel.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
 
-        // ¹öÆ° ÀÌº¥Æ® µî·Ï
-        startOvenButton.onClick.AddListener(StartOvenGame); // ¿Àºì °ÔÀÓ ½ÃÀÛ
-        stopButton.onClick.AddListener(StopGauge); // ´«±Ý Á¤Áö
-        nextButton.onClick.AddListener(GoToNextPanel); // ÅäÇÎ ÆÐ³Î·Î ÀÌµ¿
+        // ï¿½ï¿½Æ° ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½
+        startOvenButton.onClick.AddListener(StartOvenGame); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        stopButton.onClick.AddListener(StopGauge); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        nextButton.onClick.AddListener(GoToNextPanel); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³Î·ï¿½ ï¿½Ìµï¿½
 
-        // ´«±Ý ÀÌµ¿ ¹üÀ§ ¼³Á¤ (¿Âµµ ¹Ù Å©±â¿¡ ¸Â°Ô Á¶Á¤)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Âµï¿½ ï¿½ï¿½ Å©ï¿½â¿¡ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½)
         float barWidth = temperatureBar.rectTransform.rect.width;
-        minGaugePosition = -barWidth / 2f; // ¿ÞÂÊ ³¡
-        maxGaugePosition = barWidth / 2f;  // ¿À¸¥ÂÊ ³¡
+        minGaugePosition = -barWidth / 2f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+        maxGaugePosition = barWidth / 2f;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     }
 
-    // ¿Àºì °ÔÀÓ ½ÃÀÛ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void StartOvenGame()
     {
-        ovenStartPanel.SetActive(false); // ½ÃÀÛ ÆÐ³Î ¼û±â±â
-        ovenGamePanel.SetActive(true); // °ÔÀÓ ÆÐ³Î È°¼ºÈ­
+        ovenStartPanel.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+        ovenGamePanel.SetActive(true); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ È°ï¿½ï¿½È­
 
-        SetTargetZone(); // ¸ñÇ¥ ¿µ¿ª ¼³Á¤
-        StartGaugeMovement(); // ´«±Ý ÀÌµ¿ ½ÃÀÛ
+        SetTargetZone(); // ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        StartGaugeMovement(); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
-    // ·£´ýÇÑ ¸ñÇ¥ ¿µ¿ª ¼³Á¤
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void SetTargetZone()
     {
         float zoneStartRange = minGaugePosition + targetZoneWidth / 2f;
@@ -81,22 +81,22 @@ public class OvenGameManager : MonoBehaviour
         targetZoneStart = Random.Range(zoneStartRange, zoneEndRange);
         targetZoneEnd = targetZoneStart + targetZoneWidth;
 
-        // ¸ñÇ¥ ¿µ¿ª À§Ä¡ ¾÷µ¥ÀÌÆ®
+        // ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         float fixedY = targetZone.rectTransform.anchoredPosition.y;
         targetZone.rectTransform.anchoredPosition = new Vector2(targetZoneStart, fixedY);
         targetZone.rectTransform.sizeDelta = new Vector2(targetZoneWidth, targetZone.rectTransform.sizeDelta.y);
     }
 
-    // ´«±Ý ÀÌµ¿ ½ÃÀÛ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
     private void StartGaugeMovement()
     {
         isGaugeMoving = true;
-        gaugePosition = minGaugePosition; // ´«±Ý ÃÊ±â À§Ä¡ ¼³Á¤
-        UpdateGaugePosition(); // ´«±Ý À§Ä¡ ¾÷µ¥ÀÌÆ®
-        StartCoroutine(MoveGauge()); // ´«±Ý ÀÌµ¿ ½ÃÀÛ
+        gaugePosition = minGaugePosition; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+        UpdateGaugePosition(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+        StartCoroutine(MoveGauge()); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
-    // ´«±Ý ÀÌµ¿ ¾Ö´Ï¸ÞÀÌ¼Ç
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
     private IEnumerator MoveGauge()
     {
         while (isGaugeMoving)
@@ -120,91 +120,91 @@ public class OvenGameManager : MonoBehaviour
                 }
             }
 
-            UpdateGaugePosition(); // ´«±Ý À§Ä¡ ¾÷µ¥ÀÌÆ®
+            UpdateGaugePosition(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
             yield return null;
         }
     }
 
-    // ´«±Ý À§Ä¡ ¾÷µ¥ÀÌÆ®
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     private void UpdateGaugePosition()
     {
         float fixedY = gaugeIndicator.rectTransform.anchoredPosition.y;
         gaugeIndicator.rectTransform.anchoredPosition = new Vector2(gaugePosition, fixedY);
     }
 
-    // ½ºÅé ¹öÆ° Å¬¸¯ ½Ã ´«±Ý ¸ØÃã
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void StopGauge()
     {
-        if (!isGaugeMoving) return; // ÀÌ¹Ì ¸ØÃèÀ¸¸é ½ÇÇà ¾È ÇÔ
+        if (!isGaugeMoving) return; // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
 
-        isGaugeMoving = false; // ´«±Ý ÀÌµ¿ ÁßÁö
-        CheckGaugePosition(); // ¸ñÇ¥ ¿µ¿ª ³» Á¤Áö ¿©ºÎ È®ÀÎ
+        isGaugeMoving = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
+        CheckGaugePosition(); // ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     }
 
-    // ´«±Ý À§Ä¡ È®ÀÎ (¼º°ø ¿©ºÎ ÆÇÁ¤)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ È®ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     private void CheckGaugePosition()
     {
         float gaugeLeftEdge = gaugePosition - (gaugeWidth / 2f);
         float gaugeRightEdge = gaugePosition + (gaugeWidth / 2f);
 
-        // ´«±ÝÀÌ ¸ñÇ¥ ¿µ¿ª°ú °ãÄ¡´ÂÁö È®ÀÎ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         if ((gaugeLeftEdge <= targetZoneEnd && gaugeRightEdge >= targetZoneStart) ||
             (gaugeLeftEdge >= targetZoneStart && gaugeRightEdge <= targetZoneEnd))
         {
-            ovenScore = 5; // ¼º°ø ½Ã 5Á¡
+            ovenScore = 5; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 5ï¿½ï¿½
             if (AudioManager.Instance != null)
             {
-                AudioManager.Instance.PlaySfx(AudioManager.Sfx.oven_succ); // ¿Àºì ¼º°ø È¿°úÀ½ ½ÇÇà
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.oven_succ); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             }
-            resultText.text = "Åë°ú!";
-            Debug.Log("¿Àºì °ÔÀÓ ¼º°ø: +5Á¡");
+            resultText.text = "ï¿½ï¿½ï¿½!";
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: +5ï¿½ï¿½");
         }
         else
         {
-            ovenScore = 0; // ½ÇÆÐ ½Ã 0Á¡
+            ovenScore = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 0ï¿½ï¿½
             if (AudioManager.Instance != null)
             {
-                AudioManager.Instance.PlaySfx(AudioManager.Sfx.oven_fail); // ¿Àºì ½ÇÆÐ È¿°úÀ½ ½ÇÇà
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.oven_fail); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             }
-            resultText.text = "½ÇÆÐ!";
-            Debug.Log("¿Àºì °ÔÀÓ ½ÇÆÐ: +0Á¡");
+            resultText.text = "ï¿½ï¿½ï¿½ï¿½!";
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: +0ï¿½ï¿½");
         }
 
-        CalculateTotalScore(); // ÃÑÁ¡ °è»ê
-        EndOvenGame(); // °ÔÀÓ Á¾·á
+        CalculateTotalScore(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        EndOvenGame(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
-    // ÃÑÁ¡ °è»ê
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     private void CalculateTotalScore()
     {
-        // Àç·á °ÔÀÓ Á¡¼ö + ¹ÝÁ× °ÔÀÓ Á¡¼ö + ¿Àºì °ÔÀÓ Á¡¼ö ÇÕ»ê
-        totalScore = ingredientSelectManager.ingredientScore + mixingGameManager.mixingScore + ovenScore;
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Õ»ï¿½
+        totalScore = IngredientSelectManager.Instance.ingredientScore + mixingGameManager.mixingScore + ovenScore;
 
-        Debug.Log($"ÇöÀç±îÁö ÃÑÁ¡: {totalScore}/50");
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {totalScore}/50");
 
-        // ÃÖÁ¾ Á¡¼ö¸¦ UI¿¡ Ç¥½Ã
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UIï¿½ï¿½ Ç¥ï¿½ï¿½
         if (finalScoreText != null)
         {
-            finalScoreText.text = $"ÃÑ Á¡¼ö: {totalScore}/50";
+            finalScoreText.text = $"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {totalScore}/50";
         }
     }
 
-    // ¿Àºì °ÔÀÓ Á¾·á
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void EndOvenGame()
     {
-        ovenGamePanel.SetActive(false); // °ÔÀÓ ÆÐ³Î ºñÈ°¼ºÈ­
-        ovenFinishPanel.SetActive(true); // Á¾·á ÆÐ³Î È°¼ºÈ­
+        ovenGamePanel.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+        ovenFinishPanel.SetActive(true); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ È°ï¿½ï¿½È­
     }
 
-    // ÅäÇÎ ÆÐ³Î·Î ÀÌµ¿
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³Î·ï¿½ ï¿½Ìµï¿½
     public void GoToNextPanel()
     {
-        ovenFinishPanel.SetActive(false); // Á¾·á ÆÐ³Î ¼û±â±â
-        ovenPanel.SetActive(false); // ¿Àºì ÆÐ³Î ºñÈ°¼ºÈ­
-        toppingPanel.SetActive(true); // ÅäÇÎ ÆÐ³Î È°¼ºÈ­
+        ovenFinishPanel.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+        ovenPanel.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+        toppingPanel.SetActive(true); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ È°ï¿½ï¿½È­
     }
 
-    // ToppingManager¿¡¼­ ÃÑÁ¡À» °¡Á®°¥ ¼ö ÀÖµµ·Ï Getter Ãß°¡
+    // ToppingManagerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ Getter ï¿½ß°ï¿½
     public int GetTotalScore()
     {
         return totalScore;

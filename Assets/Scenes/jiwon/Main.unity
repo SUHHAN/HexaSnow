@@ -8083,6 +8083,7 @@ MonoBehaviour:
   RecipeBookGO: {fileID: 1951779732}
   calendarText: {fileID: 838943963}
   MoneyText: {fileID: 1287944012}
+  MoneyTextGO: {fileID: 1556496078}
   customFont: {fileID: 11400000, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
   SettingButtonGO: {fileID: 2106670468}
   KitchenButtonGO: {fileID: 322428707}

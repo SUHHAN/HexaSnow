@@ -3135,7 +3135,6 @@ MonoBehaviour:
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
-  orderScene: {fileID: 0}
 --- !u!1 &1498472700
 GameObject:
   m_ObjectHideFlags: 0

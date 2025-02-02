@@ -180,16 +180,15 @@ public void AddItems()
 private void CheckMenu(string menu, int score){
     Debug.Log($"[디버깅] 입력값: '{menu}' / 기대값: '{currentmenu}'");
 
-    
-    foreach(RecipeC re in recipes) {
-
-        if(menu == re.menu) {
-            coin = re.coin;
-        }
-    }
 
     if(menu.Equals(currentmenu)){
         Debug.Log($"선택된 메뉴가 올바릅니다: {menu}");
+            foreach(RecipeC re in recipes) 
+            {
+                if(menu == re.menu) {
+                    coin = re.coin;
+                }
+            }
         if(currentcus.Equals("cus")){
             if(score >= 60) {
                 getmenu.UpdateDialogue(1); // s
@@ -226,8 +225,11 @@ private void CheckMenu(string menu, int score){
     }
     else{
         if(currentcus.Equals("cus")){
+        coin = 0;
+
         Debug.Log($"선택된 메뉴가 올바르지 않습니다: {menu}");
         getmenu.UpdateDialogue(4);
+        coin -= 500;
         }
         else if(currentcus.Equals("special")){
                 SpecialScript.UpdateDialogue("False");
