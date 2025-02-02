@@ -171,7 +171,7 @@ public void AddItems()
     DataManager.Instance.SaveGameData();
 
     UiLogicManager.Instance.LoadMoneyData();
-    
+
     // ✅ 슬롯 UI 삭제
     Debug.Log($"🗑️ 슬롯 삭제 및 리스트에서 제거: {bakerySlot.GetMenuName()}");
     Destroy(bakerySlot.gameObject);
@@ -193,25 +193,25 @@ private void CheckMenu(string menu, int score){
         if(currentcus.Equals("cus")){
             if(score >= 60) {
                 getmenu.UpdateDialogue(1); // s
-                coin += 1200;
+                coin += 2000;
             }
-            else if(score > 50) {
+            else if(score > 40) {
                 getmenu.UpdateDialogue(1); //a
                 coin += 1000;
             }
-            else if(score>40){
+            else if(score > 30){
                 getmenu.UpdateDialogue(2); //b
                 coin += 500;
             }
-            else if(score > 30){
+            else if(score > 20){
                 getmenu.UpdateDialogue(2); //c
                 coin += 100;
             }
-            else if(score > 20){
+            else if(score > 10){
                 getmenu.UpdateDialogue(3); //d
                 coin += 0;
             }
-            else if(score > 10){
+            else if(score <= 10){
                 getmenu.UpdateDialogue(3); //f
                 coin -= 500;
             }
