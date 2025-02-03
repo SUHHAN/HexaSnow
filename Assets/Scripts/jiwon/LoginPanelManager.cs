@@ -17,7 +17,7 @@ public class LoginPanelManager : MonoBehaviour
         LoginPanel.SetActive(false);
 
         // 4초 후 로그인 상태 확인
-        StartCoroutine(ShowLoginPanelAfterDelay(4f));
+        StartCoroutine(ShowLoginPanelAfterDelay(4.5f));
         button.onClick.AddListener(Deadline);
     }
 
