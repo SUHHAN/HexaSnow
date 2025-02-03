@@ -76,13 +76,24 @@ public class UiLogicManager : MonoBehaviour
             RecipeBookGO.SetActive(true);     // 'order'씬에 가는게 목적
             MoneyTextGO.gameObject.SetActive(true);
         }
+        if (currentSceneName == "orde1r")
+        {
+            KitchenButtonGO.SetActive(true);
+            HomeButtonGO.SetActive(false);
+            SettingButtonGO.SetActive(true);
+            datePanel.SetActive(true);
+            timePanel.SetActive(false);
+            order_buttonGO.SetActive(true);
+            RecipeBookGO.SetActive(true);     // 'order1'씬에 가는게 목적
+            MoneyTextGO.gameObject.SetActive(true);
+        }
 
         if (currentSceneName == "Baking 1") {
             KitchenButtonGO.SetActive(false);
             HomeButtonGO.SetActive(false);
             SettingButtonGO.SetActive(true);
             datePanel.SetActive(true);
-            timePanel.SetActive(true);
+            timePanel.SetActive(false);
             order_buttonGO.SetActive(false);
             RecipeBookGO.SetActive(false);
             MoneyTextGO.gameObject.SetActive(true);
