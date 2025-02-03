@@ -9,6 +9,7 @@ public class tutorial2 : MonoBehaviour
     public GameObject speechBubble;
     public GameObject direct1;
     public GameObject direct2;
+    public GameObject direct3;
     public GameObject kitchen;
     public GameObject order;
     public TextMeshProUGUI dialogueText;
@@ -113,6 +114,12 @@ public class tutorial2 : MonoBehaviour
 
             if(currentLine.id=="3"){
                 direct1.SetActive(true);
+            }
+            if(currentLine.id=="4"){
+                direct3.SetActive(true);
+            }
+            if(currentLine.id=="5"){
+                direct3.SetActive(false);
             }
 
             if(currentLine.id=="7"){

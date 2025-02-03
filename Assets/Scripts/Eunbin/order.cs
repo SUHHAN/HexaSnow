@@ -65,7 +65,6 @@ public class Order : MonoBehaviour
         SceneManager.LoadScene("Main", LoadSceneMode.Additive); //기본 UI 띄우기 
         postman.SetActive(true);
         orderCheck.gameObject.SetActive(true);
-        order.SetActive(true); // 주문 UI 비활성화
         Mademenu.SetActive(false);
 
         InitializeButtons(); // 버튼 초기화
@@ -197,7 +196,8 @@ public class Order : MonoBehaviour
     private void OpenOrderUI(){
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         orderCheck.gameObject.SetActive(false);
-        order.SetActive(true);
+        acceptButton.gameObject.SetActive(true);
+        cancelButton.gameObject.SetActive(true);
         SetRandomDialogueIndex();
         ShowDialogue();
 
