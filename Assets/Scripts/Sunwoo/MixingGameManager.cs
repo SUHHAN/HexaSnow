@@ -212,8 +212,8 @@ public class MixingGameManager : MonoBehaviour
         int SumIngreMixingScore = IngredientSelectManager.Instance.ingredientScore + mixingScore;
 
         finalText.gameObject.SetActive(true);
-        Debug.Log($"���� ���� ���� ����: {SumIngreMixingScore}/15");
-        finalText.text = $"���� ����: {SumIngreMixingScore} / 45";
+        Debug.Log($"{SumIngreMixingScore}/15");
+        finalText.text = $"점수 : {SumIngreMixingScore} / 45";
     }
 
     private void Update()

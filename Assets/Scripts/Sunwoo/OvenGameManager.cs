@@ -156,7 +156,7 @@ public class OvenGameManager : MonoBehaviour
             {
                 AudioManager.Instance.PlaySfx(AudioManager.Sfx.oven_succ); // ���� ���� ȿ���� ����
             }
-            resultText.text = "���!";
+            resultText.text = "성공!";
             Debug.Log("���� ���� ����: +5��");
         }
         else
@@ -166,7 +166,7 @@ public class OvenGameManager : MonoBehaviour
             {
                 AudioManager.Instance.PlaySfx(AudioManager.Sfx.oven_fail); // ���� ���� ȿ���� ����
             }
-            resultText.text = "����!";
+            resultText.text = "실패!";
             Debug.Log("���� ���� ����: +0��");
         }
 
@@ -185,7 +185,7 @@ public class OvenGameManager : MonoBehaviour
         // ���� ������ UI�� ǥ��
         if (finalScoreText != null)
         {
-            finalScoreText.text = $"�� ����: {totalScore}/50";
+            finalScoreText.text = $"총점: {totalScore}/50";
         }
     }
 
