@@ -27,7 +27,6 @@ public class getMenuOnly : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
     public GameObject speechBubble;
-    public GameObject nameBubble;
     private int NicknameIndex=0;
     bool isOrderCompleted = false;
     public string csvFileName_guest="guest.csv";
@@ -68,7 +67,7 @@ public class getMenuOnly : MonoBehaviour
         customers.Add(girl);
         customers.Add(shortgirl);
         GameData dateGD = DataManager.Instance.LoadGameData();
-        ProcessCustomers(dateGD.date);
+        StartCoroutine(ProcessCustomers(dateGD.date-1));
         
         
     }
@@ -198,11 +197,52 @@ private void LoadGuestFromCSV()
         result.Add(currentField); // 마지막 필드 추가
         return result.ToArray();
     }
-    public IEnumerator ProcessCustomers(int dayToProcess)
+  public IEnumerator ProcessCustomers(int dayToProcess)
 {
+    GameData data = DataManager.Instance.LoadGameData();
+    SerializableDictionary<int, ValueData> orderDictionary =
+        JsonUtility.FromJson<SerializableDictionary<int, ValueData>>(data.serializedDailyOrders);
+
     Debug.Log($"[{dayToProcess}일] 손님 처리 시작");
+
     none.gameObject.SetActive(true);
     MadeMenu.SetActive(true);
+
+    if (dailyOrders == null)
+    {
+        dailyOrders = new Dictionary<int, List<List<int>>>();
+    }
+    dailyOrders.Clear();
+
+    if (orderDictionary == null || orderDictionary.keyValuePairs.Count == 0)
+    {
+        Debug.Log($"[{dayToProcess}일] 주문 데이터가 없습니다.");
+        MadeMenu.SetActive(false);
+        none.gameObject.SetActive(false);
+        yield break;
+    }
+
+    if (!dailyOrders.ContainsKey(dayToProcess))
+    {
+        dailyOrders[dayToProcess] = new List<List<int>>();
+    }
+
+    foreach (var pair in orderDictionary.keyValuePairs)
+    {
+        if (pair.Key == dayToProcess) // 특정 키값을 찾기
+    {
+        foreach (var order in pair.Value.orders)
+        {
+            if (order.items.Count == 2)
+            {
+                dailyOrders[dayToProcess].Add(new List<int> { order.items[0], order.items[1] });
+            }
+        }
+        }
+    }
+
+    // 디버깅: dailyOrders에 데이터가 잘 추가되었는지 확인
+    Debug.Log($"[{dayToProcess}일] dailyOrders 내용: {dailyOrders[dayToProcess].Count} 개의 주문");
 
     if (!dailyOrders.ContainsKey(dayToProcess) || dailyOrders[dayToProcess].Count == 0)
     {
@@ -211,37 +251,53 @@ private void LoadGuestFromCSV()
         none.gameObject.SetActive(false);
         yield break;
     }
-    List<List<int>> menuForDay = new List<List<int>>(dailyOrders[dayToProcess]); // 해당 날짜의 주문 복사
+
+    List<List<int>> menuForDay = new List<List<int>>(dailyOrders[dayToProcess]);
 
     foreach (List<int> order in menuForDay)
     {
         int orderId = order[0];
         int nicknameIndex = order[1];
-        menuName=dialogues[orderId].menu;
 
-        customer = GetRandomCustomer();
-        customer.SetActive(true);
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
+        // 디버깅: orderId와 nicknameIndex가 유효한 값인지 확인
+        Debug.Log($"주문 정보: orderId = {orderId}, nicknameIndex = {nicknameIndex}");
+
+        if (orderId < 0 || orderId >= dialogues.Count)
+        {
+            Debug.LogError($"Invalid orderId: {orderId}");
+            continue;
+        }
+        if (nicknameIndex < 0 || nicknameIndex >= nicknames.Count)
+        {
+            Debug.LogError($"Invalid nicknameIndex: {nicknameIndex}");
+            continue;
+        }
+
+        menuName = dialogues[orderId].menu;
         dialogueName.text = nicknames[nicknameIndex];
 
+        customer = GetRandomCustomer();
+        if (customer == null)
+        {
+            Debug.LogError("Failed to get a customer.");
+            continue;
+        }
+        customer.SetActive(true);
+
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
         Debug.Log($"손님 {customer.name}이(가) 메뉴 {menuName}을(를) 받으러 왔습니다!");
-        setmenu.current_cus(menuName, "cus");        
+        setmenu.current_cus(menuName, "cus");
         ShowOrder(orderId);
-        nameBubble.SetActive(true);
 
         isOrderCompleted = false;
-    
+
         none.onClick.RemoveAllListeners();
-        
         none.onClick.AddListener(() => {
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_fail);
             Debug.Log($"손님 {customer.name}이(가) 메뉴를 받지 못했습니다.");
             UpdateDialogue(5);
-
             LoadMoData();
-
             UiLogicManager.Instance.LoadMoneyData();
-
             isOrderCompleted = true;
         });
 
@@ -255,8 +311,9 @@ private void LoadGuestFromCSV()
         Debug.Log($"손님 {customer.name}이(가) 메뉴를 받아갔습니다!");
         characterManager.ChangeFace(customer, Expression.set);
     }
+    orderDictionary.keyValuePairs.RemoveAll(pair => pair.Key == dayToProcess);
+    data.serializedDailyOrders = JsonUtility.ToJson(orderDictionary);
 
-    dailyOrders[dayToProcess].Clear(); // 해당 날짜의 주문 처리 완료
     Debug.Log($"[{dayToProcess}일] 모든 손님이 메뉴를 받아갔습니다.");
     MadeMenu.SetActive(false);
     none.gameObject.SetActive(false);

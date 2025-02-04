@@ -31,7 +31,7 @@ public class SetMenu : MonoBehaviour
 
     }
 
-    public getMenu getmenu; // 메뉴 검증용 스크립트
+    public getMenuOnly getmenu; // 메뉴 검증용 스크립트
     public special_customer SpecialScript;
     public string currentcus;
     public string currentmenu;

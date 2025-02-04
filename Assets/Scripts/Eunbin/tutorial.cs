@@ -50,7 +50,7 @@ public class tutorial : MonoBehaviour
             Debug.LogError("대화 내용이 없습니다. CSV 파일을 확인하세요.");
         }
         skip.onClick.AddListener(()=>{
-            SceneManager.LoadScene("order");
+            SceneManager.LoadScene("order1");
         });
     }
 

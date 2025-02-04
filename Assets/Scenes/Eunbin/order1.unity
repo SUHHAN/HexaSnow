@@ -2683,6 +2683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b3d71a69db64f8fa21197ebcf3814b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gametime: {fileID: 1024402157}
   postman: {fileID: 1921581492}
   dialogueText: {fileID: 667618063}
   dialogueName: {fileID: 1259675377}
@@ -2703,7 +2704,6 @@ MonoBehaviour:
   nameBubble: {fileID: 1490473245}
   popup: {fileID: 2003282274}
   popupText: {fileID: 683587854}
-  Mademenu: {fileID: 0}
   GD:
     isGuestLoggedIn: 0
     date: 0
@@ -3148,7 +3148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2003282275
 RectTransform:
   m_ObjectHideFlags: 0

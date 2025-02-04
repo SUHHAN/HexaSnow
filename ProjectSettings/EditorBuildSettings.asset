@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Eunbin/tutorial2.unity
     guid: e5af6d0f4aac14783be870ba048cb959
   - enabled: 1
+    path: Assets/Scenes/Eunbin/order1.unity
+    guid: b69fa5f768f374493902a7516347dad7
+  - enabled: 0
     path: Assets/Scenes/Eunbin/order.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 0
@@ -56,9 +59,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sunwoo/Baking 1.unity
     guid: d302ab64626714b4fba5aaa1d2b804a3
-  - enabled: 1
-    path: Assets/Scenes/Eunbin/order 1.unity
-    guid: b69fa5f768f374493902a7516347dad7
   - enabled: 1
     path: Assets/Scenes/Eunbin/customer.unity
     guid: 60ffe82e7a6b44092a3d2373a11ccc38

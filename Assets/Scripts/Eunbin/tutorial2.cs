@@ -160,7 +160,7 @@ public class tutorial2 : MonoBehaviour
             //speechBubble.SetActive(false);
             //letterBubble.SetActive(false);
             //postman.SetActive(false);
-            SceneManager.LoadScene("order");
+            SceneManager.LoadScene("order1");
         }
         else
         {

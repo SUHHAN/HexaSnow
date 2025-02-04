@@ -194,12 +194,12 @@ public class OrderBookManager : MonoBehaviour
         int contentId = currentOrder.Item1;
         int customerId = currentOrder.Item2;
 
-        Debug.Log($"[ShowOrder] contentId 타입: {contentId.GetType()}, 값: {contentId}");
+        /*Debug.Log($"[ShowOrder] contentId 타입: {contentId.GetType()}, 값: {contentId}");
         foreach (var key in mainOrderData.Keys)
         {
             Debug.Log($"[ShowOrder] 저장된 키: {key}, 타입: {key.GetType()}");
         }
-
+*/
         // CSV에서 contentId와 customerId로 각 항목을 찾아서 텍스트에 할당
         string contentText = mainOrderData[contentId];
         string customerText = nicknameOrderData[customerId];

@@ -73,7 +73,7 @@ public class PanelMover : MonoBehaviour
     }
 
     void GoGame() {
-        SceneManager.LoadScene("order");
+        SceneManager.LoadScene("order1");
     }
 
     private void LoadDate() {
