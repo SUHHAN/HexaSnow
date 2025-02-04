@@ -19,6 +19,7 @@ public class RecipeBook : MonoBehaviour
             new Recipe("Financier", new List<string> { "EggWhites", "AlmondPowder", "Flour", "Honey", "Sugar", "BrownedButter" }, false),
             new Recipe("Scone", new List<string> { "Flour", "Sugar", "BakingPowder", "Butter", "Egg", "Milk", "WhCream" }, false),
             new Recipe("Tart", new List<string> { "CreamCheese", "ConMilk", "WhCream", "Sugar", "Flour", "AlmondPowder", "SugarPowder", "Butter", "Egg" }, false),
+            new Recipe("Macaroon", new List<string> { "Butter", "Sugar", "EggWhites", "AlmondPowder", "SugarPowder", "WhCream" }, false),
             new Recipe("Slice Cake", new List<string> { "Butter", "Egg", "Flour", "Sugar", "Milk" }, false),
             new Recipe("Doughnut", new List<string> { "Butter", "Egg", "Flour", "Sugar", "Milk" }, false)
         };
@@ -41,7 +42,7 @@ public class RecipeBook : MonoBehaviour
         if (currentDate >= 2) { UnlockRecipe("Muffin"); UnlockRecipe("Pound Cake"); }  // Day 2
         if (currentDate >= 3) { UnlockRecipe("Financier"); UnlockRecipe("Basque Cheesecake"); }  // Day 3
         if (currentDate >= 4) { UnlockRecipe("Tart"); UnlockRecipe("Scone"); }  // Day 4
-        if (currentDate >= 5) { UnlockRecipe("Doughnut"); UnlockRecipe("Slice Cake"); }  // Day 5
+        if (currentDate >= 5) { UnlockRecipe("Macaroon"); UnlockRecipe("Doughnut"); UnlockRecipe("Slice Cake"); }  // Day 5
 
         Debug.Log("레시피 해금 완료!");
     }

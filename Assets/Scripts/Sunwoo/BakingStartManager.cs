@@ -24,18 +24,23 @@ public class BakingStartManager : MonoBehaviour
     public List<Button> recipeButtons;
     private Dictionary<Button, Color> originalButtonColors = new Dictionary<Button, Color>();
 
-    private int selectedDessertIndex = 10; // 기본값 10
+    private int selectedDessertIndex = -1;
     private string selectedDessert = "";
     private Button lastSelectedButton = null; // 마지막으로 선택한 버튼을 저장
 
     private Dictionary<int, int> buttonIndexToDessertIndex = new Dictionary<int, int>()
     {
         { 0, 1 },  // 버튼 0 → 마들렌 (1)
-        { 2, 4 },  // 버튼 2 → 머핀 (7)
-        { 3, 7 },  // 버튼 3 → 쿠키 (4)
-        { 4, 10 }, // 버튼 4 → 파운드케이크 (10)
-        { 6, 14 }  // 버튼 6 → 바스크 치즈케이크 (14)
-        // 나머지는 기본값 10 (파운드케이크)
+        { 1, 4 },  // 버튼 1 → 쿠키 (4)
+        { 2, 7 },  // 버튼 2 → 머핀 (7)
+        { 3, 10 }, // 버튼 3 → 파운드케이크 (10)
+        { 4, 14 }, // 버튼 4 → 바스크 치즈케이크 (14)
+        { 5, 15 }, // 버튼 5 → 휘낭시에 (15)
+        { 6, 18 }, // 버튼 6 → 스콘 (18)
+        { 7, 21 }, // 버튼 7 → 타르트 (21)
+        { 8, 24 }, // 버튼 8 → 마카롱 (24)
+        { 9, 27 }, // 버튼 9 → 조각케이크 (27)
+        { 10, 28 } // 버튼 10 → 도넛 (28)
     };
 
     public UiLogicManager uiLogicManager;

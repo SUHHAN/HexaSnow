@@ -45,20 +45,30 @@ public class ToppingManager : MonoBehaviour
     // 디저트 별 활성화할 토핑 버튼
     private Dictionary<int, List<int>> dessertToppingMap = new Dictionary<int, List<int>>()
     {
-        { 1, new List<int> { 4, 5 } }, // Madeleine: 토핑 4, 5만 활성화
-        { 4, new List<int> { 4, 6 } }, // Cookie: 토핑 4, 6만 활성화
-        { 7, new List<int> { 2, 4 } }, // Muffin: 토핑 2, 4만 활성화
-        { 10, new List<int> { 1, 4, 5 } }, // 파운드케이크 (토핑 1, 4, 5 활성화)
-        { 14, new List<int>() }        // 바스크 치즈케이크
+        { 1, new List<int> { 4, 5 } }, // 마들렌: 초코, 레몬
+        { 4, new List<int> { 4, 6 } }, // 쿠키: 초코, 아몬드
+        { 7, new List<int> { 2, 4 } }, // 머핀: 블루베리, 초코
+        { 10, new List<int> { 1, 4, 5 } }, // 파운드케이크: 바나나, 초코, 레몬
+        { 14, new List<int>() }, // 바스크치즈케이크: 토핑 없음
+        { 15, new List<int> { 4, 6 } }, // 휘낭시에: 초코, 아몬드
+        { 18, new List<int> { 3, 4 } }, // 스콘: 카라멜, 초코
+        { 21, new List<int> { 2, 5 } }, // 타르트: 블루베리, 레몬
+        { 24, new List<int> { 1, 7 } }, // 마카롱: 바나나, 딸기
+        { 27, new List<int>() }, // 조각케이크: 토핑 없음
+        { 28, new List<int>() } // 도넛: 토핑 없음
     };
 
     // 토핑 선택에 따른 BakingImage 변경 (디저트 인덱스, 토핑 인덱스 → 결과 이미지 인덱스)
     private Dictionary<(int, int), int> toppingImageMap = new Dictionary<(int, int), int>()
     {
-        { (1, 4), 2 }, { (1, 5), 3 }, // Madeleine → 2: 토핑4, 3: 토핑5
-        { (4, 4), 5 }, { (4, 6), 6 }, // Cookie → 5: 토핑4, 6: 토핑6
-        { (7, 2), 8 }, { (7, 4), 9 }, // Muffin → 8: 토핑2, 9: 토핑4
-        { (10, 4), 11 }, { (10, 5), 12 }, { (10, 1), 13 } // 파운드케이크
+        { (1, 4), 2 }, { (1, 5), 3 }, // 마들렌
+        { (4, 4), 5 }, { (4, 6), 6 }, // 쿠키
+        { (7, 4), 8 }, { (7, 2), 9 }, // 머핀
+        { (10, 4), 11 }, { (10, 5), 12 }, { (10, 1), 13 }, // 파운드케이크
+        { (15, 4), 16 }, { (15, 6), 17 }, // 휘낭시에
+        { (18, 4), 19 }, { (18, 3), 20 }, // 스콘
+        { (21, 5), 22 }, { (21, 2), 23 }, // 타르트
+        { (24, 1), 25 }, { (24, 7), 26 }, // 마카롱
     };
 
     void Start()
