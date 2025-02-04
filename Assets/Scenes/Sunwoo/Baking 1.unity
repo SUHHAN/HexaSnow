@@ -3797,7 +3797,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC870\uAC01\uCF00\uC774\uD06C"
+  m_text: "\uB9C8\uCE74\uB871"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
   m_sharedMaterial: {fileID: 68952158446488501, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
@@ -5865,7 +5865,7 @@ GameObject:
   - component: {fileID: 740495476}
   - component: {fileID: 740495475}
   m_Layer: 5
-  m_Name: macaroon
+  m_Name: Macaroon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
