@@ -10,8 +10,6 @@ public class Ingredient_h : MonoBehaviour
     public int currentNum = 0;
     private int ScoreMultiplier = 3; // 1개 구매 당 배점
 
-
-
     void Start()
     {
         InitNum();
