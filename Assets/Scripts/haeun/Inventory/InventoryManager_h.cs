@@ -13,14 +13,14 @@ using Unity.VisualScripting;
 public class InventoryManager_h : MonoBehaviour
 {
     public Button orderScene;
-    private static InventoryManager _instance;
-    public static InventoryManager Instance
+    private static InventoryManager_h _instance;
+    public static InventoryManager_h Instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = FindObjectOfType<InventoryManager>();
+                _instance = FindObjectOfType<InventoryManager_h>();
             }
             return _instance;
         }
@@ -96,6 +96,7 @@ public class InventoryManager_h : MonoBehaviour
     private bool SelectButton;
 
 
+    [Header("요리 팝업 관리")]
     [SerializeField] private GameObject BonusPanel;
     [SerializeField] private GameObject BlackBackground;
     [SerializeField] private TextMeshProUGUI BonusPanelText;
@@ -160,6 +161,7 @@ public class InventoryManager_h : MonoBehaviour
     public void OnClickCookTab()
     {
         // 기존 아이템 삭제 후 요리 아이템 추가
+        LoadCookData();
         ClearItems();
         Cook_AddItems();
 
@@ -214,8 +216,8 @@ public class InventoryManager_h : MonoBehaviour
             menuImage.GetComponent<Image>().sprite = CookSprites[me.menuID];
 
             //item의 색상을 각 등급에 맞는 색으로 지정하는 함수 작성하기
-            // menu.SetMenuColor();
-            // menu.SetButtonActive();
+            menu.SetMenuColor();
+            menu.SetButtonActive();
         }
     }
 
@@ -224,7 +226,7 @@ public class InventoryManager_h : MonoBehaviour
         try {
             foreach (var ingre in MyIngreList)
             {
-                if(ingre.index != 23) {
+                if(ingre.index != 23 && ingre.type == 1) {
                     GameObject item = Instantiate(IngrePrefab, content);
 
                     // 카드 스프라이트의 인덱스 지정 변수
@@ -293,7 +295,7 @@ public class InventoryManager_h : MonoBehaviour
     {
         foreach (Transform ch in content)
         {
-            Bread_h child = ch.GetComponent<Bread_h>();
+            Cook_h child = ch.GetComponent<Cook_h>();
             
             // 보너스 게임을 이미 진행한 요리의 경우, 변화를 주지 않도록 설정.
             bool Select_bonus = child.ReturnBonus();
@@ -373,6 +375,23 @@ public class InventoryManager_h : MonoBehaviour
     }
 
     private void LoadCookData() {
+        // 계속 쌓이는 것을 방지
+        MyCookList.Clear();
+
+        PlayerPrefs.DeleteKey("SelectedMenuIndex");
+        PlayerPrefs.DeleteKey("SelectedMenuScore");
+        PlayerPrefs.Save(); // 변경 사항 저장
+
+        if (PlayerPrefs.HasKey("SelectedMenuIndex"))
+        {
+            int savedIndex = PlayerPrefs.GetInt("SelectedMenuIndex");
+            Debug.Log($"✔ 'SelectedMenuIndex' 키가 존재합니다. 저장된 값: {savedIndex}");
+        }
+        else
+        {
+            Debug.LogWarning("⚠ 'SelectedMenuIndex' 키가 존재하지 않습니다.");
+        }
+
         GD = DataManager.Instance.LoadGameData();
 
         foreach (MyRecipeList bake in DataManager.Instance.gameData.myBake) {
