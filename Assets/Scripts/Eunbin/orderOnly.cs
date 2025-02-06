@@ -247,9 +247,8 @@ public class OrderOnly : MonoBehaviour
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
         GameData dateGD = DataManager.Instance.LoadGameData();
 
-        if(dateGD.date>1){
+        if(dateGD.date>1)
             SceneManager.LoadScene("customer");
-        }
 }
  private void SetRandomDialogueIndex()
     {

@@ -115,8 +115,10 @@ public class InventoryManager_h : MonoBehaviour
         TabSet.SetActive(false);
 
         // Ingre_AddItems();
-
-        SceneManager.LoadScene("customer");
+        orderScene.onClick.AddListener(()=>{
+            SceneManager.LoadScene("Deadline_Last");
+        });
+        
     }
 
     public void OnClickSelectButton() {

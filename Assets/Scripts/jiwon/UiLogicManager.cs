@@ -153,7 +153,7 @@ public class UiLogicManager : MonoBehaviour
     }
 
     public void GoBonusScene() {
-        SceneManager.LoadScene("Bonus");
+        SceneManager.LoadScene("inventory");
     }
 
     public void GoKitchenScene() {

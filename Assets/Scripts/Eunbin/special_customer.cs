@@ -36,9 +36,6 @@ public class special_customer : MonoBehaviour
     public GameObject MadeMenu;
     public SetMenu setmenu;
     private float currentTime;
-    public event Action<float> OnTimeUpdate; // 시간 업데이트 이벤트
-    public event Action OnSpecialTimeReached; // 특정 시간 도달 이벤트
-    private bool specialEventTriggered = false;
 
     public struct DialogueLine
     {
@@ -61,37 +58,28 @@ public class special_customer : MonoBehaviour
         customers.Add(child);
         customers.Add(oldMan);
         customers.Add(man);
-        GameData dateGD = DataManager.Instance.LoadGameData();
-
+        
         speechBubble.SetActive(false);
 
-        currentTime=dateGD.time;
-        OnTimeUpdate?.Invoke(currentTime); // 시간 업데이트 이벤트 트리거
 
-            if (currentTime <= 350 && !specialEventTriggered && (dateGD.date==2 || dateGD.date==5 || dateGD.date==8))
-            {
-                LoadDialoguesFromCSV();
-                OnSpecialTimeReached?.Invoke(); // 특정 시간 도달 이벤트 트리거
-                OnSpecialTimeReached -= orderSpecialCustomer; // 기존 구독 제거
-                OnSpecialTimeReached += orderSpecialCustomer; // 새로운 구독 추가
-                specialEventTriggered = true; // 구독 상태 업데이트
-                currentDay=dateGD.date;
-            }
-            OnSpecialTimeReached += spc_OnSpecialTimeReached;
-        }
+        specialOrders.Add(2, child);  
+        specialOrders.Add(5, oldMan);
+        specialOrders.Add(8, man);
 
+    }
     public void LoadDialoguesFromCSV()
     {
         try
         {
-            Debug.Log($"현재 손님 인덱스:{Spe_customer}");
+            Debug.Log($"현재 손님:{customer.name}");
             string csvFileName = "";
-            if (Spe_customer == 0)
+            if (customer.name == "child")
                 csvFileName = csvFileNameGirl;
-            else if (Spe_customer == 1)
+            else if (customer.name == "old_man")
                 csvFileName = csvFileNameOldMan;
-            else if (Spe_customer == 2)
+            else if (customer.name == "man")
                 csvFileName = csvFileNameMan;
+
             Debug.Log($"로드할 CSV 파일: {csvFileName}");
 
             dialogues.Clear();
@@ -157,30 +145,33 @@ public class special_customer : MonoBehaviour
     private void spc_OnSpecialTimeReached()
     {
         Debug.Log("3시에 손님 등장 이벤트 발생");
-        if (specialOrders.ContainsKey(currentDay))
+        if (specialOrders.ContainsKey(currentDay-2))
         {
-            VisitSpecialCustomer(currentDay);
+            VisitSpecialCustomer(currentDay-2);
         }
+        else Debug.Log("특별 손님 주문받으러 옴");
     }
 
     public void orderSpecialCustomer()
     {
-        if (Spe_customer >= customers.Count)
-        {
-            Debug.LogError("스페셜 손님 인덱스가 범위를 초과했습니다!");
-            return;
-        }
         foreach (GameObject customerObj in customers)
         {
             customerObj.SetActive(false); // 모든 손님 비활성화
         }
-        Debug.Log($"특별 손님 등장{Spe_customer}");
+        Debug.Log($"특별 손님 등장");
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
-        customer = customers[Spe_customer];
-        customer.SetActive(true);
-
-        current_startId=1;
-        PlayDialogue(current_startId);
+        if (specialOrders.ContainsKey(currentDay))
+        {
+            customer = specialOrders[currentDay];
+            LoadDialoguesFromCSV();
+            customer.SetActive(true);
+            current_startId = 1;
+            PlayDialogue(current_startId);
+        }
+        else
+        {
+            Debug.LogError($"🚨 특별 손님 데이터 없음: {currentDay}일차");
+        }
     }
 
     public void VisitSpecialCustomer(int day)
@@ -191,7 +182,8 @@ public class special_customer : MonoBehaviour
             return;
         }
 
-        GameObject customer = specialOrders[day];
+        customer = specialOrders[day];
+        LoadDialoguesFromCSV();
         customer.SetActive(true);
         current_startId=1001;
         PlayDialogue(current_startId);
@@ -228,7 +220,6 @@ public class special_customer : MonoBehaviour
         {
             if(startId==1){
                 Debug.Log("스페셜 손님 주문 완료!");
-                specialOrders[currentDay + 2] = customer;
                 customer.SetActive(false);
                 EndDialogue();
                 return;
@@ -268,10 +259,8 @@ public class special_customer : MonoBehaviour
         yield return new WaitUntil(() => isOrderCompleted);
         speechBubble.SetActive(false);
         customer.SetActive(false);
-        specialOrders.Remove(day);
         isOrderCompleted = false;
         none.gameObject.SetActive(false);
-        Spe_customer++;
 
         Debug.Log("특별 손님이 방문을 완료했습니다.");
         
@@ -315,5 +304,17 @@ public class special_customer : MonoBehaviour
         {
             ShowCurrentDialogue(current_startId);
         }
-    }
+
+        GameData dateGD = DataManager.Instance.LoadGameData();
+        currentTime = dateGD.time; // 실시간으로 시간 업데이트
+
+        if (Mathf.Abs(currentTime - 355f) < 0.1f)
+        {
+            //LoadDialoguesFromCSV();
+            orderSpecialCustomer();
+            spc_OnSpecialTimeReached();
+            currentDay = dateGD.date;
+        }
+        else Debug.Log("특별손님 방문 안 함");
+}
 }
