@@ -119,6 +119,8 @@ public class InventoryManager_h : MonoBehaviour
         SelectButton = false;
 
         // Ingre_AddItems();
+
+        SceneManager.LoadScene("customer");
     }
 
     public void OnClickSelectButton() {

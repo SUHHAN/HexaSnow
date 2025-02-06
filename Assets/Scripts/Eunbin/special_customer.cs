@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class special_customer : MonoBehaviour
 {
@@ -34,6 +35,10 @@ public class special_customer : MonoBehaviour
 
     public GameObject MadeMenu;
     public SetMenu setmenu;
+    private float currentTime;
+    public event Action<float> OnTimeUpdate; // 시간 업데이트 이벤트
+    public event Action OnSpecialTimeReached; // 특정 시간 도달 이벤트
+    private bool specialEventTriggered = false;
 
     public struct DialogueLine
     {
@@ -56,10 +61,24 @@ public class special_customer : MonoBehaviour
         customers.Add(child);
         customers.Add(oldMan);
         customers.Add(man);
+        GameData dateGD = DataManager.Instance.LoadGameData();
 
         speechBubble.SetActive(false);
-        //gametime.OnSpecialTimeReached += OnSpecialTimeReached;
-    }
+
+        currentTime=dateGD.time;
+        OnTimeUpdate?.Invoke(currentTime); // 시간 업데이트 이벤트 트리거
+
+            if (currentTime <= 350 && !specialEventTriggered && (dateGD.date==2 || dateGD.date==5 || dateGD.date==8))
+            {
+                LoadDialoguesFromCSV();
+                OnSpecialTimeReached?.Invoke(); // 특정 시간 도달 이벤트 트리거
+                OnSpecialTimeReached -= orderSpecialCustomer; // 기존 구독 제거
+                OnSpecialTimeReached += orderSpecialCustomer; // 새로운 구독 추가
+                specialEventTriggered = true; // 구독 상태 업데이트
+                currentDay=dateGD.date;
+            }
+            OnSpecialTimeReached += spc_OnSpecialTimeReached;
+        }
 
     public void LoadDialoguesFromCSV()
     {
@@ -135,7 +154,7 @@ public class special_customer : MonoBehaviour
         return result.ToArray();
     }
 
-    private void OnSpecialTimeReached()
+    private void spc_OnSpecialTimeReached()
     {
         Debug.Log("3시에 손님 등장 이벤트 발생");
         if (specialOrders.ContainsKey(currentDay))
