@@ -93,6 +93,7 @@ public class InventoryManager_h : MonoBehaviour
     public GameObject xButton; // x 탭
     public GameObject TabSet; // Tab 세트
     public GameObject SelectInventoryButton;
+    private bool SelectButton;
 
 
     [SerializeField] private GameObject BonusPanel;
@@ -114,19 +115,33 @@ public class InventoryManager_h : MonoBehaviour
         AllPanel.SetActive(false);
         TabSet.SetActive(false);
 
+        SelectButton = false;
+
         // Ingre_AddItems();
     }
 
     public void OnClickSelectButton() {
-        AllPanel.SetActive(true);
-        BlackBackground.SetActive(true);
-        TabSet.SetActive(true);
+        SelectButton = !SelectButton; // 현재 상태를 반대로 변경 (true ↔ false)
 
-        // 완성 음식 데이터 업로드
-        OnClickIngreTab();
+        if (SelectButton) {
+            // UI 열기
+            AllPanel.SetActive(true);
+            BlackBackground.SetActive(true);
+            TabSet.SetActive(true);
+
+            // 재료 탭 기본 선택
+            OnClickCookTab();
+        } else {
+            // UI 닫기
+            AllPanel.SetActive(false);
+            BlackBackground.SetActive(false);
+            TabSet.SetActive(false);
+        }
     }
 
     public void OnClickxTab() {
+        SelectButton = !SelectButton;
+
         BlackBackground.SetActive(false);
         TabSet.SetActive(false);
         AllPanel.SetActive(false);
