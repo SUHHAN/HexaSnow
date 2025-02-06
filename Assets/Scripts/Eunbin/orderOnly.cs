@@ -71,6 +71,15 @@ public class OrderOnly : MonoBehaviour
 
         openMenu(dateGD.date);
 
+        if (dateGD.date >= 4)
+        {
+            accept_order=4;
+        }
+        if (dateGD.date >= 7)
+        {
+            accept_order=6;
+        }
+
         //UiLogicManager.Instance.LoadMoneyData();
     }
 
@@ -263,9 +272,6 @@ public class OrderOnly : MonoBehaviour
     }
         currentNicknameIndex=Random.Range(1, nicknames.Count);
         
-    }
-public void IncreaseAcceptOrder(int increment){
-    accept_order+=increment;
     }
 private void InitializeButtons(){
     // 기존 리스너 제거 후 새로 추가
