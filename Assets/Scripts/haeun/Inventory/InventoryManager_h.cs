@@ -259,6 +259,7 @@ public class InventoryManager_h : MonoBehaviour
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         BlackBackground.SetActive(true);
         BonusPanel.SetActive(true);
+        SelectInventoryButton.SetActive(false);
 
         BonusPanelText.text = $"'{name}' (으)로\n추가 베이킹하시겠습니까?";
 
@@ -268,8 +269,9 @@ public class InventoryManager_h : MonoBehaviour
 
     public void NoButtonClick()
     {
-        BlackBackground.SetActive(false);
+        // BlackBackground.SetActive(false);
         BonusPanel.SetActive(false);
+        SelectInventoryButton.SetActive(true);
 
         PlayerPrefs.DeleteKey("SelectedMenuIndex");
         PlayerPrefs.DeleteKey("SelectedMenuScore");

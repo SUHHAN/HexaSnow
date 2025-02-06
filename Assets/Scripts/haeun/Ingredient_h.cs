@@ -34,7 +34,7 @@ public class Ingredient_h : MonoBehaviour
             TextMeshProUGUI textComponent = panel.GetComponentInChildren<TextMeshProUGUI>();
             if (textComponent != null)
             {
-                textComponent.text = $"{currentNum}개";
+                textComponent.text = $"x {currentNum}";
             }
         }
 
@@ -65,7 +65,7 @@ public class Ingredient_h : MonoBehaviour
                 TextMeshProUGUI textComponent = panel.GetComponentInChildren<TextMeshProUGUI>();
                 if (textComponent != null)
                 {
-                    textComponent.text = $"{currentNum}개";
+                    textComponent.text = $"x {currentNum}";
                 }
             }
 
