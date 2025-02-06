@@ -67,6 +67,7 @@ public class ingreGameManager_h : MonoBehaviour
 
     void Start()
     {
+        Camera.main.orthographicSize = 5f; // UI Camera의 Size와 동일하게 맞추기
         AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
         
         animator = PlayerIdle.GetComponent<Animator>();
@@ -85,6 +86,7 @@ public class ingreGameManager_h : MonoBehaviour
             UpdateTimer();
         }
     }
+
     
 
     private IEnumerator StartGameRoutine()

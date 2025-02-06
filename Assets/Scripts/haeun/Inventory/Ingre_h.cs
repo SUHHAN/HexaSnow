@@ -41,20 +41,9 @@ public class Ingre_h : MonoBehaviour
 
     void Start()
     {
-        
-        // // 현재 게임 오브젝트에서 Button 컴포넌트를 가져와서 클릭 이벤트 추가
-        // SlotPanelButton = this.GetComponent<Button>();
-        // if (SlotPanelButton != null)
-        // {
-        //     SlotPanelButton.onClick.AddListener(OnButtonClick);
-        // }
+
     }
 
-    // 버튼 클릭 시 실행될 함수
-    private void OnButtonClick()
-    {
-        // InventoryManager_h.Instance.SlotClick(Menu_Name);
-    }
 
     public void SetName(string name)
     {
@@ -77,36 +66,36 @@ public class Ingre_h : MonoBehaviour
     }
 
     // 만약 이미 보너스 게임을 진행한 빵이라면, 버튼 활성화 및 비활성화
-    public void SetButtonActive()
-    {
-        Button SlotPanelButton = this.GetComponent<Button>();
-        Transform Image = this.transform.Find("menuImage");
-        Image SlotImage = Image.GetComponent<Image>();      
-        CanvasGroup canvasGroup = this.GetComponent<CanvasGroup>(); // 테두리 판넬
+    // public void SetButtonActive()
+    // {
+    //     Button SlotPanelButton = this.GetComponent<Button>();
+    //     Transform Image = this.transform.Find("menuImage");
+    //     Image SlotImage = Image.GetComponent<Image>();      
+    //     CanvasGroup canvasGroup = this.GetComponent<CanvasGroup>(); // 테두리 판넬
 
-        Transform SlotReal = this.transform.Find("RealImage");  
-        Image SlotPanelImage = SlotReal.GetComponent<Image>();  // 테두리 안 판넬
+    //     Transform SlotReal = this.transform.Find("RealImage");  
+    //     Image SlotPanelImage = SlotReal.GetComponent<Image>();  // 테두리 안 판넬
 
-        Transform SlotLevel = this.transform.Find("Panel");
-        Image SlotLevelPanel = SlotLevel.GetComponent<Image>(); // 재료 개수 판넬
-        TextMeshProUGUI Leveltext = SlotLevel.GetComponentInChildren<TextMeshProUGUI>(); // 재료 개수
+    //     Transform SlotLevel = this.transform.Find("Panel");
+    //     Image SlotLevelPanel = SlotLevel.GetComponent<Image>(); // 재료 개수 판넬
+    //     TextMeshProUGUI Leveltext = SlotLevel.GetComponentInChildren<TextMeshProUGUI>(); // 재료 개수
 
-        Leveltext.text = $"{Menu_Num}";
+    //     Leveltext.text = $"{Menu_Num}";
 
-        if (Menu_Num > 0)
-        {
-            SlotPanelButton.interactable = true; // 클릭 가능
-            if (canvasGroup != null) canvasGroup.blocksRaycasts = true; // 터치 가능
-            if (SlotImage != null) SlotImage.color = new Color(SlotImage.color.r, SlotImage.color.g, SlotImage.color.b, 1f);
-        }
-        else
-        {
-            SlotPanelButton.interactable = false; // 클릭 불가능
-            // SlotImage의 투명도를 50%로 낮춰줘.
-            if (canvasGroup != null) canvasGroup.blocksRaycasts = false; // UI 터치 막기
-            if (SlotImage != null) SlotImage.color = new Color(SlotImage.color.r, SlotImage.color.g, SlotImage.color.b, 0.7f);
-            if (SlotPanelImage != null) SlotPanelImage.color = new Color(SlotPanelImage.color.r, SlotPanelImage.color.g, SlotPanelImage.color.b, 0.7f);
-            if (SlotLevelPanel != null) SlotLevelPanel.color = new Color(SlotLevelPanel.color.r, SlotLevelPanel.color.g, SlotLevelPanel.color.b, 0.7f);
-        }
-    }
+    //     if (Menu_Num > 0)
+    //     {
+    //         SlotPanelButton.interactable = true; // 클릭 가능
+    //         if (canvasGroup != null) canvasGroup.blocksRaycasts = true; // 터치 가능
+    //         if (SlotImage != null) SlotImage.color = new Color(SlotImage.color.r, SlotImage.color.g, SlotImage.color.b, 1f);
+    //     }
+    //     else
+    //     {
+    //         SlotPanelButton.interactable = false; // 클릭 불가능
+    //         // SlotImage의 투명도를 50%로 낮춰줘.
+    //         if (canvasGroup != null) canvasGroup.blocksRaycasts = false; // UI 터치 막기
+    //         if (SlotImage != null) SlotImage.color = new Color(SlotImage.color.r, SlotImage.color.g, SlotImage.color.b, 0.7f);
+    //         if (SlotPanelImage != null) SlotPanelImage.color = new Color(SlotPanelImage.color.r, SlotPanelImage.color.g, SlotPanelImage.color.b, 0.7f);
+    //         if (SlotLevelPanel != null) SlotLevelPanel.color = new Color(SlotLevelPanel.color.r, SlotLevelPanel.color.g, SlotLevelPanel.color.b, 0.7f);
+    //     }
+    // }
 }

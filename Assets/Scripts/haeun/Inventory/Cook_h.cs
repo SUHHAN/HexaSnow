@@ -44,34 +44,34 @@ public class Cook_h : MonoBehaviour
     void Start()
     {
 
-        // // 현재 게임 오브젝트에서 Button 컴포넌트를 가져와서 클릭 이벤트 추가
-        // SlotPanelButton = this.GetComponent<Button>();
-        // if (SlotPanelButton != null)
-        // {
-        //     SlotPanelButton.onClick.AddListener(OnButtonClick);
-        // }
+        // 현재 게임 오브젝트에서 Button 컴포넌트를 가져와서 클릭 이벤트 추가
+        SlotPanelButton = this.GetComponent<Button>();
+        if (SlotPanelButton != null)
+        {
+            SlotPanelButton.onClick.AddListener(OnButtonClick);
+        }
 
     }
 
     // 버튼 클릭 시 실행될 함수
     private void OnButtonClick()
     {
-        // InventoryManager_h.Instance.SlotClick(Menu_Name);
+        InventoryManager_h.Instance.SlotClick(Menu_Name);
 
-        // // Menu_Index 값을 PlayerPrefs에 저장
-        // PlayerPrefs.SetInt("SelectedMenuIndex", Menu_Index);
-        // PlayerPrefs.Save(); // 변경 사항 저장
+        // Menu_Index 값을 PlayerPrefs에 저장
+        PlayerPrefs.SetInt("SelectedMenuIndex", Menu_Index);
+        PlayerPrefs.Save(); // 변경 사항 저장
 
-        // // ✅ 키가 존재하는지 확인
-        // if (PlayerPrefs.HasKey("SelectedMenuIndex"))
-        // {
-        //     int savedIndex = PlayerPrefs.GetInt("SelectedMenuIndex");
-        //     Debug.Log($"✔ 'SelectedMenuIndex' 키가 존재합니다. 저장된 값: {savedIndex}");
-        // }
-        // else
-        // {
-        //     Debug.LogWarning("⚠ 'SelectedMenuIndex' 키가 존재하지 않습니다.");
-        // }
+        // ✅ 키가 존재하는지 확인
+        if (PlayerPrefs.HasKey("SelectedMenuIndex"))
+        {
+            int savedIndex = PlayerPrefs.GetInt("SelectedMenuIndex");
+            Debug.Log($"✔ 'SelectedMenuIndex' 키가 존재합니다. 저장된 값: {savedIndex}");
+        }
+        else
+        {
+            Debug.LogWarning("⚠ 'SelectedMenuIndex' 키가 존재하지 않습니다.");
+        }
     }
 
     public void SetScore(int Score) {
