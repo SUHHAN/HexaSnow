@@ -115,6 +115,8 @@ public class InventoryManager_h : MonoBehaviour
         TabSet.SetActive(false);
 
         // Ingre_AddItems();
+
+        SceneManager.LoadScene("customer");
     }
 
     public void OnClickSelectButton() {

@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 76933469}
   - component: {fileID: 76933467}
   - component: {fileID: 76933468}
+  - component: {fileID: 76933470}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -149,8 +150,8 @@ Camera:
   m_GameObject: {fileID: 76933466}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.16744037, g: 0.20064753, b: 0.2528302, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -175,7 +176,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -183,12 +184,12 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 0
+  m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 0
+  m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 0
+  m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!81 &76933468
@@ -214,6 +215,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &76933470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76933466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AssetsPPU: 100
+  m_RefResolutionX: 720
+  m_RefResolutionY: 1280
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0
 --- !u!1 &85691819
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.02728948, y: 0.31}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1.9012, y: 0.8011}
   m_Pivot: {x: 0.6756382, y: 0.5}
 --- !u!1 &330746478
@@ -1359,7 +1380,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.079987, y: -535}
+  m_AnchoredPosition: {x: 0, y: -535}
   m_SizeDelta: {x: 720, y: 210}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &796587169
@@ -1374,7 +1395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4b83facac5049a4b79cb4f7bbab8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getmenu: {fileID: 919519090}
+  getmenu: {fileID: 0}
   SpecialScript: {fileID: 1718870000}
   currentcus: 
   currentmenu: 
@@ -1647,8 +1668,8 @@ Transform:
   m_GameObject: {fileID: 852699076}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: -11520}
-  m_LocalScale: {x: 100, y: 100, z: 128}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2124840310}
@@ -1714,7 +1735,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 919519089}
-  - component: {fileID: 919519090}
   m_Layer: 0
   m_Name: customers
   m_TagString: Untagged
@@ -1731,7 +1751,7 @@ Transform:
   m_GameObject: {fileID: 919519087}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -30, z: -11520}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 128, y: 128, z: 128}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1742,43 +1762,6 @@ Transform:
   - {fileID: 1252083938}
   m_Father: {fileID: 2124840310}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &919519090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919519087}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b20f320b3790478694b9454a34ff90d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterManager: {fileID: 1400469393}
-  man: {fileID: 328135370}
-  shortgirl: {fileID: 1252083936}
-  girl: {fileID: 1326312771}
-  none: {fileID: 816804639}
-  csvFileName: orderStatement_main.csv
-  csvFileName_nickname: orderStatement_nickname.csv
-  currentDay: 1
-  customer_order: {fileID: 330746478}
-  dialogueOrder: {fileID: 1339767821}
-  dialogueText: {fileID: 85691822}
-  dialogueName: {fileID: 1339767821}
-  speechBubble: {fileID: 415477079}
-  csvFileName_guest: guest.csv
-  MadeMenu: {fileID: 796587167}
-  menuName: 
-  setmenu: {fileID: 796587169}
-  GD:
-    isGuestLoggedIn: 0
-    date: 0
-    money: 0
-    time: 0
-    ingredientNum: 
-    myBake: []
-    serializedDailyOrders: 
 --- !u!1 &1061807972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2086,7 +2069,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.02728948, y: 0.31}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1.9012, y: 0.8011}
   m_Pivot: {x: 0.6756382, y: 0.5}
 --- !u!1 &1326312771
@@ -2174,7 +2157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.02728948, y: 0.31}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1.9012, y: 0.8011}
   m_Pivot: {x: 0.6756382, y: 0.5}
 --- !u!1 &1339767818
@@ -3223,7 +3206,7 @@ Transform:
   m_GameObject: {fileID: 1718869999}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -11520}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 128, y: 128, z: 128}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3259,7 +3242,7 @@ Transform:
   m_GameObject: {fileID: 1906688822}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: -11520}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3556,7 +3539,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 720, y: 1280}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.62
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

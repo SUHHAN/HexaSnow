@@ -149,7 +149,7 @@ public class UiLogicManager : MonoBehaviour
     }
 
     public void GoOrderScene() {
-        SceneManager.LoadScene("order");
+        SceneManager.LoadScene("order1");
     }
 
     public void GoBonusScene() {

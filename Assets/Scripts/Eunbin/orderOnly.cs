@@ -57,7 +57,7 @@ public class OrderOnly : MonoBehaviour
 }
     void Start()
     {
-//        AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
+        AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
         SceneManager.LoadScene("Main", LoadSceneMode.Additive); //기본 UI 띄우기 
         postman.SetActive(true);
         orderCheck.gameObject.SetActive(true);
@@ -71,7 +71,7 @@ public class OrderOnly : MonoBehaviour
 
         openMenu(dateGD.date);
 
-        UiLogicManager.Instance.LoadMoneyData();
+        //UiLogicManager.Instance.LoadMoneyData();
     }
 
     private void LoadDialoguesFromCSV()
@@ -189,7 +189,7 @@ public class OrderOnly : MonoBehaviour
     }
 
     private void OpenOrderUI(){
-//        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         orderCheck.gameObject.SetActive(false);
         acceptButton.gameObject.SetActive(true);
         cancelButton.gameObject.SetActive(true);
@@ -198,7 +198,7 @@ public class OrderOnly : MonoBehaviour
 
     }
     private void Postmanment(){
-//        AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
         dialogueText.text=dialogues[1].description;
         dialogueName.text=dialogues[1].menu;
 
@@ -244,7 +244,7 @@ public class OrderOnly : MonoBehaviour
         postman.SetActive(false);
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
-        //AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
         GameData dateGD = DataManager.Instance.LoadGameData();
 
         if(dateGD.date>1){
@@ -272,7 +272,7 @@ private void InitializeButtons(){
     // 기존 리스너 제거 후 새로 추가
     acceptButton.onClick.RemoveAllListeners();
     acceptButton.onClick.AddListener(() => {
-       // AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
         order_menu_id = currentDialogueIndex;
         order_deadLine.Add(deadline);
         
@@ -338,7 +338,7 @@ public void openMenu(int day){
     // 팝업이 활성화된 상태에서 클릭 감지
     if (popup.activeSelf && Input.GetMouseButtonDown(0))
     {
-//      AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+      AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         popup.SetActive(false); // 팝업 비활성화
     }
 }

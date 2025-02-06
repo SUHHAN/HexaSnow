@@ -166,7 +166,6 @@ public class tutorial : MonoBehaviour
     {
         if ((speechBubble.activeSelf) && Input.GetMouseButtonDown(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject() == false)
                 NextDialogue();
         }
     }

@@ -1789,6 +1789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orderScene: {fileID: 1106912403}
+  ingredientNum: 
   ingredientGD:
     isGuestLoggedIn: 0
     date: 0
@@ -1797,43 +1798,19 @@ MonoBehaviour:
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
-  MyList: []
-  MenuSprites:
-  - {fileID: 21300000, guid: cee51e2b689040549ada41c18153acc7, type: 3}
-  - {fileID: 21300000, guid: 299621287da7fe947a5c010daeb28eca, type: 3}
-  - {fileID: 21300000, guid: 24681faf84573b842abe2791825f9df0, type: 3}
-  - {fileID: 21300000, guid: 2ed8a767b6cfea542992dbcf024d40ba, type: 3}
-  - {fileID: 21300000, guid: 69c2b279ddca6f24c98529c3e9dc3dc7, type: 3}
-  - {fileID: 21300000, guid: a401c9fcaeb3be543922db8e0b8ba2e6, type: 3}
-  - {fileID: 21300000, guid: 6e91f186e056fa940b09360c70e6a8d5, type: 3}
-  - {fileID: 21300000, guid: d0dec5c136b315c4c8c5dee01cf3e229, type: 3}
-  - {fileID: 21300000, guid: 6f1c7df5bc046a54bbad19bb98c075f2, type: 3}
-  - {fileID: 21300000, guid: af7e2bd02f52ca144b358031fe1ea348, type: 3}
-  - {fileID: 21300000, guid: dc3258f9da6e20f4295f53e240ceaf60, type: 3}
-  - {fileID: 21300000, guid: 0865a6a4e7137d54bb76af57ef1b1e0e, type: 3}
-  - {fileID: 21300000, guid: 0258b47c4b01fb0418b5764b9320c9aa, type: 3}
-  - {fileID: 21300000, guid: aa93c701db444624c87edb3bcb69658a, type: 3}
-  - {fileID: 21300000, guid: 917c8b8c83c14ee4aa815ccbfa4bbbf2, type: 3}
-  - {fileID: 21300000, guid: 1b8d056bc9db71946906eebe81276b51, type: 3}
-  - {fileID: 21300000, guid: 24ddc918af90dfd4282ffae5a6b33a7a, type: 3}
-  - {fileID: 21300000, guid: fd7f9f2675c7be04bb1a48743af44c45, type: 3}
-  - {fileID: 21300000, guid: 9fb9053de20a0ed4ba9139099d3aa72e, type: 3}
-  - {fileID: 21300000, guid: a927749e9f9667947b28e232b58f0c3a, type: 3}
-  - {fileID: 21300000, guid: d9d791a22bc88dc4985b56af69fc5f52, type: 3}
-  - {fileID: 21300000, guid: f15608e4cf96d40479711f0b063fc911, type: 3}
-  - {fileID: 21300000, guid: a4a8aef96495fc3478fe88d6a6147393, type: 3}
-  - {fileID: 21300000, guid: 5f53b945edd1bba4c82c178166b9ca68, type: 3}
-  - {fileID: 21300000, guid: 9d054584fd222fa4dac41a4dd5cdcbe3, type: 3}
-  - {fileID: 21300000, guid: 356025a91249a594ab1000163917ddf3, type: 3}
-  - {fileID: 21300000, guid: 9c9032d25da1efc4a8700d875eba2790, type: 3}
-  - {fileID: 21300000, guid: 548dc4af8f243e448b26c22766bb52aa, type: 3}
-  - {fileID: 21300000, guid: 548dc4af8f243e448b26c22766bb52aa, type: 3}
-  - {fileID: 21300000, guid: 548dc4af8f243e448b26c22766bb52aa, type: 3}
-  - {fileID: 21300000, guid: 73d2a1c875473014f955abcd3f81d6f3, type: 3}
-  - {fileID: 21300000, guid: 73d2a1c875473014f955abcd3f81d6f3, type: 3}
-  - {fileID: 21300000, guid: 73d2a1c875473014f955abcd3f81d6f3, type: 3}
-  itemPrefab: {fileID: 8334110117767044011, guid: 470238fcb4b9c94488f475d919910611, type: 3}
+  MyCookList: []
+  MyIngreList: []
+  CookSprites: []
+  IngredientSprites: []
+  IngrePrefab: {fileID: 0}
+  CookPrefab: {fileID: 0}
   content: {fileID: 1847330101}
+  AllPanel: {fileID: 0}
+  IngreButton: {fileID: 0}
+  CookButton: {fileID: 0}
+  xButton: {fileID: 0}
+  TabSet: {fileID: 0}
+  SelectInventoryButton: {fileID: 0}
   BonusPanel: {fileID: 1962834822}
   BlackBackground: {fileID: 1906547960}
   BonusPanelText: {fileID: 1783013160}
