@@ -123,6 +123,11 @@ public class InventoryManager_h : MonoBehaviour
     }
 
     public void OnClickSelectButton() {
+
+        // 인벤토리를 여는 동안은 레시피북와 요청서 안나오도록 하기
+        UiLogicManager.Instance.order_button.interactable = false;
+        UiLogicManager.Instance.RecipeButton.interactable = false;
+
         SelectButton = !SelectButton; // 현재 상태를 반대로 변경 (true ↔ false)
 
         if (SelectButton) {
@@ -138,6 +143,10 @@ public class InventoryManager_h : MonoBehaviour
             AllPanel.SetActive(false);
             BlackBackground.SetActive(false);
             TabSet.SetActive(false);
+
+            // 인벤토리를 여는 동안은 레시피북와 요청서 안나오도록 하기
+            UiLogicManager.Instance.order_button.interactable = true;
+            UiLogicManager.Instance.RecipeButton.interactable = true;
         }
     }
 
@@ -147,6 +156,10 @@ public class InventoryManager_h : MonoBehaviour
         BlackBackground.SetActive(false);
         TabSet.SetActive(false);
         AllPanel.SetActive(false);
+
+        // 인벤토리를 여는 동안은 레시피북와 요청서 안나오도록 하기
+        UiLogicManager.Instance.order_button.interactable = true;
+        UiLogicManager.Instance.RecipeButton.interactable = true;
     }
 
     public void OnClickIngreTab()

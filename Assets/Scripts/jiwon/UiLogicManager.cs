@@ -62,8 +62,7 @@ public class UiLogicManager : MonoBehaviour
         Button HomeButton = HomeButtonGO.GetComponent<Button>();
 
         HomeButton.onClick.AddListener(GoBonusScene);
-
-
+        
         LoadCalendarDate();
         LoadMoneyData();
 
