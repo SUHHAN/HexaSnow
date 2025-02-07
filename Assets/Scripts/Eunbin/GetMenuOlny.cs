@@ -493,7 +493,7 @@ private void LoadMoData() {
         DataManager.Instance.SaveGameData();
 }
 
-private IEnumerator MoveCustomerUp(GameObject customer, float duration = 0.3f)
+private IEnumerator MoveCustomerUp(GameObject customer, float duration = 0.5f)
 {
     float elapsedTime = 0f;
     Vector3 startPos = customer.transform.position; // 현재 위치
@@ -507,11 +507,11 @@ private IEnumerator MoveCustomerUp(GameObject customer, float duration = 0.3f)
         yield return null;
     }
 }
-private IEnumerator MoveCustomerDown(GameObject customer, float duration = 0.3f)
+private IEnumerator MoveCustomerDown(GameObject customer, float duration = 0.5f)
 {
     float elapsedTime = 0f;
     Vector3 startPos = customer.transform.position; // 현재 위치
-    Vector3 endPos = startPos - new Vector3(0, 5.0f, 0); // 최종 위치 (2 유닛 아래로 이동)
+    Vector3 endPos = startPos - new Vector3(0, 8.0f, 0); // 최종 위치 (2 유닛 아래로 이동)
 
     while (elapsedTime < duration)
     {
