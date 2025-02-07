@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/jiwon/Lobby.unity
+    guid: 5fbd1a7eadb5c614e90b91213308cdbf
+  - enabled: 1
     path: Assets/Scenes/Eunbin/tutorial.unity
     guid: 8e03f0e30bc3c4bf5ae667dfb0a7fb7b
   - enabled: 1
@@ -17,9 +20,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/jiwon/Login.unity
     guid: 5ec9023c4b99cb246a559b333532e46d
-  - enabled: 1
-    path: Assets/Scenes/jiwon/Lobby.unity
-    guid: 5fbd1a7eadb5c614e90b91213308cdbf
   - enabled: 1
     path: Assets/Scenes/Sunwoo/BakingStart.unity
     guid: 2a95141bdccf6d143930179dcd21619f
