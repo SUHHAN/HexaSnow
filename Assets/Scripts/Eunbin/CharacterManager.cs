@@ -24,6 +24,21 @@ public class CharacterManager : MonoBehaviour
     public Sprite normalshortgirl;
     public Sprite badshortgirl;
 
+    public Sprite child;
+    public Sprite happychild;
+    public Sprite normalchild;
+    public Sprite badchild;
+    public Sprite old_man;
+    public Sprite happyold_man;
+    public Sprite normalold_man;
+    public Sprite badold_man;
+    public Sprite spcMan;
+    public Sprite happyspcMan;
+    public Sprite normalspcMan;
+    public Sprite badspcMan;
+
+
+
     // 캐릭터별 표정 스프라이트를 담을 Dictionary
     private Dictionary<string, Dictionary<Expression, Sprite>> customerExpressions = new Dictionary<string, Dictionary<Expression, Sprite>>();
 
@@ -53,6 +68,29 @@ public class CharacterManager : MonoBehaviour
             { Expression.Normal, normalshortgirl},
             { Expression.Bad, badshortgirl }
         };
+        customerExpressions["child"] = new Dictionary<Expression, Sprite>
+        {
+            { Expression.set, child },
+            { Expression.Happy, happychild },
+            { Expression.Normal, normalchild},
+            { Expression.Bad, badchild }
+        };
+        customerExpressions["old_man"] = new Dictionary<Expression, Sprite>
+        {
+            { Expression.set, old_man },
+            { Expression.Happy, happyold_man },
+            { Expression.Normal, normalold_man},
+            { Expression.Bad, badold_man }
+        };
+        customerExpressions["spcMan"] = new Dictionary<Expression, Sprite>
+        {
+            { Expression.set, spcMan },
+            { Expression.Happy, happyspcMan },
+            { Expression.Normal, normalspcMan},
+            { Expression.Bad, badspcMan }
+        };
+
+
     }
 
     // 표정 변경 함수

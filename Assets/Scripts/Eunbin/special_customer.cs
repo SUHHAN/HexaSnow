@@ -4,10 +4,12 @@ using UnityEngine;
 using System.IO;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System;
 
 public class special_customer : MonoBehaviour
 {
+     public CharacterManager characterManager;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
     public GameObject speechBubble;
@@ -32,6 +34,7 @@ public class special_customer : MonoBehaviour
     private bool isOrderCompleted = false;
     private int current_startId;
     GameObject customer;
+    public Button dayChange;
 
     public GameObject MadeMenu;
     public SetMenu setmenu;
@@ -60,11 +63,16 @@ public class special_customer : MonoBehaviour
         customers.Add(man);
         
         speechBubble.SetActive(false);
+        dayChange.gameObject.SetActive(false);
 
 
         specialOrders.Add(2, child);  
         specialOrders.Add(5, oldMan);
         specialOrders.Add(8, man);
+
+        dayChange.onClick.AddListener(()=>{
+            SceneManager.LoadScene("Deadline_Last");
+        });
 
     }
     public void LoadDialoguesFromCSV()
@@ -171,6 +179,7 @@ public class special_customer : MonoBehaviour
         else
         {
             Debug.LogError($"🚨 특별 손님 데이터 없음: {currentDay}일차");
+            dayChange.gameObject.SetActive(true);
         }
     }
 
@@ -221,6 +230,7 @@ public class special_customer : MonoBehaviour
             if(startId==1){
                 Debug.Log("스페셜 손님 주문 완료!");
                 customer.SetActive(false);
+                dayChange.gameObject.SetActive(true);
                 EndDialogue();
                 return;
             }
@@ -261,9 +271,9 @@ public class special_customer : MonoBehaviour
         customer.SetActive(false);
         isOrderCompleted = false;
         none.gameObject.SetActive(false);
+        dayChange.gameObject.SetActive(true);
 
         Debug.Log("특별 손님이 방문을 완료했습니다.");
-        
     }
 
     public void UpdateDialogue(string action)
@@ -271,25 +281,30 @@ public class special_customer : MonoBehaviour
         speechBubble.SetActive(true);
         none.gameObject.SetActive(false);
         MadeMenu.SetActive(false);
+        Expression expression = Expression.set;
         if (action.Equals("none"))
         {
+            expression = Expression.Bad;
             current_startId=4001;
             PlayDialogue(current_startId);
         }
         else if (action.Equals("True"))
         {
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_succ);
+            expression = Expression.Happy;
             current_startId=2001;
             PlayDialogue(current_startId);
             Debug.Log("특별 손님이 제품을 받아갔습니다!");
         }
         else if (action.Equals("False"))
         {
+            expression = Expression.Normal;
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_fail);
             current_startId=3001;
             PlayDialogue(current_startId);
             Debug.Log("특별 손님이 제품을 잘못 받아갔습니다!");
         }
+        characterManager.ChangeFace(customer, expression);
     }
     private void EndDialogue()
     {
@@ -308,7 +323,7 @@ public class special_customer : MonoBehaviour
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
 
-        if (Mathf.Abs(currentTime - 355f) < 0.1f)
+        if (Mathf.Abs(currentTime - 330f) < 0.1f)
         {
             //LoadDialoguesFromCSV();
             orderSpecialCustomer();

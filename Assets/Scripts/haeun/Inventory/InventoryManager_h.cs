@@ -12,7 +12,6 @@ using Unity.VisualScripting;
 
 public class InventoryManager_h : MonoBehaviour
 {
-    public Button orderScene;
     private static InventoryManager_h _instance;
     public static InventoryManager_h Instance
     {
@@ -119,9 +118,7 @@ public class InventoryManager_h : MonoBehaviour
         SelectButton = false;
 
         // Ingre_AddItems();
-        orderScene.onClick.AddListener(()=>{
-            SceneManager.LoadScene("Deadline_Last");
-        });
+
         
     }
 

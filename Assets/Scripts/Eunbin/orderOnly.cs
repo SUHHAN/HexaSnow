@@ -247,6 +247,8 @@ public class OrderOnly : MonoBehaviour
 
     private void CloseDialogue()
     {
+        GameData dateGD = DataManager.Instance.LoadGameData();
+        dateGD.time=360f;
         gametime.StartGameTimer();
         order.SetActive(false); // UI 비활성화
         currentDialogueIndex = 0; // 대화 인덱스 초기화
@@ -254,7 +256,6 @@ public class OrderOnly : MonoBehaviour
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
-        GameData dateGD = DataManager.Instance.LoadGameData();
 
         if(dateGD.date>1)
             SceneManager.LoadScene("customer");
