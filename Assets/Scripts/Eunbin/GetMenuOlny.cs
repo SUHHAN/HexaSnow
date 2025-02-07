@@ -38,6 +38,7 @@ public class getMenuOnly : MonoBehaviour
     public string menuName;
     public SetMenu setmenu;
     private GameObject customer; 
+    public Button dayChange;
 
     private int DataMoney;
 
@@ -68,9 +69,9 @@ public class getMenuOnly : MonoBehaviour
         customers.Add(shortgirl);
         GameData dateGD = DataManager.Instance.LoadGameData();
         StartCoroutine(ProcessCustomers(dateGD.date-1));
-        
-        
     }
+
+    
      private void LoadDialoguesFromCSV()
     {
         try
@@ -283,6 +284,7 @@ private void LoadGuestFromCSV()
             continue;
         }
         customer.SetActive(true);
+        StartCoroutine(MoveCustomerUp(customer));
 
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
         Debug.Log($"손님 {customer.name}이(가) 메뉴 {menuName}을(를) 받으러 왔습니다!");
@@ -304,6 +306,7 @@ private void LoadGuestFromCSV()
         yield return new WaitUntil(() => isOrderCompleted);
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
+        yield return StartCoroutine(MoveCustomerDown(customer)); // 손님이 사라지는 애니메이션이 끝날 때까지 기다림
         customer.SetActive(false);
         customer_order.SetActive(false);
         speechBubble.SetActive(false);
@@ -489,4 +492,35 @@ private void LoadMoData() {
         GD.money -= 500;
         DataManager.Instance.SaveGameData();
 }
+
+private IEnumerator MoveCustomerUp(GameObject customer, float duration = 0.5f)
+{
+    float elapsedTime = 0f;
+    Vector3 startPos = customer.transform.position; // 현재 위치
+    Vector3 endPos = startPos + new Vector3(0, 2.0f, 0); // 최종 위치 (2 유닛 위로 이동)
+
+    while (elapsedTime < duration)
+    {
+        elapsedTime += Time.deltaTime;
+        float t = Mathf.Clamp01(elapsedTime / duration);
+        customer.transform.position = Vector3.Lerp(startPos, endPos, t); // 부드러운 이동
+        yield return null;
+    }
+}
+private IEnumerator MoveCustomerDown(GameObject customer, float duration = 0.5f)
+{
+    float elapsedTime = 0f;
+    Vector3 startPos = customer.transform.position; // 현재 위치
+    Vector3 endPos = startPos - new Vector3(0, 8.0f, 0); // 최종 위치 (2 유닛 아래로 이동)
+
+    while (elapsedTime < duration)
+    {
+        elapsedTime += Time.deltaTime;
+        float t = Mathf.Clamp01(elapsedTime / duration);
+        customer.transform.position = Vector3.Lerp(startPos, endPos, t); // 부드러운 이동
+        yield return null;
+    }
+}
+
+
 }

@@ -168,7 +168,7 @@ public class UiLogicManager : MonoBehaviour
     }
 
     public void GoBonusScene() {
-        SceneManager.LoadScene("Bonus");
+        SceneManager.LoadScene("customer");
     }
 
     public void GoKitchenScene() {

@@ -12,7 +12,6 @@ using Unity.VisualScripting;
 
 public class InventoryManager_h : MonoBehaviour
 {
-    public Button orderScene;
     private static InventoryManager_h _instance;
     public static InventoryManager_h Instance
     {
@@ -120,7 +119,7 @@ public class InventoryManager_h : MonoBehaviour
 
         // Ingre_AddItems();
 
-        SceneManager.LoadScene("customer");
+        
     }
 
     public void OnClickSelectButton() {

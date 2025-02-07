@@ -71,6 +71,15 @@ public class OrderOnly : MonoBehaviour
 
         openMenu(dateGD.date);
 
+        if (dateGD.date >= 4)
+        {
+            accept_order=4;
+        }
+        if (dateGD.date >= 7)
+        {
+            accept_order=6;
+        }
+
         //UiLogicManager.Instance.LoadMoneyData();
     }
 
@@ -238,6 +247,8 @@ public class OrderOnly : MonoBehaviour
 
     private void CloseDialogue()
     {
+        GameData dateGD = DataManager.Instance.LoadGameData();
+        dateGD.time=360f;
         gametime.StartGameTimer();
         order.SetActive(false); // UI 비활성화
         currentDialogueIndex = 0; // 대화 인덱스 초기화
@@ -245,11 +256,9 @@ public class OrderOnly : MonoBehaviour
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
-        GameData dateGD = DataManager.Instance.LoadGameData();
 
-        if(dateGD.date>1){
+        if(dateGD.date>1)
             SceneManager.LoadScene("customer");
-        }
 }
  private void SetRandomDialogueIndex()
     {
@@ -264,9 +273,6 @@ public class OrderOnly : MonoBehaviour
     }
         currentNicknameIndex=Random.Range(1, nicknames.Count);
         
-    }
-public void IncreaseAcceptOrder(int increment){
-    accept_order+=increment;
     }
 private void InitializeButtons(){
     // 기존 리스너 제거 후 새로 추가

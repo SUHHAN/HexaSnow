@@ -1152,7 +1152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4b83facac5049a4b79cb4f7bbab8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getmenu: {fileID: 1157648016}
+  getmenu: {fileID: 0}
   SpecialScript: {fileID: 338788619}
   currentcus: 
   currentmenu: 
@@ -1701,6 +1701,7 @@ RectTransform:
   - {fileID: 345036486}
   - {fileID: 2003282275}
   - {fileID: 1807630632}
+  - {fileID: 1921581494}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5258,7 +5259,6 @@ GameObject:
   - component: {fileID: 1921581493}
   - component: {fileID: 1921581498}
   - component: {fileID: 1921581501}
-  - component: {fileID: 1921581500}
   m_Layer: 0
   m_Name: postman
   m_TagString: Untagged
@@ -5326,15 +5326,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1921581492}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.41664}
+  m_LocalPosition: {x: 0, y: 0, z: -12297.399}
+  m_LocalScale: {x: 122.97399, y: 122.97399, z: 56.928764}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 421666757}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0534243, y: 0.0021462739}
+  m_AnchoredPosition: {x: -7.2997775, y: 0.2932621}
   m_SizeDelta: {x: 1.9012, y: 0.8011}
   m_Pivot: {x: 0.6557938, y: 0.80811286}
 --- !u!70 &1921581498
@@ -5372,36 +5372,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.99999994, y: 2}
   m_Direction: 0
---- !u!114 &1921581500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921581492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1921581501
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6240,5 +6210,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1406044511}
   - {fileID: 421666757}
-  - {fileID: 1921581494}
   - {fileID: 1001758667}

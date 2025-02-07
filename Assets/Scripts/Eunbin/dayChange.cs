@@ -22,7 +22,7 @@ public class DayChange : MonoBehaviour
     {
         dayChangButton.onClick.AddListener(() =>
         {
-        OnDayChange();
+            OnDayChange();
         });
     }
 
@@ -38,10 +38,6 @@ public class DayChange : MonoBehaviour
         gametime.StopTimer();
         timerText.text = "준비 중";
 
-        if (day == 4 || day == 7)
-        {
-            orderScript.IncreaseAcceptOrder(2); // Order 스크립트에 메서드 호출
-        }
 
         if (day==2 || day==5 || day==8){
             getMenuScript.currentDay = day; // 현재 날짜 업데이트
