@@ -27,8 +27,11 @@ public class UiLogicManager : MonoBehaviour
 
     public GameObject KitchenButtonGO;
     public GameObject HomeButtonGO;
+    public GameObject InventoryButtonGo;
     public GameObject datePanel;
     public GameObject timePanel;
+
+    public string currentSceneName;
 
     private static UiLogicManager _instance;
     public static UiLogicManager Instance
@@ -47,7 +50,7 @@ public class UiLogicManager : MonoBehaviour
     void Start()
     {
 
-        string currentSceneName = SceneManager.GetActiveScene().name;
+        currentSceneName = SceneManager.GetActiveScene().name;
 
         // OrderButton 클릭 이벤트 등록
         order_button.onClick.AddListener(OnOrderBook);
@@ -75,6 +78,7 @@ public class UiLogicManager : MonoBehaviour
             order_buttonGO.SetActive(true);
             RecipeBookGO.SetActive(true);     // 'order'씬에 가는게 목적
             MoneyTextGO.gameObject.SetActive(true);
+            InventoryButtonGo.SetActive(true);
         }
         if (currentSceneName == "order1")
         {
@@ -86,6 +90,8 @@ public class UiLogicManager : MonoBehaviour
             order_buttonGO.SetActive(true);
             RecipeBookGO.SetActive(true);     // 'order1'씬에 가는게 목적
             MoneyTextGO.gameObject.SetActive(true);
+
+            InventoryButtonGo.SetActive(true);
         }
         if (currentSceneName == "customer")
         {
@@ -97,6 +103,8 @@ public class UiLogicManager : MonoBehaviour
             order_buttonGO.SetActive(true);
             RecipeBookGO.SetActive(true);     // 'order1'씬에 가는게 목적
             MoneyTextGO.gameObject.SetActive(true);
+
+            InventoryButtonGo.SetActive(true);
         }
 
         if (currentSceneName == "Baking 1") {
@@ -109,6 +117,7 @@ public class UiLogicManager : MonoBehaviour
             RecipeBookGO.SetActive(false);
             MoneyTextGO.gameObject.SetActive(true);
 
+            InventoryButtonGo.SetActive(true);
         }
 
         if (currentSceneName == "BakingStart") {
@@ -121,19 +130,23 @@ public class UiLogicManager : MonoBehaviour
             RecipeBookGO.SetActive(false);  
             MoneyTextGO.gameObject.SetActive(true);
 
-        }
-
-        if (currentSceneName == "Bonus") {
-            KitchenButtonGO.SetActive(true);
-            HomeButtonGO.SetActive(false);         // 이걸 다른 함수로 넣기 -> 메인을 내껄로 착각하도록 하면 된다. -> 대신 여기에 UI 띄우기
-            SettingButtonGO.SetActive(true);
-            datePanel.SetActive(true);          
-            timePanel.SetActive(true);          
-            order_buttonGO.SetActive(true);        
-            RecipeBookGO.SetActive(true);
-            MoneyTextGO.gameObject.SetActive(true);
+            InventoryButtonGo.SetActive(true);
 
         }
+
+        // if (currentSceneName == "Bonus") {
+        //     KitchenButtonGO.SetActive(true);
+        //     HomeButtonGO.SetActive(false);         // 이걸 다른 함수로 넣기 -> 메인을 내껄로 착각하도록 하면 된다. -> 대신 여기에 UI 띄우기
+        //     SettingButtonGO.SetActive(true);
+        //     datePanel.SetActive(true);          
+        //     timePanel.SetActive(true);          
+        //     order_buttonGO.SetActive(true);        
+        //     RecipeBookGO.SetActive(true);
+        //     MoneyTextGO.gameObject.SetActive(true);
+
+        //     InventoryButtonGo.SetActive(true);
+
+        // }
 
         if (currentSceneName == "Deadline" || currentSceneName == "Deadline_Last") {
             KitchenButtonGO.SetActive(false);
@@ -144,6 +157,8 @@ public class UiLogicManager : MonoBehaviour
             order_buttonGO.SetActive(false);        
             RecipeBookGO.SetActive(false);
             MoneyTextGO.gameObject.SetActive(false);
+
+            InventoryButtonGo.SetActive(true);
         }
 
     }

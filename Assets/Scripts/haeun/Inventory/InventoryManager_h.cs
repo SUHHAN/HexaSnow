@@ -320,6 +320,12 @@ public class InventoryManager_h : MonoBehaviour
 
     public void YesButtonClick()
     {   
+        string PreviousScene = UiLogicManager.Instance.currentSceneName;
+
+        // 이전 씬의 이름을 저장
+        PlayerPrefs.SetString("PreviousScene", PreviousScene);
+        PlayerPrefs.Save();
+
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         SceneManager.LoadScene("Match");
     }
