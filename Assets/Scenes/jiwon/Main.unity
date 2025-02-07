@@ -3912,7 +3912,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &706571819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5288,7 +5288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 319b2226abdb4d349acdfb3b79c371e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orderScene: {fileID: 0}
   ingredientNum: 
   ingredientGD:
     isGuestLoggedIn: 0
@@ -10269,7 +10268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 287, y: 0}
+  m_AnchoredPosition: {x: 287, y: 406}
   m_SizeDelta: {x: 149, y: 69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1931030548
@@ -10990,8 +10989,10 @@ MonoBehaviour:
   SettingButtonGO: {fileID: 2106670468}
   KitchenButtonGO: {fileID: 322428707}
   HomeButtonGO: {fileID: 744898742}
+  InventoryButtonGo: {fileID: 1931030546}
   datePanel: {fileID: 1975250150}
   timePanel: {fileID: 2085557633}
+  currentSceneName: 
 --- !u!4 &1985920503
 Transform:
   m_ObjectHideFlags: 0
