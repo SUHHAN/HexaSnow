@@ -484,7 +484,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 676012917}
   - {fileID: 322428708}
   - {fileID: 744898743}
   - {fileID: 2106670469}
@@ -493,13 +492,14 @@ RectTransform:
   - {fileID: 2085557634}
   - {fileID: 1556496079}
   - {fileID: 1704805155}
-  - {fileID: 1159064397}
   - {fileID: 339853703}
   - {fileID: 1951779733}
   - {fileID: 1052379321}
   - {fileID: 1931030547}
   - {fileID: 547383192}
   - {fileID: 1769606316}
+  - {fileID: 676012917}
+  - {fileID: 1159064397}
   - {fileID: 696450422}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3912,7 +3912,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &706571819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10987,11 +10987,15 @@ MonoBehaviour:
   MoneyTextGO: {fileID: 1556496078}
   customFont: {fileID: 11400000, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
   SettingButtonGO: {fileID: 2106670468}
+  SettingButton: {fileID: 2106670470}
   KitchenButtonGO: {fileID: 322428707}
   HomeButtonGO: {fileID: 744898742}
   InventoryButtonGo: {fileID: 1931030546}
+  InventoryButton: {fileID: 0}
   datePanel: {fileID: 1975250150}
   timePanel: {fileID: 2085557633}
+  recipeBookPanel: {fileID: 784770406}
+  orderBookPanel: {fileID: 1704805154}
   currentSceneName: 
 --- !u!4 &1985920503
 Transform:

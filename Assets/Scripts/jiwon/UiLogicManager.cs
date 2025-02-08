@@ -24,12 +24,18 @@ public class UiLogicManager : MonoBehaviour
     public TMP_FontAsset customFont;
 
     public GameObject SettingButtonGO;
+    public Button SettingButton;
+
 
     public GameObject KitchenButtonGO;
     public GameObject HomeButtonGO;
     public GameObject InventoryButtonGo;
+    public Button InventoryButton;
     public GameObject datePanel;
     public GameObject timePanel;
+
+    public GameObject recipeBookPanel;
+    public GameObject orderBookPanel;
 
     public string currentSceneName;
 
@@ -49,7 +55,6 @@ public class UiLogicManager : MonoBehaviour
 
     void Start()
     {
-
         currentSceneName = SceneManager.GetActiveScene().name;
 
         // OrderButton 클릭 이벤트 등록
@@ -77,6 +82,7 @@ public class UiLogicManager : MonoBehaviour
             order_buttonGO.SetActive(true);
             RecipeBookGO.SetActive(true);     // 'order'씬에 가는게 목적
             MoneyTextGO.gameObject.SetActive(true);
+
             InventoryButtonGo.SetActive(true);
         }
         if (currentSceneName == "order1")
@@ -111,12 +117,12 @@ public class UiLogicManager : MonoBehaviour
             HomeButtonGO.SetActive(false);
             SettingButtonGO.SetActive(true);
             datePanel.SetActive(true);
-            timePanel.SetActive(false);
+            timePanel.SetActive(true);
+            MoneyTextGO.gameObject.SetActive(true);
+            
             order_buttonGO.SetActive(false);
             RecipeBookGO.SetActive(false);
-            MoneyTextGO.gameObject.SetActive(true);
-
-            InventoryButtonGo.SetActive(true);
+            InventoryButtonGo.SetActive(false);
         }
 
         if (currentSceneName == "BakingStart") {
@@ -125,11 +131,11 @@ public class UiLogicManager : MonoBehaviour
             SettingButtonGO.SetActive(true);
             datePanel.SetActive(true);          
             timePanel.SetActive(true);          
-            order_buttonGO.SetActive(false);        
-            RecipeBookGO.SetActive(false);  
             MoneyTextGO.gameObject.SetActive(true);
 
-            InventoryButtonGo.SetActive(true);
+            order_buttonGO.SetActive(false);        
+            RecipeBookGO.SetActive(false);  
+            InventoryButtonGo.SetActive(false);
 
         }
 

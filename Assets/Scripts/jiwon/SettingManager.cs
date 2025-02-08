@@ -44,6 +44,7 @@ public class SettingsManager : MonoBehaviour
         {
             BlackPanel.SetActive(true);
             SettingParentPanel.SetActive(true);
+            UiLogicManager.Instance.InventoryButton.interactable = false;
             OpenAccountPanel(); // 기본적으로 AccountPanel 열기
         }
         else
@@ -62,6 +63,7 @@ public class SettingsManager : MonoBehaviour
             Debug.Log("설정 창 닫기 실행됨.");
             BlackPanel.SetActive(false);
             SettingParentPanel.SetActive(false);
+            UiLogicManager.Instance.InventoryButton.interactable = true;
         }
         else
         {
