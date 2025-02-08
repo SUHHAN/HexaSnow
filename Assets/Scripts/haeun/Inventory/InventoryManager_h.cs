@@ -122,10 +122,9 @@ public class InventoryManager_h : MonoBehaviour
 
     public void OnClickSelectButton() {
 
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+
         // 인벤토리를 여는 동안은 레시피북와 요청서 안나오도록 하기
-        UiLogicManager.Instance.order_button.interactable = false;
-        UiLogicManager.Instance.RecipeButton.interactable = false;
-        UiLogicManager.Instance.SettingButton.interactable = false;
         UiLogicManager.Instance.recipeBookPanel.SetActive(false);
         UiLogicManager.Instance.orderBookPanel.SetActive(false);
 
@@ -137,6 +136,10 @@ public class InventoryManager_h : MonoBehaviour
             AllPanel.SetActive(true);
             BlackBackground.SetActive(true);
             TabSet.SetActive(true);
+
+            UiLogicManager.Instance.order_button.interactable = false;
+            UiLogicManager.Instance.RecipeButton.interactable = false;
+            UiLogicManager.Instance.SettingButton.interactable = false;
 
             // 재료 탭 기본 선택
             OnClickCookTab();
@@ -154,6 +157,7 @@ public class InventoryManager_h : MonoBehaviour
     }
 
     public void OnClickxTab() {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         SelectButton = !SelectButton;
 
         BlackBackground.SetActive(false);
@@ -168,6 +172,7 @@ public class InventoryManager_h : MonoBehaviour
 
     public void OnClickIngreTab()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         // 기존 아이템 삭제 후 재료 아이템 추가
         ClearItems();
         Ingre_AddItems();
@@ -178,6 +183,7 @@ public class InventoryManager_h : MonoBehaviour
 
     public void OnClickCookTab()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         // 기존 아이템 삭제 후 요리 아이템 추가
         LoadCookData();
         ClearItems();
@@ -273,7 +279,6 @@ public class InventoryManager_h : MonoBehaviour
 
     public void SlotClick(string name)
     {
-        
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         BlackBackground.SetActive(true);
         BonusPanel.SetActive(true);
@@ -287,6 +292,7 @@ public class InventoryManager_h : MonoBehaviour
 
     public void NoButtonClick()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         // BlackBackground.SetActive(false);
         BonusPanel.SetActive(false);
         SelectInventoryButton.SetActive(true);
@@ -336,6 +342,7 @@ public class InventoryManager_h : MonoBehaviour
 
     public void YesButtonClick()
     {   
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         string PreviousScene = UiLogicManager.Instance.currentSceneName;
 
         // 이전 씬의 이름을 저장
