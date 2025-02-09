@@ -246,8 +246,10 @@ public class MatchGame_h : MonoBehaviour
     public void MatchRestartGame(){
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         Debug.Log($"FinalScore: {FinalScore} 확인");
-        SceneManager.LoadScene("Bonus");
-        // SceneManager.LoadScene("Match");
+        
+        // 보너스 게임을 인벤토리를 통해 시작한 씬으로 다시 돌아갈 수 있도록 만들기
+        string SceneName = PlayerPrefs.GetString("PreviousScene", "order");
+        SceneManager.LoadScene(SceneName);
     }
 
     public void PauseGame() {
