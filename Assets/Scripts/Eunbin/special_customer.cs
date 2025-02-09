@@ -64,7 +64,6 @@ public class special_customer : MonoBehaviour
         customers.Add(man);
         
         speechBubble.SetActive(false);
-        dayChange.gameObject.SetActive(false);
 
 
         specialOrders.Add(2, child);  
@@ -186,7 +185,6 @@ public class special_customer : MonoBehaviour
         else
         {
             Debug.LogError($"🚨 특별 손님 데이터 없음: {currentDay}일차");
-            dayChange.gameObject.SetActive(true);
         }
     }
 
@@ -237,7 +235,6 @@ public class special_customer : MonoBehaviour
             if(startId==1){
                 Debug.Log("스페셜 손님 주문 완료!");
                 customer.SetActive(false);
-                dayChange.gameObject.SetActive(true);
                 EndDialogue();
                 return;
             }
@@ -278,7 +275,6 @@ public class special_customer : MonoBehaviour
         customer.SetActive(false);
         isOrderCompleted = false;
         none.gameObject.SetActive(false);
-        dayChange.gameObject.SetActive(true);
 
         Debug.Log("특별 손님이 방문을 완료했습니다.");
     }
