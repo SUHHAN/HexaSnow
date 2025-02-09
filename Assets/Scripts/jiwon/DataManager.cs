@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
-using System;
-
 
 [System.Serializable]
 
@@ -70,8 +68,6 @@ public class DataManager : MonoBehaviour
     public static DataManager Instance { get; private set; }
     public GameData gameData = new GameData();
 
-    public event Action OnDataChanged;
-
     private void Awake()
     {
         gameDataPath = Path.Combine(Application.persistentDataPath, "GameData.json");
@@ -112,7 +108,7 @@ public class DataManager : MonoBehaviour
     {
         string json = JsonUtility.ToJson(gameData, true);
         File.WriteAllText(gameDataPath, json);
-       // Debug.Log("게임 데이터가 저장되었습니다: " + gameDataPath);
+        Debug.Log("게임 데이터가 저장되었습니다: " + gameDataPath);
     }
 
     // 저장된 게임 데이터 불러오기

@@ -33,7 +33,7 @@ public class special_customer : MonoBehaviour
     private int currentLineIndex = 0;  // 현재 대화 줄 인덱스
     private bool isOrderCompleted = false;
     private int current_startId;
-    GameObject customer;
+    private GameObject customer;
     public Button dayChange;
 
     public GameObject MadeMenu;
@@ -55,6 +55,7 @@ public class special_customer : MonoBehaviour
     }
     void Start()
     {
+        GameData dateGD = DataManager.Instance.LoadGameData();
         oldMan.SetActive(false);
         child.SetActive(false);
         man.SetActive(false);
@@ -73,6 +74,12 @@ public class special_customer : MonoBehaviour
         dayChange.onClick.AddListener(()=>{
             SceneManager.LoadScene("Deadline_Last");
         });
+
+        if(dateGD.time <= 355f){
+            currentDay = dateGD.date;
+            orderSpecialCustomer(); // 특별 손님 주문
+            spc_OnSpecialTimeReached();
+        }
 
     }
     public void LoadDialoguesFromCSV()
@@ -167,12 +174,12 @@ public class special_customer : MonoBehaviour
             customerObj.SetActive(false); // 모든 손님 비활성화
         }
         Debug.Log($"특별 손님 등장");
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
         if (specialOrders.ContainsKey(currentDay))
         {
             customer = specialOrders[currentDay];
             LoadDialoguesFromCSV();
             customer.SetActive(true);
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
             current_startId = 1;
             PlayDialogue(current_startId);
         }
@@ -306,6 +313,7 @@ public class special_customer : MonoBehaviour
         }
         characterManager.ChangeFace(customer, expression);
     }
+
     private void EndDialogue()
     {
         Debug.Log("대화 종료");
@@ -323,9 +331,8 @@ public class special_customer : MonoBehaviour
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
 
-        if (Mathf.Abs(currentTime - 330f) < 0.1f)
+        if (Mathf.Abs(currentTime - 355f) < 0.1f)
         {
-            //LoadDialoguesFromCSV();
             orderSpecialCustomer();
             spc_OnSpecialTimeReached();
             currentDay = dateGD.date;

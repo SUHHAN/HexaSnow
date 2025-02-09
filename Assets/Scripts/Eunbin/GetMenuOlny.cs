@@ -63,6 +63,9 @@ public class getMenuOnly : MonoBehaviour
         LoadDialoguesFromCSV(); // CSV 파일 로드
         LoadNicknameFromCSV();
         LoadGuestFromCSV();
+        dayChange.onClick.AddListener(()=>{
+            SceneManager.LoadScene("Deadline_Last");
+        });
 
         customers.Add(man);
         customers.Add(girl);
@@ -229,18 +232,27 @@ private void LoadGuestFromCSV()
     }
 
     foreach (var pair in orderDictionary.keyValuePairs)
+{
+    // 해당 key가 dailyOrders에 없으면 초기화
+    if (!dailyOrders.ContainsKey(pair.Key))
     {
-        if (pair.Key == dayToProcess) // 특정 키값을 찾기
+        dailyOrders[pair.Key] = new List<List<int>>(); // 비어있는 리스트로 초기화
+    }
+
+    // 주문 처리
+    foreach (var order in pair.Value.orders)
     {
-        foreach (var order in pair.Value.orders)
+        // 주문이 비어있지 않은지 확인하고 주문을 추가
+        if (order.items != null && order.items.Count >= 2)
         {
-            if (order.items.Count == 2)
-            {
-                dailyOrders[dayToProcess].Add(new List<int> { order.items[0], order.items[1] });
-            }
+            dailyOrders[pair.Key].Add(new List<int> { order.items[0], order.items[1] });
         }
+        else
+        {
+            Debug.LogWarning("Order items are not valid.");
         }
     }
+}
 
     // 디버깅: dailyOrders에 데이터가 잘 추가되었는지 확인
     Debug.Log($"[{dayToProcess}일] dailyOrders 내용: {dailyOrders[dayToProcess].Count} 개의 주문");
@@ -314,8 +326,13 @@ private void LoadGuestFromCSV()
         Debug.Log($"손님 {customer.name}이(가) 메뉴를 받아갔습니다!");
         characterManager.ChangeFace(customer, Expression.set);
     }
-    orderDictionary.keyValuePairs.RemoveAll(pair => pair.Key == dayToProcess);
-    data.serializedDailyOrders = JsonUtility.ToJson(orderDictionary);
+    if (dailyOrders.ContainsKey(dayToProcess))
+{
+    dailyOrders.Remove(dayToProcess);
+    Debug.Log($"[Delete] {dayToProcess} 날짜 데이터 삭제 완료! 현재 키: {string.Join(", ", dailyOrders.Keys)}");
+    SaveDate();
+}
+
 
     Debug.Log($"[{dayToProcess}일] 모든 손님이 메뉴를 받아갔습니다.");
     MadeMenu.SetActive(false);
@@ -511,7 +528,7 @@ private IEnumerator MoveCustomerDown(GameObject customer, float duration = 0.5f)
 {
     float elapsedTime = 0f;
     Vector3 startPos = customer.transform.position; // 현재 위치
-    Vector3 endPos = startPos - new Vector3(0, 8.0f, 0); // 최종 위치 (2 유닛 아래로 이동)
+    Vector3 endPos = startPos - new Vector3(0, 2.0f, 0); // 최종 위치 (2 유닛 아래로 이동)
 
     while (elapsedTime < duration)
     {
@@ -521,6 +538,5 @@ private IEnumerator MoveCustomerDown(GameObject customer, float duration = 0.5f)
         yield return null;
     }
 }
-
-
 }
+

@@ -96,6 +96,7 @@ public class CharacterManager : MonoBehaviour
     // 표정 변경 함수
     public void ChangeFace(GameObject customer, Expression expression)
 {
+    Debug.LogError("얼굴 바뀌는 중");
     // customer의 Image 컴포넌트 가져오기
     SpriteRenderer customerRenderer = customer.GetComponent<SpriteRenderer>();
     if (customerRenderer == null)
