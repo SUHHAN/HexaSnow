@@ -61,8 +61,8 @@ public class GameTime : MonoBehaviour
 
     private void UpdateTimerUI(float currentTime)
     {
-        int minutes = (6-Mathf.FloorToInt(currentTime / 60f))+9;
-        int seconds = (60-Mathf.FloorToInt(currentTime% 60f))-1;
+        int minutes = 16-(Mathf.CeilToInt(currentTime / 60));
+        int seconds = (360 - Mathf.CeilToInt(currentTime)) % 60 / 10 * 10; 
 
         timerText.text = $"{minutes:D2}:{seconds:D2}"; 
     }

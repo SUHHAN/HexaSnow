@@ -98,8 +98,8 @@ public class CharacterManager : MonoBehaviour
 {
     Debug.LogError("얼굴 바뀌는 중");
     // customer의 Image 컴포넌트 가져오기
-    SpriteRenderer customerRenderer = customer.GetComponent<SpriteRenderer>();
-    if (customerRenderer == null)
+    Image customerImage = customer.GetComponent<Image>();
+    if (customerImage == null)
     {
         Debug.LogError("고객의 SpriteRenderer 컴포넌트가 없습니다.");
         return;
@@ -112,7 +112,7 @@ public class CharacterManager : MonoBehaviour
     // 표정에 맞는 스프라이트를 customerImage에 할당
     if (customerExpressions.ContainsKey(characterType) && customerExpressions[characterType].ContainsKey(expression))
     {
-        customerRenderer.sprite = customerExpressions[characterType][expression];
+        customerImage.sprite = customerExpressions[characterType][expression];
         Debug.Log($"[ChangeFace] {characterType}의 표정이 {expression}으로 변경되었습니다.");
     }
     else

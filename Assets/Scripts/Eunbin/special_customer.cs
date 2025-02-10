@@ -9,7 +9,7 @@ using System;
 
 public class special_customer : MonoBehaviour
 {
-     public CharacterManager characterManager;
+    public CharacterManager characterManager;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
     public GameObject speechBubble;
@@ -74,7 +74,7 @@ public class special_customer : MonoBehaviour
             SceneManager.LoadScene("Deadline_Last");
         });
 
-        if(dateGD.time <= 300f){
+        if(dateGD.time <= 240f){
             currentDay = dateGD.date;
             orderSpecialCustomer(); // 특별 손님 주문
             spc_OnSpecialTimeReached();
@@ -204,7 +204,6 @@ public class special_customer : MonoBehaviour
         setmenu.current_cus("딸기 케이크", "special"); 
         StartCoroutine(HandleCustomerInteraction(customer, day));
 
-        none.gameObject.SetActive(true);
         none.onClick.RemoveAllListeners();
         none.onClick.AddListener(() =>
         {
@@ -307,6 +306,7 @@ public class special_customer : MonoBehaviour
             PlayDialogue(current_startId);
             Debug.Log("특별 손님이 제품을 잘못 받아갔습니다!");
         }
+        Debug.Log($"특별 손님:{customer}, 표정:{expression}");
         characterManager.ChangeFace(customer, expression);
     }
 
@@ -327,7 +327,7 @@ public class special_customer : MonoBehaviour
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
 
-        if (Mathf.Abs(currentTime - 300f) < 0.1f)
+        if (Mathf.Abs(currentTime - 240f) < 0.1f)
         {
             orderSpecialCustomer();
             spc_OnSpecialTimeReached();

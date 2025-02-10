@@ -1690,7 +1690,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.078125, y: 0.0390625}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 7.2, y: 12.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &852699078
@@ -3280,7 +3280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 157296b3ed89b44c496cadddb0da33db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterManager: {fileID: 0}
+  characterManager: {fileID: 1400469393}
   dialogueText: {fileID: 1061807975}
   dialogueName: {fileID: 468210544}
   speechBubble: {fileID: 287825044}
