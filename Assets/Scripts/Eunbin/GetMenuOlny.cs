@@ -64,7 +64,7 @@ public class getMenuOnly : MonoBehaviour
         LoadNicknameFromCSV();
         LoadGuestFromCSV();
         dayChange.onClick.AddListener(()=>{
-            SceneManager.LoadScene("Deadline_Last");
+            SceneManager.LoadScene("Deadline");
         });
 
         customers.Add(man);
