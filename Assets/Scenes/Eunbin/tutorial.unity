@@ -765,7 +765,7 @@ RectTransform:
   m_GameObject: {fileID: 404561201}
   m_LocalRotation: {x: -3.1069169e-18, y: 6.938894e-18, z: 0.00034529544, w: -0.99999994}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1.0087035}
+  m_LocalScale: {x: 1.0087035, y: 1.0087035, z: 1.0087035}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 786932583}
@@ -773,8 +773,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.04}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 41.5}
-  m_SizeDelta: {x: 0, y: -83}
+  m_AnchoredPosition: {x: -7.257202, y: 1}
+  m_SizeDelta: {x: -2, y: -2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &404561203
 BoxCollider2D:
