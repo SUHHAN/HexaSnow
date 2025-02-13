@@ -141,37 +141,42 @@ public class OvenGameManager : MonoBehaviour
         CheckGaugePosition(); // ��ǥ ���� �� ���� ���� Ȯ��
     }
 
-    // ���� ��ġ Ȯ�� (���� ���� ����)
     private void CheckGaugePosition()
     {
         float gaugeLeftEdge = gaugePosition - (gaugeWidth / 2f);
         float gaugeRightEdge = gaugePosition + (gaugeWidth / 2f);
 
-        // ������ ��ǥ ������ ��ġ���� Ȯ��
-        if ((gaugeLeftEdge <= targetZoneEnd && gaugeRightEdge >= targetZoneStart) ||
-            (gaugeLeftEdge >= targetZoneStart && gaugeRightEdge <= targetZoneEnd))
+        // 성공 범위를 조금 더 늘리기 위한 값
+        float successMargin = 10f; // 원하는 값으로 조절 가능
+
+        float extendedTargetStart = targetZoneStart - successMargin;
+        float extendedTargetEnd = targetZoneEnd + successMargin;
+
+        // 확장된 범위를 기준으로 체크
+        if ((gaugeLeftEdge <= extendedTargetEnd && gaugeRightEdge >= extendedTargetStart) ||
+            (gaugeLeftEdge >= extendedTargetStart && gaugeRightEdge <= extendedTargetEnd))
         {
-            ovenScore = 5; // ���� �� 5��
+            ovenScore = 5; // 성공 시 5점
             if (AudioManager.Instance != null)
             {
-                AudioManager.Instance.PlaySfx(AudioManager.Sfx.oven_succ); // ���� ���� ȿ���� ����
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.oven_succ);
             }
             resultText.text = "성공!";
-            Debug.Log("���� ���� ����: +5��");
+            Debug.Log("오븐 게임 점수: +5점");
         }
         else
         {
-            ovenScore = 0; // ���� �� 0��
+            ovenScore = 0; // 실패 시 0점
             if (AudioManager.Instance != null)
             {
-                AudioManager.Instance.PlaySfx(AudioManager.Sfx.oven_fail); // ���� ���� ȿ���� ����
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.oven_fail);
             }
             resultText.text = "실패!";
-            Debug.Log("���� ���� ����: +0��");
+            Debug.Log("오븐 게임 점수: +0점");
         }
 
-        CalculateTotalScore(); // ���� ���
-        EndOvenGame(); // ���� ����
+        CalculateTotalScore(); // 최종 점수 계산
+        EndOvenGame(); // 게임 종료
     }
 
     // ���� ���
