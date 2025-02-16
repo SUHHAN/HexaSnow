@@ -65,7 +65,6 @@ public class special_customer : MonoBehaviour
         
         speechBubble.SetActive(false);
 
-
         specialOrders.Add(2, child);  
         specialOrders.Add(5, oldMan);
         specialOrders.Add(8, man);
@@ -168,6 +167,7 @@ public class special_customer : MonoBehaviour
 
     public void orderSpecialCustomer()
     {
+        dayChange.gameObject.SetActive(true);
         foreach (GameObject customerObj in customers)
         {
             customerObj.SetActive(false); // 모든 손님 비활성화
