@@ -9,6 +9,18 @@ using System;
 
 public class special_customer : MonoBehaviour
 {
+    private static special_customer _instance;
+    public static special_customer Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<special_customer>();
+            }
+            return _instance;
+        }
+    }
     public CharacterManager characterManager;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
@@ -80,6 +92,17 @@ public class special_customer : MonoBehaviour
         }
 
     }
+    private IEnumerator WaitForUiLogicManager()
+{
+    yield return new WaitUntil(() => UiLogicManager.Instance != null);
+
+    UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
+    UiLogicManager.Instance.order_button.interactable = false;
+    UiLogicManager.Instance.RecipeButton.interactable = false;
+    UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = false;
+
+    
+}
     public void LoadDialoguesFromCSV()
     {
         try
@@ -178,6 +201,7 @@ public class special_customer : MonoBehaviour
             customer = specialOrders[currentDay];
             LoadDialoguesFromCSV();
             customer.SetActive(true);
+            StartCoroutine(WaitForUiLogicManager());
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
             current_startId = 1;
             PlayDialogue(current_startId);
@@ -199,6 +223,7 @@ public class special_customer : MonoBehaviour
         customer = specialOrders[day];
         LoadDialoguesFromCSV();
         customer.SetActive(true);
+        StartCoroutine(WaitForUiLogicManager());
         current_startId=1001;
         PlayDialogue(current_startId);
         setmenu.current_cus("딸기 케이크", "special"); 
@@ -234,6 +259,11 @@ public class special_customer : MonoBehaviour
             if(startId==1){
                 Debug.Log("스페셜 손님 주문 완료!");
                 customer.SetActive(false);
+                UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
+                UiLogicManager.Instance.order_button.interactable = true;
+                UiLogicManager.Instance.RecipeButton.interactable = true;
+                UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = true;
+       
                 EndDialogue();
                 return;
             }
@@ -272,6 +302,11 @@ public class special_customer : MonoBehaviour
         yield return new WaitUntil(() => isOrderCompleted);
         speechBubble.SetActive(false);
         customer.SetActive(false);
+        UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
+        UiLogicManager.Instance.order_button.interactable = true;
+        UiLogicManager.Instance.RecipeButton.interactable = true;
+        UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = true;
+       
         isOrderCompleted = false;
         none.gameObject.SetActive(false);
 
@@ -327,7 +362,7 @@ public class special_customer : MonoBehaviour
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
 
-        if (Mathf.Abs(currentTime - 240f) < 0.1f)
+        if (Mathf.Abs(currentTime - 350f) < 0.1f)
         {
             orderSpecialCustomer();
             spc_OnSpecialTimeReached();
