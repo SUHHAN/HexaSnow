@@ -362,7 +362,7 @@ public class special_customer : MonoBehaviour
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
 
-        if (Mathf.Abs(currentTime - 350f) < 0.1f)
+        if (Mathf.Abs(currentTime - 240f) < 0.1f)
         {
             orderSpecialCustomer();
             spc_OnSpecialTimeReached();
