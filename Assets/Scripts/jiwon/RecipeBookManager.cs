@@ -62,7 +62,7 @@ public class RecipeBookManager : MonoBehaviour
     void Start()
     {
         // CSV 파일 로드
-        LoadRecipesFromCSV("Assets/Resources/recipem.csv");
+        LoadRecipesFromCSV("recipem");
 
         // UI 초기화
         LoadCalendarDate();
@@ -76,13 +76,23 @@ public class RecipeBookManager : MonoBehaviour
     }
 
     // CSV 파일에서 레시피 데이터 로드
-    void LoadRecipesFromCSV(string filePath)
+    void LoadRecipesFromCSV(string fileName)
     {
-        string[] lines = File.ReadAllLines(filePath);
+        // Resources 폴더에서 CSV 파일 로드 (확장자 생략)
+        TextAsset csvFile = Resources.Load<TextAsset>(fileName);
+
+        if (csvFile == null)
+        {
+            Debug.LogError($"CSV 파일을 찾을 수 없습니다: {fileName}");
+            return;
+        }
+
+        // CSV 데이터를 줄 단위로 나누기
+        string[] lines = csvFile.text.Split('\n');
 
         for (int i = 1; i < lines.Length; i++)
         {
-            string line = lines[i];
+            string line = lines[i].Trim();
             // 커스텀 파서로 CSV 행을 파싱
             var columns = ParseCSVLine(line);
 
