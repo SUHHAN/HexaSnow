@@ -8,6 +8,19 @@ using UnityEngine.SceneManagement;
 
 public class OrderOnly : MonoBehaviour
 {
+    private static OrderOnly _instance;
+    public static OrderOnly Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<OrderOnly>();
+            }
+            return _instance;
+        }
+    }
+
     public GameTime gametime;
     public GameObject postman;
     public TextMeshProUGUI dialogueText;
@@ -59,6 +72,7 @@ public class OrderOnly : MonoBehaviour
     {
         AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
         SceneManager.LoadScene("Main", LoadSceneMode.Additive); //기본 UI 띄우기 
+        StartCoroutine(WaitForUiLogicManager());
         postman.SetActive(true);
         orderCheck.gameObject.SetActive(true);
 
@@ -82,6 +96,15 @@ public class OrderOnly : MonoBehaviour
 
         //UiLogicManager.Instance.LoadMoneyData();
     }
+
+    private IEnumerator WaitForUiLogicManager()
+{
+    yield return new WaitUntil(() => UiLogicManager.Instance != null);
+
+    UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
+    
+}
+
 
     private void LoadDialoguesFromCSV()
     {
@@ -256,6 +279,8 @@ public class OrderOnly : MonoBehaviour
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
+        UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
+
 
         if(dateGD.date>1)
             SceneManager.LoadScene("customer");

@@ -7,12 +7,9 @@ using TMPro;
 public class DayChange : MonoBehaviour
 {
     public GameTime gametime;
-    public Order order;
     public TextMeshProUGUI timerText;
     public Button dayChangButton; // DayChange 버튼
-    public Order orderScript; // Order 스크립트 참조
     public special_customer SpecialScript;
-    public getMenu getMenuScript;
     private int day = 1; // Day 값
     private bool isSpecialCustomerSubscribed = false;
 
@@ -31,7 +28,6 @@ public class DayChange : MonoBehaviour
         LoadDate();
         //day++;
         SaveDate();
-        order.openMenu(day);
         SpecialScript.currentDay=day;
         Debug.Log("날짜 변경");
 
@@ -40,7 +36,6 @@ public class DayChange : MonoBehaviour
 
 
         if (day==2 || day==5 || day==8){
-            getMenuScript.currentDay = day; // 현재 날짜 업데이트
             SpecialScript.LoadDialoguesFromCSV();
 
         if (!isSpecialCustomerSubscribed)
@@ -57,8 +52,6 @@ public class DayChange : MonoBehaviour
         gametime.OnSpecialTimeReached -= SpecialScript.orderSpecialCustomer;
         isSpecialCustomerSubscribed = false;
     }
-        //orderScript.ResetOrderSystem(day); // Order 시스템 초기화
-        getMenuScript.currentDay = day; // 현재 날짜 업데이트
         
     }
 
