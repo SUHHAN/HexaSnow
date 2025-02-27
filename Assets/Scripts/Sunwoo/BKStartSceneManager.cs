@@ -11,6 +11,8 @@ public class BKStartSceneManager : MonoBehaviour
     public Button specialButton; // 특별손님 버튼
     public GameObject StartPanel;
 
+    private int currentDate;
+
     void Start()
     {
         SceneManager.LoadScene("Main", LoadSceneMode.Additive);
@@ -19,11 +21,35 @@ public class BKStartSceneManager : MonoBehaviour
         {
             startButton.onClick.AddListener(LoadBakingScene);
         }
-        else if (specialButton != null)
+
+        if (specialButton != null)
         {
             specialButton.onClick.AddListener(LoadSpecialBakingScene);
+            specialButton.interactable = false; // 기본적으로 비활성화
         }
+
         UiLogicManager.Instance.LoadMoneyData();
+        CheckSpecialButtonAvailability();
+    }
+
+    private void CheckSpecialButtonAvailability()
+    {
+        if (DataManager.Instance == null || DataManager.Instance.gameData == null)
+        {
+            Debug.LogError("DataManager 또는 GameData를 찾을 수 없습니다!");
+            return;
+        }
+
+        GameData dateGD = DataManager.Instance.LoadGameData();
+        currentDate = dateGD.date;
+        Debug.Log($"현재 날짜: {currentDate}");
+
+        // 2일차부터 specialButton 활성화
+        if (specialButton != null)
+        {
+            specialButton.interactable = (currentDate >= 2);
+            Debug.Log($"특별손님 버튼 상태: {(specialButton.interactable ? "활성화됨" : "비활성화됨")}");
+        }
     }
 
     public void LoadBakingScene()
