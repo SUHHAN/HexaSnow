@@ -42,9 +42,13 @@ public class RecipeBook : MonoBehaviour
         // 레시피 해금 로직 수정
         if (currentDate >= 1) { UnlockRecipe("Madeleine"); UnlockRecipe("Cookie"); }  // Day 1
         if (currentDate >= 2) { UnlockRecipe("Muffin"); UnlockRecipe("PoundCake"); } // Day 2
-        if (currentDate >= 3) { UnlockRecipe("Financier"); UnlockRecipe("BasqueCheesecake"); } // Day 3
-        if (currentDate >= 4) { UnlockRecipe("Tart"); UnlockRecipe("Scone"); } // Day 4
-        if (currentDate >= 5) { UnlockRecipe("Macaroon"); UnlockRecipe("Doughnut"); UnlockRecipe("SliceCake"); } // Day 5
+        if (currentDate >= 3) { UnlockRecipe("BasqueCheesecake"); } // Day 3
+        if (currentDate >= 4) { UnlockRecipe("Financier"); } // Day 4
+        if (currentDate >= 5) { UnlockRecipe("Scone"); } // Day 5
+        if (currentDate >= 6) { UnlockRecipe("Tart"); } // Day 6
+        if (currentDate >= 7) { UnlockRecipe("Macaroon"); } // Day 7
+        if (currentDate >= 8) { UnlockRecipe("Doughnut"); } // Day 8
+        if (currentDate >= 9) { UnlockRecipe("SliceCake"); } // Day 9
 
         Debug.Log("레시피 해금 완료!");
         DebugUnlockedRecipes(); // 해금된 레시피 디버깅 출력
