@@ -10,6 +10,19 @@ using UnityEngine.SceneManagement;
 
 public class getMenuOnly : MonoBehaviour
 {
+
+    private static getMenuOnly _instance;
+    public static getMenuOnly Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<getMenuOnly>();
+            }
+            return _instance;
+        }
+    }
     public CharacterManager characterManager; 
     public GameObject man;
     public GameObject shortgirl;
@@ -74,7 +87,18 @@ public class getMenuOnly : MonoBehaviour
         StartCoroutine(ProcessCustomers(dateGD.date-1));
     }
 
+    private IEnumerator WaitForUiLogicManager()
+{
+    yield return new WaitUntil(() => UiLogicManager.Instance != null);
+
+    UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
+    UiLogicManager.Instance.order_button.interactable = false;
+    UiLogicManager.Instance.RecipeButton.interactable = false;
+    UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = false;
+
     
+}
+
      private void LoadDialoguesFromCSV()
     {
         try
@@ -211,6 +235,7 @@ private void LoadGuestFromCSV()
 
     none.gameObject.SetActive(true);
     MadeMenu.SetActive(true);
+    StartCoroutine(WaitForUiLogicManager());
 
     if (dailyOrders == null)
     {
@@ -223,6 +248,11 @@ private void LoadGuestFromCSV()
         Debug.Log($"[{dayToProcess}일] 주문 데이터가 없습니다.");
         MadeMenu.SetActive(false);
         none.gameObject.SetActive(false);
+
+        UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
+        UiLogicManager.Instance.order_button.interactable = true;
+        UiLogicManager.Instance.RecipeButton.interactable = true;
+        UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = true;
         yield break;
     }
 
@@ -253,7 +283,6 @@ private void LoadGuestFromCSV()
         }
     }
 }
-
     // 디버깅: dailyOrders에 데이터가 잘 추가되었는지 확인
     Debug.Log($"[{dayToProcess}일] dailyOrders 내용: {dailyOrders[dayToProcess].Count} 개의 주문");
 
@@ -262,6 +291,10 @@ private void LoadGuestFromCSV()
         Debug.Log($"[{dayToProcess}일] 처리할 주문이 없습니다.");
         MadeMenu.SetActive(false);
         none.gameObject.SetActive(false);
+        UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
+        UiLogicManager.Instance.order_button.interactable = true;
+        UiLogicManager.Instance.RecipeButton.interactable = true;
+        UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable = true;
         yield break;
     }
 
@@ -337,6 +370,11 @@ private void LoadGuestFromCSV()
     Debug.Log($"[{dayToProcess}일] 모든 손님이 메뉴를 받아갔습니다.");
     MadeMenu.SetActive(false);
     none.gameObject.SetActive(false);
+
+    UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
+    UiLogicManager.Instance.order_button.interactable = true;
+    UiLogicManager.Instance.RecipeButton.interactable = true;
+    UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = true;
 }
 
     private GameObject GetRandomCustomer(){

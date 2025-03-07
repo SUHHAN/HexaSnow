@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class BKStartSceneManager : MonoBehaviour
 {
-    public Button startButton; // Start ��ư
+    public Button startButton; // 일반 버튼
+    public Button specialButton; // 특별손님 버튼
     public GameObject StartPanel;
 
     void Start()
@@ -16,19 +17,22 @@ public class BKStartSceneManager : MonoBehaviour
 
         if (startButton != null)
         {
-            startButton.onClick.AddListener(LoadBakingScene); // ��ư Ŭ�� �̺�Ʈ ���
+            startButton.onClick.AddListener(LoadBakingScene);
         }
-        else
+        else if (specialButton != null)
         {
-            Debug.LogError("Start ��ư�� �Ҵ���� �ʾҽ��ϴ�!");
+            specialButton.onClick.AddListener(LoadSpecialBakingScene);
         }
         UiLogicManager.Instance.LoadMoneyData();
-
     }
 
-    // Start ��ư Ŭ�� �� ������ �޼���
     public void LoadBakingScene()
     {
         SceneManager.LoadScene("Baking 1");
+    }
+
+    public void LoadSpecialBakingScene()
+    {
+        SceneManager.LoadScene("BakingSp");
     }
 }
