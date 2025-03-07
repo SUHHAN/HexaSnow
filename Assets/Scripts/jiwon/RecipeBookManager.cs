@@ -220,18 +220,40 @@ public class RecipeBookManager : MonoBehaviour
         Debug.Log(categoriesToShow);
 
         categoryAvailability = new List<bool>();
+        int trueCount = 0; // 현재까지 true로 설정된 개수를 추적
+
         for (int i = 0; i < categoryList.Count; i++)
         {
-            // Mark categories up to the calculated number for the day as true
-            if (i < categoriesToShow)
+            // 첫째 날 (i == 0) → 2개만 true
+            if (i == 0 && trueCount < 2)
             {
                 categoryAvailability.Add(true);
+                trueCount++;
+                Debug.Log("첫째날");
+                Debug.Log(trueCount);
             }
+            // 둘째 날 (i == 1) → 총 4개 (2개 추가)
+            else if (i == 1 && trueCount < 4)
+            {
+                categoryAvailability.Add(true);
+                trueCount++;
+                Debug.Log(trueCount);
+            }
+            // 셋째 날부터 → 1개씩 추가
+            else if (i >= 2 && trueCount < categoriesToShow)
+            {
+                categoryAvailability.Add(true);
+                trueCount++;
+                Debug.Log("셋째날 이후");
+                Debug.Log(trueCount);
+            }
+            // 그 외는 false
             else
             {
                 categoryAvailability.Add(false);
             }
         }
+
         Debug.Log(string.Join(", ", categoryAvailability.Select(b => b.ToString()).ToArray()));
 
         // 카테고리 리스트가 비어있는지 확인
