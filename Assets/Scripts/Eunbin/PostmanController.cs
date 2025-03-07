@@ -1,8 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using System.IO;
 using TMPro;
-using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using UnityEngine.EventSystems;
 
 public class PostmanController : MonoBehaviour
 {
@@ -163,12 +167,13 @@ public class PostmanController : MonoBehaviour
     {
         if ((speechBubble.activeSelf || letterBubble.activeSelf) && Input.GetMouseButtonDown(0))
         {
-            NextDialogue();
+            StartCoroutine(NextDialogue());
         }
     }
 
-    private void NextDialogue()
+    private IEnumerator NextDialogue()
     {
+        yield return new WaitForSeconds(0.2f);
         currentDialogueIndex++;
 
         if (currentDialogueIndex >= dialogues.Count)
