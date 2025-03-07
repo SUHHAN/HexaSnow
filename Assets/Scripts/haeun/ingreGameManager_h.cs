@@ -32,6 +32,7 @@ public class ingreGameManager_h : MonoBehaviour
     // 안내 관련 선언
     [Header("안내 패널 관리")]
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject TutoPanel;
     [SerializeField] private TextMeshProUGUI FinishScoreText;
 
     private int voidScore;
@@ -52,6 +53,7 @@ public class ingreGameManager_h : MonoBehaviour
     private float minDistance = 1.0f;
     private bool isGameOver = false;
     private bool isFinalizingGame = false;
+    public bool isDonetuto = false;
 
     [SerializeField] private TextMeshProUGUI ReadyText;
     [SerializeField] private TextMeshProUGUI GoText;
@@ -69,19 +71,24 @@ public class ingreGameManager_h : MonoBehaviour
     {
         Camera.main.orthographicSize = 5f; // UI Camera의 Size와 동일하게 맞추기
         AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
-        
-        animator = PlayerIdle.GetComponent<Animator>();
-
-
-        StartCoroutine(StartGameRoutine());
-
         gameOverPanel.SetActive(false);
 
+        if(DataManager.Instance.gameData.hasCompletedIngredientTutorial == true) {
+            isDonetuto = true;
+            StartFunc();
+        }else{
+            PopupManager.Instance.ShowTutorial();
+        }
+
+    }
+
+    public void StartFunc() {
+        StartCoroutine(StartGameRoutine());
     }
 
     void Update()
     {
-        if (!isGameOver && !isFinalizingGame && !isGameStarting)
+        if (!isGameOver && !isFinalizingGame && !isGameStarting && isDonetuto)
         {
             UpdateTimer();
         }
