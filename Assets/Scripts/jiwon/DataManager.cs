@@ -32,6 +32,10 @@ public class GameData
     public List<int> ingredientNum = new List<int>(); // 재료 개수 저장 리스트
     public List<MyRecipeList> myBake = new List<MyRecipeList>(); // 내가 만든 요리~
     public string serializedDailyOrders; //주문서
+    public string currentScene;
+    public bool hasCompletedBakingTutorial;    // 베이킹 튜토리얼 완료 여부
+    public bool hasCompletedIngredientTutorial; // 재료 튜토리얼 완료 여부
+    public bool hasCompletedBonusTutorial;     // 보너스 튜토리얼 완료 여부
 
     public void SetIngredient(List<int> newIngredientNum)
     {

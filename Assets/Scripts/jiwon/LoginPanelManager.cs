@@ -13,11 +13,23 @@ public class LoginPanelManager : MonoBehaviour
 
     private void Start()
     {
-        // 처음에는 로그인 패널 숨기기 (애니메이션 이후 4초 후 표시)
-        LoginPanel.SetActive(false);
+        // 씬 이름 확인
+        string currentScene = SceneManager.GetActiveScene().name;
+    
 
-        // 4초 후 로그인 상태 확인
-        StartCoroutine(ShowLoginPanelAfterDelay(4.5f));
+        // Lobby2 씬에서는 즉시 실행
+        if (currentScene == "Lobby2")
+        {
+            LoginPanel.SetActive(false);
+            StartCoroutine(ShowLoginPanelAfterDelay(0f));
+        }
+        else
+        {
+            // 처음에는 로그인 패널 숨기기 (애니메이션 이후 4초 후 표시)
+            LoginPanel.SetActive(false);
+            StartCoroutine(ShowLoginPanelAfterDelay(4.5f));
+        }
+
         button.onClick.AddListener(Deadline);
     }
 

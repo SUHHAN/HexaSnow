@@ -180,12 +180,12 @@ public class UiLogicManager : MonoBehaviour
         SceneManager.LoadScene("BakingStart");
     }
 
-    public void GoLobbyScene() {
+    public void GoLobby2Scene() {
         AudioManager.Instance.StopBgm();
         AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
 
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("Lobby2");
     }
 
     void OnOrderBook()
