@@ -62,7 +62,7 @@ public class RecipeBookManager : MonoBehaviour
     void Start()
     {
         // CSV 파일 로드
-        LoadRecipesFromCSV("Assets/Resources/recipem.csv");
+        LoadRecipesFromCSV("recipem");
 
         // UI 초기화
         LoadCalendarDate();
@@ -76,13 +76,23 @@ public class RecipeBookManager : MonoBehaviour
     }
 
     // CSV 파일에서 레시피 데이터 로드
-    void LoadRecipesFromCSV(string filePath)
+    void LoadRecipesFromCSV(string fileName)
     {
-        string[] lines = File.ReadAllLines(filePath);
+        // Resources 폴더에서 CSV 파일 로드 (확장자 생략)
+        TextAsset csvFile = Resources.Load<TextAsset>(fileName);
+
+        if (csvFile == null)
+        {
+            Debug.LogError($"CSV 파일을 찾을 수 없습니다: {fileName}");
+            return;
+        }
+
+        // CSV 데이터를 줄 단위로 나누기
+        string[] lines = csvFile.text.Split('\n');
 
         for (int i = 1; i < lines.Length; i++)
         {
-            string line = lines[i];
+            string line = lines[i].Trim();
             // 커스텀 파서로 CSV 행을 파싱
             var columns = ParseCSVLine(line);
 
@@ -210,18 +220,40 @@ public class RecipeBookManager : MonoBehaviour
         Debug.Log(categoriesToShow);
 
         categoryAvailability = new List<bool>();
+        int trueCount = 0; // 현재까지 true로 설정된 개수를 추적
+
         for (int i = 0; i < categoryList.Count; i++)
         {
-            // Mark categories up to the calculated number for the day as true
-            if (i < categoriesToShow)
+            // 첫째 날 (i == 0) → 2개만 true
+            if (i == 0 && trueCount < 2)
             {
                 categoryAvailability.Add(true);
+                trueCount++;
+                Debug.Log("첫째날");
+                Debug.Log(trueCount);
             }
+            // 둘째 날 (i == 1) → 총 4개 (2개 추가)
+            else if (i == 1 && trueCount < 4)
+            {
+                categoryAvailability.Add(true);
+                trueCount++;
+                Debug.Log(trueCount);
+            }
+            // 셋째 날부터 → 1개씩 추가
+            else if (i >= 2 && trueCount < categoriesToShow)
+            {
+                categoryAvailability.Add(true);
+                trueCount++;
+                Debug.Log("셋째날 이후");
+                Debug.Log(trueCount);
+            }
+            // 그 외는 false
             else
             {
                 categoryAvailability.Add(false);
             }
         }
+
         Debug.Log(string.Join(", ", categoryAvailability.Select(b => b.ToString()).ToArray()));
 
         // 카테고리 리스트가 비어있는지 확인

@@ -10,6 +10,8 @@ public class MatchGame_h : MonoBehaviour
     private List<Card_h> allCards;
     private Card_h filppedCard;
     private bool isFlipping = false;
+    public bool isDonetuto = false;
+
 
     [SerializeField]
     private TextMeshProUGUI TimeText;
@@ -65,7 +67,6 @@ public class MatchGame_h : MonoBehaviour
 
     void Start()
     {
-
         // 이전 씬에서 넘어온 Menu_Index 값을 가져오기
         if (PlayerPrefs.HasKey("SelectedMenuIndex"))
         {
@@ -88,6 +89,16 @@ public class MatchGame_h : MonoBehaviour
         gameOverPanel.SetActive(false);
         pausePanel.SetActive(false); // 초기에는 패널 비활성화
 
+        // 튜토리얼 추가
+        if(DataManager.Instance.gameData.hasCompletedBonusTutorial == true) {
+            isDonetuto = true;
+            StartFunc();
+        }else{
+            PopupManager.Instance.ShowTutorial();
+        }
+    }
+
+    public void StartFunc() {
         StartCoroutine("FilpAllCardsRoutine");
     }
 
@@ -134,7 +145,7 @@ public class MatchGame_h : MonoBehaviour
 
     // Card를 게임매니저가 관리
     public void CardClicked(Card_h card) {
-        if (isFlipping || isGameOver || isPaused) { // 일시 정지 중일 때 카드 클릭 불가
+        if (isFlipping || isGameOver || isPaused || !isDonetuto) { // 일시 정지 중일 때 카드 클릭 불가
             return;
         }
         card.FilpCard();

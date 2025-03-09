@@ -62,4 +62,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Eunbin/customer.unity
     guid: 60ffe82e7a6b44092a3d2373a11ccc38
+  - enabled: 1
+    path: Assets/Scenes/jiwon/Lobby2.unity
+    guid: 30331db639442b14aaa2996c42d85020
   m_configObjects: {}

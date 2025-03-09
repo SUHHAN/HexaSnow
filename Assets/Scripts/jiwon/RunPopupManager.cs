@@ -53,7 +53,7 @@ public class RunPopupManager : MonoBehaviour
         {
             DataManager.Instance.gameData = loadedData; // 불러온 데이터를 적용
             Debug.Log("이어하기 진행: 저장된 데이터 로드 완료");
-            SceneManager.LoadScene("order"); // 기존 진행 상태에서 게임 시작
+            SceneManager.LoadScene("order1"); // 기존 진행 상태에서 게임 시작
         }
         else
         {
