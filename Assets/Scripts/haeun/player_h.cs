@@ -48,7 +48,7 @@ public class player_h : MonoBehaviour
 
     void Update()
     {
-        if (isPaused || ingreGameManager_h.Instance.IsGameStarting()) return;
+        if (isPaused || ingreGameManager_h.Instance.IsGameStarting() || !ingreGameManager_h.Instance.isDonetuto ) return;
 
         if (ingreGameManager_h.Instance.IsGameOverFinalizing())
         {
@@ -265,7 +265,7 @@ public class player_h : MonoBehaviour
         animator.SetFloat("speed", 0);
         StopPlayer();
         if(speed >= 0f) {
-                speed = 0f;
+            speed = 0f;
         }
     }
 }
