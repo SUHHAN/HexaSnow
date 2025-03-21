@@ -97,12 +97,20 @@ public class special_customer : MonoBehaviour
     yield return new WaitUntil(() => UiLogicManager.Instance != null);
 
     UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
-    UiLogicManager.Instance.order_button.interactable = false;
-    UiLogicManager.Instance.RecipeButton.interactable = false;
-    UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = false;
-
-    
+    UiLogicManager.Instance.order_button.gameObject.SetActive(false);
+    UiLogicManager.Instance.RecipeButton.gameObject.SetActive(false);
+    UiLogicManager.Instance.InventoryButtonGo.SetActive(false);
 }
+private IEnumerator RestoreUI()
+{
+    yield return new WaitUntil(() => UiLogicManager.Instance != null);
+
+    UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
+    UiLogicManager.Instance.order_button.gameObject.SetActive(true);
+    UiLogicManager.Instance.RecipeButton.gameObject.SetActive(true);
+    UiLogicManager.Instance.InventoryButtonGo.SetActive(true);
+}
+
     public void LoadDialoguesFromCSV()
     {
         try
@@ -259,11 +267,7 @@ public class special_customer : MonoBehaviour
             if(startId==1){
                 Debug.Log("스페셜 손님 주문 완료!");
                 customer.SetActive(false);
-                UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
-                UiLogicManager.Instance.order_button.interactable = true;
-                UiLogicManager.Instance.RecipeButton.interactable = true;
-                UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = true;
-       
+                StartCoroutine(RestoreUI());
                 EndDialogue();
                 return;
             }
@@ -302,11 +306,7 @@ public class special_customer : MonoBehaviour
         yield return new WaitUntil(() => isOrderCompleted);
         speechBubble.SetActive(false);
         customer.SetActive(false);
-        UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
-        UiLogicManager.Instance.order_button.interactable = true;
-        UiLogicManager.Instance.RecipeButton.interactable = true;
-        UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = true;
-       
+        StartCoroutine(RestoreUI());
         isOrderCompleted = false;
         none.gameObject.SetActive(false);
 
@@ -368,6 +368,5 @@ public class special_customer : MonoBehaviour
             spc_OnSpecialTimeReached();
             currentDay = dateGD.date;
         }
-        else Debug.Log("특별손님 방문 안 함");
 }
 }

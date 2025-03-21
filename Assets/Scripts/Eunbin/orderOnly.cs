@@ -49,6 +49,7 @@ public class OrderOnly : MonoBehaviour
     private int order_count=0;
     private int accept_order=2;
     private int deadline=1;
+    private string currentScene;
 
     public GameObject popup;
     public TextMeshProUGUI popupText;
@@ -95,6 +96,11 @@ public class OrderOnly : MonoBehaviour
         }
 
         //UiLogicManager.Instance.LoadMoneyData();
+        Loadscene();
+        currentScene="order1";
+        Savescene();
+        
+
     }
 
     private IEnumerator WaitForUiLogicManager()
@@ -329,8 +335,10 @@ private void ReceiveOrders(int currentNicknameIndex, int order_menu_id){
     SaveDate();
 }
 public void openMenu(int day){
-     int maxId=day*2000+1000;
-
+    int maxId;
+    if(day<=2)
+        maxId=day*2000+1000;
+    else maxId=day+3000;
      filteredDialogues=dialogues.FindAll(dialogue=>{
         if (int.TryParse(dialogue.id, out int dialogueId)){
             return dialogueId<=maxId;
@@ -349,18 +357,23 @@ public void openMenu(int day){
     showPopup();
 }
     private void showPopup(){
+         int openmenuIndex;
         GameData dateGD = DataManager.Instance.LoadGameData();
-        int openmenuIndex=dateGD.date*2-1;
+        if(dateGD.date<=2)
+            openmenuIndex=dateGD.date*2-1;
+        else openmenuIndex=dateGD.date+2;
         Debug.Log($"openmenuIndex, unlocked_menu.Count {openmenuIndex}, {unlocked_menu.Count}");
     if (openmenuIndex < unlocked_menu.Count)
     {
         string unlockedMenu1 = unlocked_menu[openmenuIndex];
         string unlockedMenu2 = (openmenuIndex+1 < unlocked_menu.Count) ? unlocked_menu[openmenuIndex+1] : null;
 
-        if (!string.IsNullOrEmpty(unlockedMenu1) && !string.IsNullOrEmpty(unlockedMenu2))
+        if (!string.IsNullOrEmpty(unlockedMenu1))
         {
             popup.SetActive(true);
-            popupText.text = $"{unlockedMenu1}, {unlockedMenu2}\n레시피가 해금되었습니다!";
+            if(dateGD.date<=2)
+                popupText.text = $"{unlockedMenu1}, {unlockedMenu2}\n레시피가 해금되었습니다!";
+            else popupText.text = $"{unlockedMenu1}\n레시피가 해금되었습니다!";
         }
 }
     }
@@ -448,4 +461,18 @@ private void SaveDate()
 
     Debug.Log("[SaveDate] 데이터 저장 완료!");
 }
+
+  private void Loadscene() {
+
+        GD = DataManager.Instance.LoadGameData();
+
+        // !! 일차 업데이트하기
+        currentScene= GD.currentScene;
+    }
+
+    private void Savescene() {
+        DataManager.Instance.gameData.currentScene = currentScene;
+
+        DataManager.Instance.SaveGameData();
+    }
 }
