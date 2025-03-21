@@ -67,7 +67,7 @@ public class InventoryManager : MonoBehaviour
     // GameDataManager에서 재료 개수 불러오기
     private void LoadIngredientsFromGameData()
     {
-        gameData = DataManager.Instance?.LoadGameData();
+        gameData = DataManager.Instance.gameData;
 
         if (gameData == null)
         {
@@ -96,30 +96,35 @@ public class InventoryManager : MonoBehaviour
     // 재료 개수 저장
     private void SaveIngredients()
     {
-        if (gameData == null)
+        if (DataManager.Instance?.gameData == null)
         {
             Debug.LogError("SaveIngredients: GameData가 null이므로 저장할 수 없습니다.");
             return;
         }
 
-        // ingredientCounts 딕셔너리 값을 ingredientNum 리스트로 변환
-        List<int> updatedIngredientNum = new List<int>();
+        List<int> ingredientNumList = DataManager.Instance.gameData.ingredientNum;
 
-        foreach (var ingredient in ingreList)
+        if (ingredientNumList == null || ingredientNumList.Count < ingreList.Count)
         {
-            if (ingredientCounts.ContainsKey(ingredient.index))
+            ingredientNumList = new List<int>(new int[ingreList.Count]);
+            DataManager.Instance.gameData.ingredientNum = ingredientNumList;
+        }
+
+        for (int i = 0; i < ingreList.Count; i++)
+        {
+            int index = ingreList[i].index;
+            if (ingredientCounts.ContainsKey(index))
             {
-                updatedIngredientNum.Add(ingredientCounts[ingredient.index]);
+                ingredientNumList[i] = ingredientCounts[index];
             }
             else
             {
-                updatedIngredientNum.Add(0);
+                ingredientNumList[i] = 0;
             }
         }
 
-        // 업데이트된 데이터 저장
-        gameData.ingredientNum = updatedIngredientNum;
-        DataManager.Instance.SaveGameData();
+        DataManager.Instance.SaveGameData(); // 저장!
+        Debug.Log("GameData에 재료 수량 저장 완료!");
     }
 
     // CSV에서 재료 목록 불러오기
@@ -233,7 +238,7 @@ public class InventoryManager : MonoBehaviour
     }
 
     // 현재 소지한 재료 목록 출력
-    private void PrintCurrentInventory()
+    public void PrintCurrentInventory()
     {
         Debug.Log("현재 소지한 재료:");
         foreach (var ingredient in ingredientCounts)
