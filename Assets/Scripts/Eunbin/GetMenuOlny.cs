@@ -45,7 +45,7 @@ public class getMenuOnly : MonoBehaviour
     public string csvFileName_guest="guest.csv";
     private List<DialogueLine> guestDialogues = new List<DialogueLine>(); // 주문 데이터 저장 리스트
     private Dictionary<string, List<DialogueLine>> guestDialoguesByState = new Dictionary<string, List<DialogueLine>>(); // 상태별 대화 그룹화
-
+    private string currentScene;
 
     public GameObject MadeMenu;
     public string menuName;
@@ -85,6 +85,11 @@ public class getMenuOnly : MonoBehaviour
         customers.Add(shortgirl);
         GameData dateGD = DataManager.Instance.LoadGameData();
         StartCoroutine(ProcessCustomers(dateGD.date-1));
+
+        Loadscene();
+        currentScene="customer";
+        Savescene();
+
     }
 
    private IEnumerator WaitForUiLogicManager()
@@ -584,5 +589,19 @@ private IEnumerator MoveCustomerDown(GameObject customer, float duration = 0.5f)
         yield return null;
     }
 }
+
+  private void Loadscene() {
+
+        GD = DataManager.Instance.LoadGameData();
+
+        // !! 일차 업데이트하기
+        currentScene= GD.currentScene;
+    }
+
+    private void Savescene() {
+        DataManager.Instance.gameData.currentScene = currentScene;
+
+        DataManager.Instance.SaveGameData();
+    }
 }
 

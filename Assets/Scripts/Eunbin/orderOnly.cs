@@ -49,6 +49,7 @@ public class OrderOnly : MonoBehaviour
     private int order_count=0;
     private int accept_order=2;
     private int deadline=1;
+    private string currentScene;
 
     public GameObject popup;
     public TextMeshProUGUI popupText;
@@ -95,6 +96,11 @@ public class OrderOnly : MonoBehaviour
         }
 
         //UiLogicManager.Instance.LoadMoneyData();
+        Loadscene();
+        currentScene="order1";
+        Savescene();
+        
+
     }
 
     private IEnumerator WaitForUiLogicManager()
@@ -455,4 +461,18 @@ private void SaveDate()
 
     Debug.Log("[SaveDate] 데이터 저장 완료!");
 }
+
+  private void Loadscene() {
+
+        GD = DataManager.Instance.LoadGameData();
+
+        // !! 일차 업데이트하기
+        currentScene= GD.currentScene;
+    }
+
+    private void Savescene() {
+        DataManager.Instance.gameData.currentScene = currentScene;
+
+        DataManager.Instance.SaveGameData();
+    }
 }

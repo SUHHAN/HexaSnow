@@ -368,6 +368,5 @@ private IEnumerator RestoreUI()
             spc_OnSpecialTimeReached();
             currentDay = dateGD.date;
         }
-        else Debug.Log("특별손님 방문 안 함");
 }
 }
