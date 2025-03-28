@@ -1474,6 +1474,11 @@ MonoBehaviour:
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
+    currentScene: 
+    hasCompletedBakingTutorial: 0
+    hasCompletedIngredientTutorial: 0
+    hasCompletedBonusTutorial: 0
+    EndingCount: 0
   MyList: []
   MenuSprites:
   - {fileID: 21300000, guid: 9d054584fd222fa4dac41a4dd5cdcbe3, type: 3}
@@ -1514,6 +1519,11 @@ MonoBehaviour:
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
+    currentScene: 
+    hasCompletedBakingTutorial: 0
+    hasCompletedIngredientTutorial: 0
+    hasCompletedBonusTutorial: 0
+    EndingCount: 0
 --- !u!114 &796587170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2663,6 +2673,11 @@ MonoBehaviour:
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
+    currentScene: 
+    hasCompletedBakingTutorial: 0
+    hasCompletedIngredientTutorial: 0
+    hasCompletedBonusTutorial: 0
+    EndingCount: 0
 --- !u!114 &1405821391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3457,6 +3472,19 @@ MonoBehaviour:
   dayChange: {fileID: 1061982604}
   MadeMenu: {fileID: 796587167}
   setmenu: {fileID: 796587169}
+  GD:
+    isGuestLoggedIn: 0
+    date: 0
+    money: 0
+    time: 0
+    ingredientNum: 
+    myBake: []
+    serializedDailyOrders: 
+    currentScene: 
+    hasCompletedBakingTutorial: 0
+    hasCompletedIngredientTutorial: 0
+    hasCompletedBonusTutorial: 0
+    EndingCount: 0
 --- !u!4 &1718870001
 Transform:
   m_ObjectHideFlags: 0
@@ -3740,6 +3768,11 @@ MonoBehaviour:
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
+    currentScene: 
+    hasCompletedBakingTutorial: 0
+    hasCompletedIngredientTutorial: 0
+    hasCompletedBonusTutorial: 0
+    EndingCount: 0
 --- !u!4 &1976141242
 Transform:
   m_ObjectHideFlags: 0

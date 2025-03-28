@@ -338,7 +338,8 @@ private void LoadGuestFromCSV()
             continue;
         }
         customer.SetActive(true);
-        StartCoroutine(MoveCustomerUp(customer));
+        RectTransform customerRect = customer.GetComponent<RectTransform>();
+        StartCoroutine(MoveCustomerUp(customerRect));
 
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
         Debug.Log($"손님 {customer.name}이(가) 메뉴 {menuName}을(를) 받으러 왔습니다!");
@@ -360,7 +361,7 @@ private void LoadGuestFromCSV()
         yield return new WaitUntil(() => isOrderCompleted);
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
-        yield return StartCoroutine(MoveCustomerDown(customer)); // 손님이 사라지는 애니메이션이 끝날 때까지 기다림
+        yield return StartCoroutine(MoveCustomerDown(customerRect));// 손님이 사라지는 애니메이션이 끝날 때까지 기다림
         customer.SetActive(false);
         customer_order.SetActive(false);
         speechBubble.SetActive(false);
@@ -553,40 +554,66 @@ private void LoadMoData() {
         GD = DataManager.Instance.LoadGameData();
         GD.money -= 500;
         DataManager.Instance.SaveGameData();
-}
-
-private IEnumerator MoveCustomerUp(GameObject customer, float duration = 0.5f)
+}private IEnumerator MoveCustomerUp(RectTransform customerRect)
 {
-    Debug.Log($"MoveCustomerUp 시작 - {customer.name} 이동");
-    
-    float elapsedTime = 0f;
-    Vector3 startPos = customer.transform.position;
-    Vector3 endPos = startPos + new Vector3(0, 2.0f, 0);
+    Vector3 targetPosition = customerRect.position; // 현재 위치가 목표 위치
+    Vector3 startPosition = new Vector3(targetPosition.x, targetPosition.y - 200, targetPosition.z); // 아래에서 시작
 
-    while (elapsedTime < duration)
+    float duration = 0.5f;
+    float timeElapsed = 0;
+
+    while (timeElapsed < duration)
     {
-        elapsedTime += Time.deltaTime;
-        float t = Mathf.Clamp01(elapsedTime / duration);
-        customer.transform.position = Vector3.Lerp(startPos, endPos, t);
-        
+        float t = timeElapsed / duration;
+        t = EaseOutBounce(t); // 반동 효과
+        customerRect.position = Vector3.Lerp(startPosition, targetPosition, t);
+        timeElapsed += Time.deltaTime;
         yield return null;
     }
 
-    Debug.Log($"MoveCustomerUp 완료 - 최종 위치: {customer.transform.position}");
+    customerRect.position = targetPosition; // 목표 위치로 고정
 }
 
-private IEnumerator MoveCustomerDown(GameObject customer, float duration = 0.5f)
+private IEnumerator MoveCustomerDown(RectTransform customerRect)
 {
-    float elapsedTime = 0f;
-    Vector3 startPos = customer.transform.position; // 현재 위치
-    Vector3 endPos = startPos - new Vector3(0, 2.0f, 0); // 최종 위치 (2 유닛 아래로 이동)
+    Vector3 startPosition = customerRect.position;
+    Vector3 targetPosition = new Vector3(startPosition.x, startPosition.y-300, startPosition.z);
 
-    while (elapsedTime < duration)
+
+    float duration = 0.5f;
+    float timeElapsed = 0;
+
+    while (timeElapsed < duration)
     {
-        elapsedTime += Time.deltaTime;
-        float t = Mathf.Clamp01(elapsedTime / duration);
-        customer.transform.position = Vector3.Lerp(startPos, endPos, t); // 부드러운 이동
+        customerRect.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
+        timeElapsed += Time.deltaTime; // 시간 경과
         yield return null;
+    }
+
+    customerRect.position = startPosition; // 목표 위치로 고정
+}
+
+// 🎮 반동 효과 함수
+private float EaseOutBounce(float t)
+{
+    if (t < 1 / 2.75f)
+    {
+        return 7.5625f * t * t;
+    }
+    else if (t < 2 / 2.75f)
+    {
+        t -= 1.5f / 2.75f;
+        return 7.5625f * t * t + 0.75f;
+    }
+    else if (t < 2.5 / 2.75f)
+    {
+        t -= 2.25f / 2.75f;
+        return 7.5625f * t * t + 0.9375f;
+    }
+    else
+    {
+        t -= 2.625f / 2.75f;
+        return 7.5625f * t * t + 0.984375f;
     }
 }
 

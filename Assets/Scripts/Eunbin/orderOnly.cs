@@ -338,7 +338,7 @@ public void openMenu(int day){
     int maxId;
     if(day<=2)
         maxId=day*2000+1000;
-    else maxId=day+3000;
+    else maxId=day*1000+3000;
      filteredDialogues=dialogues.FindAll(dialogue=>{
         if (int.TryParse(dialogue.id, out int dialogueId)){
             return dialogueId<=maxId;

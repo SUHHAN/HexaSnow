@@ -47,10 +47,11 @@ public class special_customer : MonoBehaviour
     private int current_startId;
     private GameObject customer;
     public Button dayChange;
-
     public GameObject MadeMenu;
     public SetMenu setmenu;
     private float currentTime;
+    private int count;
+    [SerializeField] private GameData GD = new GameData();
 
     public struct DialogueLine
     {
@@ -315,6 +316,8 @@ private IEnumerator RestoreUI()
 
     public void UpdateDialogue(string action)
     {
+        GameData dateGD = DataManager.Instance.LoadGameData();
+
         speechBubble.SetActive(true);
         none.gameObject.SetActive(false);
         MadeMenu.SetActive(false);
@@ -331,6 +334,9 @@ private IEnumerator RestoreUI()
             expression = Expression.Happy;
             current_startId=2001;
             PlayDialogue(current_startId);
+            LoadDate();
+            dateGD.EndingCount++;
+            SaveDate();
             Debug.Log("특별 손님이 제품을 받아갔습니다!");
         }
         else if (action.Equals("False"))
@@ -369,4 +375,17 @@ private IEnumerator RestoreUI()
             currentDay = dateGD.date;
         }
 }
+private void LoadDate() {
+
+        GD = DataManager.Instance.LoadGameData();
+
+        // !! 일차 업데이트하기
+        count=GD.EndingCount;
+    }
+
+    private void SaveDate() {
+        DataManager.Instance.gameData.EndingCount = count;
+
+        DataManager.Instance.SaveGameData();
+    }
 }
