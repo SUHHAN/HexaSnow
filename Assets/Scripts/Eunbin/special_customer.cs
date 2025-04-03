@@ -86,7 +86,7 @@ public class special_customer : MonoBehaviour
             SceneManager.LoadScene("Deadline_Last");
         });
 
-        if(dateGD.time <= 240f){
+        if(dateGD.time <= 350f){
             currentDay = dateGD.date;
             orderSpecialCustomer(); // 특별 손님 주문
             spc_OnSpecialTimeReached();
@@ -368,7 +368,7 @@ private IEnumerator RestoreUI()
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
 
-        if (Mathf.Abs(currentTime - 240f) < 0.1f)
+        if (Mathf.Abs(currentTime - 350f) < 0.1f)
         {
             orderSpecialCustomer();
             spc_OnSpecialTimeReached();
