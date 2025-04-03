@@ -75,6 +75,9 @@ public class OrderOnly : MonoBehaviour
         SceneManager.LoadScene("Main", LoadSceneMode.Additive); //기본 UI 띄우기 
         StartCoroutine(WaitForUiLogicManager());
         postman.SetActive(true);
+        //order.SetActive(false);
+        RectTransform customerRect = postman.GetComponent<RectTransform>();
+        StartCoroutine(MoveCustomerUp(customerRect));
         orderCheck.gameObject.SetActive(true);
 
         InitializeButtons(); // 버튼 초기화
@@ -384,6 +387,9 @@ public void openMenu(int day){
     {
       AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
         popup.SetActive(false); // 팝업 비활성화
+        order.SetActive(true); // UI 비활성화
+        postman.SetActive(true);
+        speechBubble.SetActive(true);
     }
 }
 
@@ -475,4 +481,72 @@ private void SaveDate()
 
         DataManager.Instance.SaveGameData();
     }
+
+    private void LoadMoData() {
+        GD = DataManager.Instance.LoadGameData();
+        GD.money -= 500;
+        DataManager.Instance.SaveGameData();
+}
+private IEnumerator MoveCustomerUp(RectTransform customerRect)
+{
+    Vector3 targetPosition = customerRect.position; // 현재 위치가 목표 위치
+    Vector3 startPosition = new Vector3(targetPosition.x, targetPosition.y - 200, targetPosition.z); // 아래에서 시작
+
+    float duration = 0.5f;
+    float timeElapsed = 0;
+
+    while (timeElapsed < duration)
+    {
+        float t = timeElapsed / duration;
+        t = EaseOutBounce(t); // 반동 효과
+        customerRect.position = Vector3.Lerp(startPosition, targetPosition, t);
+        timeElapsed += Time.deltaTime;
+        yield return null;
+    }
+
+    customerRect.position = targetPosition; // 목표 위치로 고정
+}
+
+private IEnumerator MoveCustomerDown(RectTransform customerRect)
+{
+    Vector3 startPosition = customerRect.position;
+    Vector3 targetPosition = new Vector3(startPosition.x, startPosition.y-300, startPosition.z);
+
+
+    float duration = 0.5f;
+    float timeElapsed = 0;
+
+    while (timeElapsed < duration)
+    {
+        customerRect.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
+        timeElapsed += Time.deltaTime; // 시간 경과
+        yield return null;
+    }
+
+    customerRect.position = startPosition; // 목표 위치로 고정
+}
+
+// 🎮 반동 효과 함수
+private float EaseOutBounce(float t)
+{
+    if (t < 1 / 2.75f)
+    {
+        return 7.5625f * t * t;
+    }
+    else if (t < 2 / 2.75f)
+    {
+        t -= 1.5f / 2.75f;
+        return 7.5625f * t * t + 0.75f;
+    }
+    else if (t < 2.5 / 2.75f)
+    {
+        t -= 2.25f / 2.75f;
+        return 7.5625f * t * t + 0.9375f;
+    }
+    else
+    {
+        t -= 2.625f / 2.75f;
+        return 7.5625f * t * t + 0.984375f;
+    }
+}
 }
