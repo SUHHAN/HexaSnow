@@ -98,6 +98,7 @@ public class InventoryManager_h : MonoBehaviour
     [Header("요리 팝업 관리")]
     [SerializeField] private GameObject BonusPanel;
     [SerializeField] private GameObject BlackBackground;
+    [SerializeField] private GameObject NoCookText;
     [SerializeField] private TextMeshProUGUI BonusPanelText;
 
     [SerializeField] private GameData GD = new GameData();
@@ -127,7 +128,7 @@ public class InventoryManager_h : MonoBehaviour
         // 인벤토리를 여는 동안은 레시피북와 요청서 안나오도록 하기
         UiLogicManager.Instance.recipeBookPanel.SetActive(false);
         UiLogicManager.Instance.orderBookPanel.SetActive(false);
-
+        NoCookText.SetActive(false);
 
         SelectButton = !SelectButton; // 현재 상태를 반대로 변경 (true ↔ false)
 
@@ -163,6 +164,7 @@ public class InventoryManager_h : MonoBehaviour
         BlackBackground.SetActive(false);
         TabSet.SetActive(false);
         AllPanel.SetActive(false);
+        NoCookText.SetActive(false);
 
         // 인벤토리를 여는 동안은 레시피북와 요청서 안나오도록 하기
         UiLogicManager.Instance.SettingButton.interactable = true;
@@ -173,6 +175,8 @@ public class InventoryManager_h : MonoBehaviour
     public void OnClickIngreTab()
     {
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+        NoCookText.SetActive(false);
+
         // 기존 아이템 삭제 후 재료 아이템 추가
         ClearItems();
         Ingre_AddItems();
@@ -222,8 +226,12 @@ public class InventoryManager_h : MonoBehaviour
 
     public void Cook_AddItems()
     {
+        if(MyCookList.Count == 0) {
+            NoCookText.SetActive(true);
+        }
         foreach (var me in MyCookList)
         {
+            NoCookText.SetActive(false);
             GameObject item = Instantiate(CookPrefab, content);
 
             Debug.Log($"{me.index}, {me.menuID}, {me.score}, {me.bonus}, {me.name}");
