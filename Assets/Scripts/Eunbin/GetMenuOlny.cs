@@ -45,7 +45,7 @@ public class getMenuOnly : MonoBehaviour
     public string csvFileName_guest="guest.csv";
     private List<DialogueLine> guestDialogues = new List<DialogueLine>(); // 주문 데이터 저장 리스트
     private Dictionary<string, List<DialogueLine>> guestDialoguesByState = new Dictionary<string, List<DialogueLine>>(); // 상태별 대화 그룹화
-
+    private string currentScene;
 
     public GameObject MadeMenu;
     public string menuName;
@@ -85,19 +85,32 @@ public class getMenuOnly : MonoBehaviour
         customers.Add(shortgirl);
         GameData dateGD = DataManager.Instance.LoadGameData();
         StartCoroutine(ProcessCustomers(dateGD.date-1));
+
+        Loadscene();
+        currentScene="customer";
+        Savescene();
+
     }
 
-    private IEnumerator WaitForUiLogicManager()
+   private IEnumerator WaitForUiLogicManager()
 {
     yield return new WaitUntil(() => UiLogicManager.Instance != null);
 
     UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
-    UiLogicManager.Instance.order_button.interactable = false;
-    UiLogicManager.Instance.RecipeButton.interactable = false;
-    UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = false;
-
-    
+    UiLogicManager.Instance.order_button.gameObject.SetActive(false);
+    UiLogicManager.Instance.RecipeButton.gameObject.SetActive(false);
+    UiLogicManager.Instance.InventoryButtonGo.SetActive(false);
 }
+private IEnumerator RestoreUI()
+{
+    yield return new WaitUntil(() => UiLogicManager.Instance != null);
+
+    UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
+    UiLogicManager.Instance.order_button.gameObject.SetActive(true);
+    UiLogicManager.Instance.RecipeButton.gameObject.SetActive(true);
+    UiLogicManager.Instance.InventoryButtonGo.SetActive(true);
+}
+
 
      private void LoadDialoguesFromCSV()
     {
@@ -249,10 +262,8 @@ private void LoadGuestFromCSV()
         MadeMenu.SetActive(false);
         none.gameObject.SetActive(false);
 
-        UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
-        UiLogicManager.Instance.order_button.interactable = true;
-        UiLogicManager.Instance.RecipeButton.interactable = true;
-        UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = true;
+        StartCoroutine(RestoreUI());
+
         yield break;
     }
 
@@ -291,10 +302,8 @@ private void LoadGuestFromCSV()
         Debug.Log($"[{dayToProcess}일] 처리할 주문이 없습니다.");
         MadeMenu.SetActive(false);
         none.gameObject.SetActive(false);
-        UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
-        UiLogicManager.Instance.order_button.interactable = true;
-        UiLogicManager.Instance.RecipeButton.interactable = true;
-        UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable = true;
+        StartCoroutine(RestoreUI());
+
         yield break;
     }
 
@@ -329,7 +338,8 @@ private void LoadGuestFromCSV()
             continue;
         }
         customer.SetActive(true);
-        StartCoroutine(MoveCustomerUp(customer));
+        RectTransform customerRect = customer.GetComponent<RectTransform>();
+        StartCoroutine(MoveCustomerUp(customerRect));
 
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
         Debug.Log($"손님 {customer.name}이(가) 메뉴 {menuName}을(를) 받으러 왔습니다!");
@@ -351,7 +361,7 @@ private void LoadGuestFromCSV()
         yield return new WaitUntil(() => isOrderCompleted);
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
-        yield return StartCoroutine(MoveCustomerDown(customer)); // 손님이 사라지는 애니메이션이 끝날 때까지 기다림
+        yield return StartCoroutine(MoveCustomerDown(customerRect));// 손님이 사라지는 애니메이션이 끝날 때까지 기다림
         customer.SetActive(false);
         customer_order.SetActive(false);
         speechBubble.SetActive(false);
@@ -371,10 +381,8 @@ private void LoadGuestFromCSV()
     MadeMenu.SetActive(false);
     none.gameObject.SetActive(false);
 
-    UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
-    UiLogicManager.Instance.order_button.interactable = true;
-    UiLogicManager.Instance.RecipeButton.interactable = true;
-    UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = true;
+    StartCoroutine(RestoreUI());
+
 }
 
     private GameObject GetRandomCustomer(){
@@ -546,35 +554,81 @@ private void LoadMoData() {
         GD = DataManager.Instance.LoadGameData();
         GD.money -= 500;
         DataManager.Instance.SaveGameData();
-}
-
-private IEnumerator MoveCustomerUp(GameObject customer, float duration = 0.5f)
+}private IEnumerator MoveCustomerUp(RectTransform customerRect)
 {
-    float elapsedTime = 0f;
-    Vector3 startPos = customer.transform.position; // 현재 위치
-    Vector3 endPos = startPos + new Vector3(0, 2.0f, 0); // 최종 위치 (2 유닛 위로 이동)
+    Vector3 targetPosition = customerRect.position; // 현재 위치가 목표 위치
+    Vector3 startPosition = new Vector3(targetPosition.x, targetPosition.y - 200, targetPosition.z); // 아래에서 시작
 
-    while (elapsedTime < duration)
+    float duration = 0.5f;
+    float timeElapsed = 0;
+
+    while (timeElapsed < duration)
     {
-        elapsedTime += Time.deltaTime;
-        float t = Mathf.Clamp01(elapsedTime / duration);
-        customer.transform.position = Vector3.Lerp(startPos, endPos, t); // 부드러운 이동
+        float t = timeElapsed / duration;
+        t = EaseOutBounce(t); // 반동 효과
+        customerRect.position = Vector3.Lerp(startPosition, targetPosition, t);
+        timeElapsed += Time.deltaTime;
         yield return null;
     }
-}
-private IEnumerator MoveCustomerDown(GameObject customer, float duration = 0.5f)
-{
-    float elapsedTime = 0f;
-    Vector3 startPos = customer.transform.position; // 현재 위치
-    Vector3 endPos = startPos - new Vector3(0, 2.0f, 0); // 최종 위치 (2 유닛 아래로 이동)
 
-    while (elapsedTime < duration)
+    customerRect.position = targetPosition; // 목표 위치로 고정
+}
+
+private IEnumerator MoveCustomerDown(RectTransform customerRect)
+{
+    Vector3 startPosition = customerRect.position;
+    Vector3 targetPosition = new Vector3(startPosition.x, startPosition.y-300, startPosition.z);
+
+
+    float duration = 0.5f;
+    float timeElapsed = 0;
+
+    while (timeElapsed < duration)
     {
-        elapsedTime += Time.deltaTime;
-        float t = Mathf.Clamp01(elapsedTime / duration);
-        customer.transform.position = Vector3.Lerp(startPos, endPos, t); // 부드러운 이동
+        customerRect.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
+        timeElapsed += Time.deltaTime; // 시간 경과
         yield return null;
     }
+
+    customerRect.position = startPosition; // 목표 위치로 고정
 }
+
+// 🎮 반동 효과 함수
+private float EaseOutBounce(float t)
+{
+    if (t < 1 / 2.75f)
+    {
+        return 7.5625f * t * t;
+    }
+    else if (t < 2 / 2.75f)
+    {
+        t -= 1.5f / 2.75f;
+        return 7.5625f * t * t + 0.75f;
+    }
+    else if (t < 2.5 / 2.75f)
+    {
+        t -= 2.25f / 2.75f;
+        return 7.5625f * t * t + 0.9375f;
+    }
+    else
+    {
+        t -= 2.625f / 2.75f;
+        return 7.5625f * t * t + 0.984375f;
+    }
+}
+
+  private void Loadscene() {
+
+        GD = DataManager.Instance.LoadGameData();
+
+        // !! 일차 업데이트하기
+        currentScene= GD.currentScene;
+    }
+
+    private void Savescene() {
+        DataManager.Instance.gameData.currentScene = currentScene;
+
+        DataManager.Instance.SaveGameData();
+    }
 }
 

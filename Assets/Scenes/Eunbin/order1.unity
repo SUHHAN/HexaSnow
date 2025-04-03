@@ -628,6 +628,7 @@ RectTransform:
   - {fileID: 1714472477}
   - {fileID: 1406909376}
   - {fileID: 1773455537}
+  - {fileID: 2003282275}
   - {fileID: 1322391167}
   - {fileID: 1024402156}
   m_Father: {fileID: 0}
@@ -1087,6 +1088,11 @@ MonoBehaviour:
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
+    currentScene: 
+    hasCompletedBakingTutorial: 0
+    hasCompletedIngredientTutorial: 0
+    hasCompletedBonusTutorial: 0
+    EndingCount: 0
 --- !u!114 &1024402158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1734,7 +1740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1406909376
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1751,9 +1757,9 @@ RectTransform:
   - {fileID: 1490473246}
   m_Father: {fileID: 421666757}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 779.08}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 720, y: 1280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1406909377
@@ -1873,10 +1879,10 @@ RectTransform:
   - {fileID: 1259675376}
   m_Father: {fileID: 1406909376}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.04}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 720, y: 1280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1490473247
 MonoBehaviour:
@@ -2207,7 +2213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1773455537
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2225,7 +2231,6 @@ RectTransform:
   - {fileID: 1094453998}
   - {fileID: 1764581427}
   - {fileID: 46136244}
-  - {fileID: 2003282275}
   m_Father: {fileID: 421666757}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2278,7 +2283,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773455536}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b3d71a69db64f8fa21197ebcf3814b, type: 3}
   m_Name: 
@@ -2312,6 +2317,11 @@ MonoBehaviour:
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
+    currentScene: 
+    hasCompletedBakingTutorial: 0
+    hasCompletedIngredientTutorial: 0
+    hasCompletedBonusTutorial: 0
+    EndingCount: 0
 --- !u!1 &1921581492
 GameObject:
   m_ObjectHideFlags: 0
@@ -2323,6 +2333,7 @@ GameObject:
   - component: {fileID: 1921581494}
   - component: {fileID: 1921581501}
   - component: {fileID: 1921581502}
+  - component: {fileID: 1921581503}
   m_Layer: 0
   m_Name: postman
   m_TagString: Untagged
@@ -2387,6 +2398,52 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1921581503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921581492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b3d71a69db64f8fa21197ebcf3814b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gametime: {fileID: 1024402157}
+  postman: {fileID: 1921581492}
+  dialogueText: {fileID: 667618063}
+  dialogueName: {fileID: 1259675377}
+  order: {fileID: 1773455536}
+  dialogueOrder: {fileID: 2063117814}
+  orderCustomer: {fileID: 2093068879}
+  order_menu_id: 0
+  order_nickname: []
+  unlocked_menu: []
+  order_deadLine: 
+  csvFileName: orderStatement_main.csv
+  csvFileName_nickname: orderStatement_nickname.csv
+  csvFileName_menu: menu.csv
+  acceptButton: {fileID: 1094453999}
+  cancelButton: {fileID: 1764581428}
+  orderCheck: {fileID: 46136245}
+  speechBubble: {fileID: 1406909375}
+  nameBubble: {fileID: 1490473245}
+  popup: {fileID: 2003282274}
+  popupText: {fileID: 683587854}
+  GD:
+    isGuestLoggedIn: 0
+    date: 0
+    money: 0
+    time: 0
+    ingredientNum: 
+    myBake: []
+    serializedDailyOrders: 
+    currentScene: 
+    hasCompletedBakingTutorial: 0
+    hasCompletedIngredientTutorial: 0
+    hasCompletedBonusTutorial: 0
+    EndingCount: 0
 --- !u!1 &1931119717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2548,15 +2605,15 @@ RectTransform:
   m_GameObject: {fileID: 2003282274}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 13.415057, y: 13.415057, z: 13.415057}
+  m_LocalScale: {x: 13.415056, y: 13.415056, z: 13.415056}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 182877956}
-  m_Father: {fileID: 1773455537}
+  m_Father: {fileID: 421666757}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -173.6176, y: -116.89}
+  m_AnchoredPosition: {x: -5.4976044, y: 25.109985}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2003282276

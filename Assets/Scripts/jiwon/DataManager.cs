@@ -36,6 +36,7 @@ public class GameData
     public bool hasCompletedBakingTutorial;    // 베이킹 튜토리얼 완료 여부
     public bool hasCompletedIngredientTutorial; // 재료 튜토리얼 완료 여부
     public bool hasCompletedBonusTutorial;     // 보너스 튜토리얼 완료 여부
+    public int EndingCount=0;
 
     public void SetIngredient(List<int> newIngredientNum)
     {
@@ -112,7 +113,7 @@ public class DataManager : MonoBehaviour
     {
         string json = JsonUtility.ToJson(gameData, true);
         File.WriteAllText(gameDataPath, json);
-        Debug.Log("게임 데이터가 저장되었습니다: " + gameDataPath);
+        //Debug.Log("게임 데이터가 저장되었습니다: " + gameDataPath);
     }
 
     // 저장된 게임 데이터 불러오기
@@ -122,7 +123,7 @@ public class DataManager : MonoBehaviour
         {
             string json = File.ReadAllText(gameDataPath);
             GameData data = JsonUtility.FromJson<GameData>(json);
-            Debug.Log("게임 데이터를 로드했습니다: " + gameDataPath);
+            //Debug.Log("게임 데이터를 로드했습니다: " + gameDataPath);
             gameData = data;
             return data;
         }

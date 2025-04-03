@@ -174,6 +174,9 @@ public class IngredientSelectManager : MonoBehaviour
         // 최종 점수 출력
         Debug.Log($"최종 재료 점수: {ingredientScore}/30");
 
+        Debug.Log("재료 선택 완료 후 현재 인벤토리:");
+        inventoryManager.PrintCurrentInventory();
+
         PlayerPrefs.SetInt("ingreScore",ingredientScore);
         PlayerPrefs.Save();
 

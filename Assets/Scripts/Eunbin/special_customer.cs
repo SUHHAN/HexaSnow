@@ -47,10 +47,11 @@ public class special_customer : MonoBehaviour
     private int current_startId;
     private GameObject customer;
     public Button dayChange;
-
     public GameObject MadeMenu;
     public SetMenu setmenu;
     private float currentTime;
+    private int count;
+    [SerializeField] private GameData GD = new GameData();
 
     public struct DialogueLine
     {
@@ -85,7 +86,7 @@ public class special_customer : MonoBehaviour
             SceneManager.LoadScene("Deadline_Last");
         });
 
-        if(dateGD.time <= 240f){
+        if(dateGD.time <= 350f){
             currentDay = dateGD.date;
             orderSpecialCustomer(); // 특별 손님 주문
             spc_OnSpecialTimeReached();
@@ -97,12 +98,20 @@ public class special_customer : MonoBehaviour
     yield return new WaitUntil(() => UiLogicManager.Instance != null);
 
     UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
-    UiLogicManager.Instance.order_button.interactable = false;
-    UiLogicManager.Instance.RecipeButton.interactable = false;
-    UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = false;
-
-    
+    UiLogicManager.Instance.order_button.gameObject.SetActive(false);
+    UiLogicManager.Instance.RecipeButton.gameObject.SetActive(false);
+    UiLogicManager.Instance.InventoryButtonGo.SetActive(false);
 }
+private IEnumerator RestoreUI()
+{
+    yield return new WaitUntil(() => UiLogicManager.Instance != null);
+
+    UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
+    UiLogicManager.Instance.order_button.gameObject.SetActive(true);
+    UiLogicManager.Instance.RecipeButton.gameObject.SetActive(true);
+    UiLogicManager.Instance.InventoryButtonGo.SetActive(true);
+}
+
     public void LoadDialoguesFromCSV()
     {
         try
@@ -259,11 +268,7 @@ public class special_customer : MonoBehaviour
             if(startId==1){
                 Debug.Log("스페셜 손님 주문 완료!");
                 customer.SetActive(false);
-                UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
-                UiLogicManager.Instance.order_button.interactable = true;
-                UiLogicManager.Instance.RecipeButton.interactable = true;
-                UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = true;
-       
+                StartCoroutine(RestoreUI());
                 EndDialogue();
                 return;
             }
@@ -302,11 +307,7 @@ public class special_customer : MonoBehaviour
         yield return new WaitUntil(() => isOrderCompleted);
         speechBubble.SetActive(false);
         customer.SetActive(false);
-        UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
-        UiLogicManager.Instance.order_button.interactable = true;
-        UiLogicManager.Instance.RecipeButton.interactable = true;
-        UiLogicManager.Instance.InventoryButtonGo.GetComponent<Button>().interactable  = true;
-       
+        StartCoroutine(RestoreUI());
         isOrderCompleted = false;
         none.gameObject.SetActive(false);
 
@@ -315,6 +316,8 @@ public class special_customer : MonoBehaviour
 
     public void UpdateDialogue(string action)
     {
+        GameData dateGD = DataManager.Instance.LoadGameData();
+
         speechBubble.SetActive(true);
         none.gameObject.SetActive(false);
         MadeMenu.SetActive(false);
@@ -331,6 +334,9 @@ public class special_customer : MonoBehaviour
             expression = Expression.Happy;
             current_startId=2001;
             PlayDialogue(current_startId);
+            LoadDate();
+            dateGD.EndingCount++;
+            SaveDate();
             Debug.Log("특별 손님이 제품을 받아갔습니다!");
         }
         else if (action.Equals("False"))
@@ -362,12 +368,24 @@ public class special_customer : MonoBehaviour
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
 
-        if (Mathf.Abs(currentTime - 240f) < 0.1f)
+        if (Mathf.Abs(currentTime - 350f) < 0.1f)
         {
             orderSpecialCustomer();
             spc_OnSpecialTimeReached();
             currentDay = dateGD.date;
         }
-        else Debug.Log("특별손님 방문 안 함");
 }
+private void LoadDate() {
+
+        GD = DataManager.Instance.LoadGameData();
+
+        // !! 일차 업데이트하기
+        count=GD.EndingCount;
+    }
+
+    private void SaveDate() {
+        DataManager.Instance.gameData.EndingCount = count;
+
+        DataManager.Instance.SaveGameData();
+    }
 }

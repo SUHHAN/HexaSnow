@@ -271,6 +271,10 @@ public class ToppingManager : MonoBehaviour
     private void FinishBaking()
     {
         SaveBakingResult();
+
+        Debug.Log("베이킹 완료 직전 현재 인벤토리:");
+        inventoryManager.PrintCurrentInventory();
+
         SceneManager.LoadScene("BakingStart");
     }
 

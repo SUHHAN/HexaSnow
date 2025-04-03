@@ -10,6 +10,10 @@ public class tutorial2 : MonoBehaviour
     public GameObject direct1;
     public GameObject direct2;
     public GameObject direct3;
+    public GameObject direct4;
+    public GameObject direct5;
+    public GameObject direct6;
+    
     public GameObject kitchen;
     public GameObject order;
     public TextMeshProUGUI dialogueText;
@@ -112,22 +116,27 @@ public class tutorial2 : MonoBehaviour
             DialogueLine currentLine = dialogues[currentDialogueIndex];
             UpdateDialogueUI(currentLine);
 
-            if(currentLine.id=="3"){
+            if(currentLine.id=="2"){
                 direct1.SetActive(true);
             }
-            if(currentLine.id=="4"){
-                direct3.SetActive(true);
-            }
-            if(currentLine.id=="5"){
-                direct3.SetActive(false);
-            }
-
-            if(currentLine.id=="7"){
+            if(currentLine.id=="3"){
                 direct1.SetActive(false);
                 direct2.SetActive(true);
             }
-            if(currentLine.id=="9"){
+            if(currentLine.id=="4"){
                 direct2.SetActive(false);
+                direct3.SetActive(true);
+            }
+
+            if(currentLine.id=="5"){
+                direct3.SetActive(false);
+                direct4.SetActive(true);
+                direct5.SetActive(true);
+            }
+            if(currentLine.id=="7"){
+                direct4.SetActive(false);
+                direct5.SetActive(false);
+                direct6.SetActive(true);
             }
         else
         {
