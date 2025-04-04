@@ -54,7 +54,7 @@ public class BakingStartManager : MonoBehaviour
 
         SceneManager.LoadScene("Main", LoadSceneMode.Additive);
 
-        startPanel.SetActive(true);
+        //startPanel.SetActive(true);
         recipeSelectionPopup.SetActive(true);
         messagePopup.SetActive(false);
         nextButton.gameObject.SetActive(false);

@@ -164,34 +164,29 @@ public class ToppingManager : MonoBehaviour
     }
 
     // 토핑 하나만 선택 가능하도록 설정
+    // 토핑 하나만 선택 가능하도록 설정 (개수 유지하도록 수정)
     private void SelectSingleTopping(int toppingIndex)
     {
         if (selectedToppingIndex == toppingIndex)
         {
-            inventoryManager.AddIngredient(toppingIndex); // 개수 복구
-            selectedToppingIndex = -1; // 선택 해제
+            // 선택 해제
+            selectedToppingIndex = -1;
             finalImageIndex = selectedDessertIndex; // 기본 이미지로 되돌림
         }
         else
         {
-            if (selectedToppingIndex != -1)
+            // 기존 선택 해제 처리
+            if (selectedToppingIndex != -1 && selectedToppingIndex - 1 < toppingButtons.Count)
             {
-                inventoryManager.AddIngredient(selectedToppingIndex);
-                ResetToppingButtonImage(toppingButtons[selectedToppingIndex - 1]); // 기존 선택된 버튼 원래대로 복구
+                ResetToppingButtonImage(toppingButtons[selectedToppingIndex - 1]);
             }
 
-            if (inventoryManager.UseIngredient(toppingIndex)) // 선택 시 개수 감소
+            // 새 선택 적용
+            selectedToppingIndex = toppingIndex;
+
+            if (toppingImageMap.ContainsKey((selectedDessertIndex, toppingIndex)))
             {
-                selectedToppingIndex = toppingIndex;
-                if (toppingImageMap.ContainsKey((selectedDessertIndex, toppingIndex)))
-                {
-                    finalImageIndex = toppingImageMap[(selectedDessertIndex, toppingIndex)];
-                }
-            }
-            else
-            {
-                Debug.LogError($"토핑 {toppingIndex} 개수가 부족합니다!");
-                return;
+                finalImageIndex = toppingImageMap[(selectedDessertIndex, toppingIndex)];
             }
         }
 
