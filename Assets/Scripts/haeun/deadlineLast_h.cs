@@ -84,6 +84,8 @@ public class deadlineLast_h : MonoBehaviour
 
     private void SaveDate() {
         DataManager.Instance.gameData.date = mydate+1;
+        // // 여기에 null 값으로 바꿔서 저장해주기
+        // DataManager.Instance.gameData.Scene = null;
         DataManager.Instance.gameData.time=360f;
         DataManager.Instance.SaveGameData();
     }
