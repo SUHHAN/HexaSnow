@@ -3041,6 +3041,7 @@ MonoBehaviour:
     hasCompletedBakingTutorial: 0
     hasCompletedIngredientTutorial: 0
     hasCompletedBonusTutorial: 0
+    EndingCount: 0
 --- !u!4 &718956064
 Transform:
   m_ObjectHideFlags: 0

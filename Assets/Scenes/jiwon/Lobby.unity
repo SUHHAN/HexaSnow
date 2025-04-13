@@ -3158,7 +3158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &660695692
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3671,6 +3671,7 @@ MonoBehaviour:
     hasCompletedBakingTutorial: 0
     hasCompletedIngredientTutorial: 0
     hasCompletedBonusTutorial: 0
+    EndingCount: 0
 --- !u!4 &718956064
 Transform:
   m_ObjectHideFlags: 0
@@ -5931,9 +5932,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6ecd0c9680b7e42b17e46bca9acf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notificationToggle: {fileID: 0}
-  notificationOnImage: {fileID: 0}
-  notificationOffImage: {fileID: 0}
   bgmVolumeSlider: {fileID: 2055078139}
   effectVolumeSlider: {fileID: 1405203279}
   koreanButton: {fileID: 224683790}
@@ -9026,9 +9024,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6ecd0c9680b7e42b17e46bca9acf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notificationToggle: {fileID: 0}
-  notificationOnImage: {fileID: 21300000, guid: 6e25bd0c315431944b8f6b814bfb3fa0, type: 3}
-  notificationOffImage: {fileID: 21300000, guid: 6835c86dac9ee344594b8507b5d561e0, type: 3}
   bgmVolumeSlider: {fileID: 2055078139}
   effectVolumeSlider: {fileID: 1405203279}
   koreanButton: {fileID: 224683790}

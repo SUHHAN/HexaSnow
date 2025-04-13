@@ -3,12 +3,6 @@ using UnityEngine.UI;
 
 public class GameSettingsManager : MonoBehaviour
 {
-    [Header("알림 설정")]
-    public Toggle notificationToggle;
-
-    // 두 개의 스프라이트 설정 (on과 off 상태)
-    public Sprite notificationOnImage;  // 알림 켜졌을 때 이미지
-    public Sprite notificationOffImage; // 알림 꺼졌을 때 이미지
 
     [Header("볼륨 설정")]
     public Slider bgmVolumeSlider;
@@ -20,13 +14,6 @@ public class GameSettingsManager : MonoBehaviour
 
     private void Start()
     {
-        // **저장된 알림 설정 불러오기** (기본값: 1 = 허용)
-        bool isAllowed = PlayerPrefs.GetInt("NotificationAllowed", 1) == 1;
-        notificationToggle.isOn = isAllowed;
-        UpdateNotificationUI();
-
-        // **토글 이벤트 리스너 등록**
-        notificationToggle.onValueChanged.AddListener(SetNotification);
 
         // **저장된 볼륨 값 불러오기** (저장된 값이 없으면 기본값 50 사용)
         // systemVolumeSlider.value = PlayerPrefs.GetFloat("SystemVolume", 50);
@@ -57,41 +44,6 @@ public class GameSettingsManager : MonoBehaviour
         // SetSliderDimensions(systemVolumeSlider, "SystemVolume");
         SetSliderDimensions(bgmVolumeSlider, "BGMVolume");
         SetSliderDimensions(effectVolumeSlider, "EffectVolume");
-    }
-
-    // 알림 설정
-    private void SetNotification(bool isOn)
-    {
-        Debug.Log("Toggle Changed: " + isOn); // 이벤트가 호출되는지 로그로 확인
-        PlayerPrefs.SetInt("NotificationAllowed", isOn ? 1 : 0);
-        PlayerPrefs.Save();
-
-        UpdateNotificationUI();
-    }
-
-    private void UpdateNotificationUI()
-    {
-        bool isAllowed = PlayerPrefs.GetInt("NotificationAllowed", 1) == 1;
-        notificationToggle.isOn = isAllowed;
-
-        // Toggle 상태에 따라 이미지 변경
-        UpdateNotificationImage(isAllowed);
-    }
-
-    private void UpdateNotificationImage(bool isOn)
-    {
-        // Toggle의 이미지 컴포넌트 가져오기
-        Image toggleImage = notificationToggle.GetComponent<Image>();
-
-        // Toggle 상태에 따라 이미지 변경
-        if (isOn)
-        {
-            toggleImage.sprite = notificationOnImage; // 켜졌을 때 이미지
-        }
-        else
-        {
-            toggleImage.sprite = notificationOffImage; // 꺼졌을 때 이미지
-        }
     }
 
 
