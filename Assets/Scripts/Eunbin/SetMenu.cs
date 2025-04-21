@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems; 
 using System.IO;
-
+using System.Collections;
 
 public class SetMenu : MonoBehaviour
 {
@@ -99,6 +99,14 @@ public void AddItems()
 
     public void SlotClick(string name, int index)
 {
+    Debug.Log($"슬롯 {name}, 인덱스 {index} 클릭됨");
+
+    if (isBakeryDelivering)
+    {
+        Debug.LogWarning("슬롯 클릭 무시됨: 베이커리 전달 중입니다.");
+        return;
+    }
+
     Debug.Log($"슬롯 {name}, 인덱스 {index} 클릭됨");
 
     // 이전에 선택된 슬롯 버튼 제거
