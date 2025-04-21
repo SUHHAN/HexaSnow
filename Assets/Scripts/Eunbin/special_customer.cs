@@ -21,6 +21,8 @@ public class special_customer : MonoBehaviour
             return _instance;
         }
     }
+
+    public getMenuOnly getMenuOnly;
     public CharacterManager characterManager;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
@@ -88,7 +90,7 @@ public class special_customer : MonoBehaviour
 
         if(dateGD.time <= 350f){
             currentDay = dateGD.date;
-            orderSpecialCustomer(); // 특별 손님 주문
+            StartCoroutine(orderSpecialCustomer());// 특별 손님 주문
             spc_OnSpecialTimeReached();
         }
 
@@ -197,8 +199,11 @@ private IEnumerator RestoreUI()
         else Debug.Log("특별 손님 주문받으러 옴");
     }
 
-    public void orderSpecialCustomer()
+    public IEnumerator orderSpecialCustomer()
     {
+        yield return new WaitUntil(() => getMenuOnly.VisitDone == true);
+        Debug.Log("✅ 일반 손님 처리 완료됨! 특별 손님 등장 시작");
+
         dayChange.gameObject.SetActive(true);
         foreach (GameObject customerObj in customers)
         {
@@ -370,7 +375,7 @@ private IEnumerator RestoreUI()
 
         if (Mathf.Abs(currentTime - 350f) < 0.1f)
         {
-            orderSpecialCustomer();
+            StartCoroutine(orderSpecialCustomer());
             spc_OnSpecialTimeReached();
             currentDay = dateGD.date;
         }

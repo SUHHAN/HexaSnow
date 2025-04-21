@@ -1472,7 +1472,17 @@ MonoBehaviour:
     money: 0
     time: 0
     ingredientNum: 
-    myBake: []
+    myBake:
+    - index: 1
+      menuID: 2
+      name: "\uCD08\uCF54 \uB9C8\uB4E4\uB80C"
+      score: 10
+      bonus: 1
+    - index: 1
+      menuID: 2
+      name: "\uCD08\uCF54 \uB9C8\uB4E4\uB80C"
+      score: 10
+      bonus: 0
     serializedDailyOrders: 
     currentScene: 
     hasCompletedBakingTutorial: 0
@@ -3454,6 +3464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 157296b3ed89b44c496cadddb0da33db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  getMenuOnly: {fileID: 1976141241}
   characterManager: {fileID: 1400469393}
   dialogueText: {fileID: 1061807975}
   dialogueName: {fileID: 468210544}
@@ -3760,6 +3771,7 @@ MonoBehaviour:
   menuName: 
   setmenu: {fileID: 796587169}
   dayChange: {fileID: 1061982604}
+  VisitDone: 0
   GD:
     isGuestLoggedIn: 0
     date: 0

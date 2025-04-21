@@ -41,15 +41,15 @@ public class DayChange : MonoBehaviour
         if (!isSpecialCustomerSubscribed)
         {
             Debug.Log("특별손님 구독");
-            gametime.OnSpecialTimeReached -= SpecialScript.orderSpecialCustomer; // 기존 구독 제거
-            gametime.OnSpecialTimeReached += SpecialScript.orderSpecialCustomer; // 새로운 구독 추가
+            //gametime.OnSpecialTimeReached -= SpecialScript.orderSpecialCustomer; // 기존 구독 제거
+            //gametime.OnSpecialTimeReached += SpecialScript.orderSpecialCustomer; // 새로운 구독 추가
             isSpecialCustomerSubscribed = true; // 구독 상태 업데이트
         }
         }
         else
     {
         // 조건에 해당하지 않는 날에는 구독 해제
-        gametime.OnSpecialTimeReached -= SpecialScript.orderSpecialCustomer;
+        //gametime.OnSpecialTimeReached -= SpecialScript.orderSpecialCustomer;
         isSpecialCustomerSubscribed = false;
     }
         

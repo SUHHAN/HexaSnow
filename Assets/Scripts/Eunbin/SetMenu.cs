@@ -51,6 +51,7 @@ public class SetMenu : MonoBehaviour
     private List<RecipeC> recipes = new List<RecipeC>();
 
     private int coin = 0;
+    private bool isBakeryDelivering = false; // 베이커리 전달 중인지 여부
 
 
     void Start()
@@ -151,32 +152,48 @@ public void AddItems()
      //   Debug.LogError($"슬롯 '{name}', 인덱스 '{index}'를 찾을 수 없습니다.");
    // }
 }
+private void OnActionButtonClick(Bk_h bakerySlot)
+{
+    if (isBakeryDelivering)
+    {
+        Debug.LogWarning("이미 베이커리 전달 중입니다! 터치를 기다리는 중.");
+        return;
+    }
 
-    private void OnActionButtonClick(Bk_h bakerySlot){
+    isBakeryDelivering = true; // 전달 중 플래그 설정
+
+    StartCoroutine(HandleBakeryDelivery(bakerySlot));
+}
+
+    private IEnumerator HandleBakeryDelivery(Bk_h bakerySlot)
+{
     if (bakerySlot == null)
     {
         Debug.LogError("저장된 베이커리 슬롯 데이터를 찾을 수 없음!");
-        return;
+        yield break;
     }
+
     Debug.Log($"메뉴: {bakerySlot.GetMenuName()}, 인덱스: {bakerySlot.GetIndex()}");
+
     CheckMenu(bakerySlot.GetMenuName(), bakerySlot.GetScore());
 
     MyList.RemoveAll(item => item.name == bakerySlot.GetMenuName() && item.index == bakerySlot.GetIndex());
-    
     DataManager.Instance.gameData.myBake.RemoveAll(item => item.name == bakerySlot.GetMenuName() && item.index == bakerySlot.GetIndex());
     DataManager.Instance.gameData.money += coin;
-    Debug.LogWarning($"[돈 확인] {DataManager.Instance.gameData.money}");
 
-    // ✅ 변경된 데이터 저장
     DataManager.Instance.SaveGameData();
-
     UiLogicManager.Instance.LoadMoneyData();
-
-    // ✅ 슬롯 UI 삭제
-    Debug.Log($"🗑️ 슬롯 삭제 및 리스트에서 제거: {bakerySlot.GetMenuName()}");
     Destroy(bakerySlot.gameObject);
 
+    // 💥 사용자 터치를 기다림
+    Debug.Log("터치 대기 중... 베이커리를 더 줄 수 없음!");
+    yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+
+    // 🟢 다시 전달 가능 상태로 초기화
+    isBakeryDelivering = false;
+    Debug.Log("화면 터치 감지됨! 다시 베이커리 전달 가능.");
 }
+
 private void CheckMenu(string menu, int score){
     Debug.Log($"[디버깅] 입력값: '{menu}' / 기대값: '{currentmenu}'");
 

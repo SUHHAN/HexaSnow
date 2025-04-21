@@ -52,8 +52,10 @@ public class getMenuOnly : MonoBehaviour
     public SetMenu setmenu;
     private GameObject customer; 
     public Button dayChange;
-
+    public bool VisitDone;
     private int DataMoney;
+
+    public bool takenCustomer=false;
 
     [SerializeField] private GameData GD = new GameData();
     
@@ -245,7 +247,7 @@ private void LoadGuestFromCSV()
         JsonUtility.FromJson<SerializableDictionary<int, ValueData>>(data.serializedDailyOrders);
 
     Debug.Log($"[{dayToProcess}일] 손님 처리 시작");
-
+    VisitDone = false;
     none.gameObject.SetActive(true);
     MadeMenu.SetActive(true);
     StartCoroutine(WaitForUiLogicManager());
@@ -261,6 +263,7 @@ private void LoadGuestFromCSV()
         Debug.Log($"[{dayToProcess}일] 주문 데이터가 없습니다.");
         MadeMenu.SetActive(false);
         none.gameObject.SetActive(false);
+        VisitDone = true;
 
         StartCoroutine(RestoreUI());
 
@@ -380,6 +383,7 @@ private void LoadGuestFromCSV()
     Debug.Log($"[{dayToProcess}일] 모든 손님이 메뉴를 받아갔습니다.");
     MadeMenu.SetActive(false);
     none.gameObject.SetActive(false);
+    VisitDone = true;
 
     StartCoroutine(RestoreUI());
 
