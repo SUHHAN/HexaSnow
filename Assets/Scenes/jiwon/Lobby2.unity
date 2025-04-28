@@ -155,7 +155,7 @@ MonoBehaviour:
   QuitButton: {fileID: 420219329}
   Free: {fileID: 662554169}
   RunPopupPanel: {fileID: 1394281061}
-  SettingParentPanel: {fileID: 0}
+  SettingParentPanel: {fileID: 1994983076}
   QuitPopupPanel: {fileID: 662770878}
   LobbyDim: {fileID: 685595571}
 --- !u!4 &13599436
@@ -5527,9 +5527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6ecd0c9680b7e42b17e46bca9acf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notificationToggle: {fileID: 0}
-  notificationOnImage: {fileID: 0}
-  notificationOffImage: {fileID: 0}
   bgmVolumeSlider: {fileID: 324788069}
   effectVolumeSlider: {fileID: 623176193}
   koreanButton: {fileID: 1446240299}
@@ -8112,7 +8109,7 @@ MonoBehaviour:
   textComponent: {fileID: 1783985727}
   fadeDuration: 1
   SavePointButton: {fileID: 947945728}
-  SaveIng: {fileID: 0}
+  SaveIng: {fileID: 1783985723}
 --- !u!95 &1783985726
 Animator:
   serializedVersion: 5
@@ -9465,12 +9462,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6ecd0c9680b7e42b17e46bca9acf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notificationToggle: {fileID: 0}
-  notificationOnImage: {fileID: 21300000, guid: 6e25bd0c315431944b8f6b814bfb3fa0, type: 3}
-  notificationOffImage: {fileID: 21300000, guid: 6835c86dac9ee344594b8507b5d561e0, type: 3}
-  bgmVolumeSlider: {fileID: 0}
-  effectVolumeSlider: {fileID: 0}
-  koreanButton: {fileID: 0}
+  bgmVolumeSlider: {fileID: 324788069}
+  effectVolumeSlider: {fileID: 623176193}
+  koreanButton: {fileID: 1446240299}
 --- !u!4 &1998222816
 Transform:
   m_ObjectHideFlags: 0
@@ -9515,7 +9509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b85e744d1f51b49bd6c675405081df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textComponent: {fileID: 325073959}
+  textComponent: {fileID: 1783985727}
   fadeDuration: 1
   SavePointButton: {fileID: 947945728}
   SaveIng: {fileID: 1783985723}
