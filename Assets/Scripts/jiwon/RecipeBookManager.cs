@@ -215,57 +215,33 @@ public class RecipeBookManager : MonoBehaviour
 
         // 레시피 목록에서 카테고리만 추출하여 고유한 리스트로 저장
         categoryList = recipes.Select(recipe => recipe.category).Distinct().ToList();
-        categoriesToShow = Math.Min(currentDate * 2, categoryList.Count);
-        Debug.Log(currentDate);
-        Debug.Log(categoriesToShow);
 
+        int categoriesToShow = 0;
+
+        if (currentDate == 1) // 첫째날
+        {
+            categoriesToShow = 2;
+        }
+        else if (currentDate == 2) // 둘째날
+        {
+            categoriesToShow = 4;
+        }
+        else // 셋째날부터 하루에 1개씩 추가
+        {
+            categoriesToShow = 4 + (currentDate - 2);
+        }
+
+        // 카테고리 총 개수보다 많이 오픈하려고 하면 제한
+        categoriesToShow = Math.Min(categoriesToShow, categoryList.Count);
+
+        // 각 카테고리의 오픈 여부 저장
         categoryAvailability = new List<bool>();
-        int trueCount = 0; // 현재까지 true로 설정된 개수를 추적
-
         for (int i = 0; i < categoryList.Count; i++)
         {
-            // 첫째 날 (i == 0) → 2개만 true
-            if (i == 0 && trueCount < 2)
-            {
-                categoryAvailability.Add(true);
-                trueCount++;
-                Debug.Log("첫째날");
-                Debug.Log(trueCount);
-            }
-            // 둘째 날 (i == 1) → 총 4개 (2개 추가)
-            else if (i == 1 && trueCount < 4)
-            {
-                categoryAvailability.Add(true);
-                trueCount++;
-                Debug.Log(trueCount);
-            }
-            // 셋째 날부터 → 1개씩 추가
-            else if (i >= 2 && trueCount < categoriesToShow)
-            {
-                categoryAvailability.Add(true);
-                trueCount++;
-                Debug.Log("셋째날 이후");
-                Debug.Log(trueCount);
-            }
-            // 그 외는 false
-            else
-            {
-                categoryAvailability.Add(false);
-            }
+            categoryAvailability.Add(i < categoriesToShow);
         }
 
-        Debug.Log(string.Join(", ", categoryAvailability.Select(b => b.ToString()).ToArray()));
-
-        // 카테고리 리스트가 비어있는지 확인
-        if (categoryList.Count == 0)
-        {
-            Debug.LogError("categoryList가 비어있습니다! Recipes 리스트에 카테고리 정보가 없습니다.");
-        }
-        else
-        {
-            // categoryList가 비어 있지 않다면, 리스트의 내용을 출력
-            Debug.Log("categoryList: " + string.Join(", ", categoryList));
-        }
+        Debug.Log($"[현재 날짜: {currentDate}] 오픈 가능한 카테고리 수: {categoriesToShow}");
 
 
         // 카테고리 버튼 생성
