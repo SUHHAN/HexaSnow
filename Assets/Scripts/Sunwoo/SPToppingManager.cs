@@ -32,6 +32,9 @@ public class SpecialToppingManager : MonoBehaviour
     {
         currentDay = DataManager.Instance.LoadGameData().date;
         SetupPanels();
+        SetupToppingButtons();
+        SetupCreamButtons();
+        SetupFlowerButtons();
     }
 
     public void SetSelectedDessert(string name, int index)
@@ -57,6 +60,10 @@ public class SpecialToppingManager : MonoBehaviour
         finishCreamButton.onClick.AddListener(HandleFinishCream);
         finishFlowerButton.onClick.AddListener(HandleFinishFlower);
         finishButton.onClick.AddListener(FinishBaking);
+
+        finishToppingButton.gameObject.SetActive(true);
+        finishCreamButton.gameObject.SetActive(true);
+        finishFlowerButton.gameObject.SetActive(true);
     }
 
     string GetTalkingText(int day)
@@ -96,6 +103,8 @@ public class SpecialToppingManager : MonoBehaviour
             selectedToppingIndices.Remove(index);
         else
             selectedToppingIndices.Add(index);
+
+        UpdateButtonVisuals(toppingButtons, selectedToppingIndices);
     }
 
     public void ToggleCream(int index)
@@ -104,6 +113,8 @@ public class SpecialToppingManager : MonoBehaviour
             selectedCreamIndices.Remove(index);
         else
             selectedCreamIndices.Add(index);
+
+        UpdateButtonVisuals(creamButtons, selectedCreamIndices);
     }
 
     public void ToggleFlower(int index)
@@ -112,6 +123,21 @@ public class SpecialToppingManager : MonoBehaviour
             selectedFlowerIndices.Remove(index);
         else
             selectedFlowerIndices.Add(index);
+
+        UpdateButtonVisuals(flowerButtons, selectedFlowerIndices);
+    }
+
+    void UpdateButtonVisuals(List<Button> buttons, List<int> selectedIndices)
+    {
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            var img = buttons[i].transform.Find("Imageaft")?.GetComponent<Image>();
+            if (img == null) continue;
+
+            Color c = img.color;
+            c.a = selectedIndices.Contains(i) ? 0.3f : 1f;
+            img.color = c;
+        }
     }
 
     void HandleFinishTopping()
@@ -171,26 +197,40 @@ public class SpecialToppingManager : MonoBehaviour
         {
             if (selectedDessertName == "Muffin")
             {
-                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 2; // 딸기, 딸기크림
-                if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 3; // 초코, 초코크림
+                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 2;
+                else if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 3;
+                else resultIndex = 4;
             }
             else if (selectedDessertName == "PoundCake")
             {
-                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 4;
-                if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 5;
+                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 5;
+                else if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 6;
+                else resultIndex = 7;
             }
         }
         else if (currentDay >= 5 && currentDay <= 7)
         {
-            if (selectedDessertName == "PoundCake") resultIndex = 4;
-            else if (selectedDessertName == "Tart") resultIndex = 6;
+            if (selectedDessertName == "PoundCake")
+            {
+                if (OnlySelected(selectedToppingIndices, 2)) resultIndex = 8; // 고구마
+                else if (OnlySelected(selectedToppingIndices, 3)) resultIndex = 9; // 귤
+                else if (OnlySelected(selectedToppingIndices, 1)) resultIndex = 10; // 초코
+                else resultIndex = 11;
+            }
+            else if (selectedDessertName == "Tart")
+            {
+                if (OnlySelected(selectedToppingIndices, 3)) resultIndex = 12; // 귤
+                else resultIndex = 13;
+            }
         }
         else if (currentDay >= 8 && currentDay <= 10)
         {
             if (selectedDessertName == "SliceCake")
             {
                 if (OnlySelected(selectedCreamIndices, 2, 3) && OnlySelected(selectedToppingIndices, 7) && OnlySelected(selectedFlowerIndices, 0))
-                    resultIndex = 7; // 흰, 파란, 레몬, 튤립
+                    resultIndex = 14;
+                else
+                    resultIndex = 15;
             }
         }
 
@@ -239,5 +279,35 @@ public class SpecialToppingManager : MonoBehaviour
         DataManager.Instance.SaveGameData();
 
         Debug.Log($"저장 완료: {finalDessertName} | 이미지 인덱스: {imageIndex} | 점수: {totalScore}");
+    }
+
+    private void SetupToppingButtons()
+    {
+        for (int i = 0; i < toppingButtons.Count; i++)
+        {
+            int index = i;
+            toppingButtons[i].onClick.RemoveAllListeners();
+            toppingButtons[i].onClick.AddListener(() => ToggleTopping(index));
+        }
+    }
+
+    private void SetupCreamButtons()
+    {
+        for (int i = 0; i < creamButtons.Count; i++)
+        {
+            int index = i;
+            creamButtons[i].onClick.RemoveAllListeners();
+            creamButtons[i].onClick.AddListener(() => ToggleCream(index));
+        }
+    }
+
+    private void SetupFlowerButtons()
+    {
+        for (int i = 0; i < flowerButtons.Count; i++)
+        {
+            int index = i;
+            flowerButtons[i].onClick.RemoveAllListeners();
+            flowerButtons[i].onClick.AddListener(() => ToggleFlower(index));
+        }
     }
 }
