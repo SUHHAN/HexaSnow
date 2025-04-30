@@ -39,12 +39,27 @@ public class SettingsManager : MonoBehaviour
     // 설정 창 열기
     public void OpenSettings()
     {
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
+        else
+            Debug.LogError("AudioManager.Instance가 null입니다!");
+
         if (SettingParentPanel != null)
         {
-            BlackPanel.SetActive(true);
+            if (BlackPanel != null)
+                BlackPanel.SetActive(true);
+            else
+                Debug.LogError("BlackPanel이 할당되지 않았습니다!");
+
             SettingParentPanel.SetActive(true);
-            UiLogicManager.Instance.InventoryButton.interactable = false;
+            if (UiLogicManager.Instance != null && UiLogicManager.Instance.InventoryButton != null)
+            {
+                UiLogicManager.Instance.InventoryButton.interactable = false;
+            }
+            else
+            {
+                Debug.Log("현재 씬에는 UiLogicManager 또는 InventoryButton이 없으므로 설정 창에서 무시됩니다.");
+            }
             OpenAccountPanel(); // 기본적으로 AccountPanel 열기
         }
         else
@@ -63,7 +78,10 @@ public class SettingsManager : MonoBehaviour
             Debug.Log("설정 창 닫기 실행됨.");
             BlackPanel.SetActive(false);
             SettingParentPanel.SetActive(false);
-            UiLogicManager.Instance.InventoryButton.interactable = true;
+            if (UiLogicManager.Instance != null && UiLogicManager.Instance.InventoryButton != null)
+                UiLogicManager.Instance.InventoryButton.interactable = true;
+            else
+                Debug.Log("현재 씬에는 UiLogicManager 또는 InventoryButton이 존재하지 않아 무시됩니다.");
         }
         else
         {
