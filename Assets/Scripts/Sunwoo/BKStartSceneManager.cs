@@ -15,20 +15,34 @@ public class BKStartSceneManager : MonoBehaviour
 
     void Start()
     {
-        SceneManager.LoadScene("Main", LoadSceneMode.Additive);
+        // Main 씬을 Additive로 불러오기 (배경용)
+        if (!SceneManager.GetSceneByName("Main").isLoaded)
+        {
+            SceneManager.LoadScene("Main", LoadSceneMode.Additive);
+        }
 
         if (startButton != null)
-        {
             startButton.onClick.AddListener(LoadBakingScene);
-        }
 
         if (specialButton != null)
         {
             specialButton.onClick.AddListener(LoadSpecialBakingScene);
-            specialButton.interactable = false; // 기본적으로 비활성화
+            specialButton.interactable = false; // 기본값: 비활성화
         }
 
-        UiLogicManager.Instance.LoadMoneyData();
+        // 돈 불러오기 (날짜 포함 가능성 있음)
+        if (UiLogicManager.Instance != null)
+        {
+            UiLogicManager.Instance.LoadMoneyData();
+        }
+
+        // 날짜 로딩 후 버튼 활성화 체크 (0.2초 대기)
+        StartCoroutine(DelayedCheckSpecialButtonAvailability());
+    }
+
+    private IEnumerator DelayedCheckSpecialButtonAvailability()
+    {
+        yield return new WaitForSeconds(0.2f); // 데이터 로딩 대기
         CheckSpecialButtonAvailability();
     }
 
@@ -42,9 +56,8 @@ public class BKStartSceneManager : MonoBehaviour
 
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentDate = dateGD.date;
-        Debug.Log($"현재 날짜: {currentDate}");
+        Debug.Log($"[BKStartSceneManager] 현재 날짜: {currentDate}");
 
-        // 2일차부터 specialButton 활성화
         if (specialButton != null)
         {
             if (currentDate >= 2)
@@ -67,6 +80,13 @@ public class BKStartSceneManager : MonoBehaviour
 
     public void LoadSpecialBakingScene()
     {
-        SceneManager.LoadScene("BakingSp");
+        if (Application.CanStreamedLevelBeLoaded("BakingSp"))
+        {
+            SceneManager.LoadScene("BakingSp");
+        }
+        else
+        {
+            Debug.LogError("Scene 'BakingSp'가 Build Settings에 등록되지 않았습니다. File -> Build Settings -> Scenes In Build에서 추가하세요.");
+        }
     }
 }

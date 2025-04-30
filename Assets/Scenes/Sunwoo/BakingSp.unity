@@ -470,7 +470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &57445727
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2497,7 +2497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &269957862
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3245,7 +3245,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 548dc4af8f243e448b26c22766bb52aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ae3bb48137cd6d949841e347640236e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5290,7 +5290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &568121399
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6645,7 +6645,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &703468768
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7533,7 +7533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &829469205
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8084,7 +8084,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &879675804
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8307,6 +8307,140 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 890102769}
+  m_CullTransparentMesh: 1
+--- !u!1 &896536923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 896536924}
+  - component: {fileID: 896536926}
+  - component: {fileID: 896536925}
+  m_Layer: 5
+  m_Name: Talking
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &896536924
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896536923}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1342494607}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -350}
+  m_SizeDelta: {x: 600, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &896536925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896536923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: New Text
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 537e65026e2d347b5be6abad71ba31c1, type: 2}
+  m_sharedMaterial: {fileID: -7231793993118050812, guid: 537e65026e2d347b5be6abad71ba31c1, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &896536926
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896536923}
   m_CullTransparentMesh: 1
 --- !u!1 &904016006
 GameObject:
@@ -9289,7 +9423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &986041540
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9579,7 +9713,7 @@ MonoBehaviour:
   messageText: {fileID: 583246373}
   nextButton: {fileID: 1318233744}
   recipeBook: {fileID: 1527461662}
-  toppingManager: {fileID: 1940962671}
+  toppingManager: {fileID: 0}
   recipeButtons:
   - {fileID: 463646855}
   - {fileID: 656005735}
@@ -10538,7 +10672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1130288099
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11040,7 +11174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1189724414
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11937,7 +12071,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1287084953
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12984,7 +13118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1342494607
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13001,6 +13135,7 @@ RectTransform:
   - {fileID: 1255582276}
   - {fileID: 1922873741}
   - {fileID: 1288554077}
+  - {fileID: 896536924}
   m_Father: {fileID: 1915734806}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -13064,7 +13199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1347545090
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13185,7 +13320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1358543323
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13301,7 +13436,7 @@ GameObject:
   - component: {fileID: 1392840614}
   - component: {fileID: 1392840613}
   m_Layer: 5
-  m_Name: FinishToppingButton
+  m_Name: FinishFlowerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14400,7 +14535,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1523300827
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14699,7 +14834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1547329931
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16046,7 +16181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 73d2a1c875473014f955abcd3f81d6f3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bfc8d3f3885b8d14f8dcb28835a6f52b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16082,7 +16217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1710699132
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16316,7 +16451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1723663909
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16587,7 +16722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1735771704
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16836,7 +16971,7 @@ GameObject:
   - component: {fileID: 1821523173}
   - component: {fileID: 1821523172}
   m_Layer: 5
-  m_Name: FinishToppingButton
+  m_Name: FinishCreamButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17809,7 +17944,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1915734806
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18031,7 +18166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1940962672}
-  - component: {fileID: 1940962671}
+  - component: {fileID: 1940962673}
   m_Layer: 0
   m_Name: SPToppingManager
   m_TagString: Untagged
@@ -18039,69 +18174,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1940962671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1940962670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb831f6888fe62941999dedade4ba091, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toppingPanel: {fileID: 1915734805}
-  startToppingPanel: {fileID: 1342494606}
-  addToppingPanel: {fileID: 2079439488}
-  finishBakingPanel: {fileID: 1131758451}
-  startToppingButton: {fileID: 1288554078}
-  finishToppingButton: {fileID: 2019724135}
-  finishButton: {fileID: 1979543550}
-  inventoryManager: {fileID: 2059799789}
-  ovenGameManager: {fileID: 859194559}
-  bakingImage: {fileID: 2071899538}
-  oriImage1: {fileID: 1922873742}
-  oriImage2: {fileID: 496638734}
-  bakingStartManager: {fileID: 1003396150}
-  toppingButtons:
-  - {fileID: 879675803}
-  - {fileID: 1358543322}
-  - {fileID: 1189724413}
-  - {fileID: 1547329930}
-  - {fileID: 986041539}
-  - {fileID: 1735771703}
-  - {fileID: 1523300826}
-  dessertSprites:
-  - {fileID: 21300000, guid: 7ec7e65f540b9d841b860dbda10a9baf, type: 3}
-  - {fileID: 21300000, guid: 7ec7e65f540b9d841b860dbda10a9baf, type: 3}
-  - {fileID: 21300000, guid: 53259b4574e1d0e45b8dd45a8dc0db9b, type: 3}
-  - {fileID: 21300000, guid: 70bddec80f8ddb841bcdd2e73d136a63, type: 3}
-  - {fileID: 21300000, guid: 2867532be6dfcc744ac8fe3299a49669, type: 3}
-  - {fileID: 21300000, guid: 04d4005fe1334a1468b8718116eab3be, type: 3}
-  - {fileID: 21300000, guid: 68e4528b8970b734883bbbb0ee6ba224, type: 3}
-  - {fileID: 21300000, guid: 290cdac8e2bd4a141834ae53cc7b77b6, type: 3}
-  - {fileID: 21300000, guid: 77d2fb15a01eb3245824baceab1a7343, type: 3}
-  - {fileID: 21300000, guid: 29738dbb000bc124eac363994f9337f1, type: 3}
-  - {fileID: 21300000, guid: ab2c64f5cf2fefe42a94776921fb307e, type: 3}
-  - {fileID: 21300000, guid: bc0750c200fab77409d4703ca19015b0, type: 3}
-  - {fileID: 21300000, guid: ada0ff8e5c029e440bcf22225dc5bf38, type: 3}
-  - {fileID: 21300000, guid: 1b5f98d8dc6a6ac49bdd764e7d9a899a, type: 3}
-  - {fileID: 21300000, guid: ae2bd601b053c6d4abf3945f6e7323f7, type: 3}
-  - {fileID: 21300000, guid: 6a1560c8c304c0645ae2cdeb2bfdc4c7, type: 3}
-  - {fileID: 21300000, guid: 67fc71577aaab9f45adeb00d0c1f99c6, type: 3}
-  - {fileID: 21300000, guid: ddd012c4eab10cc419714cd123145c15, type: 3}
-  - {fileID: 21300000, guid: 2e2d2d4db434da9428e7b671e0c4dc0a, type: 3}
-  - {fileID: 21300000, guid: dd250db97176c044daa0db1cef96ab60, type: 3}
-  - {fileID: 21300000, guid: 3827fc526cc06bc459546c3b2a7e9ed9, type: 3}
-  - {fileID: 21300000, guid: 998facf365c43f94a9c0847ef363980d, type: 3}
-  - {fileID: 21300000, guid: afcd78abc1b2ee647b92ed1990a35a07, type: 3}
-  - {fileID: 21300000, guid: 5cf2be094fbb6bc47914775c962ea312, type: 3}
-  - {fileID: 21300000, guid: 8524b13008213034fbce01a78887c13f, type: 3}
-  - {fileID: 21300000, guid: ee6b2b23eeb994245acefb47978e1b45, type: 3}
-  - {fileID: 21300000, guid: 2f0b831320a5674479fd98a480e1d7ae, type: 3}
-  - {fileID: 21300000, guid: c0bb454d508f48a4d8dae3854e177a24, type: 3}
-  - {fileID: 21300000, guid: b5afc5416ce5ff64c88694166eac3a0a, type: 3}
 --- !u!4 &1940962672
 Transform:
   m_ObjectHideFlags: 0
@@ -18117,6 +18189,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1940962673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940962670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1723681afb3da74fa526327b8915494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startToppingPanel: {fileID: 1342494606}
+  addToppingPanel: {fileID: 2079439488}
+  addCreamPanel: {fileID: 865404981}
+  addFlowerPanel: {fileID: 921474361}
+  finishBakingPanel: {fileID: 1131758451}
+  talkingText: {fileID: 896536925}
+  startToppingButton: {fileID: 1288554078}
+  finishToppingButton: {fileID: 2019724135}
+  finishCreamButton: {fileID: 1821523172}
+  finishFlowerButton: {fileID: 1392840613}
+  finishButton: {fileID: 1979543550}
+  bakingImage: {fileID: 2071899538}
+  dessertSprites:
+  - {fileID: 21300000, guid: dcc1663a265fe504b87e7e4731c82e71, type: 3}
+  - {fileID: 21300000, guid: d0dec5c136b315c4c8c5dee01cf3e229, type: 3}
+  - {fileID: 21300000, guid: 6f1c7df5bc046a54bbad19bb98c075f2, type: 3}
+  - {fileID: 21300000, guid: dc3258f9da6e20f4295f53e240ceaf60, type: 3}
+  - {fileID: 21300000, guid: 0865a6a4e7137d54bb76af57ef1b1e0e, type: 3}
+  - {fileID: 21300000, guid: 6b866374b24989f41bdd142f3fa39815, type: 3}
+  - {fileID: 21300000, guid: 4f062f1eb3333dc46bc08586a6d172e2, type: 3}
+  toppingButtons:
+  - {fileID: 1523300828}
+  - {fileID: 1547329932}
+  - {fileID: 1735771705}
+  - {fileID: 1189724415}
+  - {fileID: 1358543324}
+  - {fileID: 269957863}
+  - {fileID: 879675805}
+  - {fileID: 986041541}
+  creamButtons:
+  - {fileID: 1710699133}
+  - {fileID: 703468769}
+  - {fileID: 1347545091}
+  - {fileID: 568121400}
+  - {fileID: 829469206}
+  - {fileID: 2090845730}
+  flowerButtons:
+  - {fileID: 1287084954}
+  - {fileID: 1130288100}
+  - {fileID: 1723663910}
+  - {fileID: 57445728}
+  ovenGameManager: {fileID: 859194559}
 --- !u!1 &1962355076
 GameObject:
   m_ObjectHideFlags: 0
@@ -20472,7 +20598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2090845729
 RectTransform:
   m_ObjectHideFlags: 0

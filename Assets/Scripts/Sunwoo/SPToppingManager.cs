@@ -3,285 +3,217 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.IO;
-using UnityEngine.SceneManagement;
 
-public class SPToppingManager : MonoBehaviour
+public class SpecialToppingManager : MonoBehaviour
 {
-    // 토핑 패널
-    public GameObject toppingPanel;
-    public GameObject startToppingPanel;
-    public GameObject addToppingPanel;
-    public GameObject addCreamPanel;
-    public GameObject addFlowerPanel;
-    public GameObject finishBakingPanel;
-
+    public GameObject startToppingPanel, addToppingPanel, addCreamPanel, addFlowerPanel, finishBakingPanel;
     public TMP_Text talkingText;
-
-    // 버튼
-    public Button startToppingButton;
-    public Button finishToppingButton;
-    public Button finishCreamButton;
-    public Button finishFlowerButton;
-    public Button finishButton;
-
-    // 기타 참조
-    public InventoryManager inventoryManager;
-    public OvenGameManager ovenGameManager;
+    public Button startToppingButton, finishToppingButton, finishCreamButton, finishFlowerButton, finishButton;
     public Image bakingImage;
-    public Image oriImage1;
-    public Image oriImage2;
-
-    private int selectedDessertIndex = 1; // 기본값 1
-    private int selectedToppingIndex = -1; // 선택한 토핑 인덱스 (-1은 선택 안 함)
-
-    private int finalImageIndex = 1; // 최종 결과 이미지 인덱스
-    private string selectedDessert;
-
-    public BakingStartManager bakingStartManager;
-
-    // 토핑 버튼 리스트 (Inspector에서 할당)
-    public List<GameObject> toppingButtons;
-
-    // 디저트 인덱스에 맞는 이미지 저장
     public List<Sprite> dessertSprites;
 
-    // CSV에서 index와 menu를 저장하는 딕셔너리
-    private Dictionary<int, string> menuDictionary = new Dictionary<int, string>();
+    public List<Button> toppingButtons; // 인덱스로 접근
+    public List<Button> creamButtons;   // 인덱스로 접근
+    public List<Button> flowerButtons;  // 인덱스로 접근
 
-    // 디저트 별 활성화할 토핑 버튼
-    private Dictionary<int, List<int>> dessertToppingMap = new Dictionary<int, List<int>>()
-    {
-        { 1, new List<int> { 4, 5 } }, // 마들렌: 초코, 레몬
-        { 4, new List<int> { 4, 6 } }, // 쿠키: 초코, 아몬드
-        { 7, new List<int> { 2, 4 } }, // 머핀: 블루베리, 초코
-        { 10, new List<int> { 1, 4, 5 } }, // 파운드케이크: 바나나, 초코, 레몬
-        { 14, new List<int>() }, // 바스크치즈케이크: 토핑 없음
-        { 15, new List<int> { 4, 6 } }, // 휘낭시에: 초코, 아몬드
-        { 18, new List<int> { 3, 4 } }, // 스콘: 카라멜, 초코
-        { 21, new List<int> { 2, 5 } }, // 타르트: 블루베리, 레몬
-        { 24, new List<int> { 1, 7 } }, // 마카롱: 바나나, 딸기
-        { 27, new List<int>() }, // 조각케이크: 토핑 없음
-        { 28, new List<int>() } // 도넛: 토핑 없음
-    };
+    private int currentDay;
+    private int toppingStage = 0;
+    private int selectedDessertIndex = 0;
+    private string selectedDessertName = "";
 
-    // 토핑 선택에 따른 BakingImage 변경 (디저트 인덱스, 토핑 인덱스 → 결과 이미지 인덱스)
-    private Dictionary<(int, int), int> toppingImageMap = new Dictionary<(int, int), int>()
-    {
-        { (1, 4), 2 }, { (1, 5), 3 }, // 마들렌
-        { (4, 4), 5 }, { (4, 6), 6 }, // 쿠키
-        { (7, 4), 8 }, { (7, 2), 9 }, // 머핀
-        { (10, 4), 11 }, { (10, 5), 12 }, { (10, 1), 13 }, // 파운드케이크
-        { (15, 4), 16 }, { (15, 6), 17 }, // 휘낭시에
-        { (18, 4), 19 }, { (18, 3), 20 }, // 스콘
-        { (21, 5), 22 }, { (21, 2), 23 }, // 타르트
-        { (24, 1), 25 }, { (24, 7), 26 }, // 마카롱
-    };
+    private List<int> selectedToppingIndices = new List<int>();
+    private List<int> selectedCreamIndices = new List<int>();
+    private List<int> selectedFlowerIndices = new List<int>();
+
+    public OvenGameManager ovenGameManager;
+    public Dictionary<int, string> menuDictionary;
 
     void Start()
     {
-        LoadRecipeCSV();
+        currentDay = DataManager.Instance.LoadGameData().date;
+        SetupPanels();
+    }
 
+    public void SetSelectedDessert(string name, int index)
+    {
+        selectedDessertName = name;
+        selectedDessertIndex = index;
+    }
+
+    void SetupPanels()
+    {
         startToppingPanel.SetActive(true);
         addToppingPanel.SetActive(false);
+        addCreamPanel.SetActive(false);
+        addFlowerPanel.SetActive(false);
         finishBakingPanel.SetActive(false);
 
-        startToppingButton.onClick.AddListener(OpenToppingSelection);
-        finishToppingButton.onClick.AddListener(FinishToppingSelection);
+        talkingText.text = GetTalkingText(currentDay);
+        startToppingButton.gameObject.SetActive(false);
+        StartCoroutine(EnableStartButtonAfterDelay(2f));
+
+        startToppingButton.onClick.AddListener(HandleStartTopping);
+        finishToppingButton.onClick.AddListener(HandleFinishTopping);
+        finishCreamButton.onClick.AddListener(HandleFinishCream);
+        finishFlowerButton.onClick.AddListener(HandleFinishFlower);
         finishButton.onClick.AddListener(FinishBaking);
-
-        UpdateToppingButtons();
-        SetOriginalImages();
     }
 
-    // CSV에서 index와 menu 값을 읽어 menuDictionary에 저장
-    private void LoadRecipeCSV()
+    string GetTalkingText(int day)
     {
-        TextAsset csvFile = Resources.Load<TextAsset>("recipe");
-        if (csvFile == null)
+        if (day >= 2 && day <= 4)
+            return "무작정 화려한 것보단, 어린아이들이 좋아할 만하게 만드는 게 좋겠어.";
+        else if (day >= 5 && day <= 7)
         {
-            Debug.LogError("CSV 파일을 찾을 수 없습니다: recipe.csv");
-            return;
-        }
-
-        string[] lines = csvFile.text.Split('\n');
-        for (int i = 1; i < lines.Length; i++)
-        {
-            string[] fields = lines[i].Split(',');
-            if (fields.Length < 2) continue;
-
-            int id;
-            if (int.TryParse(fields[0].Trim(), out id))
+            if (!PlayerPrefs.HasKey("SeenDialogue_5to7"))
             {
-                string menuName = fields[1].Trim();
-                menuDictionary[id] = menuName;
+                PlayerPrefs.SetInt("SeenDialogue_5to7", 1);
+                return "아무래도 말씀하셨던 세 가지 재료를 한 번에 쓰긴 쉽지 않을 것 같아… 하나로 만드는 방법 말고 다른 걸 생각해볼까?";
             }
+            return "";
         }
-        Debug.Log($"CSV에서 {menuDictionary.Count}개의 메뉴 데이터를 불러왔습니다.");
+        else if (day >= 8 && day <= 10)
+            return "아무리 그래도, 온통 파란색인 케이크는 별로일 것 같은데… 메인 크림과 데코 크림을 각각 다른 색으로 해볼까?";
+
+        return "";
     }
 
-    public void SetSelectedDessert(string dessertName, int index)
+    IEnumerator EnableStartButtonAfterDelay(float seconds)
     {
-        selectedDessert = dessertName;
-        selectedDessertIndex = index;
-        selectedToppingIndex = -1; // 토핑 선택 초기화
-        finalImageIndex = index; // 기본적으로 원본 이미지 설정
-        Debug.Log($"[ToppingManager] 선택된 디저트: {selectedDessert}, 인덱스: {selectedDessertIndex}");
-
-        SetOriginalImages();
-        UpdateToppingButtons();
+        yield return new WaitForSeconds(seconds);
+        startToppingButton.gameObject.SetActive(true);
     }
 
-    private void SetOriginalImages()
-    {
-        if (selectedDessertIndex < dessertSprites.Count)
-        {
-            oriImage1.sprite = dessertSprites[selectedDessertIndex];
-            oriImage2.sprite = dessertSprites[selectedDessertIndex];
-            bakingImage.sprite = dessertSprites[selectedDessertIndex]; // 기본 이미지 설정
-        }
-        else
-        {
-            Debug.LogError($"SetOriginalImages: 인덱스 {selectedDessertIndex}에 해당하는 이미지가 없습니다.");
-        }
-    }
-
-    // 소지한 토핑 버튼 활성화
-    private void UpdateToppingButtons()
-    {
-        foreach (GameObject button in toppingButtons)
-        {
-            button.SetActive(false);
-            ResetToppingButtonImage(button); // ResetToppingButtonOpacity → ResetToppingButtonImage로 변경
-        }
-
-        if (dessertToppingMap.ContainsKey(selectedDessertIndex))
-        {
-            foreach (int toppingIndex in dessertToppingMap[selectedDessertIndex])
-            {
-                if (toppingIndex - 1 < toppingButtons.Count && inventoryManager.HasIngredient(toppingIndex))
-                {
-                    toppingButtons[toppingIndex - 1].SetActive(true);
-                    int index = toppingIndex;
-                    toppingButtons[toppingIndex - 1].GetComponent<Button>().onClick.RemoveAllListeners();
-                    toppingButtons[toppingIndex - 1].GetComponent<Button>().onClick.AddListener(() => SelectSingleTopping(index));
-                }
-            }
-        }
-    }
-
-    // 토핑 하나만 선택 가능하도록 설정
-    // 토핑 하나만 선택 가능하도록 설정 (개수 유지하도록 수정)
-    private void SelectSingleTopping(int toppingIndex)
-    {
-        if (selectedToppingIndex == toppingIndex)
-        {
-            // 선택 해제
-            selectedToppingIndex = -1;
-            finalImageIndex = selectedDessertIndex; // 기본 이미지로 되돌림
-        }
-        else
-        {
-            // 기존 선택 해제 처리
-            if (selectedToppingIndex != -1 && selectedToppingIndex - 1 < toppingButtons.Count)
-            {
-                ResetToppingButtonImage(toppingButtons[selectedToppingIndex - 1]);
-            }
-
-            // 새 선택 적용
-            selectedToppingIndex = toppingIndex;
-
-            if (toppingImageMap.ContainsKey((selectedDessertIndex, toppingIndex)))
-            {
-                finalImageIndex = toppingImageMap[(selectedDessertIndex, toppingIndex)];
-            }
-        }
-
-        UpdateBakingImage();
-        UpdateToppingButtonImage();
-    }
-
-    // 선택한 디저트와 토핑을 반영하여 최종 이미지 업데이트
-    private void UpdateBakingImage()
-    {
-        int newImageIndex = selectedDessertIndex;
-
-        if (toppingImageMap.ContainsKey((selectedDessertIndex, selectedToppingIndex)))
-        {
-            newImageIndex = toppingImageMap[(selectedDessertIndex, selectedToppingIndex)];
-        }
-
-        if (newImageIndex < dessertSprites.Count)
-        {
-            bakingImage.sprite = dessertSprites[newImageIndex];
-        }
-        else
-        {
-            Debug.LogError($"UpdateBakingImage: 인덱스 {newImageIndex}에 해당하는 이미지가 없습니다.");
-        }
-    }
-
-    // 선택한 버튼은 투명해지게
-    private void UpdateToppingButtonImage()
-    {
-        foreach (GameObject button in toppingButtons)
-        {
-            ResetToppingButtonImage(button);
-        }
-
-        if (selectedToppingIndex != -1 && selectedToppingIndex - 1 < toppingButtons.Count)
-        {
-            GameObject selectedButton = toppingButtons[selectedToppingIndex - 1];
-            Image buttonImage = selectedButton.transform.Find("Imageaft")?.GetComponent<Image>();
-            if (buttonImage != null)
-            {
-                Color color = buttonImage.color;
-                color.a = 0.3f;
-                buttonImage.color = color;
-            }
-        }
-    }
-
-    // 버튼 내부 이미지를 원래대로 복원
-    private void ResetToppingButtonImage(GameObject buttonObj)
-    {
-        Image buttonImage = buttonObj.transform.Find("Imageaft")?.GetComponent<Image>();
-        if (buttonImage != null)
-        {
-            Color color = buttonImage.color;
-            color.a = 1f;
-            buttonImage.color = color;
-        }
-    }
-
-    // 토핑 선택 완료
-    private void FinishToppingSelection()
-    {
-        addToppingPanel.SetActive(false);
-        finishBakingPanel.SetActive(true);
-        UpdateBakingImage();
-    }
-
-    // 토핑 선택 패널 열기
-    private void OpenToppingSelection()
+    void HandleStartTopping()
     {
         startToppingPanel.SetActive(false);
         addToppingPanel.SetActive(true);
-        UpdateToppingButtons();
     }
 
-    private void FinishBaking()
+    public void ToggleTopping(int index)
     {
-        SaveBakingResult();
-
-        Debug.Log("베이킹 완료 직전 현재 인벤토리:");
-        inventoryManager.PrintCurrentInventory();
-
-        SceneManager.LoadScene("BakingStart");
+        if (selectedToppingIndices.Contains(index))
+            selectedToppingIndices.Remove(index);
+        else
+            selectedToppingIndices.Add(index);
     }
 
-    // 베이킹 결과 저장
-    private void SaveBakingResult()
+    public void ToggleCream(int index)
+    {
+        if (selectedCreamIndices.Contains(index))
+            selectedCreamIndices.Remove(index);
+        else
+            selectedCreamIndices.Add(index);
+    }
+
+    public void ToggleFlower(int index)
+    {
+        if (selectedFlowerIndices.Contains(index))
+            selectedFlowerIndices.Remove(index);
+        else
+            selectedFlowerIndices.Add(index);
+    }
+
+    void HandleFinishTopping()
+    {
+        addToppingPanel.SetActive(false);
+
+        if (currentDay >= 2 && currentDay <= 4)
+        {
+            addCreamPanel.SetActive(true);
+        }
+        else if (currentDay >= 5 && currentDay <= 7)
+        {
+            finishBakingPanel.SetActive(true);
+        }
+        else if (currentDay >= 8 && currentDay <= 10)
+        {
+            addCreamPanel.SetActive(true);
+            toppingStage = 1;
+        }
+    }
+
+    void HandleFinishCream()
+    {
+        addCreamPanel.SetActive(false);
+
+        if (currentDay >= 2 && currentDay <= 4)
+        {
+            finishBakingPanel.SetActive(true);
+        }
+        else if (currentDay >= 8 && currentDay <= 10)
+        {
+            addToppingPanel.SetActive(true);
+            toppingStage = 2;
+        }
+    }
+
+    void HandleFinishFlower()
+    {
+        addFlowerPanel.SetActive(false);
+        finishBakingPanel.SetActive(true);
+    }
+
+    public void HandleToppingStageAdvance()
+    {
+        if (toppingStage == 2)
+        {
+            addToppingPanel.SetActive(false);
+            addFlowerPanel.SetActive(true);
+        }
+    }
+
+    void FinishBaking()
+    {
+        int resultIndex = 1; // 기본 실패 이미지 인덱스
+
+        if (currentDay >= 2 && currentDay <= 4)
+        {
+            if (selectedDessertName == "Muffin")
+            {
+                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 2; // 딸기, 딸기크림
+                if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 3; // 초코, 초코크림
+            }
+            else if (selectedDessertName == "PoundCake")
+            {
+                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 4;
+                if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 5;
+            }
+        }
+        else if (currentDay >= 5 && currentDay <= 7)
+        {
+            if (selectedDessertName == "PoundCake") resultIndex = 4;
+            else if (selectedDessertName == "Tart") resultIndex = 6;
+        }
+        else if (currentDay >= 8 && currentDay <= 10)
+        {
+            if (selectedDessertName == "SliceCake")
+            {
+                if (OnlySelected(selectedCreamIndices, 2, 3) && OnlySelected(selectedToppingIndices, 7) && OnlySelected(selectedFlowerIndices, 0))
+                    resultIndex = 7; // 흰, 파란, 레몬, 튤립
+            }
+        }
+
+        if (resultIndex < dessertSprites.Count)
+            bakingImage.sprite = dessertSprites[resultIndex];
+
+        Debug.Log($"선택된 디저트: {selectedDessertName} ({selectedDessertIndex})");
+        Debug.Log("토핑: " + string.Join(", ", selectedToppingIndices));
+        Debug.Log("크림: " + string.Join(", ", selectedCreamIndices));
+        Debug.Log("플라워: " + string.Join(", ", selectedFlowerIndices));
+
+        SaveBakingResult(resultIndex);
+    }
+
+    private bool OnlySelected(List<int> list, params int[] targets)
+    {
+        if (list.Count != targets.Length) return false;
+        foreach (int t in targets)
+            if (!list.Contains(t)) return false;
+        return true;
+    }
+
+    private void SaveBakingResult(int imageIndex)
     {
         if (DataManager.Instance == null)
         {
@@ -290,14 +222,14 @@ public class SPToppingManager : MonoBehaviour
         }
 
         int totalScore = ovenGameManager.GetTotalScore();
-        string finalDessertName = menuDictionary.ContainsKey(finalImageIndex) ? menuDictionary[finalImageIndex] : "알 수 없음";
+        string finalDessertName = menuDictionary.ContainsKey(imageIndex) ? menuDictionary[imageIndex] : "알 수 없음";
 
         Debug.Log($"최종 총점: {totalScore}");
         Debug.Log($"최종 저장할 디저트: {finalDessertName}");
 
         MyRecipeList newRecipe = new MyRecipeList(
             DataManager.Instance.gameData.myBake.Count + 1,
-            finalImageIndex,
+            imageIndex,
             finalDessertName,
             totalScore,
             false
@@ -306,6 +238,6 @@ public class SPToppingManager : MonoBehaviour
         DataManager.Instance.gameData.myBake.Add(newRecipe);
         DataManager.Instance.SaveGameData();
 
-        Debug.Log($"저장 완료: {finalDessertName} | 이미지 인덱스: {finalImageIndex} | 점수: {totalScore}");
+        Debug.Log($"저장 완료: {finalDessertName} | 이미지 인덱스: {imageIndex} | 점수: {totalScore}");
     }
 }
