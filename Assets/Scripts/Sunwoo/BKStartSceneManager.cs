@@ -47,8 +47,16 @@ public class BKStartSceneManager : MonoBehaviour
         // 2일차부터 specialButton 활성화
         if (specialButton != null)
         {
-            specialButton.interactable = (currentDate >= 2);
-            Debug.Log($"특별손님 버튼 상태: {(specialButton.interactable ? "활성화됨" : "비활성화됨")}");
+            if (currentDate >= 2)
+            {
+                specialButton.interactable = true;
+                Debug.Log("특별손님 버튼 활성화됨 (2일차 이상)");
+            }
+            else
+            {
+                specialButton.interactable = false;
+                Debug.Log("특별손님 버튼 비활성화됨 (1일차)");
+            }
         }
     }
 
