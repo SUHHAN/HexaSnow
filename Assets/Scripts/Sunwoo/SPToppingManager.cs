@@ -6,17 +6,23 @@ using TMPro;
 using System.IO;
 using UnityEngine.SceneManagement;
 
-public class ToppingManager : MonoBehaviour
+public class SPToppingManager : MonoBehaviour
 {
     // 토핑 패널
     public GameObject toppingPanel;
     public GameObject startToppingPanel;
     public GameObject addToppingPanel;
+    public GameObject addCreamPanel;
+    public GameObject addFlowerPanel;
     public GameObject finishBakingPanel;
+
+    public TMP_Text talkingText;
 
     // 버튼
     public Button startToppingButton;
     public Button finishToppingButton;
+    public Button finishCreamButton;
+    public Button finishFlowerButton;
     public Button finishButton;
 
     // 기타 참조
@@ -28,6 +34,7 @@ public class ToppingManager : MonoBehaviour
 
     private int selectedDessertIndex = 1; // 기본값 1
     private int selectedToppingIndex = -1; // 선택한 토핑 인덱스 (-1은 선택 안 함)
+
     private int finalImageIndex = 1; // 최종 결과 이미지 인덱스
     private string selectedDessert;
 
@@ -54,8 +61,8 @@ public class ToppingManager : MonoBehaviour
         { 18, new List<int> { 3, 4 } }, // 스콘: 카라멜, 초코
         { 21, new List<int> { 2, 5 } }, // 타르트: 블루베리, 레몬
         { 24, new List<int> { 1, 7 } }, // 마카롱: 바나나, 딸기
-        { 27, new List<int> { 2, 4, 7 } }, // 조각케이크: 블루베리, 초코, 딸기
-        { 31, new List<int> { 2, 3, 4 } } // 도넛: 블루베리, 카라멜, 초코
+        { 27, new List<int>() }, // 조각케이크: 토핑 없음
+        { 28, new List<int>() } // 도넛: 토핑 없음
     };
 
     // 토핑 선택에 따른 BakingImage 변경 (디저트 인덱스, 토핑 인덱스 → 결과 이미지 인덱스)
@@ -69,8 +76,6 @@ public class ToppingManager : MonoBehaviour
         { (18, 4), 19 }, { (18, 3), 20 }, // 스콘
         { (21, 5), 22 }, { (21, 2), 23 }, // 타르트
         { (24, 1), 25 }, { (24, 7), 26 }, // 마카롱
-        { (27, 2), 28 }, { (27, 4), 29 }, { (27, 7), 30 }, // 조각케이크
-        { (31, 2), 32 }, { (31, 3), 33 }, { (31, 4), 34 }, // 도넛
     };
 
     void Start()
