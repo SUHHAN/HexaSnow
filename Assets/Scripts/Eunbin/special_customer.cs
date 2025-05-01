@@ -21,6 +21,8 @@ public class special_customer : MonoBehaviour
             return _instance;
         }
     }
+
+    public getMenuOnly getMenuOnly;
     public CharacterManager characterManager;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
@@ -88,7 +90,7 @@ public class special_customer : MonoBehaviour
 
         if(dateGD.time <= 350f){
             currentDay = dateGD.date;
-            orderSpecialCustomer(); // 특별 손님 주문
+            StartCoroutine(orderSpecialCustomer());// 특별 손님 주문
             spc_OnSpecialTimeReached();
         }
 
@@ -197,8 +199,11 @@ private IEnumerator RestoreUI()
         else Debug.Log("특별 손님 주문받으러 옴");
     }
 
-    public void orderSpecialCustomer()
+    public IEnumerator orderSpecialCustomer()
     {
+        yield return new WaitUntil(() => getMenuOnly.VisitDone == true);
+        Debug.Log("✅ 일반 손님 처리 완료됨! 특별 손님 등장 시작");
+
         dayChange.gameObject.SetActive(true);
         foreach (GameObject customerObj in customers)
         {
@@ -210,6 +215,9 @@ private IEnumerator RestoreUI()
             customer = specialOrders[currentDay];
             LoadDialoguesFromCSV();
             customer.SetActive(true);
+            RectTransform customerRect = customer.GetComponent<RectTransform>();
+            StartCoroutine(MoveCustomerUp(customerRect));
+
             StartCoroutine(WaitForUiLogicManager());
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
             current_startId = 1;
@@ -232,6 +240,8 @@ private IEnumerator RestoreUI()
         customer = specialOrders[day];
         LoadDialoguesFromCSV();
         customer.SetActive(true);
+        RectTransform customerRect = customer.GetComponent<RectTransform>();
+        StartCoroutine(MoveCustomerUp(customerRect));
         StartCoroutine(WaitForUiLogicManager());
         current_startId=1001;
         PlayDialogue(current_startId);
@@ -252,7 +262,7 @@ private IEnumerator RestoreUI()
         currentDialogueIndex = dialogues.FindIndex(line => line.id == startId);
         if (currentDialogueIndex != -1)
         {
-            ShowCurrentDialogue(startId);
+            StartCoroutine(ShowCurrentDialogue(startId));
         }
     else
     {
@@ -261,27 +271,29 @@ private IEnumerator RestoreUI()
     }
     }
 
-    private void ShowCurrentDialogue(int startId)
+    private IEnumerator ShowCurrentDialogue(int startId)
     {
         if (currentDialogueIndex < 0 || currentDialogueIndex >= dialogues.Count)
         {
             if(startId==1){
                 Debug.Log("스페셜 손님 주문 완료!");
+                RectTransform customerRect = customer.GetComponent<RectTransform>();
+                yield return StartCoroutine(MoveCustomerDown(customerRect));
                 customer.SetActive(false);
                 StartCoroutine(RestoreUI());
                 EndDialogue();
-                return;
+                yield break;
             }
             else if(startId==1001){
                 speechBubble.SetActive(false);
                 MadeMenu.SetActive(true);
                 none.gameObject.SetActive(true);
-                return;
+                yield break;
             }
             else{
                 isOrderCompleted = true;
                 Debug.Log("제품 수령");
-                return;
+                yield break;
             }
         }
         DialogueLine currentLine = dialogues[currentDialogueIndex];
@@ -306,6 +318,8 @@ private IEnumerator RestoreUI()
     {
         yield return new WaitUntil(() => isOrderCompleted);
         speechBubble.SetActive(false);
+        RectTransform customerRect = customer.GetComponent<RectTransform>();
+        yield return StartCoroutine(MoveCustomerDown(customerRect));
         customer.SetActive(false);
         StartCoroutine(RestoreUI());
         isOrderCompleted = false;
@@ -362,7 +376,7 @@ private IEnumerator RestoreUI()
     {
         if (speechBubble.activeSelf && Input.GetMouseButtonDown(0))
         {
-            ShowCurrentDialogue(current_startId);
+            StartCoroutine(ShowCurrentDialogue(current_startId));
         }
 
         GameData dateGD = DataManager.Instance.LoadGameData();
@@ -370,7 +384,7 @@ private IEnumerator RestoreUI()
 
         if (Mathf.Abs(currentTime - 350f) < 0.1f)
         {
-            orderSpecialCustomer();
+            StartCoroutine(orderSpecialCustomer());
             spc_OnSpecialTimeReached();
             currentDay = dateGD.date;
         }
@@ -388,4 +402,68 @@ private void LoadDate() {
 
         DataManager.Instance.SaveGameData();
     }
+
+    private IEnumerator MoveCustomerUp(RectTransform customerRect)
+{
+    Vector3 targetPosition = customerRect.position; // 현재 위치가 목표 위치
+    Vector3 startPosition = new Vector3(targetPosition.x, targetPosition.y - 200, targetPosition.z); // 아래에서 시작
+
+    float duration = 0.5f;
+    float timeElapsed = 0;
+
+    while (timeElapsed < duration)
+    {
+        float t = timeElapsed / duration;
+        t = EaseOutBounce(t); // 반동 효과
+        customerRect.position = Vector3.Lerp(startPosition, targetPosition, t);
+        timeElapsed += Time.deltaTime;
+        yield return null;
+    }
+
+    customerRect.position = targetPosition; // 목표 위치로 고정
+}
+
+private IEnumerator MoveCustomerDown(RectTransform customerRect)
+{
+    Vector3 startPosition = customerRect.position;
+    Vector3 targetPosition = new Vector3(startPosition.x, startPosition.y-300, startPosition.z);
+
+
+    float duration = 0.5f;
+    float timeElapsed = 0;
+
+    while (timeElapsed < duration)
+    {
+        customerRect.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
+        timeElapsed += Time.deltaTime; // 시간 경과
+        yield return null;
+    }
+
+    customerRect.position = startPosition; // 목표 위치로 고정
+}
+
+// 🎮 반동 효과 함수
+private float EaseOutBounce(float t)
+{
+    if (t < 1 / 2.75f)
+    {
+        return 7.5625f * t * t;
+    }
+    else if (t < 2 / 2.75f)
+    {
+        t -= 1.5f / 2.75f;
+        return 7.5625f * t * t + 0.75f;
+    }
+    else if (t < 2.5 / 2.75f)
+    {
+        t -= 2.25f / 2.75f;
+        return 7.5625f * t * t + 0.9375f;
+    }
+    else
+    {
+        t -= 2.625f / 2.75f;
+        return 7.5625f * t * t + 0.984375f;
+    }
+}
+
 }

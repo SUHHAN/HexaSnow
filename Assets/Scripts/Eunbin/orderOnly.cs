@@ -102,8 +102,6 @@ public class OrderOnly : MonoBehaviour
         Loadscene();
         currentScene="order1";
         Savescene();
-        
-
     }
 
     private IEnumerator WaitForUiLogicManager()
@@ -113,8 +111,6 @@ public class OrderOnly : MonoBehaviour
     UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
     
 }
-
-
     private void LoadDialoguesFromCSV()
     {
         try
@@ -253,7 +249,6 @@ public class OrderOnly : MonoBehaviour
             DialogueLine currentLine = dialogues[currentDialogueIndex];
             dialogueOrder.text = currentLine.description;
             orderCustomer.text=nicknames[currentNicknameIndex];
-
         }
         else
         {
@@ -269,7 +264,7 @@ public class OrderOnly : MonoBehaviour
         if (order_count==accept_order)
         {
             
-            CloseDialogue(); // 대화 종료
+            StartCoroutine(CloseDialogue()); // 대화 종료
         }
         else
         {
@@ -277,13 +272,16 @@ public class OrderOnly : MonoBehaviour
         }
     }
 
-    private void CloseDialogue()
+    private IEnumerator CloseDialogue()
     {
         GameData dateGD = DataManager.Instance.LoadGameData();
         dateGD.time=360f;
         gametime.StartGameTimer();
         order.SetActive(false); // UI 비활성화
-        currentDialogueIndex = 0; // 대화 인덱스 초기화
+        currentDialogueIndex = 0; // 대화 인덱스 초기화'
+        RectTransform customerRect = postman.GetComponent<RectTransform>();
+        StartCoroutine(MoveCustomerDown(customerRect));
+        yield return new WaitForSeconds(1f);
         postman.SetActive(false);
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
@@ -321,7 +319,7 @@ private void InitializeButtons(){
     });
 
     cancelButton.onClick.RemoveAllListeners();
-    cancelButton.onClick.AddListener(CloseDialogue);
+    cancelButton.onClick.AddListener(() => StartCoroutine(CloseDialogue()));
 
     orderCheck.onClick.RemoveAllListeners();
     orderCheck.onClick.AddListener(OpenOrderUI);
@@ -510,20 +508,38 @@ private IEnumerator MoveCustomerUp(RectTransform customerRect)
 private IEnumerator MoveCustomerDown(RectTransform customerRect)
 {
     Vector3 startPosition = customerRect.position;
-    Vector3 targetPosition = new Vector3(startPosition.x, startPosition.y-300, startPosition.z);
+    Vector3 bouncePosition = new Vector3(startPosition.x, startPosition.y + 50, startPosition.z); // 반동 위치
+    Vector3 targetPosition = new Vector3(startPosition.x, startPosition.y - 1200, startPosition.z); // 최종 위치
 
-
-    float duration = 0.5f;
+    float bounceDuration = 0.3f;
+    float downDuration = 0.5f;
     float timeElapsed = 0;
 
-    while (timeElapsed < duration)
+    // 🎮 1단계: 반동 애니메이션
+    while (timeElapsed < bounceDuration)
     {
-        customerRect.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
-        timeElapsed += Time.deltaTime; // 시간 경과
+        float t = timeElapsed / bounceDuration;
+        t = EaseOutBack(t);
+        customerRect.position = Vector3.Lerp(startPosition, bouncePosition, t);
+        timeElapsed += Time.deltaTime;
         yield return null;
     }
 
-    customerRect.position = startPosition; // 목표 위치로 고정
+    // 🎮 원위치로 복구
+    //customerRect.position = startPosition;
+    timeElapsed = 0;
+
+    // 🎮 2단계: 내려가는 애니메이션
+    timeElapsed = 0f;
+    while (timeElapsed < downDuration)
+    {
+        float t = timeElapsed / downDuration;
+        customerRect.position = Vector3.Lerp(bouncePosition, targetPosition, t);
+        timeElapsed += Time.deltaTime;
+        yield return null;
+    }
+
+    customerRect.position = targetPosition; // 최종 위치로 고정
 }
 
 // 🎮 반동 효과 함수
@@ -548,5 +564,11 @@ private float EaseOutBounce(float t)
         t -= 2.625f / 2.75f;
         return 7.5625f * t * t + 0.984375f;
     }
+}
+private float EaseOutBack(float t)
+{
+    float c1 = 1.70158f;
+    float c3 = c1 + 1;
+    return 1 + c3 * Mathf.Pow(t - 1, 3) + c1 * Mathf.Pow(t - 1, 2);
 }
 }

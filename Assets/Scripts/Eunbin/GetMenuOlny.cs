@@ -52,8 +52,11 @@ public class getMenuOnly : MonoBehaviour
     public SetMenu setmenu;
     private GameObject customer; 
     public Button dayChange;
-
+    public bool VisitDone;
     private int DataMoney;
+
+    public bool takenCustomer=false;
+    public GameObject Notouch;
 
     [SerializeField] private GameData GD = new GameData();
     
@@ -245,7 +248,7 @@ private void LoadGuestFromCSV()
         JsonUtility.FromJson<SerializableDictionary<int, ValueData>>(data.serializedDailyOrders);
 
     Debug.Log($"[{dayToProcess}일] 손님 처리 시작");
-
+    VisitDone = false;
     none.gameObject.SetActive(true);
     MadeMenu.SetActive(true);
     StartCoroutine(WaitForUiLogicManager());
@@ -261,6 +264,7 @@ private void LoadGuestFromCSV()
         Debug.Log($"[{dayToProcess}일] 주문 데이터가 없습니다.");
         MadeMenu.SetActive(false);
         none.gameObject.SetActive(false);
+        VisitDone = true;
 
         StartCoroutine(RestoreUI());
 
@@ -360,8 +364,9 @@ private void LoadGuestFromCSV()
 
         yield return new WaitUntil(() => isOrderCompleted);
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-
+        Notouch.SetActive(true);
         yield return StartCoroutine(MoveCustomerDown(customerRect));// 손님이 사라지는 애니메이션이 끝날 때까지 기다림
+        Notouch.SetActive(false);
         customer.SetActive(false);
         customer_order.SetActive(false);
         speechBubble.SetActive(false);
@@ -380,6 +385,7 @@ private void LoadGuestFromCSV()
     Debug.Log($"[{dayToProcess}일] 모든 손님이 메뉴를 받아갔습니다.");
     MadeMenu.SetActive(false);
     none.gameObject.SetActive(false);
+    VisitDone = true;
 
     StartCoroutine(RestoreUI());
 
@@ -554,7 +560,8 @@ private void LoadMoData() {
         GD = DataManager.Instance.LoadGameData();
         GD.money -= 500;
         DataManager.Instance.SaveGameData();
-}private IEnumerator MoveCustomerUp(RectTransform customerRect)
+}
+private IEnumerator MoveCustomerUp(RectTransform customerRect)
 {
     Vector3 targetPosition = customerRect.position; // 현재 위치가 목표 위치
     Vector3 startPosition = new Vector3(targetPosition.x, targetPosition.y - 200, targetPosition.z); // 아래에서 시작
