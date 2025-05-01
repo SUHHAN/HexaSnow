@@ -15878,7 +15878,6 @@ MonoBehaviour:
   startToppingButton: {fileID: 1288554078}
   finishToppingButton: {fileID: 2019724135}
   finishButton: {fileID: 1979543550}
-  inventoryManager: {fileID: 2059799789}
   ovenGameManager: {fileID: 859194559}
   bakingImage: {fileID: 2071899538}
   oriImage1: {fileID: 1922873742}
@@ -15914,7 +15913,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2e2d2d4db434da9428e7b671e0c4dc0a, type: 3}
   - {fileID: 21300000, guid: dd250db97176c044daa0db1cef96ab60, type: 3}
   - {fileID: 21300000, guid: 3827fc526cc06bc459546c3b2a7e9ed9, type: 3}
-  - {fileID: 21300000, guid: 998facf365c43f94a9c0847ef363980d, type: 3}
+  - {fileID: 21300000, guid: eb369db957fbc0047a0644c06d10076a, type: 3}
+  - {fileID: 21300000, guid: f15608e4cf96d40479711f0b063fc911, type: 3}
   - {fileID: 21300000, guid: afcd78abc1b2ee647b92ed1990a35a07, type: 3}
   - {fileID: 21300000, guid: 5cf2be094fbb6bc47914775c962ea312, type: 3}
   - {fileID: 21300000, guid: 8524b13008213034fbce01a78887c13f, type: 3}
@@ -15923,7 +15923,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ae3bb48137cd6d949841e347640236e4, type: 3}
   - {fileID: 21300000, guid: a07c5c61fbe2c61498abe15e92008f5a, type: 3}
   - {fileID: 21300000, guid: a18c5d11c9b710546b7ddfd754244fb2, type: 3}
-  - {fileID: 21300000, guid: bfc8d3f3885b8d14f8dcb28835a6f52b, type: 3}
+  - {fileID: 21300000, guid: dcc1663a265fe504b87e7e4731c82e71, type: 3}
   - {fileID: 21300000, guid: 3d617b9fd03a95346af65b9ca346342b, type: 3}
   - {fileID: 21300000, guid: 25f36af962cf20248bf03dd0547fae5d, type: 3}
   - {fileID: 21300000, guid: 31ef87b41a643cf44aba1bb8761b69de, type: 3}
@@ -17672,7 +17672,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingreList: []
-  refrigeratorButtons: []
 --- !u!4 &2059799790
 Transform:
   m_ObjectHideFlags: 0

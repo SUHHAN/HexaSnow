@@ -280,6 +280,13 @@ public class ToppingManager : MonoBehaviour
         }
 
         int totalScore = ovenGameManager.GetTotalScore();
+
+        // 오리지널 타르트(index 21), 오리지널 도넛(index 31)은 강제 F 처리
+        if (finalImageIndex == 21 || finalImageIndex == 31)
+        {
+            totalScore = 0;
+        }
+
         string finalDessertName = menuDictionary.ContainsKey(finalImageIndex) ? menuDictionary[finalImageIndex] : "알 수 없음";
 
         Debug.Log($"최종 총점: {totalScore}");
