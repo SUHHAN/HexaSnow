@@ -20,7 +20,6 @@ public class ToppingManager : MonoBehaviour
     public Button finishButton;
 
     // 기타 참조
-    public InventoryManager inventoryManager;
     public OvenGameManager ovenGameManager;
     public Image bakingImage;
     public Image oriImage1;
@@ -141,20 +140,20 @@ public class ToppingManager : MonoBehaviour
         }
     }
 
-    // 소지한 토핑 버튼 활성화
+    // 토핑 버튼 활성화
     private void UpdateToppingButtons()
     {
         foreach (GameObject button in toppingButtons)
         {
             button.SetActive(false);
-            ResetToppingButtonImage(button); // ResetToppingButtonOpacity → ResetToppingButtonImage로 변경
+            ResetToppingButtonImage(button);
         }
 
         if (dessertToppingMap.ContainsKey(selectedDessertIndex))
         {
             foreach (int toppingIndex in dessertToppingMap[selectedDessertIndex])
             {
-                if (toppingIndex - 1 < toppingButtons.Count && inventoryManager.HasIngredient(toppingIndex))
+                if (toppingIndex - 1 < toppingButtons.Count)
                 {
                     toppingButtons[toppingIndex - 1].SetActive(true);
                     int index = toppingIndex;
@@ -268,10 +267,6 @@ public class ToppingManager : MonoBehaviour
     private void FinishBaking()
     {
         SaveBakingResult();
-
-        Debug.Log("베이킹 완료 직전 현재 인벤토리:");
-        inventoryManager.PrintCurrentInventory();
-
         SceneManager.LoadScene("BakingStart");
     }
 
