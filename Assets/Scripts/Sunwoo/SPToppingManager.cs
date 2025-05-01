@@ -12,9 +12,8 @@ public class SpecialToppingManager : MonoBehaviour
     public TMP_Text talkingText;
     public Button startToppingButton, finishToppingButton, finishCreamButton, finishFlowerButton, finishButton;
     public Image bakingImage;
-    public Image oriImage; // 오리지널 이미지 보여주는 용도
+    public Image oriImage;
     public List<Sprite> dessertSprites;
-    public List<Sprite> oriSprites; // 디저트별 오리지널 이미지
 
     public List<Button> toppingButtons;
     public List<Button> creamButtons;
@@ -46,14 +45,25 @@ public class SpecialToppingManager : MonoBehaviour
         selectedDessertName = name;
         selectedDessertIndex = index;
 
-        // 선택된 디저트의 오리지널 이미지 띄우기 (index 1부터 시작이라고 가정)
-        if (index - 1 >= 0 && index - 1 < oriSprites.Count)
+        int oriIndex = 0;
+        switch (selectedDessertName)
         {
-            oriImage.sprite = oriSprites[index - 1];
+            case "Madeleine": oriIndex = 1; break;
+            case "Cookie": oriIndex = 2; break;
+            case "Muffin": oriIndex = 3; break;
+            case "PoundCake": oriIndex = 4; break;
+            case "BasqueCheesecake": oriIndex = 5; break;
+            case "Financier": oriIndex = 6; break;
+            case "Scone": oriIndex = 7; break;
+            case "Tart": oriIndex = 8; break;
+            case "Macaroon": oriIndex = 9; break;
+            case "SliceCake": oriIndex = 10; break;
+            case "Doughnut": oriIndex = 11; break;
         }
-        else
+
+        if (oriIndex < dessertSprites.Count)
         {
-            Debug.LogWarning("해당 디저트의 오리지널 이미지가 없습니다.");
+            oriImage.sprite = dessertSprites[oriIndex - 1];
         }
     }
 
@@ -66,8 +76,9 @@ public class SpecialToppingManager : MonoBehaviour
         finishBakingPanel.SetActive(false);
 
         talkingText.text = GetTalkingText(currentDay);
+        talkingText.gameObject.SetActive(true);
         startToppingButton.gameObject.SetActive(false);
-        StartCoroutine(EnableStartButtonAfterDelay(2f));
+        StartCoroutine(HideTalkingTextAfterDelay(5f));
 
         startToppingButton.onClick.AddListener(HandleStartTopping);
         finishToppingButton.onClick.AddListener(HandleFinishTopping);
@@ -78,6 +89,37 @@ public class SpecialToppingManager : MonoBehaviour
         finishToppingButton.gameObject.SetActive(true);
         finishCreamButton.gameObject.SetActive(true);
         finishFlowerButton.gameObject.SetActive(true);
+
+        EnableToppingsByDay();
+    }
+
+    void EnableToppingsByDay()
+    {
+        foreach (var btn in toppingButtons) btn.gameObject.SetActive(false);
+        foreach (var btn in creamButtons) btn.gameObject.SetActive(false);
+        foreach (var btn in flowerButtons) btn.gameObject.SetActive(false);
+
+        if (currentDay >= 2 && currentDay <= 4)
+        {
+            foreach (int i in new int[] { 0, 1, 2, 3 }) toppingButtons[i].gameObject.SetActive(true);
+            foreach (int i in new int[] { 0, 1, 2, 3 }) creamButtons[i].gameObject.SetActive(true);
+        }
+        else if (currentDay >= 5 && currentDay <= 7)
+        {
+            foreach (int i in new int[] { 4, 5, 1, 0 }) toppingButtons[i].gameObject.SetActive(true);
+        }
+        else if (currentDay >= 8 && currentDay <= 10)
+        {
+            foreach (int i in new int[] { 0, 1, 4, 5 }) creamButtons[i].gameObject.SetActive(true);
+            foreach (var btn in flowerButtons) btn.gameObject.SetActive(true);
+        }
+    }
+
+    IEnumerator HideTalkingTextAfterDelay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        talkingText.gameObject.SetActive(false);
+        startToppingButton.gameObject.SetActive(true);
     }
 
     string GetTalkingText(int day)
@@ -99,45 +141,24 @@ public class SpecialToppingManager : MonoBehaviour
         return "";
     }
 
-    IEnumerator EnableStartButtonAfterDelay(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        startToppingButton.gameObject.SetActive(true);
-    }
-
-    void HandleStartTopping()
-    {
-        startToppingPanel.SetActive(false);
-        addToppingPanel.SetActive(true);
-    }
-
     public void ToggleTopping(int index)
     {
-        if (selectedToppingIndices.Contains(index))
-            selectedToppingIndices.Remove(index);
-        else
-            selectedToppingIndices.Add(index);
-
+        if (selectedToppingIndices.Contains(index)) selectedToppingIndices.Remove(index);
+        else selectedToppingIndices.Add(index);
         UpdateButtonVisuals(toppingButtons, selectedToppingIndices);
     }
 
     public void ToggleCream(int index)
     {
-        if (selectedCreamIndices.Contains(index))
-            selectedCreamIndices.Remove(index);
-        else
-            selectedCreamIndices.Add(index);
-
+        if (selectedCreamIndices.Contains(index)) selectedCreamIndices.Remove(index);
+        else selectedCreamIndices.Add(index);
         UpdateButtonVisuals(creamButtons, selectedCreamIndices);
     }
 
     public void ToggleFlower(int index)
     {
-        if (selectedFlowerIndices.Contains(index))
-            selectedFlowerIndices.Remove(index);
-        else
-            selectedFlowerIndices.Add(index);
-
+        if (selectedFlowerIndices.Contains(index)) selectedFlowerIndices.Remove(index);
+        else selectedFlowerIndices.Add(index);
         UpdateButtonVisuals(flowerButtons, selectedFlowerIndices);
     }
 
@@ -147,51 +168,38 @@ public class SpecialToppingManager : MonoBehaviour
         {
             var img = buttons[i].transform.Find("Imageaft")?.GetComponent<Image>();
             if (img == null) continue;
-
             Color c = img.color;
             c.a = selectedIndices.Contains(i) ? 0.3f : 1f;
             img.color = c;
         }
     }
 
+    void HandleStartTopping()
+    {
+        startToppingPanel.SetActive(false);
+        addToppingPanel.SetActive(true);
+    }
+
     void HandleFinishTopping()
     {
         addToppingPanel.SetActive(false);
-
-        if (currentDay >= 2 && currentDay <= 4)
-        {
-            addCreamPanel.SetActive(true);
-        }
-        else if (currentDay >= 5 && currentDay <= 7)
-        {
-            finishBakingPanel.SetActive(true);
-        }
-        else if (currentDay >= 8 && currentDay <= 10)
-        {
-            addCreamPanel.SetActive(true);
-            toppingStage = 1;
-        }
+        if (currentDay >= 2 && currentDay <= 4) addCreamPanel.SetActive(true);
+        else if (currentDay >= 5 && currentDay <= 7) { finishBakingPanel.SetActive(true); UpdateBakingImage(); }
+        else if (currentDay >= 8 && currentDay <= 10) { addCreamPanel.SetActive(true); toppingStage = 1; }
     }
 
     void HandleFinishCream()
     {
         addCreamPanel.SetActive(false);
-
-        if (currentDay >= 2 && currentDay <= 4)
-        {
-            finishBakingPanel.SetActive(true);
-        }
-        else if (currentDay >= 8 && currentDay <= 10)
-        {
-            addToppingPanel.SetActive(true);
-            toppingStage = 2;
-        }
+        if (currentDay >= 2 && currentDay <= 4) { finishBakingPanel.SetActive(true); UpdateBakingImage(); }
+        else if (currentDay >= 8 && currentDay <= 10) { addToppingPanel.SetActive(true); toppingStage = 2; }
     }
 
     void HandleFinishFlower()
     {
         addFlowerPanel.SetActive(false);
         finishBakingPanel.SetActive(true);
+        UpdateBakingImage();
     }
 
     public void HandleToppingStageAdvance()
@@ -203,9 +211,9 @@ public class SpecialToppingManager : MonoBehaviour
         }
     }
 
-    void FinishBaking()
+    void UpdateBakingImage()
     {
-        int resultIndex = 1; // 기본 실패 이미지 인덱스
+        int resultIndex = 1;
 
         if (currentDay >= 2 && currentDay <= 4)
         {
@@ -226,14 +234,14 @@ public class SpecialToppingManager : MonoBehaviour
         {
             if (selectedDessertName == "PoundCake")
             {
-                if (OnlySelected(selectedToppingIndices, 2)) resultIndex = 8;
-                else if (OnlySelected(selectedToppingIndices, 3)) resultIndex = 9;
+                if (OnlySelected(selectedToppingIndices, 4)) resultIndex = 8;
+                else if (OnlySelected(selectedToppingIndices, 5)) resultIndex = 9;
                 else if (OnlySelected(selectedToppingIndices, 1)) resultIndex = 10;
                 else resultIndex = 11;
             }
             else if (selectedDessertName == "Tart")
             {
-                if (OnlySelected(selectedToppingIndices, 3)) resultIndex = 12;
+                if (OnlySelected(selectedToppingIndices, 5)) resultIndex = 12;
                 else resultIndex = 13;
             }
         }
@@ -241,7 +249,7 @@ public class SpecialToppingManager : MonoBehaviour
         {
             if (selectedDessertName == "SliceCake")
             {
-                if (OnlySelected(selectedCreamIndices, 2, 3) && OnlySelected(selectedToppingIndices, 7) && OnlySelected(selectedFlowerIndices, 0))
+                if (OnlySelected(selectedCreamIndices, 4, 5) && OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedFlowerIndices, 0))
                     resultIndex = 14;
                 else
                     resultIndex = 15;
@@ -249,14 +257,14 @@ public class SpecialToppingManager : MonoBehaviour
         }
 
         if (resultIndex < dessertSprites.Count)
-            bakingImage.sprite = dessertSprites[resultIndex];
-
-        Debug.Log($"선택된 디저트: {selectedDessertName} ({selectedDessertIndex})");
-        Debug.Log("토핑: " + string.Join(", ", selectedToppingIndices));
-        Debug.Log("크림: " + string.Join(", ", selectedCreamIndices));
-        Debug.Log("플라워: " + string.Join(", ", selectedFlowerIndices));
+            bakingImage.sprite = dessertSprites[resultIndex - 1];
 
         SaveBakingResult(resultIndex);
+    }
+
+    void FinishBaking()
+    {
+        SceneManager.LoadScene("BakingStart");
     }
 
     private bool OnlySelected(List<int> list, params int[] targets)
