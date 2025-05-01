@@ -12,11 +12,13 @@ public class SpecialToppingManager : MonoBehaviour
     public TMP_Text talkingText;
     public Button startToppingButton, finishToppingButton, finishCreamButton, finishFlowerButton, finishButton;
     public Image bakingImage;
+    public Image oriImage; // 오리지널 이미지 보여주는 용도
     public List<Sprite> dessertSprites;
+    public List<Sprite> oriSprites; // 디저트별 오리지널 이미지
 
-    public List<Button> toppingButtons; // 인덱스로 접근
-    public List<Button> creamButtons;   // 인덱스로 접근
-    public List<Button> flowerButtons;  // 인덱스로 접근
+    public List<Button> toppingButtons;
+    public List<Button> creamButtons;
+    public List<Button> flowerButtons;
 
     private int currentDay;
     private int toppingStage = 0;
@@ -43,6 +45,16 @@ public class SpecialToppingManager : MonoBehaviour
     {
         selectedDessertName = name;
         selectedDessertIndex = index;
+
+        // 선택된 디저트의 오리지널 이미지 띄우기 (index 1부터 시작이라고 가정)
+        if (index - 1 >= 0 && index - 1 < oriSprites.Count)
+        {
+            oriImage.sprite = oriSprites[index - 1];
+        }
+        else
+        {
+            Debug.LogWarning("해당 디저트의 오리지널 이미지가 없습니다.");
+        }
     }
 
     void SetupPanels()
@@ -214,14 +226,14 @@ public class SpecialToppingManager : MonoBehaviour
         {
             if (selectedDessertName == "PoundCake")
             {
-                if (OnlySelected(selectedToppingIndices, 2)) resultIndex = 8; // 고구마
-                else if (OnlySelected(selectedToppingIndices, 3)) resultIndex = 9; // 귤
-                else if (OnlySelected(selectedToppingIndices, 1)) resultIndex = 10; // 초코
+                if (OnlySelected(selectedToppingIndices, 2)) resultIndex = 8;
+                else if (OnlySelected(selectedToppingIndices, 3)) resultIndex = 9;
+                else if (OnlySelected(selectedToppingIndices, 1)) resultIndex = 10;
                 else resultIndex = 11;
             }
             else if (selectedDessertName == "Tart")
             {
-                if (OnlySelected(selectedToppingIndices, 3)) resultIndex = 12; // 귤
+                if (OnlySelected(selectedToppingIndices, 3)) resultIndex = 12;
                 else resultIndex = 13;
             }
         }
@@ -264,6 +276,12 @@ public class SpecialToppingManager : MonoBehaviour
         }
 
         int totalScore = ovenGameManager.GetTotalScore();
+
+        if (imageIndex == 21 || imageIndex == 30)
+        {
+            totalScore = 0;
+        }
+
         string finalDessertName = menuDictionary.ContainsKey(imageIndex) ? menuDictionary[imageIndex] : "알 수 없음";
 
         Debug.Log($"최종 총점: {totalScore}");
