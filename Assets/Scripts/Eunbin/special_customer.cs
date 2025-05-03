@@ -36,6 +36,7 @@ public class special_customer : MonoBehaviour
     public GameObject man;
     public GameObject child;
     public Button none;
+    private int check=0;
     private List<GameObject> customers = new List<GameObject>();
 
     public string csvFileNameGirl = "specialGuest_girl.csv";
@@ -53,6 +54,8 @@ public class special_customer : MonoBehaviour
     public SetMenu setmenu;
     private float currentTime;
     private int count;
+    private bool Spe_visitDone;
+    private bool tryvisit=false;
     [SerializeField] private GameData GD = new GameData();
 
     public struct DialogueLine
@@ -88,10 +91,14 @@ public class special_customer : MonoBehaviour
             SceneManager.LoadScene("Deadline_Last");
         });
 
-        if(dateGD.time <= 350f){
+        LoadDone();
+        if(dateGD.time <= 350f & !Spe_visitDone){
+            Spe_visitDone=true;
+            SaveDone();
             currentDay = dateGD.date;
-            StartCoroutine(orderSpecialCustomer());// 특별 손님 주문
-            spc_OnSpecialTimeReached();
+            
+           StartCoroutine(orderSpecialCustomer());// 특별 손님 주문
+           spc_OnSpecialTimeReached();
         }
 
     }
@@ -203,12 +210,8 @@ private IEnumerator RestoreUI()
     {
         yield return new WaitUntil(() => getMenuOnly.VisitDone == true);
         Debug.Log("✅ 일반 손님 처리 완료됨! 특별 손님 등장 시작");
-
         dayChange.gameObject.SetActive(true);
-        foreach (GameObject customerObj in customers)
-        {
-            customerObj.SetActive(false); // 모든 손님 비활성화
-        }
+
         Debug.Log($"특별 손님 등장");
         if (specialOrders.ContainsKey(currentDay))
         {
@@ -381,18 +384,19 @@ private IEnumerator RestoreUI()
 
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
-
-        if (Mathf.Abs(currentTime - 350f) < 0.1f)
+        if(!tryvisit){
+            if (Mathf.Abs(currentTime - 350f) < 0.1f & !Spe_visitDone)
         {
+            tryvisit=true;
             StartCoroutine(orderSpecialCustomer());
             spc_OnSpecialTimeReached();
             currentDay = dateGD.date;
+        }
         }
 }
 private void LoadDate() {
 
         GD = DataManager.Instance.LoadGameData();
-
         // !! 일차 업데이트하기
         count=GD.EndingCount;
     }
@@ -405,6 +409,8 @@ private void LoadDate() {
 
     private IEnumerator MoveCustomerUp(RectTransform customerRect)
 {
+    check++;
+    Debug.Log(check);
     Vector3 targetPosition = customerRect.position; // 현재 위치가 목표 위치
     Vector3 startPosition = new Vector3(targetPosition.x, targetPosition.y - 200, targetPosition.z); // 아래에서 시작
 
@@ -465,5 +471,16 @@ private float EaseOutBounce(float t)
         return 7.5625f * t * t + 0.984375f;
     }
 }
+private void LoadDone() {
 
+        GD = DataManager.Instance.LoadGameData();
+        // !! 일차 업데이트하기
+        Spe_visitDone=GD.Spe_visitDone;
+    }
+
+    private void SaveDone() {
+        DataManager.Instance.gameData.Spe_visitDone = Spe_visitDone;
+
+        DataManager.Instance.SaveGameData();
+    }
 }

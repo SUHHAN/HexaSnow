@@ -12,6 +12,7 @@ public class DayChange : MonoBehaviour
     public special_customer SpecialScript;
     private int day = 1; // Day 값
     private bool isSpecialCustomerSubscribed = false;
+    private bool Spe_visitDone;
 
     [SerializeField] private GameData GD = new GameData();
 
@@ -28,6 +29,10 @@ public class DayChange : MonoBehaviour
         LoadDate();
         //day++;
         SaveDate();
+        LoadDone();
+        Spe_visitDone=false;
+        SaveDone();
+
         SpecialScript.currentDay=day;
         Debug.Log("날짜 변경");
 
@@ -65,6 +70,18 @@ public class DayChange : MonoBehaviour
 
     private void SaveDate() {
         DataManager.Instance.gameData.date = day;
+
+        DataManager.Instance.SaveGameData();
+    }
+    private void LoadDone() {
+
+        GD = DataManager.Instance.LoadGameData();
+        // !! 일차 업데이트하기
+        Spe_visitDone=GD.Spe_visitDone;
+    }
+
+    private void SaveDone() {
+        DataManager.Instance.gameData.Spe_visitDone = Spe_visitDone;
 
         DataManager.Instance.SaveGameData();
     }
