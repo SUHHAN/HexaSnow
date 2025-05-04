@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RecipeBook : MonoBehaviour
 {
@@ -24,10 +25,18 @@ public class RecipeBook : MonoBehaviour
             new Recipe("Doughnut", new List<string> { "Butter", "Egg", "Flour", "Sugar", "Milk" }, false)
         };
 
-        OpenRecipesByDate();
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "BakingSp")
+        {
+            OpenSpecialRecipesByDate();
+        }
+        else
+        {
+            OpenNormalRecipesByDate();
+        }
     }
 
-    private void OpenRecipesByDate()
+    private void OpenNormalRecipesByDate()
     {
         if (DataManager.Instance == null || DataManager.Instance.gameData == null)
         {
@@ -52,6 +61,54 @@ public class RecipeBook : MonoBehaviour
 
         Debug.Log("레시피 해금 완료!");
         DebugUnlockedRecipes(); // 해금된 레시피 디버깅 출력
+    }
+
+    private void OpenSpecialRecipesByDate()
+    {
+        if (DataManager.Instance == null || DataManager.Instance.gameData == null)
+        {
+            Debug.LogError("DataManager 또는 GameData를 찾을 수 없습니다!");
+            return;
+        }
+
+        currentDate = DataManager.Instance.LoadGameData().date;
+        Debug.Log($"[스페셜] 현재 날짜: {currentDate}");
+
+        if (currentDate >= 2 && currentDate <= 4)
+        {
+            UnlockRecipe("Madeleine");
+            UnlockRecipe("Cookie");
+            UnlockRecipe("Muffin");
+            UnlockRecipe("PoundCake");
+            UnlockRecipe("BasqueCheesecake");
+        }
+        else if (currentDate >= 5 && currentDate <= 7)
+        {
+            UnlockRecipe("Madeleine");
+            UnlockRecipe("Cookie");
+            UnlockRecipe("Muffin");
+            UnlockRecipe("PoundCake");
+            UnlockRecipe("BasqueCheesecake");
+            UnlockRecipe("Financier");
+            UnlockRecipe("Scone");
+            UnlockRecipe("Tart");
+        }
+        else if (currentDate >= 8 && currentDate <= 10)
+        {
+            UnlockRecipe("Madeleine");
+            UnlockRecipe("Cookie");
+            UnlockRecipe("Muffin");
+            UnlockRecipe("PoundCake");
+            UnlockRecipe("BasqueCheesecake");
+            UnlockRecipe("Financier");
+            UnlockRecipe("Scone");
+            UnlockRecipe("Tart");
+            UnlockRecipe("Macaroon");
+            UnlockRecipe("SliceCake");
+            UnlockRecipe("Doughnut");
+        }
+
+        DebugUnlockedRecipes();
     }
 
     private void UnlockRecipe(string recipeName)

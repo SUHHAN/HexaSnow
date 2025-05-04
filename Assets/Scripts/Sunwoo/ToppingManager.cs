@@ -20,7 +20,6 @@ public class ToppingManager : MonoBehaviour
     public Button finishButton;
 
     // 기타 참조
-    public InventoryManager inventoryManager;
     public OvenGameManager ovenGameManager;
     public Image bakingImage;
     public Image oriImage1;
@@ -52,10 +51,10 @@ public class ToppingManager : MonoBehaviour
         { 14, new List<int>() }, // 바스크치즈케이크: 토핑 없음
         { 15, new List<int> { 4, 6 } }, // 휘낭시에: 초코, 아몬드
         { 18, new List<int> { 3, 4 } }, // 스콘: 카라멜, 초코
-        { 21, new List<int> { 2, 5 } }, // 타르트: 블루베리, 레몬
-        { 24, new List<int> { 1, 7 } }, // 마카롱: 바나나, 딸기
-        { 27, new List<int>() }, // 조각케이크: 토핑 없음
-        { 28, new List<int>() } // 도넛: 토핑 없음
+        { 21, new List<int> { 2, 5, 7 } }, // 타르트: 딸기, 레몬, 블루베리
+        { 25, new List<int> { 1, 7 } }, // 마카롱: 바나나, 딸기
+        { 28, new List<int> { 4, 7 } }, // 조각케이크: 초코, 딸기
+        { 31, new List<int> { 2, 3, 4 } } // 도넛: 블루베리, 카라멜, 초코
     };
 
     // 토핑 선택에 따른 BakingImage 변경 (디저트 인덱스, 토핑 인덱스 → 결과 이미지 인덱스)
@@ -67,8 +66,10 @@ public class ToppingManager : MonoBehaviour
         { (10, 4), 11 }, { (10, 5), 12 }, { (10, 1), 13 }, // 파운드케이크
         { (15, 4), 16 }, { (15, 6), 17 }, // 휘낭시에
         { (18, 4), 19 }, { (18, 3), 20 }, // 스콘
-        { (21, 5), 22 }, { (21, 2), 23 }, // 타르트
-        { (24, 1), 25 }, { (24, 7), 26 }, // 마카롱
+        { (21, 7), 22 }, { (21, 5), 23 }, { (21, 2), 24 }, // 타르트
+        { (25, 1), 26 }, { (25, 7), 27 }, // 마카롱
+        { (28, 4), 29 }, { (28, 7), 30 }, // 조각케이크
+        { (31, 2), 32 }, { (31, 3), 33 }, { (31, 4), 34 }, // 도넛
     };
 
     void Start()
@@ -139,20 +140,20 @@ public class ToppingManager : MonoBehaviour
         }
     }
 
-    // 소지한 토핑 버튼 활성화
+    // 토핑 버튼 활성화
     private void UpdateToppingButtons()
     {
         foreach (GameObject button in toppingButtons)
         {
             button.SetActive(false);
-            ResetToppingButtonImage(button); // ResetToppingButtonOpacity → ResetToppingButtonImage로 변경
+            ResetToppingButtonImage(button);
         }
 
         if (dessertToppingMap.ContainsKey(selectedDessertIndex))
         {
             foreach (int toppingIndex in dessertToppingMap[selectedDessertIndex])
             {
-                if (toppingIndex - 1 < toppingButtons.Count && inventoryManager.HasIngredient(toppingIndex))
+                if (toppingIndex - 1 < toppingButtons.Count)
                 {
                     toppingButtons[toppingIndex - 1].SetActive(true);
                     int index = toppingIndex;
@@ -164,34 +165,29 @@ public class ToppingManager : MonoBehaviour
     }
 
     // 토핑 하나만 선택 가능하도록 설정
+    // 토핑 하나만 선택 가능하도록 설정 (개수 유지하도록 수정)
     private void SelectSingleTopping(int toppingIndex)
     {
         if (selectedToppingIndex == toppingIndex)
         {
-            inventoryManager.AddIngredient(toppingIndex); // 개수 복구
-            selectedToppingIndex = -1; // 선택 해제
+            // 선택 해제
+            selectedToppingIndex = -1;
             finalImageIndex = selectedDessertIndex; // 기본 이미지로 되돌림
         }
         else
         {
-            if (selectedToppingIndex != -1)
+            // 기존 선택 해제 처리
+            if (selectedToppingIndex != -1 && selectedToppingIndex - 1 < toppingButtons.Count)
             {
-                inventoryManager.AddIngredient(selectedToppingIndex);
-                ResetToppingButtonImage(toppingButtons[selectedToppingIndex - 1]); // 기존 선택된 버튼 원래대로 복구
+                ResetToppingButtonImage(toppingButtons[selectedToppingIndex - 1]);
             }
 
-            if (inventoryManager.UseIngredient(toppingIndex)) // 선택 시 개수 감소
+            // 새 선택 적용
+            selectedToppingIndex = toppingIndex;
+
+            if (toppingImageMap.ContainsKey((selectedDessertIndex, toppingIndex)))
             {
-                selectedToppingIndex = toppingIndex;
-                if (toppingImageMap.ContainsKey((selectedDessertIndex, toppingIndex)))
-                {
-                    finalImageIndex = toppingImageMap[(selectedDessertIndex, toppingIndex)];
-                }
-            }
-            else
-            {
-                Debug.LogError($"토핑 {toppingIndex} 개수가 부족합니다!");
-                return;
+                finalImageIndex = toppingImageMap[(selectedDessertIndex, toppingIndex)];
             }
         }
 
@@ -271,10 +267,6 @@ public class ToppingManager : MonoBehaviour
     private void FinishBaking()
     {
         SaveBakingResult();
-
-        Debug.Log("베이킹 완료 직전 현재 인벤토리:");
-        inventoryManager.PrintCurrentInventory();
-
         SceneManager.LoadScene("BakingStart");
     }
 
@@ -288,6 +280,13 @@ public class ToppingManager : MonoBehaviour
         }
 
         int totalScore = ovenGameManager.GetTotalScore();
+
+        // 오리지널 타르트(index 21), 오리지널 도넛(index 31)은 강제 F 처리
+        if (finalImageIndex == 21 || finalImageIndex == 31)
+        {
+            totalScore = 0;
+        }
+
         string finalDessertName = menuDictionary.ContainsKey(finalImageIndex) ? menuDictionary[finalImageIndex] : "알 수 없음";
 
         Debug.Log($"최종 총점: {totalScore}");
