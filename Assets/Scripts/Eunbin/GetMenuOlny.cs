@@ -54,6 +54,7 @@ public class getMenuOnly : MonoBehaviour
     public Button dayChange;
     public bool VisitDone;
     private int DataMoney;
+    private bool Spe_visitDone;
 
     public bool takenCustomer=false;
     public GameObject Notouch;
@@ -80,6 +81,9 @@ public class getMenuOnly : MonoBehaviour
         LoadNicknameFromCSV();
         LoadGuestFromCSV();
         dayChange.onClick.AddListener(()=>{
+            LoadDone();
+            Spe_visitDone=false;
+            SaveDone();
             SceneManager.LoadScene("Deadline");
         });
 
@@ -544,7 +548,6 @@ private void SaveDate()
     {
         Debug.Log($"[SaveDate] 변환된 데이터 - 날짜 {pair.Key} : {string.Join(", ", pair.Value.orders.Select(order => $"[{string.Join(", ", order.items)}]"))}");
     }
-
     // JSON 직렬화 (한 줄로 저장)
     string json = JsonUtility.ToJson(serializableOrders, false);
     Debug.Log($"[SaveDate] 직렬화된 JSON 데이터: {json}");
@@ -634,6 +637,18 @@ private float EaseOutBounce(float t)
 
     private void Savescene() {
         DataManager.Instance.gameData.currentScene = currentScene;
+
+        DataManager.Instance.SaveGameData();
+    }
+    private void LoadDone() {
+
+        GD = DataManager.Instance.LoadGameData();
+        // !! 일차 업데이트하기
+        Spe_visitDone=GD.Spe_visitDone;
+    }
+
+    private void SaveDone() {
+        DataManager.Instance.gameData.Spe_visitDone = Spe_visitDone;
 
         DataManager.Instance.SaveGameData();
     }

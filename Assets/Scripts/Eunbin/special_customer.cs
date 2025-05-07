@@ -56,6 +56,7 @@ public class special_customer : MonoBehaviour
     private int count;
     private bool Spe_visitDone;
     private bool tryvisit=false;
+
     [SerializeField] private GameData GD = new GameData();
 
     public struct DialogueLine
@@ -102,6 +103,7 @@ public class special_customer : MonoBehaviour
         }
 
     }
+
     private IEnumerator WaitForUiLogicManager()
 {
     yield return new WaitUntil(() => UiLogicManager.Instance != null);
@@ -248,7 +250,8 @@ private IEnumerator RestoreUI()
         StartCoroutine(WaitForUiLogicManager());
         current_startId=1001;
         PlayDialogue(current_startId);
-        setmenu.current_cus("딸기 케이크", "special"); 
+        
+        setmenu.current_cus("딸기 케이크", customer.name); 
         StartCoroutine(HandleCustomerInteraction(customer, day));
 
         none.onClick.RemoveAllListeners();
@@ -320,10 +323,10 @@ private IEnumerator RestoreUI()
     private IEnumerator HandleCustomerInteraction(GameObject customer, int day)
     {
         yield return new WaitUntil(() => isOrderCompleted);
-        speechBubble.SetActive(false);
         RectTransform customerRect = customer.GetComponent<RectTransform>();
         yield return StartCoroutine(MoveCustomerDown(customerRect));
         customer.SetActive(false);
+        speechBubble.SetActive(false);
         StartCoroutine(RestoreUI());
         isOrderCompleted = false;
         none.gameObject.SetActive(false);
@@ -388,6 +391,8 @@ private IEnumerator RestoreUI()
             if (Mathf.Abs(currentTime - 350f) < 0.1f & !Spe_visitDone)
         {
             tryvisit=true;
+            Spe_visitDone=true;
+            //SaveDone();
             StartCoroutine(orderSpecialCustomer());
             spc_OnSpecialTimeReached();
             currentDay = dateGD.date;
