@@ -39,6 +39,7 @@ public class SpecialToppingManager : MonoBehaviour
     void Start()
     {
         currentDay = DataManager.Instance.LoadGameData().date;
+        menuDictionary = new Dictionary<int, string>();
         LoadRecipeCSV();
         SetupPanels();
         SetupToppingButtons();
@@ -116,9 +117,9 @@ public class SpecialToppingManager : MonoBehaviour
 
         talkingText.text = GetTalkingText(currentDay);
         talkingText.gameObject.SetActive(true);
-        startToppingButton.gameObject.SetActive(false);
-        StartCoroutine(HideTalkingTextAfterDelay(5f));
+        startToppingButton.gameObject.SetActive(true);  // 즉시 활성화
 
+        // 이벤트 리스너 등록
         startToppingButton.onClick.AddListener(HandleStartTopping);
         finishToppingButton.onClick.AddListener(HandleFinishTopping);
         finishCreamButton.onClick.AddListener(HandleFinishCream);
@@ -154,13 +155,6 @@ public class SpecialToppingManager : MonoBehaviour
         }
     }
 
-    IEnumerator HideTalkingTextAfterDelay(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        talkingText.gameObject.SetActive(false);
-        startToppingButton.gameObject.SetActive(true);
-    }
-
     string GetTalkingText(int day)
     {
         if (day >= 2 && day <= 4)
@@ -172,12 +166,12 @@ public class SpecialToppingManager : MonoBehaviour
                 PlayerPrefs.SetInt("SeenDialogue_5to7", 1);
                 return "아무래도 말씀하셨던 세 가지 재료를 한 번에 쓰긴 쉽지 않을 것 같아… 하나로 만드는 방법 말고 다른 걸 생각해볼까?";
             }
-            return "";
+            return "이번엔 예전에 말한 세 가지 중 하나만 선택해보자.";
         }
         else if (day >= 8 && day <= 10)
             return "아무리 그래도, 온통 파란색인 케이크는 별로일 것 같은데… 메인 크림과 데코 크림을 각각 다른 색으로 해볼까?";
 
-        return "";
+        return "빈 텍스트 확인용"; // 기본 fallback 문구 추가
     }
 
     public void ToggleTopping(int index)
