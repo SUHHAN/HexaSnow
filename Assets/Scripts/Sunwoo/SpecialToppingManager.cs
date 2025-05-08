@@ -34,13 +34,42 @@ public class SpecialToppingManager : MonoBehaviour
     public SPBakingStartManager bakingStartManager;
     public Dictionary<int, string> menuDictionary;
 
+    private int finalCsvIndex = 401;
+
     void Start()
     {
         currentDay = DataManager.Instance.LoadGameData().date;
+        LoadRecipeCSV();
         SetupPanels();
         SetupToppingButtons();
         SetupCreamButtons();
         SetupFlowerButtons();
+    }
+
+    private void LoadRecipeCSV()
+    {
+        TextAsset csvFile = Resources.Load<TextAsset>("recipe5 - main");
+        if (csvFile == null)
+        {
+            Debug.LogError("CSV 파일을 찾을 수 없습니다: recipe5 - main.csv");
+            return;
+        }
+
+        string[] lines = csvFile.text.Split('\n');
+        for (int i = 1; i < lines.Length; i++)
+        {
+            string[] fields = lines[i].Split(',');
+            if (fields.Length < 2) continue;
+
+            int id;
+            if (int.TryParse(fields[0].Trim(), out id))
+            {
+                string menuName = fields[1].Trim();
+                menuDictionary[id] = menuName;
+            }
+        }
+
+        Debug.Log($"[LoadRecipeCSV] {menuDictionary.Count}개의 메뉴 항목 로드 완료");
     }
 
     public void SetSelectedDessert(string name, int index)
@@ -224,50 +253,102 @@ public class SpecialToppingManager : MonoBehaviour
     void UpdateBakingImage()
     {
         int resultIndex = 1;
+        int totalScore = ovenGameManager.GetTotalScore();
+        finalCsvIndex = 401;
 
         if (currentDay >= 2 && currentDay <= 4)
         {
-            if (selectedDessertIndex == 7) // 머핀
+            if (selectedDessertIndex == 7)
             {
-                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 3;
-                else if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 4;
-                else resultIndex = 5;
+                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0))
+                {
+                    finalCsvIndex = 101;
+                    resultIndex = (totalScore == 0) ? 5 : 3;
+                }
+                else if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1))
+                {
+                    finalCsvIndex = 102;
+                    resultIndex = (totalScore == 0) ? 5 : 4;
+                }
+                else
+                {
+                    finalCsvIndex = 401;
+                    resultIndex = 1;
+                }
             }
-            else if (selectedDessertIndex == 10) // 파운드케이크
+            else if (selectedDessertIndex == 10)
             {
-                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 6;
-                else if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 7;
-                else resultIndex = 8;
+                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0))
+                {
+                    finalCsvIndex = 103;
+                    resultIndex = (totalScore == 0) ? 8 : 6;
+                }
+                else if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1))
+                {
+                    finalCsvIndex = 104;
+                    resultIndex = (totalScore == 0) ? 8 : 7;
+                }
+                else
+                {
+                    finalCsvIndex = 401;
+                    resultIndex = 1;
+                }
             }
         }
         else if (currentDay >= 5 && currentDay <= 7)
         {
-            if (selectedDessertIndex == 10) // 파운드케이크
+            if (selectedDessertIndex == 10)
             {
-                if (OnlySelected(selectedToppingIndices, 4)) resultIndex = 9;
-                else if (OnlySelected(selectedToppingIndices, 5)) resultIndex = 10;
-                else if (OnlySelected(selectedToppingIndices, 1)) resultIndex = 11;
-                else resultIndex = 12;
+                if (OnlySelected(selectedToppingIndices, 4))
+                {
+                    finalCsvIndex = 201;
+                    resultIndex = (totalScore == 0) ? 12 : 9;
+                }
+                else if (OnlySelected(selectedToppingIndices, 5))
+                {
+                    finalCsvIndex = 202;
+                    resultIndex = (totalScore == 0) ? 12 : 10;
+                }
+                else if (OnlySelected(selectedToppingIndices, 1))
+                {
+                    finalCsvIndex = 203;
+                    resultIndex = (totalScore == 0) ? 12 : 11;
+                }
+                else
+                {
+                    finalCsvIndex = 401;
+                    resultIndex = 1;
+                }
             }
-            else if (selectedDessertIndex == 21) // 타르트
+            else if (selectedDessertIndex == 21)
             {
-                if (OnlySelected(selectedToppingIndices, 5)) resultIndex = 13;
-                else resultIndex = 14;
+                if (OnlySelected(selectedToppingIndices, 5))
+                {
+                    finalCsvIndex = 204;
+                    resultIndex = (totalScore == 0) ? 14 : 13;
+                }
+                else
+                {
+                    finalCsvIndex = 401;
+                    resultIndex = 1;
+                }
             }
         }
         else if (currentDay >= 8 && currentDay <= 10)
         {
-            if (selectedDessertIndex == 28) // 조각케이크
+            if (selectedDessertIndex == 28)
             {
                 if (OnlySelected(selectedCreamIndices, 4, 5) &&
                     OnlySelected(selectedToppingIndices, 0) &&
                     OnlySelected(selectedFlowerIndices, 0))
                 {
-                    resultIndex = 15;
+                    finalCsvIndex = 301;
+                    resultIndex = (totalScore == 0) ? 16 : 15;
                 }
                 else
                 {
-                    resultIndex = 16;
+                    finalCsvIndex = 401;
+                    resultIndex = 1;
                 }
             }
         }
@@ -308,19 +389,14 @@ public class SpecialToppingManager : MonoBehaviour
 
         int totalScore = ovenGameManager.GetTotalScore();
 
-        if (imageIndex == 21 || imageIndex == 30)
-        {
-            totalScore = 0;
-        }
-
-        string finalDessertName = menuDictionary.ContainsKey(imageIndex) ? menuDictionary[imageIndex] : "알 수 없음";
+        string finalDessertName = menuDictionary.ContainsKey(finalCsvIndex) ? menuDictionary[finalCsvIndex] : "알 수 없음";
 
         Debug.Log($"최종 총점: {totalScore}");
-        Debug.Log($"최종 저장할 디저트: {finalDessertName}");
+        Debug.Log($"최종 저장할 디저트: {finalDessertName} (CSV 인덱스: {finalCsvIndex})");
 
         MyRecipeList newRecipe = new MyRecipeList(
             DataManager.Instance.gameData.myBake.Count + 1,
-            imageIndex,
+            finalCsvIndex,
             finalDessertName,
             totalScore,
             false

@@ -63,13 +63,11 @@ public class BKStartSceneManager : MonoBehaviour
         currentDate = dateGD.date;
         float time = dateGD.time;
 
-        int hours = (int)time;
-        int minutes = Mathf.FloorToInt((time - hours) * 60);
+        Debug.Log($"[BKStartSceneManager] 현재 날짜: {currentDate}, 현재 time: {time}");
 
-        Debug.Log($"[BKStartSceneManager] 현재 날짜: {currentDate}, 현재 시간: {hours:D2}:{minutes:D2}");
-
-        if (hours >= 16)
+        if (time <= 0f)
         {
+            // 마감 상태
             if (startButton != null) startButton.interactable = false;
             if (specialButton != null) specialButton.interactable = false;
 
@@ -80,19 +78,15 @@ public class BKStartSceneManager : MonoBehaviour
             }
 
             if (closingImage != null)
-            {
                 closingImage.gameObject.SetActive(true);
-            }
 
-            Debug.Log("오후 4시 이후 → 마감 상태. 모든 버튼 비활성화");
+            Debug.Log("time == 0, 마감 상태. 버튼 비활성화");
             return;
         }
 
-        if (closingText != null)
-            closingText.gameObject.SetActive(false);
-
-        if (closingImage != null)
-            closingImage.gameObject.SetActive(false);
+        // 마감 전
+        if (closingText != null) closingText.gameObject.SetActive(false);
+        if (closingImage != null) closingImage.gameObject.SetActive(false);
 
         if (specialButton != null)
         {
