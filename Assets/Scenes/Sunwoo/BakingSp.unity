@@ -4850,7 +4850,7 @@ GameObject:
   - component: {fileID: 496638735}
   - component: {fileID: 496638734}
   m_Layer: 5
-  m_Name: OriImage
+  m_Name: OriImage2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5134,7 +5134,7 @@ GameObject:
   - component: {fileID: 549913414}
   - component: {fileID: 549913413}
   m_Layer: 5
-  m_Name: OriImage
+  m_Name: OriImage4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8343,7 +8343,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -350}
-  m_SizeDelta: {x: 600, y: 200}
+  m_SizeDelta: {x: 550, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &896536925
 MonoBehaviour:
@@ -16112,6 +16112,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1669848014}
   m_CullTransparentMesh: 1
+--- !u!1 &1693915910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1693915912}
+  - component: {fileID: 1693915913}
+  m_Layer: 0
+  m_Name: SPBakingStartManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1693915912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693915910}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.0862956, y: -2.5072837, z: 317.87598}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1693915913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693915910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abde06a20aad1c74d8e1af7d3b884b32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPanel: {fileID: 66213970}
+  recipeSelectionPopup: {fileID: 2036366187}
+  messagePopup: {fileID: 1142645038}
+  BlackPanel: {fileID: 321913555}
+  ingredientSelectionPanel: {fileID: 1047600965}
+  messageText: {fileID: 583246373}
+  nextButton: {fileID: 1318233744}
+  recipeBook: {fileID: 1527461662}
+  spToppingManager: {fileID: 1940962673}
+  recipeButtons:
+  - {fileID: 463646855}
+  - {fileID: 656005735}
+  - {fileID: 1497636737}
+  - {fileID: 1642223196}
+  - {fileID: 691637968}
+  - {fileID: 719491380}
+  - {fileID: 1645025738}
+  - {fileID: 1418125615}
+  - {fileID: 740495475}
+  - {fileID: 1175974724}
+  - {fileID: 1828101350}
+  uiLogicManager: {fileID: 0}
 --- !u!1 &1710627292
 GameObject:
   m_ObjectHideFlags: 0
@@ -18070,7 +18136,7 @@ GameObject:
   - component: {fileID: 1922873743}
   - component: {fileID: 1922873742}
   m_Layer: 5
-  m_Name: OriImage
+  m_Name: OriImage1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18190,6 +18256,9 @@ MonoBehaviour:
   finishButton: {fileID: 1979543550}
   bakingImage: {fileID: 2071899538}
   oriImage: {fileID: 1922873742}
+  oriImage2: {fileID: 496638734}
+  oriImage3: {fileID: 1974541606}
+  oriImage4: {fileID: 549913413}
   dessertSprites:
   - {fileID: 21300000, guid: dcc1663a265fe504b87e7e4731c82e71, type: 3}
   - {fileID: 21300000, guid: dcc1663a265fe504b87e7e4731c82e71, type: 3}
@@ -18207,8 +18276,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: eb369db957fbc0047a0644c06d10076a, type: 3}
   - {fileID: 21300000, guid: 4f062f1eb3333dc46bc08586a6d172e2, type: 3}
   - {fileID: 21300000, guid: da0c0ec2660bf56489c8fe3669013a7e, type: 3}
-  oriSprites:
-  - {fileID: 21300000, guid: 299621287da7fe947a5c010daeb28eca, type: 3}
+  oriImageSprites:
   - {fileID: 21300000, guid: 299621287da7fe947a5c010daeb28eca, type: 3}
   - {fileID: 21300000, guid: 69c2b279ddca6f24c98529c3e9dc3dc7, type: 3}
   - {fileID: 21300000, guid: 42b3d31b35b07a743b8b1f8348d07c4a, type: 3}
@@ -18242,6 +18310,7 @@ MonoBehaviour:
   - {fileID: 1723663910}
   - {fileID: 57445728}
   ovenGameManager: {fileID: 859194559}
+  bakingStartManager: {fileID: 1693915913}
 --- !u!1 &1962355076
 GameObject:
   m_ObjectHideFlags: 0
@@ -18538,7 +18607,7 @@ GameObject:
   - component: {fileID: 1974541607}
   - component: {fileID: 1974541606}
   m_Layer: 5
-  m_Name: OriImage
+  m_Name: OriImage3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21113,3 +21182,4 @@ SceneRoots:
   - {fileID: 615322374}
   - {fileID: 859194560}
   - {fileID: 1940962672}
+  - {fileID: 1693915912}

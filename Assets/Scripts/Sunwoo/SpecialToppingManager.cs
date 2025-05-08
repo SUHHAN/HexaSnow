@@ -12,8 +12,10 @@ public class SpecialToppingManager : MonoBehaviour
     public TMP_Text talkingText;
     public Button startToppingButton, finishToppingButton, finishCreamButton, finishFlowerButton, finishButton;
     public Image bakingImage;
-    public Image oriImage;
+    public Image oriImage, oriImage2, oriImage3, oriImage4;
+
     public List<Sprite> dessertSprites;
+    public List<Sprite> oriImageSprites;
 
     public List<Button> toppingButtons;
     public List<Button> creamButtons;
@@ -29,6 +31,7 @@ public class SpecialToppingManager : MonoBehaviour
     private List<int> selectedFlowerIndices = new List<int>();
 
     public OvenGameManager ovenGameManager;
+    public SPBakingStartManager bakingStartManager;
     public Dictionary<int, string> menuDictionary;
 
     void Start()
@@ -45,25 +48,32 @@ public class SpecialToppingManager : MonoBehaviour
         selectedDessertName = name;
         selectedDessertIndex = index;
 
-        int oriIndex = 0;
-        switch (selectedDessertName)
-        {
-            case "Madeleine": oriIndex = 1; break;
-            case "Cookie": oriIndex = 2; break;
-            case "Muffin": oriIndex = 3; break;
-            case "PoundCake": oriIndex = 4; break;
-            case "BasqueCheesecake": oriIndex = 5; break;
-            case "Financier": oriIndex = 6; break;
-            case "Scone": oriIndex = 7; break;
-            case "Tart": oriIndex = 8; break;
-            case "Macaroon": oriIndex = 9; break;
-            case "SliceCake": oriIndex = 10; break;
-            case "Doughnut": oriIndex = 11; break;
-        }
+        Dictionary<int, int> dessertIndexToOriIndex = new Dictionary<int, int>()
+    {
+        { 1, 1 }, { 4, 2 }, { 7, 3 }, { 10, 4 },
+        { 14, 5 }, { 15, 6 }, { 18, 7 }, { 21, 8 },
+        { 25, 9 }, { 28, 10 }, { 31, 11 }
+    };
 
-        if (oriIndex < dessertSprites.Count)
+        if (dessertIndexToOriIndex.ContainsKey(selectedDessertIndex))
         {
-            oriImage.sprite = dessertSprites[oriIndex - 1];
+            int oriIndex = dessertIndexToOriIndex[selectedDessertIndex];
+            if (oriIndex - 1 < oriImageSprites.Count)
+            {
+                oriImage.sprite = oriImageSprites[oriIndex - 1];
+                oriImage2.sprite = oriImageSprites[oriIndex - 1];
+                oriImage3.sprite = oriImageSprites[oriIndex - 1];
+                oriImage4.sprite = oriImageSprites[oriIndex - 1];
+                Debug.Log($"[OriImage] {selectedDessertName} → oriIndex {oriIndex}");
+            }
+            else
+            {
+                Debug.LogError($"[OriImage] oriIndex {oriIndex}는 oriImageSprites 범위를 벗어났습니다.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"[OriImage] {selectedDessertIndex}는 매핑된 디저트 인덱스가 아닙니다.");
         }
     }
 
@@ -217,13 +227,13 @@ public class SpecialToppingManager : MonoBehaviour
 
         if (currentDay >= 2 && currentDay <= 4)
         {
-            if (selectedDessertName == "Muffin")
+            if (selectedDessertIndex == 7) // 머핀
             {
                 if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 2;
                 else if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 3;
                 else resultIndex = 4;
             }
-            else if (selectedDessertName == "PoundCake")
+            else if (selectedDessertIndex == 10) // 파운드케이크
             {
                 if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 5;
                 else if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 6;
@@ -232,14 +242,14 @@ public class SpecialToppingManager : MonoBehaviour
         }
         else if (currentDay >= 5 && currentDay <= 7)
         {
-            if (selectedDessertName == "PoundCake")
+            if (selectedDessertIndex == 10) // 파운드케이크
             {
                 if (OnlySelected(selectedToppingIndices, 4)) resultIndex = 8;
                 else if (OnlySelected(selectedToppingIndices, 5)) resultIndex = 9;
                 else if (OnlySelected(selectedToppingIndices, 1)) resultIndex = 10;
                 else resultIndex = 11;
             }
-            else if (selectedDessertName == "Tart")
+            else if (selectedDessertIndex == 21) // 타르트
             {
                 if (OnlySelected(selectedToppingIndices, 5)) resultIndex = 12;
                 else resultIndex = 13;
@@ -247,17 +257,30 @@ public class SpecialToppingManager : MonoBehaviour
         }
         else if (currentDay >= 8 && currentDay <= 10)
         {
-            if (selectedDessertName == "SliceCake")
+            if (selectedDessertIndex == 28) // 조각케이크
             {
-                if (OnlySelected(selectedCreamIndices, 4, 5) && OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedFlowerIndices, 0))
+                if (OnlySelected(selectedCreamIndices, 4, 5) &&
+                    OnlySelected(selectedToppingIndices, 0) &&
+                    OnlySelected(selectedFlowerIndices, 0))
+                {
                     resultIndex = 14;
+                }
                 else
+                {
                     resultIndex = 15;
+                }
             }
         }
 
-        if (resultIndex < dessertSprites.Count)
+        if (resultIndex <= dessertSprites.Count)
+        {
             bakingImage.sprite = dessertSprites[resultIndex - 1];
+            Debug.Log($"[BakingImage] 결과 이미지 인덱스: {resultIndex}");
+        }
+        else
+        {
+            Debug.LogError($"[BakingImage] resultIndex {resultIndex}는 dessertSprites 범위를 벗어남");
+        }
 
         SaveBakingResult(resultIndex);
     }
