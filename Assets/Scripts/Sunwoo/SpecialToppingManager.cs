@@ -229,30 +229,30 @@ public class SpecialToppingManager : MonoBehaviour
         {
             if (selectedDessertIndex == 7) // 머핀
             {
-                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 2;
-                else if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 3;
-                else resultIndex = 4;
+                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 3;
+                else if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 4;
+                else resultIndex = 5;
             }
             else if (selectedDessertIndex == 10) // 파운드케이크
             {
-                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 5;
-                else if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 6;
-                else resultIndex = 7;
+                if (OnlySelected(selectedToppingIndices, 0) && OnlySelected(selectedCreamIndices, 0)) resultIndex = 6;
+                else if (OnlySelected(selectedToppingIndices, 1) && OnlySelected(selectedCreamIndices, 1)) resultIndex = 7;
+                else resultIndex = 8;
             }
         }
         else if (currentDay >= 5 && currentDay <= 7)
         {
             if (selectedDessertIndex == 10) // 파운드케이크
             {
-                if (OnlySelected(selectedToppingIndices, 4)) resultIndex = 8;
-                else if (OnlySelected(selectedToppingIndices, 5)) resultIndex = 9;
-                else if (OnlySelected(selectedToppingIndices, 1)) resultIndex = 10;
-                else resultIndex = 11;
+                if (OnlySelected(selectedToppingIndices, 4)) resultIndex = 9;
+                else if (OnlySelected(selectedToppingIndices, 5)) resultIndex = 10;
+                else if (OnlySelected(selectedToppingIndices, 1)) resultIndex = 11;
+                else resultIndex = 12;
             }
             else if (selectedDessertIndex == 21) // 타르트
             {
-                if (OnlySelected(selectedToppingIndices, 5)) resultIndex = 12;
-                else resultIndex = 13;
+                if (OnlySelected(selectedToppingIndices, 5)) resultIndex = 13;
+                else resultIndex = 14;
             }
         }
         else if (currentDay >= 8 && currentDay <= 10)
@@ -263,11 +263,11 @@ public class SpecialToppingManager : MonoBehaviour
                     OnlySelected(selectedToppingIndices, 0) &&
                     OnlySelected(selectedFlowerIndices, 0))
                 {
-                    resultIndex = 14;
+                    resultIndex = 15;
                 }
                 else
                 {
-                    resultIndex = 15;
+                    resultIndex = 16;
                 }
             }
         }
