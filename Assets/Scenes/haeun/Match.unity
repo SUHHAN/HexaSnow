@@ -304,11 +304,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDone: 0
   PageImage:
-  - {fileID: 21300000, guid: 53259b4574e1d0e45b8dd45a8dc0db9b, type: 3}
-  - {fileID: 21300000, guid: 69c2b279ddca6f24c98529c3e9dc3dc7, type: 3}
-  - {fileID: 21300000, guid: 2f0b831320a5674479fd98a480e1d7ae, type: 3}
-  - {fileID: 21300000, guid: 5f53b945edd1bba4c82c178166b9ca68, type: 3}
-  - {fileID: 21300000, guid: a927749e9f9667947b28e232b58f0c3a, type: 3}
+  - {fileID: 21300000, guid: c0485f0867bc519458fdf397c7a62bf6, type: 3}
+  - {fileID: 21300000, guid: 869a7ad7248d71f46afe9461a9dd4ca9, type: 3}
+  - {fileID: 21300000, guid: 73c3f15f7fdda9d4fa000b9dd3e4a990, type: 3}
   ImagePanel: {fileID: 1660049179}
   StartButton: {fileID: 658840158}
   NextButton: {fileID: 1901517381}
