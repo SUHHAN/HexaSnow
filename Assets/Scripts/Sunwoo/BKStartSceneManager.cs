@@ -7,15 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class BKStartSceneManager : MonoBehaviour
 {
-    public Button startButton; // 일반 버튼
-    public Button specialButton; // 특별손님 버튼
+    public Button startButton;       // 일반 베이킹 버튼
+    public Button specialButton;     // 특별손님 버튼
     public GameObject StartPanel;
+    public TextMeshProUGUI closingText; // 마감 텍스트
+    public Image closingImage;
 
     private int currentDate;
 
     void Start()
     {
-        // Main 씬을 Additive로 불러오기 (배경용)
         if (!SceneManager.GetSceneByName("Main").isLoaded)
         {
             SceneManager.LoadScene("Main", LoadSceneMode.Additive);
@@ -27,22 +28,26 @@ public class BKStartSceneManager : MonoBehaviour
         if (specialButton != null)
         {
             specialButton.onClick.AddListener(LoadSpecialBakingScene);
-            specialButton.interactable = false; // 기본값: 비활성화
+            specialButton.interactable = false;
         }
 
-        // 돈 불러오기 (날짜 포함 가능성 있음)
         if (UiLogicManager.Instance != null)
         {
             UiLogicManager.Instance.LoadMoneyData();
         }
 
-        // 날짜 로딩 후 버튼 활성화 체크 (0.2초 대기)
+        if (closingText != null)
+            closingText.gameObject.SetActive(false); // 기본은 비활성화
+
+        if (closingImage != null)
+            closingImage.gameObject.SetActive(false); // 기본은 비활성화
+
         StartCoroutine(DelayedCheckSpecialButtonAvailability());
     }
 
     private IEnumerator DelayedCheckSpecialButtonAvailability()
     {
-        yield return new WaitForSeconds(0.2f); // 데이터 로딩 대기
+        yield return new WaitForSeconds(0.2f);
         CheckSpecialButtonAvailability();
     }
 
@@ -56,20 +61,39 @@ public class BKStartSceneManager : MonoBehaviour
 
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentDate = dateGD.date;
-        Debug.Log($"[BKStartSceneManager] 현재 날짜: {currentDate}");
+        float time = dateGD.time;
+
+        Debug.Log($"[BKStartSceneManager] 현재 날짜: {currentDate}, 현재 time: {time}");
+
+        if (time <= 0f)
+        {
+            // 마감 상태
+            if (startButton != null) startButton.interactable = false;
+            if (specialButton != null) specialButton.interactable = false;
+
+            if (closingText != null)
+            {
+                closingText.gameObject.SetActive(true);
+                closingText.text = "이제 마감할 시간이야";
+            }
+
+            if (closingImage != null)
+                closingImage.gameObject.SetActive(true);
+
+            Debug.Log("time == 0, 마감 상태. 버튼 비활성화");
+            return;
+        }
+
+        // 마감 전
+        if (closingText != null) closingText.gameObject.SetActive(false);
+        if (closingImage != null) closingImage.gameObject.SetActive(false);
 
         if (specialButton != null)
         {
-            if (currentDate >= 2)
-            {
-                specialButton.interactable = true;
-                Debug.Log("특별손님 버튼 활성화됨 (2일차 이상)");
-            }
-            else
-            {
-                specialButton.interactable = false;
-                Debug.Log("특별손님 버튼 비활성화됨 (1일차)");
-            }
+            specialButton.interactable = (currentDate >= 2);
+            Debug.Log(specialButton.interactable
+                ? "특별손님 버튼 활성화됨 (2일차 이상)"
+                : "특별손님 버튼 비활성화됨 (1일차)");
         }
     }
 

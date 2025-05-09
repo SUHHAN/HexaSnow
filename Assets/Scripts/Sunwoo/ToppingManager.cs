@@ -91,10 +91,10 @@ public class ToppingManager : MonoBehaviour
     // CSV에서 index와 menu 값을 읽어 menuDictionary에 저장
     private void LoadRecipeCSV()
     {
-        TextAsset csvFile = Resources.Load<TextAsset>("recipe");
+        TextAsset csvFile = Resources.Load<TextAsset>("recipe5 - main");
         if (csvFile == null)
         {
-            Debug.LogError("CSV 파일을 찾을 수 없습니다: recipe.csv");
+            Debug.LogError("CSV 파일을 찾을 수 없습니다: recipe5 - main.csv");
             return;
         }
 

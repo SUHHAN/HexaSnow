@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class BakingStartManager : MonoBehaviour
+public class SPBakingStartManager : MonoBehaviour
 {
     public GameObject startPanel;
     public GameObject recipeSelectionPopup;
@@ -19,28 +19,28 @@ public class BakingStartManager : MonoBehaviour
     public RecipeBook recipeBook;
     private Recipe selectedRecipe = null;
 
-    public ToppingManager toppingManager;
+    public SpecialToppingManager spToppingManager;
 
     public List<Button> recipeButtons;
     private Dictionary<Button, Color> originalButtonColors = new Dictionary<Button, Color>();
 
     private int selectedDessertIndex = -1;
     private string selectedDessert = "";
-    private Button lastSelectedButton = null; // ë§ˆì§€ë§‰ìœ¼ë¡œ ì„ íƒí•œ ë²„íŠ¼ì„ ì €ì¥
+    private Button lastSelectedButton = null; // ¸¶Áö¸·À¸·Î ¼±ÅÃÇÑ ¹öÆ°À» ÀúÀå
 
     private Dictionary<int, int> buttonIndexToDessertIndex = new Dictionary<int, int>()
     {
-        { 0, 1 },  // ë²„íŠ¼ 0 â†’ ë§ˆë“¤ë Œ (1)
-        { 1, 4 },  // ë²„íŠ¼ 1 â†’ ì¿ í‚¤ (4)
-        { 2, 7 },  // ë²„íŠ¼ 2 â†’ ë¨¸í•€ (7)
-        { 3, 10 }, // ë²„íŠ¼ 3 â†’ íŒŒìš´ë“œì¼€ì´í¬ (10)
-        { 4, 14 }, // ë²„íŠ¼ 4 â†’ ë°”ìŠ¤í¬ ì¹˜ì¦ˆì¼€ì´í¬ (14)
-        { 5, 15 }, // ë²„íŠ¼ 5 â†’ íœ˜ë‚­ì‹œì— (15)
-        { 6, 18 }, // ë²„íŠ¼ 6 â†’ ìŠ¤ì½˜ (18)
-        { 7, 21 }, // ë²„íŠ¼ 7 â†’ íƒ€ë¥´íŠ¸ (21)
-        { 8, 25 }, // ë²„íŠ¼ 8 â†’ ë§ˆì¹´ë¡± (25)
-        { 9, 28 }, // ë²„íŠ¼ 9 â†’ ì¡°ê°ì¼€ì´í¬ (28)
-        { 10, 31 } // ë²„íŠ¼ 10 â†’ ë„ë„› (31)
+        { 0, 1 },  // ¹öÆ° 0 ¡æ ¸¶µé·» (1)
+        { 1, 4 },  // ¹öÆ° 1 ¡æ ÄíÅ° (4)
+        { 2, 7 },  // ¹öÆ° 2 ¡æ ¸ÓÇÉ (7)
+        { 3, 10 }, // ¹öÆ° 3 ¡æ ÆÄ¿îµåÄÉÀÌÅ© (10)
+        { 4, 14 }, // ¹öÆ° 4 ¡æ ¹Ù½ºÅ© Ä¡ÁîÄÉÀÌÅ© (14)
+        { 5, 15 }, // ¹öÆ° 5 ¡æ ÈÖ³¶½Ã¿¡ (15)
+        { 6, 18 }, // ¹öÆ° 6 ¡æ ½ºÄÜ (18)
+        { 7, 21 }, // ¹öÆ° 7 ¡æ Å¸¸£Æ® (21)
+        { 8, 25 }, // ¹öÆ° 8 ¡æ ¸¶Ä«·Õ (25)
+        { 9, 28 }, // ¹öÆ° 9 ¡æ Á¶°¢ÄÉÀÌÅ© (28)
+        { 10, 31 } // ¹öÆ° 10 ¡æ µµ³Ó (31)
     };
 
     public UiLogicManager uiLogicManager;
@@ -65,7 +65,7 @@ public class BakingStartManager : MonoBehaviour
 
         for (int i = 0; i < recipeButtons.Count; i++)
         {
-            int buttonIndex = i; // ë¡œì»¬ ë³€ìˆ˜ë¡œ ìº¡ì²˜
+            int buttonIndex = i; // ·ÎÄÃ º¯¼ö·Î Ä¸Ã³
             Button button = recipeButtons[i];
             originalButtonColors[button] = button.image.color;
             button.onClick.AddListener(() => SelectRecipe(button, buttonIndex));
@@ -86,62 +86,62 @@ public class BakingStartManager : MonoBehaviour
 
     private void SelectRecipe(Button clickedButton, int buttonIndex)
     {
-        string recipeName = clickedButton.name; // ë²„íŠ¼ ì´ë¦„ì„ ê¸°ë°˜ìœ¼ë¡œ ë ˆì‹œí”¼ ì°¾ê¸°
-        Recipe recipe = recipeBook.GetRecipeByName(recipeName); // RecipeBookì—ì„œ ë ˆì‹œí”¼ ì°¾ê¸°
+        string recipeName = clickedButton.name; // ¹öÆ° ÀÌ¸§À» ±â¹İÀ¸·Î ·¹½ÃÇÇ Ã£±â
+        Recipe recipe = recipeBook.GetRecipeByName(recipeName); // RecipeBook¿¡¼­ ·¹½ÃÇÇ Ã£±â
 
         if (recipe != null && recipe.canBake)
         {
             if (selectedRecipe != null && selectedRecipe.recipeName == recipe.recipeName)
             {
-                // ì´ë¯¸ ì„ íƒëœ ë²„íŠ¼ì„ ë‹¤ì‹œ í´ë¦­í•˜ë©´ ì·¨ì†Œ
+                // ÀÌ¹Ì ¼±ÅÃµÈ ¹öÆ°À» ´Ù½Ã Å¬¸¯ÇÏ¸é Ãë¼Ò
                 ResetButtonColor(clickedButton);
                 selectedRecipe = null;
-                selectedDessertIndex = 10;  // ê¸°ë³¸ê°’ìœ¼ë¡œ ë¦¬ì…‹
+                selectedDessertIndex = 10;  // ±âº»°ªÀ¸·Î ¸®¼Â
                 selectedDessert = "";
                 nextButton.gameObject.SetActive(false);
                 lastSelectedButton = null;
             }
             else
             {
-                // ì´ì „ì— ì„ íƒí•œ ë²„íŠ¼ì´ ìˆìœ¼ë©´ ìƒ‰ìƒ ë³µì›
+                // ÀÌÀü¿¡ ¼±ÅÃÇÑ ¹öÆ°ÀÌ ÀÖÀ¸¸é »ö»ó º¹¿ø
                 if (lastSelectedButton != null)
                 {
                     ResetButtonColor(lastSelectedButton);
                 }
 
-                // ìƒˆë¡œìš´ ë ˆì‹œí”¼ ì„ íƒ
-                clickedButton.image.color = new Color(clickedButton.image.color.r, clickedButton.image.color.g, clickedButton.image.color.b, 0.5f); // íˆ¬ëª…ë„ 50%
+                // »õ·Î¿î ·¹½ÃÇÇ ¼±ÅÃ
+                clickedButton.image.color = new Color(clickedButton.image.color.r, clickedButton.image.color.g, clickedButton.image.color.b, 0.5f); // Åõ¸íµµ 50%
                 selectedRecipe = recipe;
                 selectedDessert = recipe.recipeName;
                 selectedDessertIndex = buttonIndexToDessertIndex.ContainsKey(buttonIndex) ? buttonIndexToDessertIndex[buttonIndex] : 10;
                 lastSelectedButton = clickedButton;
 
-                Debug.Log($"ì„ íƒëœ ì œê³¼: {selectedDessert}, ì¸ë±ìŠ¤: {selectedDessertIndex}");
+                Debug.Log($"¼±ÅÃµÈ Á¦°ú: {selectedDessert}, ÀÎµ¦½º: {selectedDessertIndex}");
 
                 nextButton.gameObject.SetActive(true);
             }
         }
         else
         {
-            // ì´ì „ì— ì„ íƒí•œ ë²„íŠ¼ì´ ìˆìœ¼ë©´ ìƒ‰ìƒ ë³µì›
+            // ÀÌÀü¿¡ ¼±ÅÃÇÑ ¹öÆ°ÀÌ ÀÖÀ¸¸é »ö»ó º¹¿ø
             if (lastSelectedButton != null)
             {
                 ResetButtonColor(lastSelectedButton);
                 selectedRecipe = null;
-                selectedDessertIndex = 10;  // ê¸°ë³¸ê°’ìœ¼ë¡œ ë¦¬ì…‹
+                selectedDessertIndex = 10;  // ±âº»°ªÀ¸·Î ¸®¼Â
                 selectedDessert = "";
                 nextButton.gameObject.SetActive(false);
             }
-            StartCoroutine(ShowMessage("í•´ê¸ˆë˜ì§€ ì•Šì€\në ˆì‹œí”¼ì…ë‹ˆë‹¤."));
+            StartCoroutine(ShowMessage("ÇØ±İµÇÁö ¾ÊÀº\n·¹½ÃÇÇÀÔ´Ï´Ù."));
         }
     }
 
-    // ë²„íŠ¼ ìƒ‰ìƒ ë³µì›
+    // ¹öÆ° »ö»ó º¹¿ø
     private void ResetButtonColor(Button button)
     {
         if (button != null && originalButtonColors.ContainsKey(button))
         {
-            button.image.color = originalButtonColors[button]; // ì›ë˜ ìƒ‰ìƒ ë³µì›
+            button.image.color = originalButtonColors[button]; // ¿ø·¡ »ö»ó º¹¿ø
         }
     }
 
@@ -162,9 +162,9 @@ public class BakingStartManager : MonoBehaviour
             startPanel.SetActive(false);
             ingredientSelectionPanel.SetActive(true);
 
-            if (toppingManager != null)
+            if (spToppingManager != null)
             {
-                toppingManager.SetSelectedDessert(selectedDessert, selectedDessertIndex);
+                spToppingManager.SetSelectedDessert(selectedDessert, selectedDessertIndex);
             }
         }
     }
