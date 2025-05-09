@@ -97,12 +97,10 @@ public class special_customer : MonoBehaviour
         });
 
         LoadDone();
-        if(dateGD.time <= 350f & !Spe_visitDone){
+        if(dateGD.time <= 355f & !Spe_visitDone){
             Spe_visitDone=true;
             SaveDone();
             currentDay = dateGD.date;
-            
-           StartCoroutine(orderSpecialCustomer());// 특별 손님 주문
            spc_OnSpecialTimeReached();
         }
 
@@ -204,12 +202,16 @@ private IEnumerator RestoreUI()
 
     private void spc_OnSpecialTimeReached()
     {
-        Debug.Log("3시에 손님 등장 이벤트 발생");
+        Debug.Log($"3시에 손님 등장 이벤트 발생{currentDay}일차");
         if (specialVisit.ContainsKey(currentDay))
         {
-            VisitSpecialCustomer(currentDay);
+            Debug.Log($"특별 손님 베이커리받으러 옴{currentDay}일차");
+            StartCoroutine(VisitSpecialCustomer());
         }
-        else Debug.Log("특별 손님 주문받으러 옴");
+        else {
+            Debug.Log($"특별 손님 주문받으러 옴{currentDay}일차");
+            StartCoroutine(orderSpecialCustomer());// 특별 손님 주문
+            }
     }
 
     public IEnumerator orderSpecialCustomer()
@@ -238,19 +240,20 @@ private IEnumerator RestoreUI()
         }
     }
 
-    public IEnumerator VisitSpecialCustomer(int day)
+    public IEnumerator VisitSpecialCustomer()
     {
+        Debug.Log($"✅ 특별손님 등장 준비!:{currentDay}일차");
         yield return new WaitUntil(() => getMenuOnly.VisitDone == true);
-        Debug.Log("✅ 일반 손님 처리 완료됨! 특별 손님 등장 시작");
+        Debug.Log($"✅ 일반 손님 처리 완료됨! 특별 손님 등장 시작{currentDay}일차");
         dayChange.gameObject.SetActive(true);
 
-        if (!specialVisit.ContainsKey(day))
+        if (!specialVisit.ContainsKey(currentDay))
         {
-            Debug.LogError("특별 손님 방문 데이터가 없습니다!");
+            Debug.LogError($"특별 손님 방문 데이터가 없습니다!{currentDay}일차");
             yield break;
         }
         else {
-        customer = specialVisit[day];
+        customer = specialVisit[currentDay];
         LoadDialoguesFromCSV();
         customer.SetActive(true);
         RectTransform customerRect = customer.GetComponent<RectTransform>();
@@ -262,7 +265,7 @@ private IEnumerator RestoreUI()
         PlayDialogue(current_startId);
         
         setmenu.current_cus("딸기 케이크", customer.name); 
-        StartCoroutine(HandleCustomerInteraction(customer, day));
+        StartCoroutine(HandleCustomerInteraction(customer, currentDay));
 
         none.onClick.RemoveAllListeners();
         none.onClick.AddListener(() =>
@@ -404,9 +407,8 @@ private IEnumerator RestoreUI()
             tryvisit=true;
             Spe_visitDone=true;
             SaveDone();
-            StartCoroutine(orderSpecialCustomer());
-            spc_OnSpecialTimeReached();
             currentDay = dateGD.date;
+            spc_OnSpecialTimeReached();
         }
         }
 }
