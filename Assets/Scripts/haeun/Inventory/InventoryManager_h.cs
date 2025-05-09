@@ -270,6 +270,24 @@ public class InventoryManager_h : MonoBehaviour
                     ingredient.SetNum(ingre.num);
 
                     Transform IngreImage = item.transform.Find("menuImage");
+                    
+                    // 특별 손님 인덱스 별로 사진 수정하기
+                    if(ingre.index <= 34) {
+                        IngreImage.GetComponent<Image>().sprite = IngredientSprites[ingre.index];
+                    }
+                    else if(101 <= ingre.index || ingre.index <=104 ) {
+                        IngreImage.GetComponent<Image>().sprite = IngredientSprites[34 + ingre.index % 100];
+                    }
+                    else if(201 <= ingre.index || ingre.index <=204 ) {
+                        IngreImage.GetComponent<Image>().sprite = IngredientSprites[34 + 4 + ingre.index % 100];
+                    }
+                    else if(301 == ingre.index) {
+                        IngreImage.GetComponent<Image>().sprite = IngredientSprites[43];
+                    }
+                    else if(401 == ingre.index) {
+                        IngreImage.GetComponent<Image>().sprite = IngredientSprites[44];
+                    }
+
                     IngreImage.GetComponent<Image>().sprite = IngredientSprites[ingre.index];
 
                     Transform SlotLevel = item.transform.Find("Panel");
