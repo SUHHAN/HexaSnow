@@ -28,8 +28,8 @@ public class special_customer : MonoBehaviour
     public TextMeshProUGUI dialogueName;
     public GameObject speechBubble;
     public GameObject nameBubble;
-    public GameTime gametime;
     private Dictionary<int, GameObject> specialOrders = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> specialVisit = new Dictionary<int, GameObject>();
     private List<DialogueLine> dialogues = new List<DialogueLine>(); // 수정된 구조
     private int currentDialogueIndex = 0; // 현재 대화 인덱스
     public GameObject oldMan;
@@ -87,6 +87,10 @@ public class special_customer : MonoBehaviour
         specialOrders.Add(2, child);  
         specialOrders.Add(5, oldMan);
         specialOrders.Add(8, man);
+
+        specialVisit.Add(4, child);  
+        specialVisit.Add(7, oldMan);
+        specialVisit.Add(10, man);
 
         dayChange.onClick.AddListener(()=>{
             SceneManager.LoadScene("Deadline_Last");
@@ -201,9 +205,9 @@ private IEnumerator RestoreUI()
     private void spc_OnSpecialTimeReached()
     {
         Debug.Log("3시에 손님 등장 이벤트 발생");
-        if (specialOrders.ContainsKey(currentDay-2))
+        if (specialVisit.ContainsKey(currentDay))
         {
-            VisitSpecialCustomer(currentDay-2);
+            VisitSpecialCustomer(currentDay);
         }
         else Debug.Log("특별 손님 주문받으러 옴");
     }
@@ -234,20 +238,26 @@ private IEnumerator RestoreUI()
         }
     }
 
-    public void VisitSpecialCustomer(int day)
+    public IEnumerator VisitSpecialCustomer(int day)
     {
-        if (!specialOrders.ContainsKey(day))
+        yield return new WaitUntil(() => getMenuOnly.VisitDone == true);
+        Debug.Log("✅ 일반 손님 처리 완료됨! 특별 손님 등장 시작");
+        dayChange.gameObject.SetActive(true);
+
+        if (!specialVisit.ContainsKey(day))
         {
             Debug.LogError("특별 손님 방문 데이터가 없습니다!");
-            return;
+            yield break;
         }
-
-        customer = specialOrders[day];
+        else {
+        customer = specialVisit[day];
         LoadDialoguesFromCSV();
         customer.SetActive(true);
         RectTransform customerRect = customer.GetComponent<RectTransform>();
         StartCoroutine(MoveCustomerUp(customerRect));
+
         StartCoroutine(WaitForUiLogicManager());
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
         current_startId=1001;
         PlayDialogue(current_startId);
         
@@ -261,6 +271,7 @@ private IEnumerator RestoreUI()
             UpdateDialogue("none");
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_fail);
         });
+        }
     }
     private void PlayDialogue(int startId)
      {
@@ -384,15 +395,15 @@ private IEnumerator RestoreUI()
         {
             StartCoroutine(ShowCurrentDialogue(current_startId));
         }
-
+        LoadDone();
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
         if(!tryvisit){
-            if (Mathf.Abs(currentTime - 350f) < 0.1f & !Spe_visitDone)
+            if (Mathf.Abs(currentTime - 355f) < 0.1f & !Spe_visitDone)
         {
             tryvisit=true;
             Spe_visitDone=true;
-            //SaveDone();
+            SaveDone();
             StartCoroutine(orderSpecialCustomer());
             spc_OnSpecialTimeReached();
             currentDay = dateGD.date;

@@ -384,15 +384,12 @@ private void LoadGuestFromCSV()
     Debug.Log($"[Delete] {dayToProcess} 날짜 데이터 삭제 완료! 현재 키: {string.Join(", ", dailyOrders.Keys)}");
     SaveDate();
 }
-
-
     Debug.Log($"[{dayToProcess}일] 모든 손님이 메뉴를 받아갔습니다.");
     MadeMenu.SetActive(false);
     none.gameObject.SetActive(false);
     VisitDone = true;
 
     StartCoroutine(RestoreUI());
-
 }
 
     private GameObject GetRandomCustomer(){
@@ -420,7 +417,6 @@ private void LoadGuestFromCSV()
 
     return "대화 없음"; // 해당 state에 대한 대화가 없을 경우
 }
-
 
     private void ShowOrder(int order){
         customer_order.SetActive(true);

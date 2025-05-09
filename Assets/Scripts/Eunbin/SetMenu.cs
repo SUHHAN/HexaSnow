@@ -217,14 +217,14 @@ private void CheckMenu(string menu, int score){
 
     if(currentcus.Equals("cus")){
         Debug.Log($"[디버깅] 입력값: '{menu}' / 기대값: '{currentmenu}'");
-        if(menu.Equals(currentmenu)){
-        Debug.Log($"선택된 메뉴가 올바릅니다: {menu}");
-            foreach(RecipeC re in recipes) 
+        foreach(RecipeC re in recipes) 
             {
                 if(menu == re.menu) {
                     coin = re.coin;
                 }
             }
+        if(menu.Equals(currentmenu)){
+        Debug.Log($"선택된 메뉴가 올바릅니다: {menu}");
              if(score >= 60) {
                 getmenu.UpdateDialogue(1); // s
                 coin += 2000;
@@ -275,13 +275,44 @@ private void CheckMenu(string menu, int score){
 
         if (allowedMenus.Contains(menu)) {
             Debug.Log($"✅ [특별손님 정답] 손님 '{currentcus}'에게 '{menu}'는 허용된 메뉴입니다.");
-            SpecialScript.UpdateDialogue("True");
+            if(score >= 60) { // s
+                SpecialScript.UpdateDialogue("True");
+                coin += 2000;
+            }
+            else if(score > 40) { //a
+                SpecialScript.UpdateDialogue("True");
+                coin += 1000;
+            }
+            else if(score > 30){ //b
+                SpecialScript.UpdateDialogue("True");
+                coin += 500;
+            }
+            else if(score > 20){ //c
+                SpecialScript.UpdateDialogue("True");
+                coin += 100;
+            }
+            else if(score > 10){//d
+                SpecialScript.UpdateDialogue("False");
+                coin += 0;
+            }
+            else if(score <= 10){//f
+                SpecialScript.UpdateDialogue("False");
+                coin -= 500;
+            }
+            else{ //f
+                SpecialScript.UpdateDialogue("False");
+                coin -= 500;
+            }
+
         } else {
             Debug.Log($"❌ [특별손님 오답] 손님 '{currentcus}'에게 '{menu}'는 허용된 메뉴가 아닙니다.");
             SpecialScript.UpdateDialogue("False");
+            
+
         }
     } else {
         Debug.LogWarning($"⚠️ [특별손님 처리 실패] 손님 유형 '{currentcus}'에 대한 메뉴 데이터가 specialCustomerMenu에 없습니다.");
+        coin -= 500;
         SpecialScript.UpdateDialogue("False"); // 기본값 처리
     }
 
