@@ -97,11 +97,15 @@ public class special_customer : MonoBehaviour
         });
 
         LoadDone();
-        if(dateGD.time <= 355f & !Spe_visitDone){
-            Spe_visitDone=true;
-            SaveDone();
+        if(dateGD.time <= 350f & !Spe_visitDone){
             currentDay = dateGD.date;
            spc_OnSpecialTimeReached();
+        }
+        if((dateGD.time <= 1f) & (Spe_visitDone | (!specialOrders.ContainsKey(currentDay) & !specialVisit.ContainsKey(currentDay)))){
+            LoadDone();
+            Spe_visitDone=false;
+            SaveDone();
+            SceneManager.LoadScene("Deadline");
         }
 
     }
@@ -293,6 +297,7 @@ private IEnumerator RestoreUI()
 
     private IEnumerator ShowCurrentDialogue(int startId)
     {
+         GameData dateGD = DataManager.Instance.LoadGameData();
         if (currentDialogueIndex < 0 || currentDialogueIndex >= dialogues.Count)
         {
             if(startId==1){
@@ -300,8 +305,13 @@ private IEnumerator RestoreUI()
                 RectTransform customerRect = customer.GetComponent<RectTransform>();
                 yield return StartCoroutine(MoveCustomerDown(customerRect));
                 customer.SetActive(false);
+                Spe_visitDone=true;
+                SaveDone();
                 StartCoroutine(RestoreUI());
                 EndDialogue();
+                if(dateGD.time<1){
+                    SceneManager.LoadScene("Deadline");
+        }
                 yield break;
             }
             else if(startId==1001){
@@ -340,12 +350,18 @@ private IEnumerator RestoreUI()
         RectTransform customerRect = customer.GetComponent<RectTransform>();
         yield return StartCoroutine(MoveCustomerDown(customerRect));
         customer.SetActive(false);
+        Spe_visitDone=true;
+        SaveDone();
         speechBubble.SetActive(false);
         StartCoroutine(RestoreUI());
         isOrderCompleted = false;
         none.gameObject.SetActive(false);
 
         Debug.Log("특별 손님이 방문을 완료했습니다.");
+        GameData dateGD = DataManager.Instance.LoadGameData();
+        if(dateGD.time<1){
+            SceneManager.LoadScene("Deadline");
+        }
     }
 
     public void UpdateDialogue(string action)
@@ -401,15 +417,19 @@ private IEnumerator RestoreUI()
         LoadDone();
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
+        currentDay = dateGD.date;
         if(!tryvisit){
-            if (Mathf.Abs(currentTime - 355f) < 0.1f & !Spe_visitDone)
+            if (Mathf.Abs(currentTime - 350f) < 0.1f & !Spe_visitDone)
         {
             tryvisit=true;
-            Spe_visitDone=true;
-            SaveDone();
-            currentDay = dateGD.date;
             spc_OnSpecialTimeReached();
         }
+        }
+        if(Mathf.Abs(currentTime - 1f) < 0.1f & (Spe_visitDone | (!specialOrders.ContainsKey(currentDay) & !specialVisit.ContainsKey(currentDay)))){
+            LoadDone();
+            Spe_visitDone=false;
+            SaveDone();
+            SceneManager.LoadScene("Deadline");
         }
 }
 private void LoadDate() {
