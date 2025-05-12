@@ -5273,8 +5273,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BreadScrollbarManager, Assembly-CSharp
+      - m_Target: {fileID: 1632737789}
+        m_TargetAssemblyTypeName: InventoryManager_h, Assembly-CSharp
         m_MethodName: YesButtonClick
         m_Mode: 1
         m_Arguments:
@@ -6752,7 +6752,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1632737789}
         m_TargetAssemblyTypeName: InventoryManager_h, Assembly-CSharp
         m_MethodName: OnClickIngreTab
         m_Mode: 1
@@ -7366,7 +7366,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1632737789}
         m_TargetAssemblyTypeName: InventoryManager_h, Assembly-CSharp
         m_MethodName: OnClickxTab
         m_Mode: 1
@@ -8769,7 +8769,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 00958ff8df8773c4ebc1b4d7f430976f, type: 3}
   - {fileID: 21300000, guid: c44904ab987f96043be47ea7499ff532, type: 3}
   - {fileID: 21300000, guid: e5202dfb953017c49bf5fd852fb19c94, type: 3}
-  - {fileID: 21300000, guid: 9a849fa3780cf5240a25de349bae6851, type: 3}
+  - {fileID: 21300000, guid: 030ed6f4827d09a43ab5f58086df65e3, type: 3}
+  - {fileID: 21300000, guid: 030ed6f4827d09a43ab5f58086df65e3, type: 3}
+  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
+  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
+  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
+  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
+  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
+  - {fileID: 21300000, guid: b6e0479f109097f4698de87234536662, type: 3}
+  - {fileID: 21300000, guid: b6e0479f109097f4698de87234536662, type: 3}
+  - {fileID: 21300000, guid: fa034f001012d9e449bf7e6ec95dd54c, type: 3}
   IngredientSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4095b5777323a044db2fc5a5e95af52a, type: 3}
@@ -10731,7 +10740,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1632737789}
         m_TargetAssemblyTypeName: InventoryManager_h, Assembly-CSharp
         m_MethodName: OnClickCookTab
         m_Mode: 1
@@ -10938,7 +10947,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1632737789}
         m_TargetAssemblyTypeName: InventoryManager_h, Assembly-CSharp
         m_MethodName: OnClickSelectButton
         m_Mode: 1
@@ -12483,8 +12492,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BreadScrollbarManager, Assembly-CSharp
+      - m_Target: {fileID: 1632737789}
+        m_TargetAssemblyTypeName: InventoryManager_h, Assembly-CSharp
         m_MethodName: NoButtonClick
         m_Mode: 1
         m_Arguments:
