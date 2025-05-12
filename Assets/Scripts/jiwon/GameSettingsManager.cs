@@ -87,18 +87,20 @@ public class GameSettingsManager : MonoBehaviour
     {
         RectTransform rect = slider.GetComponent<RectTransform>();
 
-        // **슬라이더 크기와 위치 초기화**
-        // PlayerPrefs에서 저장된 크기와 위치 값을 불러옴 (저장된 값이 없으면 기본값 사용)
-        float width = PlayerPrefs.GetFloat(keyPrefix + "_Width", 29f);         // 기본값: 29f (너비)
-        float bottom = PlayerPrefs.GetFloat(keyPrefix + "_Bottom", -6.5f);      // 기본값: -6.5f (높이)
-        float posX = PlayerPrefs.GetFloat(keyPrefix + "_PosX", -5f);          // 기본값: 135f (X 위치)
-        float top = PlayerPrefs.GetFloat(keyPrefix + "_Top", -6.5f);            // 기본값: -6.5f (Y 위치)
+        if (PlayerPrefs.HasKey(keyPrefix + "_Width") &&
+            PlayerPrefs.HasKey(keyPrefix + "_Height") &&
+            PlayerPrefs.HasKey(keyPrefix + "_PosX") &&
+            PlayerPrefs.HasKey(keyPrefix + "_PosY"))
+        {
+            float width = PlayerPrefs.GetFloat(keyPrefix + "_Width");
+            float height = PlayerPrefs.GetFloat(keyPrefix + "_Height");
+            float posX = PlayerPrefs.GetFloat(keyPrefix + "_PosX");
+            float posY = PlayerPrefs.GetFloat(keyPrefix + "_PosY");
 
-        // **슬라이더 크기와 위치 적용**
-        rect.sizeDelta = new Vector2(width, bottom); // 크기 설정: 너비와 높이
-        rect.anchoredPosition = new Vector2(posX, top); // 위치 설정: X, Y 좌표
-
-        // 주석: 위 코드는 슬라이더의 크기와 위치를 저장된 값으로 설정합니다.
+            rect.sizeDelta = new Vector2(width, height);
+            rect.anchoredPosition = new Vector2(posX, posY);
+        }
+        // else: 저장된 값 없으면 에디터 값 그대로 유지
     }
 
     // 슬라이더 크기와 위치 저장 함수
@@ -106,13 +108,10 @@ public class GameSettingsManager : MonoBehaviour
     {
         RectTransform rect = slider.GetComponent<RectTransform>();
 
-        // **슬라이더 크기와 위치 저장**
-        PlayerPrefs.SetFloat(keyPrefix + "_Width", rect.sizeDelta.x);   // 크기 저장: 너비
-        PlayerPrefs.SetFloat(keyPrefix + "_Bottom", rect.sizeDelta.y);  // 크기 저장: 높이
-        PlayerPrefs.SetFloat(keyPrefix + "_PosX", rect.anchoredPosition.x); // 위치 저장: X 좌표
-        PlayerPrefs.SetFloat(keyPrefix + "_Top", rect.anchoredPosition.y); // 위치 저장: Y 좌표
-
-        // 주석: 위 코드는 슬라이더의 크기와 위치를 PlayerPrefs에 저장합니다.
-        PlayerPrefs.Save(); // 저장을 확실하게 반영
+        PlayerPrefs.SetFloat(keyPrefix + "_Width", rect.sizeDelta.x);
+        PlayerPrefs.SetFloat(keyPrefix + "_Height", rect.sizeDelta.y);
+        PlayerPrefs.SetFloat(keyPrefix + "_PosX", rect.anchoredPosition.x);
+        PlayerPrefs.SetFloat(keyPrefix + "_PosY", rect.anchoredPosition.y);
+        PlayerPrefs.Save();
     }
 }

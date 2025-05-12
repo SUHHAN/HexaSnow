@@ -24,13 +24,9 @@ public class SettingsManager : MonoBehaviour
         GameSettingsButton.onClick.AddListener(OpenGameSettingsPanel);
         SaveButton.onClick.AddListener(OpenSavePanel); // 저장 버튼 클릭 등록
 
-        // 계정 버튼을 앞쪽으로 보내기
-        SetButtonToFront(AccountButton);
         BlackPanel.SetActive(false);
 
-        // 나머지 버튼을 뒤로 보내기
-        SetButtonToBack(GameSettingsButton);
-        SetButtonToBack(SaveButton);
+       
         AccountPanel.SetActive(true);
         GameSettingsPanel.SetActive(false);
         SavePanel.SetActive(false); // 저장 패널 열기
@@ -97,11 +93,6 @@ public class SettingsManager : MonoBehaviour
         GameSettingsPanel.SetActive(false);
         SavePanel.SetActive(false); // AccountPanel이 열릴 때 SavePanel은 닫기
 
-        // 계정 버튼을 앞쪽으로 보내기
-        SetButtonToFront(AccountButton);
-        // 나머지 버튼을 뒤로 보내기
-        SetButtonToBack(GameSettingsButton);
-        SetButtonToBack(SaveButton);
     }
 
     // 게임 설정 패널 열기
@@ -112,11 +103,6 @@ public class SettingsManager : MonoBehaviour
         GameSettingsPanel.SetActive(true);
         SavePanel.SetActive(false); // GameSettingsPanel이 열릴 때 SavePanel은 닫기
 
-        // 게임 설정 버튼을 앞쪽으로 보내기
-        SetButtonToFront(GameSettingsButton);
-        // 나머지 버튼을 뒤로 보내기
-        SetButtonToBack(AccountButton);
-        SetButtonToBack(SaveButton);
     }
 
     // 저장 패널 열기 (새로 추가된 기능)
@@ -127,11 +113,6 @@ public class SettingsManager : MonoBehaviour
         GameSettingsPanel.SetActive(false);
         SavePanel.SetActive(true); // 저장 패널 열기
 
-        // 저장 버튼을 앞쪽으로 보내기
-        SetButtonToFront(SaveButton);
-        // 다른 버튼들을 뒤로 보내기
-        SetButtonToBack(AccountButton);
-        SetButtonToBack(GameSettingsButton);
     }
 
     // 버튼을 앞쪽으로 보내기
