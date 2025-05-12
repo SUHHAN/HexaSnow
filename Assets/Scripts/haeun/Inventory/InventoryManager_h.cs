@@ -243,8 +243,43 @@ public class InventoryManager_h : MonoBehaviour
             menu.SetScore(me.score);
             menu.SetBonus(me.bonus);
             menu.SetName(me.name);
-
+            
             Transform menuImage = item.transform.Find("menuImage");
+
+            // 특별 손님 인덱스 별로 사진 수정하기
+            if(me.menuID <= 34) {
+                menuImage.GetComponent<Image>().sprite = CookSprites[me.menuID];
+            }
+            else if(101 <= me.menuID && me.menuID <= 104) {
+                if(me.score <= 10) {
+                    menuImage.GetComponent<Image>().sprite = CookSprites[44 + me.menuID % 100];
+                }
+                else{
+                    menuImage.GetComponent<Image>().sprite = CookSprites[34 + me.menuID % 100];
+                }
+            }
+            else if(201 <= me.menuID && me.menuID <= 204) {
+                if(me.score <= 10) {
+                    menuImage.GetComponent<Image>().sprite = CookSprites[44 + 4 + me.menuID % 200];
+                }
+                else{
+                    menuImage.GetComponent<Image>().sprite = CookSprites[34 + 4 + me.menuID % 200];
+                }
+            }
+            else if(301 == me.menuID) {
+                if(me.score <= 10) {
+                    menuImage.GetComponent<Image>().sprite = CookSprites[53];
+                }
+                else{
+                    menuImage.GetComponent<Image>().sprite = CookSprites[43];
+                }
+            }
+            else if(401 == me.menuID) {
+                menuImage.GetComponent<Image>().sprite = CookSprites[44];
+            }
+
+
+            //Transform menuImage = item.transform.Find("menuImage");
             menuImage.GetComponent<Image>().sprite = CookSprites[me.menuID];
 
             //item의 색상을 각 등급에 맞는 색으로 지정하는 함수 작성하기
@@ -270,23 +305,6 @@ public class InventoryManager_h : MonoBehaviour
                     ingredient.SetNum(ingre.num);
 
                     Transform IngreImage = item.transform.Find("menuImage");
-                    
-                    // 특별 손님 인덱스 별로 사진 수정하기
-                    if(ingre.index <= 34) {
-                        IngreImage.GetComponent<Image>().sprite = IngredientSprites[ingre.index];
-                    }
-                    else if(101 <= ingre.index || ingre.index <=104 ) {
-                        IngreImage.GetComponent<Image>().sprite = IngredientSprites[34 + ingre.index % 100];
-                    }
-                    else if(201 <= ingre.index || ingre.index <=204 ) {
-                        IngreImage.GetComponent<Image>().sprite = IngredientSprites[34 + 4 + ingre.index % 100];
-                    }
-                    else if(301 == ingre.index) {
-                        IngreImage.GetComponent<Image>().sprite = IngredientSprites[43];
-                    }
-                    else if(401 == ingre.index) {
-                        IngreImage.GetComponent<Image>().sprite = IngredientSprites[44];
-                    }
 
                     IngreImage.GetComponent<Image>().sprite = IngredientSprites[ingre.index];
 
