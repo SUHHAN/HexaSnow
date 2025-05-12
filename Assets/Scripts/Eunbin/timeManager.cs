@@ -17,9 +17,12 @@ public class timeManager : MonoBehaviour
      [SerializeField] private GameData GD = new GameData();
     void Start()
     {
+        GD = DataManager.Instance.LoadGameData(); 
+        if(GD.currentScene != "order1"){
         Loadtime();
         gameTime = currentTime;
         StartGameTimer();
+        }
     }
 
     public void StartGameTimer()
@@ -68,7 +71,6 @@ public class timeManager : MonoBehaviour
         
     }
 }
-
     public void OnTimerEnd()
     {
         Debug.Log("6분이 끝났습니다");

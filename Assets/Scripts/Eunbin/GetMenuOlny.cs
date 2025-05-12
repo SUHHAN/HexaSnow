@@ -54,6 +54,7 @@ public class getMenuOnly : MonoBehaviour
     public Button dayChange;
     public bool VisitDone;
     private int DataMoney;
+    private bool Spe_visitDone;
 
     public bool takenCustomer=false;
     public GameObject Notouch;
@@ -80,6 +81,9 @@ public class getMenuOnly : MonoBehaviour
         LoadNicknameFromCSV();
         LoadGuestFromCSV();
         dayChange.onClick.AddListener(()=>{
+            LoadDone();
+            Spe_visitDone=false;
+            SaveDone();
             SceneManager.LoadScene("Deadline");
         });
 
@@ -380,15 +384,12 @@ private void LoadGuestFromCSV()
     Debug.Log($"[Delete] {dayToProcess} 날짜 데이터 삭제 완료! 현재 키: {string.Join(", ", dailyOrders.Keys)}");
     SaveDate();
 }
-
-
     Debug.Log($"[{dayToProcess}일] 모든 손님이 메뉴를 받아갔습니다.");
     MadeMenu.SetActive(false);
     none.gameObject.SetActive(false);
     VisitDone = true;
 
     StartCoroutine(RestoreUI());
-
 }
 
     private GameObject GetRandomCustomer(){
@@ -416,7 +417,6 @@ private void LoadGuestFromCSV()
 
     return "대화 없음"; // 해당 state에 대한 대화가 없을 경우
 }
-
 
     private void ShowOrder(int order){
         customer_order.SetActive(true);
@@ -544,7 +544,6 @@ private void SaveDate()
     {
         Debug.Log($"[SaveDate] 변환된 데이터 - 날짜 {pair.Key} : {string.Join(", ", pair.Value.orders.Select(order => $"[{string.Join(", ", order.items)}]"))}");
     }
-
     // JSON 직렬화 (한 줄로 저장)
     string json = JsonUtility.ToJson(serializableOrders, false);
     Debug.Log($"[SaveDate] 직렬화된 JSON 데이터: {json}");
@@ -634,6 +633,18 @@ private float EaseOutBounce(float t)
 
     private void Savescene() {
         DataManager.Instance.gameData.currentScene = currentScene;
+
+        DataManager.Instance.SaveGameData();
+    }
+    private void LoadDone() {
+
+        GD = DataManager.Instance.LoadGameData();
+        // !! 일차 업데이트하기
+        Spe_visitDone=GD.Spe_visitDone;
+    }
+
+    private void SaveDone() {
+        DataManager.Instance.gameData.Spe_visitDone = Spe_visitDone;
 
         DataManager.Instance.SaveGameData();
     }

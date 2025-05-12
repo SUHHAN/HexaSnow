@@ -13,7 +13,6 @@ public class GameTime : MonoBehaviour
     public event Action<float> OnTimeUpdate; // 시간 업데이트 이벤트
     public event Action OnSpecialTimeReached; // 특정 시간 도달 이벤트
     private bool isGameRunning = false;
-    public DayChange daychange;
     private Coroutine timerCoroutine; // 코루틴을 저장할 변수
     private bool specialEventTriggered = false;
 
@@ -80,7 +79,6 @@ public class GameTime : MonoBehaviour
         Debug.Log("6분이 끝났습니다");
         specialEventTriggered = false;
         SceneManager.LoadScene("Deadline");
-        daychange.OnDayChange();
         StopTimer();
         
     }

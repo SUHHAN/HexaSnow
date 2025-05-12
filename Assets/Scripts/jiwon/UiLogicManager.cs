@@ -72,19 +72,6 @@ public class UiLogicManager : MonoBehaviour
         LoadMoneyData();
 
         // 씬 이름에 따라 버튼 활성화 설정
-        if (currentSceneName == "order")
-        {
-            KitchenButtonGO.SetActive(true);
-            HomeButtonGO.SetActive(false);
-            SettingButtonGO.SetActive(true);
-            datePanel.SetActive(true);
-            timePanel.SetActive(false);
-            order_buttonGO.SetActive(true);
-            RecipeBookGO.SetActive(true);     // 'order'씬에 가는게 목적
-            MoneyTextGO.gameObject.SetActive(true);
-
-            InventoryButtonGo.SetActive(true);
-        }
         if (currentSceneName == "order1")
         {
             KitchenButtonGO.SetActive(true);
