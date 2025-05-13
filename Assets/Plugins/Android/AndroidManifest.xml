@@ -8,7 +8,9 @@
         android:normalScreens="true"
         android:largeScreens="false"
         android:xlargeScreens="false"
-        android:anyDensity="true" />
+        android:anyDensity="true"
+        tools:replace="android:largeScreens" />
+
 
     <!-- <compatible-screens>
         <screen android:screenSize="normal" android:screenDensity="hdpi" />
