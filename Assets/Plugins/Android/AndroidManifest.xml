@@ -9,7 +9,7 @@
         android:largeScreens="false"
         android:xlargeScreens="false"
         android:anyDensity="true"
-        tools:replace="android:largeScreens" />
+        tools:replace="android:largeScreens, android:xlargeScreens" />
 
 
     <!-- <compatible-screens>
