@@ -280,7 +280,7 @@ public class InventoryManager_h : MonoBehaviour
 
 
             //Transform menuImage = item.transform.Find("menuImage");
-            menuImage.GetComponent<Image>().sprite = CookSprites[me.menuID];
+            // menuImage.GetComponent<Image>().sprite = CookSprites[me.menuID];
 
             //item의 색상을 각 등급에 맞는 색으로 지정하는 함수 작성하기
             menu.SetMenuColor();
