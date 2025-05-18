@@ -60,8 +60,8 @@ public class timeManager : MonoBehaviour
        int minutes = 16-(Mathf.CeilToInt(currentTime / 60));
         int seconds = (360 - Mathf.CeilToInt(currentTime)) % 60 / 10 * 10; 
 
-        if(minutes <= 0 & seconds <= 0){
-            timerText.text="CLOSE";
+        if(minutes >=16 & seconds >= 0){
+            timerText.text="close";
         }
         else
             timerText.text = $"{minutes:D2}:{seconds:D2}"; 

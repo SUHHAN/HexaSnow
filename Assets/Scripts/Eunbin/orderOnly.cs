@@ -289,7 +289,6 @@ public class OrderOnly : MonoBehaviour
         UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
 
 
-        if(dateGD.date>1)
             SceneManager.LoadScene("customer");
 }
  private void SetRandomDialogueIndex()
