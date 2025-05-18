@@ -119,6 +119,7 @@ public class happyEnding : MonoBehaviour
         else
         {
             Debug.LogWarning("대화가 끝났습니다.");
+            SceneManager.LoadScene("Lobby");
 
         }
     }

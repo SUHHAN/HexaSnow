@@ -662,6 +662,12 @@ MonoBehaviour:
     ingredientNum: 
     myBake: []
     serializedDailyOrders: 
+    currentScene: 
+    hasCompletedBakingTutorial: 0
+    hasCompletedIngredientTutorial: 0
+    hasCompletedBonusTutorial: 0
+    EndingCount: 0
+    Spe_visitDone: 0
   mydate: 0
 --- !u!4 &1221115801
 Transform:
@@ -1427,6 +1433,64 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &1934642582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1934642584}
+  - component: {fileID: 1934642583}
+  m_Layer: 0
+  m_Name: EndingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1934642583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934642582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc07eb06ef206455d882af6f31052f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GD:
+    isGuestLoggedIn: 0
+    date: 0
+    money: 0
+    time: 0
+    ingredientNum: 
+    myBake: []
+    serializedDailyOrders: 
+    currentScene: 
+    hasCompletedBakingTutorial: 0
+    hasCompletedIngredientTutorial: 0
+    hasCompletedBonusTutorial: 0
+    EndingCount: 0
+    Spe_visitDone: 0
+--- !u!4 &1934642584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934642582}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.0360668, y: 3.136146, z: 74.51557}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1436,3 +1500,4 @@ SceneRoots:
   - {fileID: 854505031}
   - {fileID: 1221115801}
   - {fileID: 97607568}
+  - {fileID: 1934642584}

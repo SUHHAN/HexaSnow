@@ -68,4 +68,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sunwoo/BakingSp.unity
     guid: 367c83ac2b4ca754eb726101d40227e7
+  - enabled: 1
+    path: Assets/Scenes/Eunbin/happyEnding.unity
+    guid: da9838b8572e94253906cb766086234d
+  - enabled: 1
+    path: Assets/Scenes/Eunbin/badEnding.unity
+    guid: ab56eebc4c7774b5ab4dcf037e0c672f
   m_configObjects: {}
