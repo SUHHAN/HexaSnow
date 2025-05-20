@@ -33,7 +33,7 @@ public class special_customer : MonoBehaviour
     private List<DialogueLine> dialogues = new List<DialogueLine>(); // 수정된 구조
     private int currentDialogueIndex = 0; // 현재 대화 인덱스
     public GameObject oldMan;
-    public GameObject man;
+    public GameObject spcMan;
     public GameObject child;
     public Button none;
     private int check=0;
@@ -77,20 +77,20 @@ public class special_customer : MonoBehaviour
         GameData dateGD = DataManager.Instance.LoadGameData();
         oldMan.SetActive(false);
         child.SetActive(false);
-        man.SetActive(false);
+        spcMan.SetActive(false);
         customers.Add(child);
         customers.Add(oldMan);
-        customers.Add(man);
+        customers.Add(spcMan);
         
         speechBubble.SetActive(false);
 
         specialOrders.Add(2, child);  
         specialOrders.Add(5, oldMan);
-        specialOrders.Add(8, man);
+        specialOrders.Add(8, spcMan);
 
         specialVisit.Add(4, child);  
         specialVisit.Add(7, oldMan);
-        specialVisit.Add(10, man);
+        specialVisit.Add(10, spcMan);
 
         dayChange.onClick.AddListener(()=>{
             SceneManager.LoadScene("Deadline_Last");
@@ -140,7 +140,7 @@ private IEnumerator RestoreUI()
                 csvFileName = csvFileNameGirl;
             else if (customer.name == "old_man")
                 csvFileName = csvFileNameOldMan;
-            else if (customer.name == "man")
+            else if (customer.name == "spcMan")
                 csvFileName = csvFileNameMan;
 
             Debug.Log($"로드할 CSV 파일: {csvFileName}");

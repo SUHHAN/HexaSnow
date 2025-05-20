@@ -71,10 +71,21 @@ public class OrderOnly : MonoBehaviour
 }
     void Start()
     {
+
+        GameData dateGD = DataManager.Instance.LoadGameData();
+        
         AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
         SceneManager.LoadScene("Main", LoadSceneMode.Additive); //기본 UI 띄우기 
         StartCoroutine(WaitForUiLogicManager());
-        postman.SetActive(true);
+        if (dateGD.date == 10)
+        {
+            SceneManager.LoadScene("customer");
+        }
+        else
+        {
+            postman.SetActive(true);
+        }
+    
         //order.SetActive(false);
         RectTransform customerRect = postman.GetComponent<RectTransform>();
         StartCoroutine(MoveCustomerUp(customerRect));
@@ -85,22 +96,21 @@ public class OrderOnly : MonoBehaviour
         LoadNicknameFromCSV();
         LoadMenuForPopup(); // 메뉴 해금 팝업용 CSV 로드
         Postmanment();
-        GameData dateGD = DataManager.Instance.LoadGameData();
 
         openMenu(dateGD.date);
 
         if (dateGD.date >= 4)
         {
-            accept_order=4;
+            accept_order = 4;
         }
         if (dateGD.date >= 7)
         {
-            accept_order=6;
+            accept_order = 6;
         }
 
         //UiLogicManager.Instance.LoadMoneyData();
         Loadscene();
-        currentScene="order1";
+        currentScene = "order1";
         Savescene();
     }
 
@@ -336,9 +346,9 @@ private void ReceiveOrders(int currentNicknameIndex, int order_menu_id){
 }
 public void openMenu(int day){
     int maxId;
-    if(day<=2)
-        maxId=day*2000+1000;
-    else maxId=day*1000+3000;
+    if (day <= 2)
+            maxId = day * 2000 + 1000;
+        else maxId = day * 1000 + 3000;
      filteredDialogues=dialogues.FindAll(dialogue=>{
         if (int.TryParse(dialogue.id, out int dialogueId)){
             return dialogueId<=maxId;
