@@ -507,7 +507,7 @@ private IEnumerator MoveCustomerUp(RectTransform customerRect)
 private IEnumerator MoveCustomerDown(RectTransform customerRect)
 {
     Vector3 startPosition = customerRect.position;
-    Vector3 bouncePosition = new Vector3(startPosition.x, startPosition.y + 50, startPosition.z); // 반동 위치
+    Vector3 bouncePosition = new Vector3(startPosition.x, startPosition.y + 20, startPosition.z); // 반동 위치
     Vector3 targetPosition = new Vector3(startPosition.x, startPosition.y - 1200, startPosition.z); // 최종 위치
 
     float bounceDuration = 0.3f;
