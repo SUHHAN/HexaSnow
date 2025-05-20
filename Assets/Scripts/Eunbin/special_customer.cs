@@ -97,7 +97,7 @@ public class special_customer : MonoBehaviour
         });
 
         LoadDone();
-        if(dateGD.time <= 355f & !Spe_visitDone){
+        if(dateGD.time <= 300f & !Spe_visitDone){
             currentDay = dateGD.date;
             dayChange.gameObject.SetActive(true);
            spc_OnSpecialTimeReached();
@@ -420,7 +420,7 @@ private IEnumerator RestoreUI()
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
         currentDay = dateGD.date;
         if(!tryvisit){
-            if (Mathf.Abs(currentTime - 355f) < 0.1f & !Spe_visitDone)
+            if (Mathf.Abs(currentTime - 300f) < 0.1f & !Spe_visitDone)
         {
             dayChange.gameObject.SetActive(true);
             tryvisit =true;
