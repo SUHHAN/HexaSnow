@@ -112,6 +112,19 @@ public class UiLogicManager : MonoBehaviour
             InventoryButtonGo.SetActive(false);
         }
 
+        if (currentSceneName == "BakingSp") {
+            KitchenButtonGO.SetActive(false);
+            HomeButtonGO.SetActive(false);
+            SettingButtonGO.SetActive(true);
+            datePanel.SetActive(true);
+            timePanel.SetActive(true);
+            MoneyTextGO.gameObject.SetActive(true);
+            
+            order_buttonGO.SetActive(false);
+            RecipeBookGO.SetActive(false);
+            InventoryButtonGo.SetActive(false);
+        }
+
         if (currentSceneName == "BakingStart") {
             KitchenButtonGO.SetActive(false);
             HomeButtonGO.SetActive(true);         // 이걸 다른 함수로 넣기 -> 메인을 내껄로 착각하도록 하면 된다. -> 대신 여기에 UI 띄우기

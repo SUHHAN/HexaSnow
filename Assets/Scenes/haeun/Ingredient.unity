@@ -1256,6 +1256,7 @@ MonoBehaviour:
     hasCompletedBakingTutorial: 0
     hasCompletedIngredientTutorial: 0
     hasCompletedBonusTutorial: 0
+    EndingCount: 0
   ingredientList: []
   ingre_Num: 
   IngreSprites:
@@ -1406,11 +1407,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDone: 0
   PageImage:
-  - {fileID: 21300000, guid: 53259b4574e1d0e45b8dd45a8dc0db9b, type: 3}
-  - {fileID: 21300000, guid: 69c2b279ddca6f24c98529c3e9dc3dc7, type: 3}
-  - {fileID: 21300000, guid: 2f0b831320a5674479fd98a480e1d7ae, type: 3}
-  - {fileID: 21300000, guid: 5f53b945edd1bba4c82c178166b9ca68, type: 3}
-  - {fileID: 21300000, guid: a927749e9f9667947b28e232b58f0c3a, type: 3}
+  - {fileID: 21300000, guid: f45ce3a11c1efc94a9e442dd9e275f2f, type: 3}
+  - {fileID: 21300000, guid: 6f602617ab479e945ae8d0c96eb7c2ff, type: 3}
+  - {fileID: 21300000, guid: 1406c8a478d74b1498c65fe6a7632fe5, type: 3}
+  - {fileID: 21300000, guid: 54b97ccaa79e2184f84d3d7fdcb53139, type: 3}
   ImagePanel: {fileID: 2129439916}
   StartButton: {fileID: 1250956499}
   NextButton: {fileID: 1928216936}
@@ -4112,6 +4112,7 @@ MonoBehaviour:
     hasCompletedBakingTutorial: 0
     hasCompletedIngredientTutorial: 0
     hasCompletedBonusTutorial: 0
+    EndingCount: 0
 --- !u!4 &1576083763
 Transform:
   m_ObjectHideFlags: 0
