@@ -683,7 +683,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.16744037, g: 0.20064753, b: 0.2528302, a: 0}
+  m_BackGroundColor: {r: 0.13333334, g: 0.13333334, b: 0.13333334, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1079,7 +1079,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 1024402158}
   currentTime: 0
-  daychange: {fileID: 0}
   GD:
     isGuestLoggedIn: 0
     date: 0
@@ -1093,6 +1092,7 @@ MonoBehaviour:
     hasCompletedIngredientTutorial: 0
     hasCompletedBonusTutorial: 0
     EndingCount: 0
+    Spe_visitDone: 0
 --- !u!114 &1024402158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2322,6 +2322,7 @@ MonoBehaviour:
     hasCompletedIngredientTutorial: 0
     hasCompletedBonusTutorial: 0
     EndingCount: 0
+    Spe_visitDone: 0
 --- !u!1 &1921581492
 GameObject:
   m_ObjectHideFlags: 0
@@ -2444,6 +2445,7 @@ MonoBehaviour:
     hasCompletedIngredientTutorial: 0
     hasCompletedBonusTutorial: 0
     EndingCount: 0
+    Spe_visitDone: 0
 --- !u!1 &1931119717
 GameObject:
   m_ObjectHideFlags: 0
