@@ -93,7 +93,39 @@ public void AddItems()
             menu.SetName(me.name);
 
             Transform menuImage = item.transform.Find("menuImage");
-            menuImage.GetComponent<Image>().sprite = MenuSprites[me.menuID];
+
+             // 특별 손님 인덱스 별로 사진 수정하기
+            if(me.menuID <= 34) {
+                menuImage.GetComponent<Image>().sprite = MenuSprites[me.menuID];
+            }
+            else if(101 <= me.menuID && me.menuID <= 104) {
+                if(me.score <= 10) {
+                    menuImage.GetComponent<Image>().sprite = MenuSprites[44 + me.menuID % 100];
+                }
+                else{
+                    menuImage.GetComponent<Image>().sprite = MenuSprites[34 + me.menuID % 100];
+                }
+            }
+            else if(201 <= me.menuID && me.menuID <= 204) {
+                if(me.score <= 10) {
+                    menuImage.GetComponent<Image>().sprite = MenuSprites[44 + 4 + me.menuID % 200];
+                }
+                else{
+                    menuImage.GetComponent<Image>().sprite = MenuSprites[34 + 4 + me.menuID % 200];
+                }
+            }
+            else if(301 == me.menuID) {
+                if(me.score <= 10) {
+                    menuImage.GetComponent<Image>().sprite = MenuSprites[53];
+                }
+                else{
+                    menuImage.GetComponent<Image>().sprite = MenuSprites[43];
+                }
+            }
+            else if(401 == me.menuID) {
+                menuImage.GetComponent<Image>().sprite = MenuSprites[44];
+            }
+
 
             //item의 색상을 각 등급에 맞는 색으로 지정하는 함수 작성하기
             menu.SetMenuColor();

@@ -88,37 +88,44 @@ public class special_customer : MonoBehaviour
         specialOrders.Add(5, oldMan);
         specialOrders.Add(8, spcMan);
 
-        specialVisit.Add(4, child);  
-        specialVisit.Add(7, oldMan);
-        specialVisit.Add(10, spcMan);
+        specialVisit.Add(3, child);  
+        specialVisit.Add(6, oldMan);
+        specialVisit.Add(9, spcMan);
 
         dayChange.onClick.AddListener(()=>{
             SceneManager.LoadScene("Deadline_Last");
         });
 
         LoadDone();
-        if(dateGD.time <= 300f & !Spe_visitDone){
-            currentDay = dateGD.date;
+        if (dateGD.time <= 355f)
+        {
             dayChange.gameObject.SetActive(true);
-           spc_OnSpecialTimeReached();
+            if (!Spe_visitDone)
+            {
+                currentDay = dateGD.date;
+                spc_OnSpecialTimeReached();
+            }
         }
-        if((dateGD.time <= 1f) & (Spe_visitDone | (!specialOrders.ContainsKey(currentDay) & !specialVisit.ContainsKey(currentDay)))){
-            LoadDone();
-            Spe_visitDone=false;
-            SaveDone();
-            SceneManager.LoadScene("Deadline");
-        }
+        if ((dateGD.time <= 1f) & (Spe_visitDone | (!specialOrders.ContainsKey(currentDay) & !specialVisit.ContainsKey(currentDay))))
+            {
+                LoadDone();
+                Spe_visitDone = false;
+                SaveDone();
+                SceneManager.LoadScene("Deadline");
+            }
 
     }
 
     private IEnumerator WaitForUiLogicManager()
-{
-    yield return new WaitUntil(() => UiLogicManager.Instance != null);
+    {
+        yield return new WaitUntil(() => UiLogicManager.Instance != null);
 
-    UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
-    UiLogicManager.Instance.order_button.gameObject.SetActive(false);
-    UiLogicManager.Instance.RecipeButton.gameObject.SetActive(false);
-    UiLogicManager.Instance.InventoryButtonGo.SetActive(false);
+        UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
+        UiLogicManager.Instance.order_button.gameObject.SetActive(false);
+        UiLogicManager.Instance.RecipeButton.gameObject.SetActive(false);
+        UiLogicManager.Instance.InventoryButtonGo.SetActive(false);
+        UiLogicManager.Instance.RecipeBook.SetActive(false);
+        UiLogicManager.Instance.OrderBook.SetActive(false);
 }
 private IEnumerator RestoreUI()
 {
@@ -140,7 +147,7 @@ private IEnumerator RestoreUI()
                 csvFileName = csvFileNameGirl;
             else if (customer.name == "old_man")
                 csvFileName = csvFileNameOldMan;
-            else if (customer.name == "spcMan")
+            else if (customer.name == "spcman")
                 csvFileName = csvFileNameMan;
 
             Debug.Log($"로드할 CSV 파일: {csvFileName}");
@@ -386,7 +393,7 @@ private IEnumerator RestoreUI()
             current_startId=2001;
             PlayDialogue(current_startId);
             LoadDate();
-            dateGD.EndingCount++;
+            count++;
             SaveDate();
             Debug.Log("특별 손님이 제품을 받아갔습니다!");
         }
@@ -420,7 +427,7 @@ private IEnumerator RestoreUI()
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
         currentDay = dateGD.date;
         if(!tryvisit){
-            if (Mathf.Abs(currentTime - 300f) < 0.1f & !Spe_visitDone)
+            if (Mathf.Abs(currentTime - 355f) < 0.1f & !Spe_visitDone)
         {
             dayChange.gameObject.SetActive(true);
             tryvisit =true;
