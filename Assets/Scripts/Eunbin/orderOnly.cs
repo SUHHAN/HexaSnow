@@ -73,18 +73,16 @@ public class OrderOnly : MonoBehaviour
     {
 
         GameData dateGD = DataManager.Instance.LoadGameData();
-        
+        if (dateGD.date == 10)
+        {
+            postman.SetActive(false);
+            SceneManager.LoadScene("customer");
+        }
+
         AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
         SceneManager.LoadScene("Main", LoadSceneMode.Additive); //기본 UI 띄우기 
         StartCoroutine(WaitForUiLogicManager());
-        if (dateGD.date == 10)
-        {
-            SceneManager.LoadScene("customer");
-        }
-        else
-        {
-            postman.SetActive(true);
-        }
+        
     
         //order.SetActive(false);
         RectTransform customerRect = postman.GetComponent<RectTransform>();

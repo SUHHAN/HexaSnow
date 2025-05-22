@@ -88,9 +88,9 @@ public class special_customer : MonoBehaviour
         specialOrders.Add(5, oldMan);
         specialOrders.Add(8, spcMan);
 
-        specialVisit.Add(3, child);  
-        specialVisit.Add(6, oldMan);
-        specialVisit.Add(9, spcMan);
+        specialVisit.Add(4, child);  
+        specialVisit.Add(7, oldMan);
+        specialVisit.Add(10, spcMan);
 
         dayChange.onClick.AddListener(()=>{
             SceneManager.LoadScene("Deadline_Last");

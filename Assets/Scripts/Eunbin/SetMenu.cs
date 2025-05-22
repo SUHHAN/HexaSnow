@@ -69,7 +69,7 @@ public class SetMenu : MonoBehaviour
 
             specialCustomerMenu.Add("child", new List<string> {"핑크 딸기 머핀", "리얼 초코 머핀", "핑크 딸기 파운드 케이크", "리얼 초코 파운드 케이크" });
             specialCustomerMenu.Add("old_man", new List<string> { "꿀고구마 파운드 케이크", "달콤 귤 파운트 케이크", "리얼 초코 파운드 케이크", "달콤 귤 타르트"});
-            specialCustomerMenu.Add("man", new List<string> { "블루 레몬 케이크" });
+            specialCustomerMenu.Add("spcman", new List<string> { "블루 레몬 케이크" });
         }
 
     public void current_cus(string menu, string cus){
