@@ -2774,10 +2774,10 @@ MonoBehaviour:
   happyold_man: {fileID: 21300000, guid: 078a81930ae304ceab64f0f7cfe72f1b, type: 3}
   normalold_man: {fileID: 21300000, guid: 18546abe6292a43f5bd9a054cf37c99e, type: 3}
   badold_man: {fileID: 21300000, guid: 98867de5d9d32445da4946a9c50ee84d, type: 3}
-  spcMan: {fileID: 21300000, guid: fc243f2f5af004cc0809abab1671f65f, type: 3}
-  happyspcMan: {fileID: 21300000, guid: 5311d3bf35e3b4ab4a35b04936ffde55, type: 3}
-  normalspcMan: {fileID: 21300000, guid: f8b32d6b5eb6e46e0a0039e20fd4b5bb, type: 3}
-  badspcMan: {fileID: 21300000, guid: cf3b8a2bae30846f98fea9bda5bda5ed, type: 3}
+  spcman: {fileID: 21300000, guid: bf71ee5bff3c34346ae801f46991396e, type: 3}
+  happyspcman: {fileID: 21300000, guid: 8a547af3f9417490baff1c6911529fba, type: 3}
+  normalspcman: {fileID: 21300000, guid: 8a547af3f9417490baff1c6911529fba, type: 3}
+  badspcman: {fileID: 21300000, guid: 207c51323370c495eb926093e8b34549, type: 3}
 --- !u!4 &1400469394
 Transform:
   m_ObjectHideFlags: 0

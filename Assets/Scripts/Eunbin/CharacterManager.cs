@@ -32,10 +32,10 @@ public class CharacterManager : MonoBehaviour
     public Sprite happyold_man;
     public Sprite normalold_man;
     public Sprite badold_man;
-    public Sprite spcMan;
-    public Sprite happyspcMan;
-    public Sprite normalspcMan;
-    public Sprite badspcMan;
+    public Sprite spcman;
+    public Sprite happyspcman;
+    public Sprite normalspcman;
+    public Sprite badspcman;
 
 
 
@@ -82,12 +82,12 @@ public class CharacterManager : MonoBehaviour
             { Expression.Normal, normalold_man},
             { Expression.Bad, badold_man }
         };
-        customerExpressions["spcMan"] = new Dictionary<Expression, Sprite>
+        customerExpressions["spcman"] = new Dictionary<Expression, Sprite>
         {
-            { Expression.set, spcMan },
-            { Expression.Happy, happyspcMan },
-            { Expression.Normal, normalspcMan},
-            { Expression.Bad, badspcMan }
+            { Expression.set, spcman },
+            { Expression.Happy, happyspcman },
+            { Expression.Normal, normalspcman},
+            { Expression.Bad, badspcman }
         };
 
 
