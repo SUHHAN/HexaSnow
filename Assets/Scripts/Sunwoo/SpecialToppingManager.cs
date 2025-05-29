@@ -159,20 +159,20 @@ public class SpecialToppingManager : MonoBehaviour
     string GetTalkingText(int day)
     {
         if (day >= 2 && day <= 4)
-            return "무작정 화려한 것보단, 어린아이들이 좋아할 만하게 만드는 게 좋겠어.";
+            return "예쁜 디저트를 만드려면 크림과 토핑의 색을 통일하는 게 좋겠지?";
         else if (day >= 5 && day <= 7)
         {
             if (!PlayerPrefs.HasKey("SeenDialogue_5to7"))
             {
                 PlayerPrefs.SetInt("SeenDialogue_5to7", 1);
-                return "아무래도 말씀하셨던 세 가지 재료를 한 번에 쓰긴 쉽지 않을 것 같아… 하나로 만드는 방법 말고 다른 걸 생각해볼까?";
+                return "세 가지 재료를 하나에 섞는 방법 말고 다른 걸 생각해볼까?";
             }
             return "이번엔 예전에 말한 세 가지 중 하나만 선택해보자.";
         }
         else if (day >= 8 && day <= 10)
-            return "아무리 그래도, 온통 파란색인 케이크는 별로일 것 같은데… 메인 크림과 데코 크림을 각각 다른 색으로 해볼까?";
+            return "메인 크림과 데코 크림을 각각 다른 색으로 하면 예쁠 것 같아!";
 
-        return "빈 텍스트 확인용"; // 기본 fallback 문구 추가
+        return "빈 텍스트 확인용";
     }
 
     public void ToggleTopping(int index)
