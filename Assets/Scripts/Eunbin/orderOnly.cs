@@ -295,9 +295,7 @@ public class OrderOnly : MonoBehaviour
         nameBubble.SetActive(false);
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
         UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
-
-
-            SceneManager.LoadScene("customer");
+        SceneManager.LoadScene("customer");
 }
  private void SetRandomDialogueIndex()
     {
@@ -331,16 +329,20 @@ private void InitializeButtons(){
     orderCheck.onClick.RemoveAllListeners();
     orderCheck.onClick.AddListener(OpenOrderUI);
 }
-private void ReceiveOrders(int currentNicknameIndex, int order_menu_id){
-    GameData dateGD = DataManager.Instance.LoadGameData();
-    LoadDate(); // GD가 null이면 로드하여 처리
-    if (!dailyOrders.ContainsKey(dateGD.date))
+    private void ReceiveOrders(int currentNicknameIndex, int order_menu_id)
+    {
+        GameData dateGD = DataManager.Instance.LoadGameData();
+        LoadDate(); // GD가 null이면 로드하여 처리
+        if (!dailyOrders.ContainsKey(dateGD.date))
         {
             dailyOrders[dateGD.date] = new List<List<int>>();
         }
-    Debug.Log($"현재 {dateGD.date}일의 주문 상태: {dailyOrders[dateGD.date].Count}개의 주문이 있습니다.");
-    dailyOrders[dateGD.date].Add(new List<int> { order_menu_id, currentNicknameIndex});
-    SaveDate();
+        Debug.Log($"현재 {dateGD.date}일의 주문 상태: {dailyOrders[dateGD.date].Count}개의 주문이 있습니다.");
+        dailyOrders[dateGD.date].Add(new List<int> { order_menu_id, currentNicknameIndex });
+        SaveDate();
+        Loadscene();
+        currentScene = "customer";
+        Savescene();
 }
 public void openMenu(int day){
     int maxId;
