@@ -54,7 +54,7 @@ public class tutorial : MonoBehaviour
         }
         skip.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene("order1");
+            SceneManager.LoadScene("tutorial2");
         });
     }
     private void LoadDialoguesFromCSV()
