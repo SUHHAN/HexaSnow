@@ -2201,6 +2201,7 @@ MonoBehaviour:
   GameSettingsButton: {fileID: 1747899351}
   SaveButton: {fileID: 1113016879}
   BlackPanel: {fileID: 676012916}
+  SavePointButton: {fileID: 567824191}
 --- !u!4 &379815261
 Transform:
   m_ObjectHideFlags: 0
