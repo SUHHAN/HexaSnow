@@ -1466,6 +1466,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 718956063}
+        m_TargetAssemblyTypeName: DataManager, Assembly-CSharp
+        m_MethodName: OnClick_ContinueSlot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &177818305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2571,7 +2583,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 718956063}
         m_TargetAssemblyTypeName: DataManager, Assembly-CSharp
-        m_MethodName: SaveGameData
+        m_MethodName: SaveContinueSlot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3673,6 +3685,23 @@ MonoBehaviour:
     hasCompletedBonusTutorial: 0
     EndingCount: 0
     Spe_visitDone: 0
+  continueSlot:
+    gameData:
+      isGuestLoggedIn: 0
+      date: 0
+      money: 0
+      time: 0
+      ingredientNum: 
+      myBake: []
+      serializedDailyOrders: 
+      currentScene: 
+      hasCompletedBakingTutorial: 0
+      hasCompletedIngredientTutorial: 0
+      hasCompletedBonusTutorial: 0
+      EndingCount: 0
+      Spe_visitDone: 0
+    sceneName: StartScene
+    fileName: ContinueSlot.json
 --- !u!4 &718956064
 Transform:
   m_ObjectHideFlags: 0

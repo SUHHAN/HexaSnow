@@ -2757,7 +2757,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 1405821391}
   currentTime: 0
-  daychange: {fileID: 0}
   GD:
     isGuestLoggedIn: 0
     date: 0
@@ -3554,7 +3553,6 @@ MonoBehaviour:
   dialogueName: {fileID: 468210544}
   speechBubble: {fileID: 287825044}
   nameBubble: {fileID: 1442073341}
-  gametime: {fileID: 1405821390}
   oldMan: {fileID: 414684742}
   man: {fileID: 1611745495}
   child: {fileID: 1220136977}
