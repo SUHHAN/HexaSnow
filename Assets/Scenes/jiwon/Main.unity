@@ -2201,6 +2201,7 @@ MonoBehaviour:
   GameSettingsButton: {fileID: 1747899351}
   SaveButton: {fileID: 1113016879}
   BlackPanel: {fileID: 676012916}
+  SavePointButton: {fileID: 567824191}
 --- !u!4 &379815261
 Transform:
   m_ObjectHideFlags: 0
@@ -3292,6 +3293,7 @@ GameObject:
   - component: {fileID: 567824193}
   - component: {fileID: 567824192}
   - component: {fileID: 567824191}
+  - component: {fileID: 567824195}
   m_Layer: 5
   m_Name: SavePointButton
   m_TagString: Untagged
@@ -3355,9 +3357,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1593782515}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DataManager, Assembly-CSharp
-        m_MethodName: SaveGameData
+        m_MethodName: SaveSlotData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3425,6 +3427,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 182, y: 69}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &567824195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567824190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8372bb6ea0cb26c4d9b338d0c61b3f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &582162100
 GameObject:
   m_ObjectHideFlags: 0
@@ -8696,64 +8710,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583113693}
   m_CullTransparentMesh: 1
---- !u!1 &1593782514
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1593782516}
-  - component: {fileID: 1593782515}
-  m_Layer: 0
-  m_Name: DataManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1593782515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1593782514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54271108d9c32cc46b5154fbe7de1f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameData:
-    isGuestLoggedIn: 0
-    date: 0
-    money: 0
-    time: 0
-    ingredientNum: 
-    myBake: []
-    serializedDailyOrders: 
-    currentScene: 
-    hasCompletedBakingTutorial: 0
-    hasCompletedIngredientTutorial: 0
-    hasCompletedBonusTutorial: 0
-    EndingCount: 0
-    Spe_visitDone: 0
---- !u!4 &1593782516
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1593782514}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 334.96088, y: 1319.8463, z: -5.4529486}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1622134607
 GameObject:
   m_ObjectHideFlags: 0
@@ -9450,6 +9406,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1730368352}
   m_CullTransparentMesh: 1
+--- !u!1 &1737626056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1737626058}
+  - component: {fileID: 1737626057}
+  m_Layer: 0
+  m_Name: SaveButtonSelfConnect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1737626057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737626056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8372bb6ea0cb26c4d9b338d0c61b3f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1737626058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737626056}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 309.39926, y: 1365.6145, z: -5.9895916}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1747899347
 GameObject:
   m_ObjectHideFlags: 0
@@ -13066,4 +13066,4 @@ SceneRoots:
   - {fileID: 1004444571}
   - {fileID: 379815261}
   - {fileID: 916504832}
-  - {fileID: 1593782516}
+  - {fileID: 1737626058}

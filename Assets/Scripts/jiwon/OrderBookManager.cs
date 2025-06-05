@@ -135,6 +135,8 @@ public class OrderBookManager : MonoBehaviour
                     Debug.LogWarning("파싱된 주문서 데이터가 없습니다.");
                     OrderContent.text = "주문서가 없습니다.";
                     OrderCustomer.text = "주문서가 없습니다.";
+                    prevButton.interactable = false;
+                    nextButton.interactable = false;
                     return;
                 }
 
@@ -156,6 +158,8 @@ public class OrderBookManager : MonoBehaviour
                     Debug.LogWarning("주문서 데이터가 없습니다.");
                     OrderContent.text = "주문서가 없습니다.";
                     OrderCustomer.text = "주문서가 없습니다.";
+                    prevButton.interactable = false;
+                    nextButton.interactable = false;
                     return;
                 }
 
@@ -168,6 +172,8 @@ public class OrderBookManager : MonoBehaviour
                 Debug.LogError($"주문서 파싱 중 오류 발생: {ex.Message}");
                 OrderContent.text = "주문서를 불러오는 데 오류가 발생했습니다.";
                 OrderCustomer.text = "주문서를 불러오는 데 오류가 발생했습니다.";
+                prevButton.interactable = false;
+                nextButton.interactable = false;
             }
         }
         else
@@ -175,6 +181,8 @@ public class OrderBookManager : MonoBehaviour
             OrderContent.text = "주문서가 없습니다.";
             OrderCustomer.text = "주문서가 없습니다.";
             Debug.LogWarning("저장된 주문서가 없습니다.");
+            prevButton.interactable = false;
+            nextButton.interactable = false;
         }
     }
 

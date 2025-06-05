@@ -17,6 +17,9 @@ public class SettingsManager : MonoBehaviour
 
     public GameObject BlackPanel;
 
+    [Header("저장 패널")]
+    public Button SavePointButton;
+
     private void Start()
     {
         // 버튼 클릭 이벤트 등록
@@ -26,7 +29,7 @@ public class SettingsManager : MonoBehaviour
 
         BlackPanel.SetActive(false);
 
-       
+
         AccountPanel.SetActive(true);
         GameSettingsPanel.SetActive(false);
         SavePanel.SetActive(false); // 저장 패널 열기
@@ -112,6 +115,19 @@ public class SettingsManager : MonoBehaviour
         AccountPanel.SetActive(false);
         GameSettingsPanel.SetActive(false);
         SavePanel.SetActive(true); // 저장 패널 열기
+
+        // 현재 씬 이름 가져오기
+        string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+
+        // 조건: 특정 씬에서만 버튼 비활성화
+        if (currentScene == "Lobby" || currentScene == "Lobby2")
+        {
+            SavePointButton.interactable = false;
+        }
+        else
+        {
+            SavePointButton.interactable = true;
+        }
 
     }
 

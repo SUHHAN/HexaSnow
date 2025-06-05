@@ -3043,6 +3043,23 @@ MonoBehaviour:
     hasCompletedBonusTutorial: 0
     EndingCount: 0
     Spe_visitDone: 0
+  continueSlot:
+    gameData:
+      isGuestLoggedIn: 0
+      date: 0
+      money: 0
+      time: 0
+      ingredientNum: 
+      myBake: []
+      serializedDailyOrders: 
+      currentScene: 
+      hasCompletedBakingTutorial: 0
+      hasCompletedIngredientTutorial: 0
+      hasCompletedBonusTutorial: 0
+      EndingCount: 0
+      Spe_visitDone: 0
+    sceneName: StartScene
+    fileName: ContinueSlot.json
 --- !u!4 &718956064
 Transform:
   m_ObjectHideFlags: 0
@@ -3851,6 +3868,7 @@ MonoBehaviour:
   GameSettingsButton: {fileID: 1107804859}
   SaveButton: {fileID: 1761816902}
   BlackPanel: {fileID: 685595571}
+  SavePointButton: {fileID: 947945728}
 --- !u!4 &845176552
 Transform:
   m_ObjectHideFlags: 0

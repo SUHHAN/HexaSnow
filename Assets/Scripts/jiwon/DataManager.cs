@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
+using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [System.Serializable]
 
@@ -65,6 +68,27 @@ public class GameData
 
 
     // 나중에 추가할 게임 진행 정보
+    
+
+}
+
+[System.Serializable]
+public class SlotData
+{
+    public GameData gameData;
+    public string sceneName;
+    public string fileName = "ContinueSlot.json";
+
+    public string GetFullPath()
+    {
+        return Path.Combine(Application.persistentDataPath, fileName);
+    }
+
+    public SlotData(GameData data, string sceneName)
+    {
+        this.gameData = data;
+        this.sceneName = sceneName;
+    }
 }
 
 
@@ -73,6 +97,7 @@ public class DataManager : MonoBehaviour
     private string gameDataPath; // 저장할 JSON 파일 경로
     public static DataManager Instance { get; private set; }
     public GameData gameData = new GameData();
+    public SlotData continueSlot = new SlotData(new GameData(), "StartScene");
 
     private void Awake()
     {
@@ -85,6 +110,7 @@ public class DataManager : MonoBehaviour
         }
         else
         {
+            Debug.LogWarning("중복된 DataManager가 생성되어 삭제되었습니다. 씬에 하나만 있어야 합니다.");
             Destroy(gameObject);
         }
     }
@@ -93,9 +119,9 @@ public class DataManager : MonoBehaviour
     private void SetInitialGameData()
     {
         gameData.isGuestLoggedIn = true;
-        gameData.date = 1;  
-        gameData.money = 5000;  
-        gameData.ingredientNum = gameData.ingredientNum = new List<int>{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0};
+        gameData.date = 1;
+        gameData.money = 5000;
+        gameData.ingredientNum = gameData.ingredientNum = new List<int> { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0 };
         gameData.myBake = new List<MyRecipeList>();
         Debug.Log("초기 게임 데이터 설정 완료");
     }
@@ -133,6 +159,43 @@ public class DataManager : MonoBehaviour
             Debug.LogWarning("저장된 게임 데이터가 없습니다.");
             return null;
         }
+    }
+
+    public void SaveSlotData()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        gameData.currentScene = sceneName;
+
+        continueSlot = new SlotData(gameData, sceneName);
+        string json = JsonUtility.ToJson(continueSlot, true);
+        File.WriteAllText(continueSlot.GetFullPath(), json);
+
+        Debug.Log($"[저장] 이어하기 슬롯 저장 완료: {sceneName}");
+    }
+
+    public SlotData LoadSlotData()
+    {
+        string path = continueSlot.GetFullPath();
+        if (!File.Exists(path))
+        {
+            Debug.LogWarning("[불러오기] 이어하기 슬롯 파일이 없습니다.");
+        }
+
+        string json = File.ReadAllText(path);
+        continueSlot = JsonUtility.FromJson<SlotData>(json);
+        gameData = continueSlot.gameData;
+        SaveGameData();
+
+        Debug.Log($"[불러오기] 불러온 날짜: {gameData.date}, 돈: {gameData.money}, 시간: {gameData.time}");
+        Debug.Log($"[불러오기] 이어하기 슬롯 로드 완료, 씬 이동: {continueSlot.sceneName}");
+        SceneManager.LoadScene(continueSlot.sceneName);
+        return continueSlot;
+
+    }
+
+    public void OnClick_ContinueSlot()
+    {
+        LoadSlotData();
     }
 
     // 게임 데이터의 게스트 로그인 상태 확인
