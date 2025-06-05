@@ -150,6 +150,7 @@ public class SpecialToppingManager : MonoBehaviour
         }
         else if (currentDay >= 8 && currentDay <= 10)
         {
+            foreach (int i in new int[] { 3, 5, 6, 7 }) toppingButtons[i].gameObject.SetActive(true);
             foreach (int i in new int[] { 0, 1, 4, 5 }) creamButtons[i].gameObject.SetActive(true);
             foreach (var btn in flowerButtons) btn.gameObject.SetActive(true);
         }
@@ -158,20 +159,20 @@ public class SpecialToppingManager : MonoBehaviour
     string GetTalkingText(int day)
     {
         if (day >= 2 && day <= 4)
-            return "무작정 화려한 것보단, 어린아이들이 좋아할 만하게 만드는 게 좋겠어.";
+            return "예쁜 디저트를 만드려면 크림과 토핑의 색을 통일하는 게 좋겠지?";
         else if (day >= 5 && day <= 7)
         {
             if (!PlayerPrefs.HasKey("SeenDialogue_5to7"))
             {
                 PlayerPrefs.SetInt("SeenDialogue_5to7", 1);
-                return "아무래도 말씀하셨던 세 가지 재료를 한 번에 쓰긴 쉽지 않을 것 같아… 하나로 만드는 방법 말고 다른 걸 생각해볼까?";
+                return "세 가지 재료를 하나에 섞는 방법 말고 다른 걸 생각해볼까?";
             }
             return "이번엔 예전에 말한 세 가지 중 하나만 선택해보자.";
         }
         else if (day >= 8 && day <= 10)
-            return "아무리 그래도, 온통 파란색인 케이크는 별로일 것 같은데… 메인 크림과 데코 크림을 각각 다른 색으로 해볼까?";
+            return "메인 크림과 데코 크림을 각각 다른 색으로 하면 예쁠 것 같아!";
 
-        return "빈 텍스트 확인용"; // 기본 fallback 문구 추가
+        return "빈 텍스트 확인용";
     }
 
     public void ToggleTopping(int index)
@@ -210,22 +211,49 @@ public class SpecialToppingManager : MonoBehaviour
     void HandleStartTopping()
     {
         startToppingPanel.SetActive(false);
-        addToppingPanel.SetActive(true);
+
+        if (currentDay >= 8 && currentDay <= 10)
+        {
+            addToppingPanel.SetActive(true);
+        }
+        else
+        {
+            addToppingPanel.SetActive(true);
+        }
     }
 
     void HandleFinishTopping()
     {
         addToppingPanel.SetActive(false);
-        if (currentDay >= 2 && currentDay <= 4) addCreamPanel.SetActive(true);
-        else if (currentDay >= 5 && currentDay <= 7) { finishBakingPanel.SetActive(true); UpdateBakingImage(); }
-        else if (currentDay >= 8 && currentDay <= 10) { addCreamPanel.SetActive(true); toppingStage = 1; }
+
+        if (currentDay >= 2 && currentDay <= 4)
+        {
+            addCreamPanel.SetActive(true);
+        }
+        else if (currentDay >= 5 && currentDay <= 7)
+        {
+            finishBakingPanel.SetActive(true);
+            UpdateBakingImage();
+        }
+        else if (currentDay >= 8 && currentDay <= 10)
+        {
+            addCreamPanel.SetActive(true);
+        }
     }
 
     void HandleFinishCream()
     {
         addCreamPanel.SetActive(false);
-        if (currentDay >= 2 && currentDay <= 4) { finishBakingPanel.SetActive(true); UpdateBakingImage(); }
-        else if (currentDay >= 8 && currentDay <= 10) { addToppingPanel.SetActive(true); toppingStage = 2; }
+
+        if (currentDay >= 2 && currentDay <= 4)
+        {
+            finishBakingPanel.SetActive(true);
+            UpdateBakingImage();
+        }
+        else if (currentDay >= 8 && currentDay <= 10)
+        {
+            addFlowerPanel.SetActive(true);
+        }
     }
 
     void HandleFinishFlower()
@@ -332,8 +360,8 @@ public class SpecialToppingManager : MonoBehaviour
         {
             if (selectedDessertIndex == 28)
             {
-                if (OnlySelected(selectedCreamIndices, 4, 5) &&
-                    OnlySelected(selectedToppingIndices, 0) &&
+                if (OnlySelected(selectedToppingIndices, 7) &&
+                    OnlySelected(selectedCreamIndices, 4, 5) &&
                     OnlySelected(selectedFlowerIndices, 0))
                 {
                     finalCsvIndex = 301;

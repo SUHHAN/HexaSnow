@@ -154,6 +154,7 @@ public class happyEnding : MonoBehaviour
         if (currentDialogueIndex >= dialogues.Count)
         {
             speechBubble.SetActive(false);
+            SceneManager.LoadScene("Lobby");
         }
         else
         {

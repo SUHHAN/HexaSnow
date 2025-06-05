@@ -71,10 +71,19 @@ public class OrderOnly : MonoBehaviour
 }
     void Start()
     {
+
+        GameData dateGD = DataManager.Instance.LoadGameData();
+        if (dateGD.date == 10)
+        {
+            postman.SetActive(false);
+            SceneManager.LoadScene("customer");
+        }
+
         AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
         SceneManager.LoadScene("Main", LoadSceneMode.Additive); //기본 UI 띄우기 
         StartCoroutine(WaitForUiLogicManager());
-        postman.SetActive(true);
+        
+    
         //order.SetActive(false);
         RectTransform customerRect = postman.GetComponent<RectTransform>();
         StartCoroutine(MoveCustomerUp(customerRect));
@@ -85,22 +94,21 @@ public class OrderOnly : MonoBehaviour
         LoadNicknameFromCSV();
         LoadMenuForPopup(); // 메뉴 해금 팝업용 CSV 로드
         Postmanment();
-        GameData dateGD = DataManager.Instance.LoadGameData();
 
         openMenu(dateGD.date);
 
         if (dateGD.date >= 4)
         {
-            accept_order=4;
+            accept_order = 4;
         }
         if (dateGD.date >= 7)
         {
-            accept_order=6;
+            accept_order = 6;
         }
 
         //UiLogicManager.Instance.LoadMoneyData();
         Loadscene();
-        currentScene="order1";
+        currentScene = "order1";
         Savescene();
     }
 
@@ -287,10 +295,7 @@ public class OrderOnly : MonoBehaviour
         nameBubble.SetActive(false);
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
         UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
-
-
-        if(dateGD.date>1)
-            SceneManager.LoadScene("customer");
+        SceneManager.LoadScene("customer");
 }
  private void SetRandomDialogueIndex()
     {
@@ -324,22 +329,26 @@ private void InitializeButtons(){
     orderCheck.onClick.RemoveAllListeners();
     orderCheck.onClick.AddListener(OpenOrderUI);
 }
-private void ReceiveOrders(int currentNicknameIndex, int order_menu_id){
-    GameData dateGD = DataManager.Instance.LoadGameData();
-    LoadDate(); // GD가 null이면 로드하여 처리
-    if (!dailyOrders.ContainsKey(dateGD.date))
+    private void ReceiveOrders(int currentNicknameIndex, int order_menu_id)
+    {
+        GameData dateGD = DataManager.Instance.LoadGameData();
+        LoadDate(); // GD가 null이면 로드하여 처리
+        if (!dailyOrders.ContainsKey(dateGD.date))
         {
             dailyOrders[dateGD.date] = new List<List<int>>();
         }
-    Debug.Log($"현재 {dateGD.date}일의 주문 상태: {dailyOrders[dateGD.date].Count}개의 주문이 있습니다.");
-    dailyOrders[dateGD.date].Add(new List<int> { order_menu_id, currentNicknameIndex});
-    SaveDate();
+        Debug.Log($"현재 {dateGD.date}일의 주문 상태: {dailyOrders[dateGD.date].Count}개의 주문이 있습니다.");
+        dailyOrders[dateGD.date].Add(new List<int> { order_menu_id, currentNicknameIndex });
+        SaveDate();
+        Loadscene();
+        currentScene = "customer";
+        Savescene();
 }
 public void openMenu(int day){
     int maxId;
-    if(day<=2)
-        maxId=day*2000+1000;
-    else maxId=day*1000+3000;
+    if (day <= 2)
+            maxId = day * 2000 + 1000;
+        else maxId = day * 1000 + 3000;
      filteredDialogues=dialogues.FindAll(dialogue=>{
         if (int.TryParse(dialogue.id, out int dialogueId)){
             return dialogueId<=maxId;
@@ -508,7 +517,7 @@ private IEnumerator MoveCustomerUp(RectTransform customerRect)
 private IEnumerator MoveCustomerDown(RectTransform customerRect)
 {
     Vector3 startPosition = customerRect.position;
-    Vector3 bouncePosition = new Vector3(startPosition.x, startPosition.y + 50, startPosition.z); // 반동 위치
+    Vector3 bouncePosition = new Vector3(startPosition.x, startPosition.y + 20, startPosition.z); // 반동 위치
     Vector3 targetPosition = new Vector3(startPosition.x, startPosition.y - 1200, startPosition.z); // 최종 위치
 
     float bounceDuration = 0.3f;

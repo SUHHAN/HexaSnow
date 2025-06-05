@@ -253,14 +253,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 251074428}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01bd2d87051fb4d63afa2f1a8e4609fb, type: 3}
+  m_Script: {fileID: 11500000, guid: e98427331f4db4558ad67978ac4aaad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speechBubble: {fileID: 307725246}
   nameBubble: {fileID: 2092140507}
   dialogueText: {fileID: 1005240626}
   dialogueName: {fileID: 378595418}
-  csvFileName: happyEnding.csv
+  csvFileName: badEnding.csv
 --- !u!1 &307725246
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,7 +945,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.16744037, g: 0.20064753, b: 0.2528302, a: 0}
+  m_BackGroundColor: {r: 0.13333334, g: 0.13333334, b: 0.13333334, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
