@@ -104,6 +104,7 @@ public class CharacterManager : MonoBehaviour
         Debug.LogError("고객의 SpriteRenderer 컴포넌트가 없습니다.");
         return;
     }
+
     // 표정 변경
     string characterType = customer.name.ToLower();
     Debug.Log($"[ChangeFace] 캐릭터: {characterType}, 표정: {expression}");

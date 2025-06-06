@@ -47,17 +47,13 @@ public class RunPopupManager : MonoBehaviour
     public void ContinueGame()
     {
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
-        GameData loadedData = DataManager.Instance.LoadGameData();
+        // 이어하기 슬롯을 통해 씬과 데이터를 모두 불러옴
+        var slot = DataManager.Instance.LoadSlotData();
 
-        if (loadedData != null)
+        if (slot == null)
         {
-            DataManager.Instance.gameData = loadedData; // 불러온 데이터를 적용
-            Debug.Log("이어하기 진행: 저장된 데이터 로드 완료");
-            SceneManager.LoadScene("order1"); // 기존 진행 상태에서 게임 시작
-        }
-        else
-        {
-            Debug.LogWarning("저장된 데이터가 없어 새 게임을 시작합니다.");
+            Debug.LogWarning("저장된 이어하기 슬롯이 없습니다.");
+            // 필요하다면 새 게임으로 유도하는 UI 띄우기
         }
     }
 }
