@@ -113,10 +113,10 @@ public class OrderOnly : MonoBehaviour
     }
 
     private IEnumerator WaitForUiLogicManager()
-{
-    yield return new WaitUntil(() => UiLogicManager.Instance != null);
+    {
+        yield return new WaitUntil(() => UiLogicManager.Instance != null);
 
-    UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
+        UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
     
 }
     private void LoadDialoguesFromCSV()
