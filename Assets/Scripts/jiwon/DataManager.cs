@@ -38,6 +38,7 @@ public class GameData
     public bool hasCompletedBonusTutorial;     // 보너스 튜토리얼 완료 여부
     public int EndingCount=0;
     public bool Spe_visitDone=false;
+    public bool Spe_BakingOn = false;
 
     public void SetIngredient(List<int> newIngredientNum)
     {

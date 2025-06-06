@@ -36,7 +36,7 @@ public class special_customer : MonoBehaviour
     public GameObject spcMan;
     public GameObject child;
     public Button none;
-    private int check=0;
+    private int check = 0;
     private List<GameObject> customers = new List<GameObject>();
 
     public string csvFileNameGirl = "specialGuest_girl.csv";
@@ -55,7 +55,8 @@ public class special_customer : MonoBehaviour
     private float currentTime;
     private int count;
     private bool Spe_visitDone;
-    private bool tryvisit=false;
+    private bool tryvisit = false;
+    private bool Spe_Baking = false;
 
     [SerializeField] private GameData GD = new GameData();
 
@@ -81,21 +82,22 @@ public class special_customer : MonoBehaviour
         customers.Add(child);
         customers.Add(oldMan);
         customers.Add(spcMan);
-        
+
         speechBubble.SetActive(false);
 
-        specialOrders.Add(2, child);  
+        specialOrders.Add(2, child);
         specialOrders.Add(5, oldMan);
         specialOrders.Add(8, spcMan);
 
-        specialVisit.Add(4, child);  
+        specialVisit.Add(4, child);
         specialVisit.Add(7, oldMan);
         specialVisit.Add(10, spcMan);
 
-        dayChange.onClick.AddListener(()=>{
+        dayChange.onClick.AddListener(() =>
+        {
             SceneManager.LoadScene("Deadline_Last");
         });
-
+        
         LoadDone();
         if (dateGD.time <= 355f)
         {
@@ -107,12 +109,12 @@ public class special_customer : MonoBehaviour
             }
         }
         if ((dateGD.time <= 1f) & (Spe_visitDone | (!specialOrders.ContainsKey(currentDay) & !specialVisit.ContainsKey(currentDay))))
-            {
-                LoadDone();
-                Spe_visitDone = false;
-                SaveDone();
-                SceneManager.LoadScene("Deadline");
-            }
+        {
+            LoadDone();
+            Spe_visitDone = false;
+            SaveDone();
+            SceneManager.LoadScene("Deadline");
+        }
 
     }
 
@@ -126,16 +128,16 @@ public class special_customer : MonoBehaviour
         UiLogicManager.Instance.InventoryButtonGo.SetActive(false);
         UiLogicManager.Instance.RecipeBook.SetActive(false);
         UiLogicManager.Instance.OrderBook.SetActive(false);
-}
-private IEnumerator RestoreUI()
-{
-    yield return new WaitUntil(() => UiLogicManager.Instance != null);
+    }
+    private IEnumerator RestoreUI()
+    {
+        yield return new WaitUntil(() => UiLogicManager.Instance != null);
 
-    UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
-    UiLogicManager.Instance.order_button.gameObject.SetActive(true);
-    UiLogicManager.Instance.RecipeButton.gameObject.SetActive(true);
-    UiLogicManager.Instance.InventoryButtonGo.SetActive(true);
-}
+        UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
+        UiLogicManager.Instance.order_button.gameObject.SetActive(true);
+        UiLogicManager.Instance.RecipeButton.gameObject.SetActive(true);
+        UiLogicManager.Instance.InventoryButtonGo.SetActive(true);
+    }
 
     public void LoadDialoguesFromCSV()
     {
@@ -220,10 +222,16 @@ private IEnumerator RestoreUI()
             Debug.Log($"특별 손님 베이커리받으러 옴{currentDay}일차");
             StartCoroutine(VisitSpecialCustomer());
         }
-        else {
+        else if (specialOrders.ContainsKey(currentDay))
+        {
             Debug.Log($"특별 손님 주문받으러 옴{currentDay}일차");
             StartCoroutine(orderSpecialCustomer());// 특별 손님 주문
-            }
+        }
+        else
+        {
+            Debug.Log($"특별 손님 방문없음{currentDay}일차");
+             dayChange.gameObject.SetActive(true);
+        }
     }
 
     public IEnumerator orderSpecialCustomer()
@@ -238,6 +246,9 @@ private IEnumerator RestoreUI()
             customer = specialOrders[currentDay];
             LoadDialoguesFromCSV();
             customer.SetActive(true);
+            LoadBakingOn();
+            Spe_Baking= true;
+            SaveBakingOn();
             RectTransform customerRect = customer.GetComponent<RectTransform>();
             StartCoroutine(MoveCustomerUp(customerRect));
 
@@ -264,71 +275,76 @@ private IEnumerator RestoreUI()
             Debug.LogError($"특별 손님 방문 데이터가 없습니다!{currentDay}일차");
             yield break;
         }
-        else {
-        customer = specialVisit[currentDay];
-        LoadDialoguesFromCSV();
-        customer.SetActive(true);
-        RectTransform customerRect = customer.GetComponent<RectTransform>();
-        StartCoroutine(MoveCustomerUp(customerRect));
-
-        StartCoroutine(WaitForUiLogicManager());
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
-        current_startId=1001;
-        PlayDialogue(current_startId);
-        
-        setmenu.current_cus("딸기 케이크", customer.name); 
-        StartCoroutine(HandleCustomerInteraction(customer, currentDay));
-
-        none.onClick.RemoveAllListeners();
-        none.onClick.AddListener(() =>
+        else
         {
-            Debug.Log($"손님 {customer.name}이(가) 메뉴를 받지 못했습니다.");
-            UpdateDialogue("none");
-            AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_fail);
-        });
+            customer = specialVisit[currentDay];
+            LoadDialoguesFromCSV();
+            customer.SetActive(true);
+            RectTransform customerRect = customer.GetComponent<RectTransform>();
+            StartCoroutine(MoveCustomerUp(customerRect));
+
+            StartCoroutine(WaitForUiLogicManager());
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
+            current_startId = 1001;
+            PlayDialogue(current_startId);
+
+            setmenu.current_cus("딸기 케이크", customer.name);
+            StartCoroutine(HandleCustomerInteraction(customer, currentDay));
+
+            none.onClick.RemoveAllListeners();
+            none.onClick.AddListener(() =>
+            {
+                Debug.Log($"손님 {customer.name}이(가) 메뉴를 받지 못했습니다.");
+                UpdateDialogue("none");
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_fail);
+            });
         }
     }
     private void PlayDialogue(int startId)
-     {
+    {
         // ID에 맞는 대사를 리스트에서 검색
         currentDialogueIndex = dialogues.FindIndex(line => line.id == startId);
         if (currentDialogueIndex != -1)
         {
             StartCoroutine(ShowCurrentDialogue(startId));
         }
-    else
-    {
-        Debug.LogWarning($"ID {startId}에 해당하는 대사가 없습니다.");
-        EndDialogue();
-    }
+        else
+        {
+            Debug.LogWarning($"ID {startId}에 해당하는 대사가 없습니다.");
+            EndDialogue();
+        }
     }
 
     private IEnumerator ShowCurrentDialogue(int startId)
     {
-         GameData dateGD = DataManager.Instance.LoadGameData();
+        GameData dateGD = DataManager.Instance.LoadGameData();
         if (currentDialogueIndex < 0 || currentDialogueIndex >= dialogues.Count)
         {
-            if(startId==1){
+            if (startId == 1)
+            {
                 Debug.Log("스페셜 손님 주문 완료!");
                 RectTransform customerRect = customer.GetComponent<RectTransform>();
                 yield return StartCoroutine(MoveCustomerDown(customerRect));
                 customer.SetActive(false);
-                Spe_visitDone=true;
+                Spe_visitDone = true;
                 SaveDone();
                 StartCoroutine(RestoreUI());
                 EndDialogue();
-                if(dateGD.time<1){
+                if (dateGD.time < 1)
+                {
                     SceneManager.LoadScene("Deadline");
-        }
+                }
                 yield break;
             }
-            else if(startId==1001){
+            else if (startId == 1001)
+            {
                 speechBubble.SetActive(false);
                 MadeMenu.SetActive(true);
                 none.gameObject.SetActive(true);
                 yield break;
             }
-            else{
+            else
+            {
                 isOrderCompleted = true;
                 Debug.Log("제품 수령");
                 yield break;
@@ -358,7 +374,10 @@ private IEnumerator RestoreUI()
         RectTransform customerRect = customer.GetComponent<RectTransform>();
         yield return StartCoroutine(MoveCustomerDown(customerRect));
         customer.SetActive(false);
-        Spe_visitDone=true;
+        LoadBakingOn();
+        Spe_Baking= false;
+        SaveBakingOn();
+        Spe_visitDone = true;
         SaveDone();
         speechBubble.SetActive(false);
         StartCoroutine(RestoreUI());
@@ -367,7 +386,8 @@ private IEnumerator RestoreUI()
 
         Debug.Log("특별 손님이 방문을 완료했습니다.");
         GameData dateGD = DataManager.Instance.LoadGameData();
-        if(dateGD.time<1){
+        if (dateGD.time < 1)
+        {
             SceneManager.LoadScene("Deadline");
         }
     }
@@ -383,14 +403,14 @@ private IEnumerator RestoreUI()
         if (action.Equals("none"))
         {
             expression = Expression.Bad;
-            current_startId=4001;
+            current_startId = 4001;
             PlayDialogue(current_startId);
         }
         else if (action.Equals("True"))
         {
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_succ);
             expression = Expression.Happy;
-            current_startId=2001;
+            current_startId = 2001;
             PlayDialogue(current_startId);
             LoadDate();
             count++;
@@ -401,7 +421,7 @@ private IEnumerator RestoreUI()
         {
             expression = Expression.Normal;
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.ingre_fail);
-            current_startId=3001;
+            current_startId = 3001;
             PlayDialogue(current_startId);
             Debug.Log("특별 손님이 제품을 잘못 받아갔습니다!");
         }
@@ -426,107 +446,125 @@ private IEnumerator RestoreUI()
         GameData dateGD = DataManager.Instance.LoadGameData();
         currentTime = dateGD.time; // 실시간으로 시간 업데이트
         currentDay = dateGD.date;
-        if(!tryvisit){
-            if (Mathf.Abs(currentTime - 355f) < 0.1f & !Spe_visitDone)
+        if (!tryvisit)
         {
-            dayChange.gameObject.SetActive(true);
-            tryvisit =true;
-            spc_OnSpecialTimeReached();
+            if (Mathf.Abs(currentTime - 355f) < 0.1f & !Spe_visitDone)
+            {
+                //dayChange.gameObject.SetActive(true);
+                tryvisit = true;
+                spc_OnSpecialTimeReached();
+            }
         }
-        }
-        if(Mathf.Abs(currentTime - 1f) < 0.1f & (Spe_visitDone | (!specialOrders.ContainsKey(currentDay) & !specialVisit.ContainsKey(currentDay)))){
+        if (Mathf.Abs(currentTime - 1f) < 0.1f & (Spe_visitDone | (!specialOrders.ContainsKey(currentDay) & !specialVisit.ContainsKey(currentDay))))
+        {
             LoadDone();
-            Spe_visitDone=false;
+            Spe_visitDone = false;
             SaveDone();
             SceneManager.LoadScene("Deadline");
         }
-}
-private void LoadDate() {
+    }
+    private void LoadDate()
+    {
 
         GD = DataManager.Instance.LoadGameData();
         // !! 일차 업데이트하기
-        count=GD.EndingCount;
+        count = GD.EndingCount;
     }
 
-    private void SaveDate() {
+    private void SaveDate()
+    {
         DataManager.Instance.gameData.EndingCount = count;
 
         DataManager.Instance.SaveGameData();
     }
 
     private IEnumerator MoveCustomerUp(RectTransform customerRect)
-{
-    check++;
-    Debug.Log(check);
-    Vector3 targetPosition = customerRect.position; // 현재 위치가 목표 위치
-    Vector3 startPosition = new Vector3(targetPosition.x, targetPosition.y - 200, targetPosition.z); // 아래에서 시작
-
-    float duration = 0.5f;
-    float timeElapsed = 0;
-
-    while (timeElapsed < duration)
     {
-        float t = timeElapsed / duration;
-        t = EaseOutBounce(t); // 반동 효과
-        customerRect.position = Vector3.Lerp(startPosition, targetPosition, t);
-        timeElapsed += Time.deltaTime;
-        yield return null;
+        check++;
+        Debug.Log(check);
+        Vector3 targetPosition = customerRect.position; // 현재 위치가 목표 위치
+        Vector3 startPosition = new Vector3(targetPosition.x, targetPosition.y - 200, targetPosition.z); // 아래에서 시작
+
+        float duration = 0.5f;
+        float timeElapsed = 0;
+
+        while (timeElapsed < duration)
+        {
+            float t = timeElapsed / duration;
+            t = EaseOutBounce(t); // 반동 효과
+            customerRect.position = Vector3.Lerp(startPosition, targetPosition, t);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        customerRect.position = targetPosition; // 목표 위치로 고정
     }
 
-    customerRect.position = targetPosition; // 목표 위치로 고정
-}
-
-private IEnumerator MoveCustomerDown(RectTransform customerRect)
-{
-    Vector3 startPosition = customerRect.position;
-    Vector3 targetPosition = new Vector3(startPosition.x, startPosition.y-300, startPosition.z);
-
-
-    float duration = 0.5f;
-    float timeElapsed = 0;
-
-    while (timeElapsed < duration)
+    private IEnumerator MoveCustomerDown(RectTransform customerRect)
     {
-        customerRect.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
-        timeElapsed += Time.deltaTime; // 시간 경과
-        yield return null;
+        Vector3 startPosition = customerRect.position;
+        Vector3 targetPosition = new Vector3(startPosition.x, startPosition.y - 300, startPosition.z);
+
+
+        float duration = 0.5f;
+        float timeElapsed = 0;
+
+        while (timeElapsed < duration)
+        {
+            customerRect.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
+            timeElapsed += Time.deltaTime; // 시간 경과
+            yield return null;
+        }
+
+        customerRect.position = startPosition; // 목표 위치로 고정
     }
 
-    customerRect.position = startPosition; // 목표 위치로 고정
-}
-
-// 🎮 반동 효과 함수
-private float EaseOutBounce(float t)
-{
-    if (t < 1 / 2.75f)
+    // 🎮 반동 효과 함수
+    private float EaseOutBounce(float t)
     {
-        return 7.5625f * t * t;
+        if (t < 1 / 2.75f)
+        {
+            return 7.5625f * t * t;
+        }
+        else if (t < 2 / 2.75f)
+        {
+            t -= 1.5f / 2.75f;
+            return 7.5625f * t * t + 0.75f;
+        }
+        else if (t < 2.5 / 2.75f)
+        {
+            t -= 2.25f / 2.75f;
+            return 7.5625f * t * t + 0.9375f;
+        }
+        else
+        {
+            t -= 2.625f / 2.75f;
+            return 7.5625f * t * t + 0.984375f;
+        }
     }
-    else if (t < 2 / 2.75f)
+    private void LoadDone()
     {
-        t -= 1.5f / 2.75f;
-        return 7.5625f * t * t + 0.75f;
-    }
-    else if (t < 2.5 / 2.75f)
-    {
-        t -= 2.25f / 2.75f;
-        return 7.5625f * t * t + 0.9375f;
-    }
-    else
-    {
-        t -= 2.625f / 2.75f;
-        return 7.5625f * t * t + 0.984375f;
-    }
-}
-private void LoadDone() {
 
         GD = DataManager.Instance.LoadGameData();
         // !! 일차 업데이트하기
-        Spe_visitDone=GD.Spe_visitDone;
+        Spe_visitDone = GD.Spe_visitDone;
     }
 
-    private void SaveDone() {
+    private void SaveDone()
+    {
         DataManager.Instance.gameData.Spe_visitDone = Spe_visitDone;
+
+        DataManager.Instance.SaveGameData();
+    }
+    private void LoadBakingOn() {
+
+        GD = DataManager.Instance.LoadGameData();
+        // !! 일차 업데이트하기
+        Spe_Baking=GD.Spe_BakingOn;
+    }
+
+    private void SaveBakingOn() {
+        DataManager.Instance.gameData.Spe_BakingOn = Spe_Baking;
 
         DataManager.Instance.SaveGameData();
     }
