@@ -136,10 +136,10 @@ public class tutorial : MonoBehaviour
                 }
                 if(currentLine.id=="16"){
                     front.SetActive(false);
+                    AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
                     AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
                 }
-                if(currentLine.id=="19")
-                    AudioManager.Instance.StopBgm();
+            
                     
         }
         else
