@@ -123,7 +123,15 @@ public class DataManager : MonoBehaviour
         gameData.date = 1;
         gameData.money = 5000;
         gameData.ingredientNum = gameData.ingredientNum = new List<int> { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0 };
-        gameData.myBake = new List<MyRecipeList>();
+        gameData.myBake = new List<MyRecipeList>
+    {
+        new MyRecipeList(1, 103, "핑크 딸기 파운드 케이크", 21, false),
+        new MyRecipeList(1, 1, "오리지널 마들렌", 21, false),
+        new MyRecipeList(2, 201, "꿀고구마 파운드 케이크", 40, true),
+        new MyRecipeList(3, 202, "달콤 귤 파운드 케이크", 40, false),
+        new MyRecipeList(3, 203, "리얼 초코 파운드 케이크", 40, false),
+        new MyRecipeList(3, 204, "달콤 귤 타르트", 40, false)
+    };
         Debug.Log("초기 게임 데이터 설정 완료");
     }
 

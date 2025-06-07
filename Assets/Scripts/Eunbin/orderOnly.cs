@@ -55,7 +55,6 @@ public class OrderOnly : MonoBehaviour
     public TextMeshProUGUI popupText;
     private bool isPopupCoroutineRunning=false;
     private Dictionary<int, List<List<int>>> dailyOrders = new Dictionary<int, List<List<int>>>(); // 일별 주문 저장
-    
     [SerializeField] private GameData GD = new GameData();
 
     public struct DialogueLine{

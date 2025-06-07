@@ -57,6 +57,7 @@ public class special_customer : MonoBehaviour
     private bool Spe_visitDone;
     private bool tryvisit = false;
     private bool Spe_Baking = false;
+    public GameObject oldmanspeechBubble;
 
     [SerializeField] private GameData GD = new GameData();
 
@@ -340,6 +341,7 @@ public class special_customer : MonoBehaviour
             {
                 speechBubble.SetActive(false);
                 MadeMenu.SetActive(true);
+                oldmanspeechBubble.SetActive(true);
                 none.gameObject.SetActive(true);
                 yield break;
             }

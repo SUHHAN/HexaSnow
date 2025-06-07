@@ -52,8 +52,16 @@ public class SetMenu : MonoBehaviour
 
     private int coin = 0;
     private bool isBakeryDelivering = false; // 베이커리 전달 중인지 여부
-        private Dictionary<string, List<string>> specialCustomerMenu = new Dictionary<string, List<string>>();
+    private Dictionary<string, List<string>> specialCustomerMenu = new Dictionary<string, List<string>>();
 
+    private int bakeryDeliveryCount = 0; // 전달 횟수
+    private int maxDeliveryCount = 1;    // 기본 1번, old_man이면 3번
+    private bool oldman_result = true;
+    public GameObject oldmanspeechBubble;
+    public TextMeshProUGUI oldmandialogueText;
+
+
+    private List<string> oldmanBake = new List<string> { "고구마", "귤", "초콜릿" };
 
     void Start()
     {
@@ -68,14 +76,24 @@ public class SetMenu : MonoBehaviour
             specialCustomerMenu.Clear();
 
             specialCustomerMenu.Add("child", new List<string> {"핑크 딸기 머핀", "리얼 초코 머핀", "핑크 딸기 파운드 케이크", "리얼 초코 파운드 케이크" });
-            specialCustomerMenu.Add("old_man", new List<string> { "꿀고구마 파운드 케이크", "달콤 귤 파운트 케이크", "리얼 초코 파운드 케이크", "달콤 귤 타르트"});
+            specialCustomerMenu.Add("old_man", new List<string> { "꿀고구마 파운드 케이크", "달콤 귤 파운드 케이크", "리얼 초코 파운드 케이크", "달콤 귤 타르트"});
             specialCustomerMenu.Add("spcman", new List<string> { "블루 레몬 케이크" });
         }
 
-    public void current_cus(string menu, string cus){
-        currentmenu=menu;
-        currentcus=cus;
+    public void current_cus(string menu, string cus)
+    {
+        currentmenu = menu;
+        currentcus = cus;
         Debug.Log($"current_cus 호출됨: 메뉴 - {menu}, 손님 유형 - {cus}");
+
+        if (cus == "old_man")
+        {
+            maxDeliveryCount = 3;
+        }
+        else
+        {
+            maxDeliveryCount = 1;
+        }
 }
 
 public void AddItems()
@@ -211,147 +229,295 @@ private void OnActionButtonClick(Bk_h bakerySlot)
         return;
     }
 
+        if (bakeryDeliveryCount >= maxDeliveryCount)
+        {
+            return;
+    }
+
     isBakeryDelivering = true; // 전달 중 플래그 설정
 
     StartCoroutine(HandleBakeryDelivery(bakerySlot));
 }
 
     private IEnumerator HandleBakeryDelivery(Bk_h bakerySlot)
-{
-    if (bakerySlot == null)
     {
-        Debug.LogError("저장된 베이커리 슬롯 데이터를 찾을 수 없음!");
-        yield break;
+        if (bakerySlot == null)
+        {
+            Debug.LogError("저장된 베이커리 슬롯 데이터를 찾을 수 없음!");
+            yield break;
+        }
+
+        Debug.Log($"메뉴: {bakerySlot.GetMenuName()}, 인덱스: {bakerySlot.GetIndex()}");
+
+        if (currentcus == "old_man")
+        {
+            oldmanspeechBubble.SetActive(true);
+            CheckOldman(bakerySlot.GetMenuName(), bakerySlot.GetScore());
+        }
+        else
+            CheckMenu(bakerySlot.GetMenuName(), bakerySlot.GetScore());
+
+        MyList.RemoveAll(item => item.name == bakerySlot.GetMenuName() && item.index == bakerySlot.GetIndex());
+        DataManager.Instance.gameData.myBake.RemoveAll(item => item.name == bakerySlot.GetMenuName() && item.index == bakerySlot.GetIndex());
+        DataManager.Instance.gameData.money += coin;
+
+        DataManager.Instance.SaveGameData();
+        UiLogicManager.Instance.LoadMoneyData();
+        Destroy(bakerySlot.gameObject);
+
+        bakeryDeliveryCount++;
+        if (bakeryDeliveryCount == 3)
+        {
+            oldmanspeechBubble.SetActive(false);
+            if (!oldman_result)
+            {
+                SpecialScript.UpdateDialogue("False");
+            }
+            else SpecialScript.UpdateDialogue("True");
     }
+        // 💥 사용자 터치를 기다림
+        Debug.Log("터치 대기 중... 베이커리를 더 줄 수 없음!");
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
-    Debug.Log($"메뉴: {bakerySlot.GetMenuName()}, 인덱스: {bakerySlot.GetIndex()}");
+        // 🟢 다시 전달 가능 상태로 초기화
+        isBakeryDelivering = false;
+        
+        Debug.Log($"현재까지 전달 횟수: {bakeryDeliveryCount}/{maxDeliveryCount}");
 
-    CheckMenu(bakerySlot.GetMenuName(), bakerySlot.GetScore());
-
-    MyList.RemoveAll(item => item.name == bakerySlot.GetMenuName() && item.index == bakerySlot.GetIndex());
-    DataManager.Instance.gameData.myBake.RemoveAll(item => item.name == bakerySlot.GetMenuName() && item.index == bakerySlot.GetIndex());
-    DataManager.Instance.gameData.money += coin;
-
-    DataManager.Instance.SaveGameData();
-    UiLogicManager.Instance.LoadMoneyData();
-    Destroy(bakerySlot.gameObject);
-
-    // 💥 사용자 터치를 기다림
-    Debug.Log("터치 대기 중... 베이커리를 더 줄 수 없음!");
-    yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-
-    // 🟢 다시 전달 가능 상태로 초기화
-    isBakeryDelivering = false;
-    Debug.Log("화면 터치 감지됨! 다시 베이커리 전달 가능.");
 }
 
-private void CheckMenu(string menu, int score){
-
-    if(currentcus.Equals("cus")){
-        Debug.Log($"[디버깅] 입력값: '{menu}' / 기대값: '{currentmenu}'");
-        foreach(RecipeC re in recipes) 
+    private void CheckMenu(string menu, int score)
+    {
+        foreach (RecipeC re in recipes)
             {
-                if(menu == re.menu) {
+                if (menu == re.menu)
+                {
                     coin = re.coin;
                 }
             }
-        if(menu.Equals(currentmenu)){
-        Debug.Log($"선택된 메뉴가 올바릅니다: {menu}");
-             if(score >= 60) {
-                getmenu.UpdateDialogue(1); // s
-                coin += 2000;
+
+        if (currentcus.Equals("cus"))
+        {
+            Debug.Log($"[디버깅] 입력값: '{menu}' / 기대값: '{currentmenu}'");
+
+            if (menu.Equals(currentmenu))
+            {
+                Debug.Log($"선택된 메뉴가 올바릅니다: {menu}");
+                if (score >= 60)
+                {
+                    getmenu.UpdateDialogue(1); // s
+                    coin += 2000;
+                }
+                else if (score > 40)
+                {
+                    getmenu.UpdateDialogue(1); //a
+                    coin += 1000;
+                }
+                else if (score > 30)
+                {
+                    getmenu.UpdateDialogue(2); //b
+                    coin += 500;
+                }
+                else if (score > 20)
+                {
+                    getmenu.UpdateDialogue(2); //c
+                    coin += 100;
+                }
+                else if (score > 10)
+                {
+                    getmenu.UpdateDialogue(3); //d
+                    coin += 0;
+                }
+                else if (score <= 10)
+                {
+                    getmenu.UpdateDialogue(3); //f
+                    coin -= 500;
+                }
+                else
+                {
+                    getmenu.UpdateDialogue(3); //f
+                    coin -= 500;
+                }
             }
-            else if(score > 40) {
-                getmenu.UpdateDialogue(1); //a
-                coin += 1000;
-            }
-            else if(score > 30){
-                getmenu.UpdateDialogue(2); //b
-                coin += 500;
-            }
-            else if(score > 20){
-                getmenu.UpdateDialogue(2); //c
-                coin += 100;
-            }
-            else if(score > 10){
-                getmenu.UpdateDialogue(3); //d
-                coin += 0;
-            }
-            else if(score <= 10){
-                getmenu.UpdateDialogue(3); //f
-                coin -= 500;
-            }
-            else{
-                getmenu.UpdateDialogue(3); //f
-                coin -= 500;
+            else
+            {
+                if (currentcus.Equals("cus"))
+                {
+                    coin = 0;
+
+                    Debug.Log($"선택된 메뉴가 올바르지 않습니다: {menu}");
+                    getmenu.UpdateDialogue(4);
+                    coin -= 500;
+                }
             }
         }
-        else{
-        if(currentcus.Equals("cus")){
-        coin = 0;
+        else
+        {
+            // 🎯 특별손님인 경우 (cus가 아닌 경우)
+            Debug.Log($"[특별손님 처리 시작] 손님 유형: {currentcus}, 선택한 메뉴: {menu}");
 
-        Debug.Log($"선택된 메뉴가 올바르지 않습니다: {menu}");
-        getmenu.UpdateDialogue(4);
-        coin -= 500;
+            if (specialCustomerMenu.ContainsKey(currentcus))
+            {
+                List<string> allowedMenus = specialCustomerMenu[currentcus];
+
+                Debug.Log($"[특별손님 허용 메뉴 목록] {string.Join(", ", allowedMenus)}");
+
+                if (allowedMenus.Contains(menu))
+                {
+                    Debug.Log($"✅ [특별손님 정답] 손님 '{currentcus}'에게 '{menu}'는 허용된 메뉴입니다.");
+                    if (score >= 60)
+                    { // s
+                        SpecialScript.UpdateDialogue("True");
+                        coin += 2000;
+                    }
+                    else if (score > 40)
+                    { //a
+                        SpecialScript.UpdateDialogue("True");
+                        coin += 1000;
+                    }
+                    else if (score > 30)
+                    { //b
+                        SpecialScript.UpdateDialogue("True");
+                        coin += 500;
+                    }
+                    else if (score > 20)
+                    { //c
+                        SpecialScript.UpdateDialogue("True");
+                        coin += 100;
+                    }
+                    else if (score > 10)
+                    {//d
+                        SpecialScript.UpdateDialogue("False");
+                        coin += 0;
+                    }
+                    else if (score <= 10)
+                    {//f
+                        SpecialScript.UpdateDialogue("False");
+                        coin -= 500;
+                    }
+                    else
+                    { //f
+                        SpecialScript.UpdateDialogue("False");
+                        coin -= 500;
+                    }
+
+                }
+                else
+                {
+                    coin = 0;
+                    Debug.Log($"❌ [특별손님 오답] 손님 '{currentcus}'에게 '{menu}'는 허용된 메뉴가 아닙니다.");
+                    coin -= 500;
+                    SpecialScript.UpdateDialogue("False");
+
+
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"⚠️ [특별손님 처리 실패] 손님 유형 '{currentcus}'에 대한 메뉴 데이터가 specialCustomerMenu에 없습니다.");
+                coin -= 500;
+                SpecialScript.UpdateDialogue("False"); // 기본값 처리
+            }
+
+            Debug.Log($"[특별손님 처리 종료] 손님: {currentcus}, 메뉴: {menu}");
         }
     }
-    }
-    else {
-    // 🎯 특별손님인 경우 (cus가 아닌 경우)
-    Debug.Log($"[특별손님 처리 시작] 손님 유형: {currentcus}, 선택한 메뉴: {menu}");
 
-    if (specialCustomerMenu.ContainsKey(currentcus)) {
-        List<string> allowedMenus = specialCustomerMenu[currentcus];
+    public void CheckOldman(string menu, int score)
+    {
+        foreach (RecipeC re in recipes)
+            {
+                if (menu == re.menu)
+                {
+                    coin = re.coin;
+                }
+            }
+        if (specialCustomerMenu.ContainsKey(currentcus))
+        {
+            List<string> allowedMenus = specialCustomerMenu[currentcus];
 
-        Debug.Log($"[특별손님 허용 메뉴 목록] {string.Join(", ", allowedMenus)}");
+            Debug.Log($"[특별손님 허용 메뉴 목록] {string.Join(", ", allowedMenus)}");
 
-        if (allowedMenus.Contains(menu)) {
-            Debug.Log($"✅ [특별손님 정답] 손님 '{currentcus}'에게 '{menu}'는 허용된 메뉴입니다.");
-            if(score >= 60) { // s
-                SpecialScript.UpdateDialogue("True");
-                coin += 2000;
+            if (allowedMenus.Contains(menu))
+            {
+                Debug.Log($"✅ [특별손님 정답] 손님 '{currentcus}'에게 '{menu}'는 허용된 메뉴입니다.");
+                if (score >= 60)
+                { // s
+                    coin += 2000;
+                }
+                else if (score > 40)
+                { //a
+                    coin += 1000;
+                }
+                else if (score > 30)
+                { //b
+                    coin += 500;
+                }
+                else if (score > 20)
+                { //c
+                    coin += 100;
+                }
+                else if (score > 10)
+                {//d
+                    coin += 0;
+                    oldman_result = false;
+                }
+                else if (score <= 10)
+                {//f
+                    coin -= 500;
+                    oldman_result = false;
+                }
+                else
+                { //f
+                    coin -= 500;
+                    oldman_result = false;
+                }
+
             }
-            else if(score > 40) { //a
-                SpecialScript.UpdateDialogue("True");
-                coin += 1000;
-            }
-            else if(score > 30){ //b
-                SpecialScript.UpdateDialogue("True");
-                coin += 500;
-            }
-            else if(score > 20){ //c
-                SpecialScript.UpdateDialogue("True");
-                coin += 100;
-            }
-            else if(score > 10){//d
-                SpecialScript.UpdateDialogue("False");
-                coin += 0;
-            }
-            else if(score <= 10){//f
-                SpecialScript.UpdateDialogue("False");
+            else
+            {
+                coin = 0;
+                Debug.Log($"❌ [특별손님 오답] 손님 '{currentcus}'에게 '{menu}'는 허용된 메뉴가 아닙니다.");
                 coin -= 500;
+                oldman_result = false;
             }
-            else{ //f
-                SpecialScript.UpdateDialogue("False");
-                coin -= 500;
-            }
-
-        } else {
-            Debug.Log($"❌ [특별손님 오답] 손님 '{currentcus}'에게 '{menu}'는 허용된 메뉴가 아닙니다.");
-            SpecialScript.UpdateDialogue("False");
-            
-
         }
-    } else {
-        Debug.LogWarning($"⚠️ [특별손님 처리 실패] 손님 유형 '{currentcus}'에 대한 메뉴 데이터가 specialCustomerMenu에 없습니다.");
-        coin -= 500;
-        SpecialScript.UpdateDialogue("False"); // 기본값 처리
-    }
-
-    Debug.Log($"[특별손님 처리 종료] 손님: {currentcus}, 메뉴: {menu}");
-}
-
-
+        else
+        {
+            coin = 0;
+            Debug.LogWarning($"⚠️ [특별손님 처리 실패] 손님 유형 '{currentcus}'에 대한 메뉴 데이터가 specialCustomerMenu에 없습니다.");
+            coin -= 500;
+            oldman_result = false;
+        }
+        specialCustomerMenu["old_man"].Remove(menu);
+        if (menu.Equals("꿀고구마 파운드 케이크"))
+        {
+            oldmanBake.Remove("고구마");
+        }
+        if (menu.Equals("리얼 초코 파운드 케이크"))
+        {
+            oldmanBake.Remove("초콜릿");
+        }
+        if (menu.Equals("달콤 귤 파운드 케이크"))
+        {
+            specialCustomerMenu["old_man"].Remove("달콤 귤 타르트");
+            oldmanBake.Remove("귤");
+        }
+        if (menu.Equals("달콤 귤 타르트"))
+        {
+            specialCustomerMenu["old_man"].Remove("달콤 귤 파운드 케이크");
+            oldmanBake.Remove("귤");
+        }
+        if (oldmanBake.Count == 0)
+        {
+            oldmanspeechBubble.SetActive(false);
+        }
+        else
+        {
+            string message = string.Join(", ", oldmanBake) + " 디저트 주세요.";
+            oldmandialogueText.text = message;
+        }
+        
 }
 
     public void NoButtonClick()
