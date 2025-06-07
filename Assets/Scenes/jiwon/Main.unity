@@ -5091,6 +5091,7 @@ MonoBehaviour:
     hasCompletedBonusTutorial: 0
     EndingCount: 0
     Spe_visitDone: 0
+    Spe_BakingOn: 0
   MyCookList: []
   MyIngreList: []
   CookSprites:
@@ -5219,6 +5220,7 @@ MonoBehaviour:
     hasCompletedBonusTutorial: 0
     EndingCount: 0
     Spe_visitDone: 0
+    Spe_BakingOn: 0
 --- !u!4 &916504832
 Transform:
   m_ObjectHideFlags: 0
@@ -6594,7 +6596,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 00:00
+  m_text: 'close
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
   m_sharedMaterial: {fileID: 68952158446488501, guid: 05c49a228f958ff4bbc5c800c316a3d1, type: 2}
@@ -7824,6 +7828,7 @@ MonoBehaviour:
     hasCompletedBonusTutorial: 0
     EndingCount: 0
     Spe_visitDone: 0
+    Spe_BakingOn: 0
 --- !u!4 &1438981758
 Transform:
   m_ObjectHideFlags: 0
