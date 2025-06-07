@@ -229,11 +229,6 @@ private void OnActionButtonClick(Bk_h bakerySlot)
         return;
     }
 
-        if (bakeryDeliveryCount >= maxDeliveryCount)
-        {
-            return;
-    }
-
     isBakeryDelivering = true; // 전달 중 플래그 설정
 
     StartCoroutine(HandleBakeryDelivery(bakerySlot));
