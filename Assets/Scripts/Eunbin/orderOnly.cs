@@ -55,7 +55,6 @@ public class OrderOnly : MonoBehaviour
     public TextMeshProUGUI popupText;
     private bool isPopupCoroutineRunning=false;
     private Dictionary<int, List<List<int>>> dailyOrders = new Dictionary<int, List<List<int>>>(); // 일별 주문 저장
-    
     [SerializeField] private GameData GD = new GameData();
 
     public struct DialogueLine{
@@ -78,8 +77,11 @@ public class OrderOnly : MonoBehaviour
             postman.SetActive(false);
             SceneManager.LoadScene("customer");
         }
-
-        AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
+        if (dateGD.date == 1)
+        {
+            AudioManager.Instance.StopBgm();
+            AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
+        }
         SceneManager.LoadScene("Main", LoadSceneMode.Additive); //기본 UI 띄우기 
         StartCoroutine(WaitForUiLogicManager());
         
@@ -113,10 +115,10 @@ public class OrderOnly : MonoBehaviour
     }
 
     private IEnumerator WaitForUiLogicManager()
-{
-    yield return new WaitUntil(() => UiLogicManager.Instance != null);
+    {
+        yield return new WaitUntil(() => UiLogicManager.Instance != null);
 
-    UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
+        UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = false;
     
 }
     private void LoadDialoguesFromCSV()

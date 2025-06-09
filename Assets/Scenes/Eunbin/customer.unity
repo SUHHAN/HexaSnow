@@ -412,6 +412,7 @@ MonoBehaviour:
     hasCompletedBonusTutorial: 0
     EndingCount: 0
     Spe_visitDone: 0
+    Spe_BakingOn: 0
 --- !u!4 &195909697
 Transform:
   m_ObjectHideFlags: 0
@@ -583,7 +584,7 @@ RectTransform:
   m_Father: {fileID: 827515215}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1019,7 +1020,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.96363, y: 0.96363, z: 0.96363}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 421732228}
   m_Father: {fileID: 1718870001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1141,6 +1143,82 @@ RectTransform:
   m_AnchoredPosition: {x: 0.06, y: 0.1}
   m_SizeDelta: {x: 721.9352, y: 1133.9067}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &421732227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 421732228}
+  - component: {fileID: 421732230}
+  - component: {fileID: 421732229}
+  m_Layer: 0
+  m_Name: customer_bubble
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &421732228
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421732227}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.008107365, y: 0.008107365, z: 0.008107365}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1045287264}
+  m_Father: {fileID: 414684744}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.26, y: -1.96}
+  m_SizeDelta: {x: 721.9352, y: 1133.9067}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &421732229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421732227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: dcc4046c82f044153905b08bf839036b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &421732230
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421732227}
+  m_CullTransparentMesh: 1
 --- !u!1 &468210541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1555,14 +1633,13 @@ GameObject:
   - component: {fileID: 796587168}
   - component: {fileID: 796587171}
   - component: {fileID: 796587170}
-  - component: {fileID: 796587169}
   m_Layer: 5
   m_Name: ingredientStorePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &796587168
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1583,109 +1660,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -535}
   m_SizeDelta: {x: 720, y: 210}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &796587169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796587167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db4b83facac5049a4b79cb4f7bbab8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  getmenu: {fileID: 1976141241}
-  SpecialScript: {fileID: 1718870000}
-  currentcus: 
-  currentmenu: 
-  ingredientGD:
-    isGuestLoggedIn: 0
-    date: 0
-    money: 0
-    time: 0
-    ingredientNum: 
-    myBake: []
-    serializedDailyOrders: 
-    currentScene: 
-    hasCompletedBakingTutorial: 0
-    hasCompletedIngredientTutorial: 0
-    hasCompletedBonusTutorial: 0
-    EndingCount: 0
-    Spe_visitDone: 0
-  MyList: []
-  MenuSprites:
-  - {fileID: 0}
-  - {fileID: 21300000, guid: 68b996c32b933ad48bc835f0abccf30a, type: 3}
-  - {fileID: 21300000, guid: 4f97040ea3ee7c6448725599f5d86e97, type: 3}
-  - {fileID: 21300000, guid: 889eeb4fb9dc4b24198da01a4291551b, type: 3}
-  - {fileID: 21300000, guid: abc26ff70f38e8e478c71e6f13c95eb5, type: 3}
-  - {fileID: 21300000, guid: 7acddffa8f2109245856849fa86bfb22, type: 3}
-  - {fileID: 21300000, guid: da60e72f2af07df47bd4f1c1344bd0d9, type: 3}
-  - {fileID: 21300000, guid: ba65f509faf137a4595fd78fe4c7c0ea, type: 3}
-  - {fileID: 21300000, guid: 2636a1f28ec09e846a7a94d886a6648d, type: 3}
-  - {fileID: 21300000, guid: 1bfe782cd980016489ee1dc880d620f1, type: 3}
-  - {fileID: 21300000, guid: 488a713c5a82aed4cac05060edc726a4, type: 3}
-  - {fileID: 21300000, guid: 00958ff8df8773c4ebc1b4d7f430976f, type: 3}
-  - {fileID: 21300000, guid: b71af58093602a641bf0ce856b520ebd, type: 3}
-  - {fileID: 21300000, guid: da97e93ad48f7c949b965f969e617e19, type: 3}
-  - {fileID: 21300000, guid: ba30e6a3bec528048a8afa6c77dafd2d, type: 3}
-  - {fileID: 21300000, guid: 1d0dd604c757abb4893446ef71089b99, type: 3}
-  - {fileID: 21300000, guid: 61a5f1a6c3cb3de489693404c901bbc6, type: 3}
-  - {fileID: 21300000, guid: 675523291e904894a853b695c0332b8e, type: 3}
-  - {fileID: 21300000, guid: 6771f2d8314dbbd4b9d93aa1bfeda874, type: 3}
-  - {fileID: 21300000, guid: 16d9e8c0fa8cb7e499cb2bf9a9897587, type: 3}
-  - {fileID: 21300000, guid: d023685caae80b744864eba33e6431bf, type: 3}
-  - {fileID: 21300000, guid: 6482c2e1a9cc1114e91025ce49f0a536, type: 3}
-  - {fileID: 21300000, guid: 6482c2e1a9cc1114e91025ce49f0a536, type: 3}
-  - {fileID: 21300000, guid: 789695361858992458bbdb8e59ab6e3e, type: 3}
-  - {fileID: 21300000, guid: d48c9fb54c0c13e409b8dd9f9cc6d251, type: 3}
-  - {fileID: 21300000, guid: d42d3eab1d3f91345a21666502ac5e64, type: 3}
-  - {fileID: 21300000, guid: 14af1c6829224b24abba5d66dc72f5ba, type: 3}
-  - {fileID: 21300000, guid: 9e047b8ac9ba0d6459720f39ea6b7958, type: 3}
-  - {fileID: 21300000, guid: a22e6130ef3016d4fa5c0f1be3ee08ad, type: 3}
-  - {fileID: 21300000, guid: ad7b1f025e5c6fd4abd2678c3b79ebb5, type: 3}
-  - {fileID: 21300000, guid: 380b45be0f0740740871ceeb0914eb0f, type: 3}
-  - {fileID: 21300000, guid: 3aa4cb258f0668a428262059022e8c54, type: 3}
-  - {fileID: 21300000, guid: c9567738e2df3c74195f7ceb9efcaad3, type: 3}
-  - {fileID: 21300000, guid: 3aa4cb258f0668a428262059022e8c54, type: 3}
-  - {fileID: 21300000, guid: 9b58806e5158f2546b00d36c3833569c, type: 3}
-  - {fileID: 21300000, guid: 8848057e627d02c458b1063953c63a9d, type: 3}
-  - {fileID: 21300000, guid: e6276d260c3ef0d46b9dbb6ee6a8a477, type: 3}
-  - {fileID: 21300000, guid: 0cf51c59474f2044ab49c3a3af47c4a3, type: 3}
-  - {fileID: 21300000, guid: 00958ff8df8773c4ebc1b4d7f430976f, type: 3}
-  - {fileID: 21300000, guid: 5c9ad1026af8a694aaec3ec9777d2955, type: 3}
-  - {fileID: 21300000, guid: a12dbb4a0f2533c4093b36ec210128ea, type: 3}
-  - {fileID: 21300000, guid: 00958ff8df8773c4ebc1b4d7f430976f, type: 3}
-  - {fileID: 21300000, guid: c44904ab987f96043be47ea7499ff532, type: 3}
-  - {fileID: 21300000, guid: e5202dfb953017c49bf5fd852fb19c94, type: 3}
-  - {fileID: 21300000, guid: 9a849fa3780cf5240a25de349bae6851, type: 3}
-  - {fileID: 21300000, guid: 030ed6f4827d09a43ab5f58086df65e3, type: 3}
-  - {fileID: 21300000, guid: 030ed6f4827d09a43ab5f58086df65e3, type: 3}
-  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
-  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
-  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
-  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
-  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
-  - {fileID: 21300000, guid: b6e0479f109097f4698de87234536662, type: 3}
-  - {fileID: 21300000, guid: fa034f001012d9e449bf7e6ec95dd54c, type: 3}
-  actionButtonPrefab: {fileID: 8334110117767044011, guid: a7f7c9f30ce7e42a89358c730611cda5, type: 3}
-  itemPrefab: {fileID: 8334110117767044011, guid: 50830954df87c47aaa392fb2c592ce8f, type: 3}
-  content: {fileID: 1678731447}
-  GD:
-    isGuestLoggedIn: 0
-    date: 0
-    money: 0
-    time: 0
-    ingredientNum: 
-    myBake: []
-    serializedDailyOrders: 
-    currentScene: 
-    hasCompletedBakingTutorial: 0
-    hasCompletedIngredientTutorial: 0
-    hasCompletedBonusTutorial: 0
-    EndingCount: 0
-    Spe_visitDone: 0
 --- !u!114 &796587170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2004,6 +1978,140 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919519087}
+  m_CullTransparentMesh: 1
+--- !u!1 &1045287263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1045287264}
+  - component: {fileID: 1045287266}
+  - component: {fileID: 1045287265}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1045287264
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045287263}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.99968, y: 0.99968, z: 0.99968}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 421732228}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 117.12, y: 458}
+  m_SizeDelta: {x: 425.05, y: 36.53}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1045287265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045287263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\uACE0\uAD6C\uB9C8, \uADE4, \uCD08\uCF5C\uB9BF \uB514\uC800\uD2B8 \uC8FC\uC138\uC694.\n"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 537e65026e2d347b5be6abad71ba31c1, type: 2}
+  m_sharedMaterial: {fileID: -7231793993118050812, guid: 537e65026e2d347b5be6abad71ba31c1, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 30
+  m_fontSizeBase: 30
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: -11.304558, y: 0, z: -11.304596, w: 60.31373}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1045287266
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045287263}
   m_CullTransparentMesh: 1
 --- !u!1 &1061807972
 GameObject:
@@ -2840,6 +2948,7 @@ MonoBehaviour:
     hasCompletedBonusTutorial: 0
     EndingCount: 0
     Spe_visitDone: 0
+    Spe_BakingOn: 0
 --- !u!114 &1405821391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3248,9 +3357,9 @@ RectTransform:
   m_Father: {fileID: 2013921617}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -9}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1593099091
 MonoBehaviour:
@@ -3547,7 +3656,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 180}
+  m_SizeDelta: {x: 0, y: 180}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1678731448
 MonoBehaviour:
@@ -3633,7 +3742,8 @@ MonoBehaviour:
   currentDay: 0
   dayChange: {fileID: 1061982604}
   MadeMenu: {fileID: 796587167}
-  setmenu: {fileID: 796587169}
+  setmenu: {fileID: 0}
+  oldmanspeechBubble: {fileID: 421732227}
   GD:
     isGuestLoggedIn: 0
     date: 0
@@ -3648,6 +3758,7 @@ MonoBehaviour:
     hasCompletedBonusTutorial: 0
     EndingCount: 0
     Spe_visitDone: 0
+    Spe_BakingOn: 0
 --- !u!4 &1718870001
 Transform:
   m_ObjectHideFlags: 0
@@ -3921,7 +4032,7 @@ MonoBehaviour:
   csvFileName_guest: guest.csv
   MadeMenu: {fileID: 796587167}
   menuName: 
-  setmenu: {fileID: 796587169}
+  setmenu: {fileID: 1979020435}
   dayChange: {fileID: 1061982604}
   VisitDone: 0
   takenCustomer: 0
@@ -3940,6 +4051,7 @@ MonoBehaviour:
     hasCompletedBonusTutorial: 0
     EndingCount: 0
     Spe_visitDone: 0
+    Spe_BakingOn: 0
 --- !u!4 &1976141242
 Transform:
   m_ObjectHideFlags: 0
@@ -3955,6 +4067,145 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1979020432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1979020434}
+  - component: {fileID: 1979020435}
+  m_Layer: 0
+  m_Name: SetmenuuManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1979020434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979020432}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 514.3213, y: 1831.5702, z: -4.733669}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1979020435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979020432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db4b83facac5049a4b79cb4f7bbab8fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  getmenu: {fileID: 1976141241}
+  SpecialScript: {fileID: 1718870000}
+  currentcus: 
+  currentmenu: 
+  ingredientGD:
+    isGuestLoggedIn: 0
+    date: 0
+    money: 0
+    time: 0
+    ingredientNum: 
+    myBake: []
+    serializedDailyOrders: 
+    currentScene: 
+    hasCompletedBakingTutorial: 0
+    hasCompletedIngredientTutorial: 0
+    hasCompletedBonusTutorial: 0
+    EndingCount: 0
+    Spe_visitDone: 0
+    Spe_BakingOn: 0
+  MyList: []
+  MenuSprites:
+  - {fileID: 0}
+  - {fileID: 21300000, guid: 68b996c32b933ad48bc835f0abccf30a, type: 3}
+  - {fileID: 21300000, guid: 4f97040ea3ee7c6448725599f5d86e97, type: 3}
+  - {fileID: 21300000, guid: 889eeb4fb9dc4b24198da01a4291551b, type: 3}
+  - {fileID: 21300000, guid: abc26ff70f38e8e478c71e6f13c95eb5, type: 3}
+  - {fileID: 21300000, guid: 7acddffa8f2109245856849fa86bfb22, type: 3}
+  - {fileID: 21300000, guid: da60e72f2af07df47bd4f1c1344bd0d9, type: 3}
+  - {fileID: 21300000, guid: ba65f509faf137a4595fd78fe4c7c0ea, type: 3}
+  - {fileID: 21300000, guid: 2636a1f28ec09e846a7a94d886a6648d, type: 3}
+  - {fileID: 21300000, guid: 1bfe782cd980016489ee1dc880d620f1, type: 3}
+  - {fileID: 21300000, guid: 488a713c5a82aed4cac05060edc726a4, type: 3}
+  - {fileID: 21300000, guid: 00958ff8df8773c4ebc1b4d7f430976f, type: 3}
+  - {fileID: 21300000, guid: b71af58093602a641bf0ce856b520ebd, type: 3}
+  - {fileID: 21300000, guid: da97e93ad48f7c949b965f969e617e19, type: 3}
+  - {fileID: 21300000, guid: ba30e6a3bec528048a8afa6c77dafd2d, type: 3}
+  - {fileID: 21300000, guid: 1d0dd604c757abb4893446ef71089b99, type: 3}
+  - {fileID: 21300000, guid: 61a5f1a6c3cb3de489693404c901bbc6, type: 3}
+  - {fileID: 21300000, guid: 675523291e904894a853b695c0332b8e, type: 3}
+  - {fileID: 21300000, guid: 6771f2d8314dbbd4b9d93aa1bfeda874, type: 3}
+  - {fileID: 21300000, guid: 16d9e8c0fa8cb7e499cb2bf9a9897587, type: 3}
+  - {fileID: 21300000, guid: d023685caae80b744864eba33e6431bf, type: 3}
+  - {fileID: 21300000, guid: 6482c2e1a9cc1114e91025ce49f0a536, type: 3}
+  - {fileID: 21300000, guid: 6482c2e1a9cc1114e91025ce49f0a536, type: 3}
+  - {fileID: 21300000, guid: 789695361858992458bbdb8e59ab6e3e, type: 3}
+  - {fileID: 21300000, guid: d48c9fb54c0c13e409b8dd9f9cc6d251, type: 3}
+  - {fileID: 21300000, guid: d42d3eab1d3f91345a21666502ac5e64, type: 3}
+  - {fileID: 21300000, guid: 14af1c6829224b24abba5d66dc72f5ba, type: 3}
+  - {fileID: 21300000, guid: 9e047b8ac9ba0d6459720f39ea6b7958, type: 3}
+  - {fileID: 21300000, guid: a22e6130ef3016d4fa5c0f1be3ee08ad, type: 3}
+  - {fileID: 21300000, guid: ad7b1f025e5c6fd4abd2678c3b79ebb5, type: 3}
+  - {fileID: 21300000, guid: 380b45be0f0740740871ceeb0914eb0f, type: 3}
+  - {fileID: 21300000, guid: 3aa4cb258f0668a428262059022e8c54, type: 3}
+  - {fileID: 21300000, guid: c9567738e2df3c74195f7ceb9efcaad3, type: 3}
+  - {fileID: 21300000, guid: 3aa4cb258f0668a428262059022e8c54, type: 3}
+  - {fileID: 21300000, guid: 9b58806e5158f2546b00d36c3833569c, type: 3}
+  - {fileID: 21300000, guid: 8848057e627d02c458b1063953c63a9d, type: 3}
+  - {fileID: 21300000, guid: e6276d260c3ef0d46b9dbb6ee6a8a477, type: 3}
+  - {fileID: 21300000, guid: 0cf51c59474f2044ab49c3a3af47c4a3, type: 3}
+  - {fileID: 21300000, guid: 00958ff8df8773c4ebc1b4d7f430976f, type: 3}
+  - {fileID: 21300000, guid: 5c9ad1026af8a694aaec3ec9777d2955, type: 3}
+  - {fileID: 21300000, guid: a12dbb4a0f2533c4093b36ec210128ea, type: 3}
+  - {fileID: 21300000, guid: 00958ff8df8773c4ebc1b4d7f430976f, type: 3}
+  - {fileID: 21300000, guid: c44904ab987f96043be47ea7499ff532, type: 3}
+  - {fileID: 21300000, guid: e5202dfb953017c49bf5fd852fb19c94, type: 3}
+  - {fileID: 21300000, guid: 9a849fa3780cf5240a25de349bae6851, type: 3}
+  - {fileID: 21300000, guid: 030ed6f4827d09a43ab5f58086df65e3, type: 3}
+  - {fileID: 21300000, guid: 030ed6f4827d09a43ab5f58086df65e3, type: 3}
+  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
+  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
+  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
+  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
+  - {fileID: 21300000, guid: 9d73e12e1af00b742976e5532d709fd6, type: 3}
+  - {fileID: 21300000, guid: b6e0479f109097f4698de87234536662, type: 3}
+  - {fileID: 21300000, guid: fa034f001012d9e449bf7e6ec95dd54c, type: 3}
+  actionButtonPrefab: {fileID: 8334110117767044011, guid: a7f7c9f30ce7e42a89358c730611cda5, type: 3}
+  itemPrefab: {fileID: 8334110117767044011, guid: 50830954df87c47aaa392fb2c592ce8f, type: 3}
+  content: {fileID: 1678731447}
+  GD:
+    isGuestLoggedIn: 0
+    date: 0
+    money: 0
+    time: 0
+    ingredientNum: 
+    myBake: []
+    serializedDailyOrders: 
+    currentScene: 
+    hasCompletedBakingTutorial: 0
+    hasCompletedIngredientTutorial: 0
+    hasCompletedBonusTutorial: 0
+    EndingCount: 0
+    Spe_visitDone: 0
+    Spe_BakingOn: 0
+  oldmanspeechBubble: {fileID: 421732227}
+  oldmandialogueText: {fileID: 1045287265}
 --- !u!1 &2013921616
 GameObject:
   m_ObjectHideFlags: 0
@@ -4192,3 +4443,4 @@ SceneRoots:
   - {fileID: 1400469394}
   - {fileID: 1976141242}
   - {fileID: 195909697}
+  - {fileID: 1979020434}

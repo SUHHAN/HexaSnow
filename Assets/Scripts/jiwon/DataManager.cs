@@ -41,6 +41,7 @@ public class GameData
     public bool hasCompletedBonusTutorial;     // 보너스 튜토리얼 완료 여부
     public int EndingCount=0;
     public bool Spe_visitDone=false;
+    public bool Spe_BakingOn = false;
 
     public void SetIngredient(List<int> newIngredientNum)
     {
@@ -122,7 +123,7 @@ public class DataManager : MonoBehaviour
         gameData.date = 1;
         gameData.money = 5000;
         gameData.ingredientNum = gameData.ingredientNum = new List<int> { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0 };
-        gameData.myBake = new List<MyRecipeList>();
+        gameData.myBake = new List<MyRecipeList>{};
         Debug.Log("초기 게임 데이터 설정 완료");
     }
 
