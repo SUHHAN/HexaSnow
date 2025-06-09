@@ -191,13 +191,39 @@ public class UiLogicManager : MonoBehaviour
     void OnOrderBook()
     {
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
-        OrderBook.SetActive(!OrderBook.activeSelf);
+        if (OrderBook.activeSelf)
+        {
+            // 주문서가 이미 열려 있으면 닫고, 버튼들 다시 활성화
+            OrderBook.SetActive(false);
+            RecipeButton.interactable = true;
+        }
+        else
+        {
+            // 주문서 열기, 레시피북 닫고 버튼 비활성화
+            OrderBook.SetActive(true);
+            RecipeBook.SetActive(false);
+            RecipeButton.interactable = false;
+        }
+        //OrderBook.SetActive(!OrderBook.activeSelf);
     }
 
     void OnRecipeBook()
     {
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.button);
-        RecipeBook.SetActive(!RecipeBook.activeSelf);
+        if (RecipeBook.activeSelf)
+        {
+            // 레시피북이 이미 열려 있으면 닫고, 버튼들 다시 활성화
+            RecipeBook.SetActive(false);
+            order_button.interactable = true;
+        }
+        else
+        {
+            // 레시피북 열기, 주문서 닫고 버튼 비활성화
+            RecipeBook.SetActive(true);
+            OrderBook.SetActive(false);
+            order_button.interactable = false;
+        }
+        //RecipeBook.SetActive(!RecipeBook.activeSelf);
     }
 
     public void LoadCalendarDate()
