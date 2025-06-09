@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.IO;
 
 public class deadlineLast_h : MonoBehaviour
 {
@@ -82,12 +83,23 @@ public class deadlineLast_h : MonoBehaviour
         mydate = GD.date;
     }
 
-    private void SaveDate() {
-        DataManager.Instance.gameData.date = mydate+1;
+    private void SaveDate()
+    {
+        DataManager.Instance.gameData.date = mydate + 1;
         // // 여기에 null 값으로 바꿔서 저장해주기
         // DataManager.Instance.gameData.Scene = null;
-        DataManager.Instance.gameData.time=360f;
+        DataManager.Instance.gameData.time = 360f;
         DataManager.Instance.SaveGameData();
+
+        // 이어하기 슬롯 데이터까지 저장 (씬 이름 포함)
+        DataManager.Instance.continueSlot = new SlotData(DataManager.Instance.gameData, "order1");
+
+        // continueSlot도 저장 (씬 이름이 order1로 저장됨)
+        string json = JsonUtility.ToJson(DataManager.Instance.continueSlot, true);
+        File.WriteAllText(DataManager.Instance.continueSlot.GetFullPath(), json);
+
+
+        Debug.Log("[저장] 날짜 및 슬롯 데이터 저장 완료");
     }
 
 }
