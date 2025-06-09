@@ -1,8 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using System.IO;
 using TMPro;
-using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using UnityEngine.EventSystems;
 
 public class tutorial2 : MonoBehaviour
 {
@@ -36,7 +40,7 @@ public class tutorial2 : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre); 
+        AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
         LoadDialoguesFromCSV();
         if (dialogues.Count > 0)
         {
@@ -169,6 +173,7 @@ public class tutorial2 : MonoBehaviour
             //speechBubble.SetActive(false);
             //letterBubble.SetActive(false);
             //postman.SetActive(false);
+            AudioManager.Instance.StopBgm();
             SceneManager.LoadScene("order1");
         }
         else

@@ -86,9 +86,9 @@ public class special_customer : MonoBehaviour
 
         speechBubble.SetActive(false);
 
-        specialOrders.Add(2, child);
-        specialOrders.Add(5, oldMan);
-        specialOrders.Add(8, spcMan);
+        specialOrders.Add(1, child);
+        specialOrders.Add(2, oldMan);
+        specialOrders.Add(3, spcMan);
 
         specialVisit.Add(4, child);
         specialVisit.Add(7, oldMan);
@@ -366,6 +366,11 @@ public class special_customer : MonoBehaviour
         speechBubble.SetActive(true);
 
         // 다음 대사로 넘어갈 준비
+        if((currentLine.id==23 & customer.name=="child")|(currentLine.id==32 & customer.name=="spcman")|(currentLine.id==36 & customer.name=="old_man")){
+                RectTransform customerRect = customer.GetComponent<RectTransform>();
+                yield return StartCoroutine(MoveCustomerDown(customerRect));
+                customer.SetActive(false);
+            }
         int nextId = currentLine.id + 1;
         currentDialogueIndex = dialogues.FindIndex(line => line.id == nextId);
     }

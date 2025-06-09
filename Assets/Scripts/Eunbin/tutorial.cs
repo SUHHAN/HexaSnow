@@ -54,6 +54,7 @@ public class tutorial : MonoBehaviour
         }
         skip.onClick.AddListener(() =>
         {
+            AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
             SceneManager.LoadScene("tutorial2");
         });
     }
@@ -138,9 +139,7 @@ public class tutorial : MonoBehaviour
                     front.SetActive(false);
                     AudioManager.Instance.PlayBgm(AudioManager.Bgm.main_bonus_ingre);
                     AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
-                }
-            
-                    
+                }       
         }
         else
         {
