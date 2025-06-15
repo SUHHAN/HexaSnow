@@ -90,10 +90,10 @@ public class BKStartSceneManager : MonoBehaviour
 
         if (specialButton != null)
         {
-            specialButton.interactable = (currentDate >= 2);
-            Debug.Log(specialButton.interactable
-                ? "특별손님 버튼 활성화됨 (2일차 이상)"
-                : "특별손님 버튼 비활성화됨 (1일차)");
+            specialButton.interactable = dateGD.Spe_BakingOn;
+            Debug.Log(dateGD.Spe_BakingOn
+                ? "특별손님 버튼 활성화됨 (Spe_BakingOn == true)"
+                : "특별손님 버튼 비활성화됨 (Spe_BakingOn == false)");
         }
     }
 
