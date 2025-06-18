@@ -77,11 +77,7 @@ public class OrderOnly : MonoBehaviour
             postman.SetActive(false);
             SceneManager.LoadScene("customer");
         }
-        if (dateGD.date == 1)
-        {
-            AudioManager.Instance.StopBgm();
-            AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
-        }
+        AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
         SceneManager.LoadScene("Main", LoadSceneMode.Additive); //기본 UI 띄우기 
         StartCoroutine(WaitForUiLogicManager());
         
@@ -295,7 +291,6 @@ public class OrderOnly : MonoBehaviour
         postman.SetActive(false);
         speechBubble.SetActive(false);
         nameBubble.SetActive(false);
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.recipe_order);
         UiLogicManager.Instance.KitchenButtonGO.GetComponent<Button>().interactable = true;
         SceneManager.LoadScene("customer");
 }

@@ -73,6 +73,7 @@ public class getMenuOnly : MonoBehaviour
     }
     }
     void Start(){
+        AudioManager.Instance.PlayBgm(AudioManager.Bgm.inside_kitchen_baking);
         Debug.Log("[Start] 씬이 시작됨! 데이터 로드 시도...");
         customer_order.SetActive(false);
         speechBubble.SetActive(false);

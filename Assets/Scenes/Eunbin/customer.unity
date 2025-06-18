@@ -3892,7 +3892,7 @@ MonoBehaviour:
   currentDay: 0
   dayChange: {fileID: 1061982604}
   MadeMenu: {fileID: 796587167}
-  setmenu: {fileID: 0}
+  setmenu: {fileID: 1979020435}
   oldmanspeechBubble: {fileID: 421732227}
   GD:
     isGuestLoggedIn: 0

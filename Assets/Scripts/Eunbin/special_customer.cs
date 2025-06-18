@@ -87,7 +87,7 @@ public class special_customer : MonoBehaviour
         speechBubble.SetActive(false);
 
         specialOrders.Add(2, child);
-        specialOrders.Add(4, oldMan);
+        specialOrders.Add(5, oldMan);
         specialOrders.Add(8, spcMan);
 
         specialVisit.Add(4, child);
@@ -312,7 +312,7 @@ public class special_customer : MonoBehaviour
         else
         {
             Debug.LogWarning($"ID {startId}에 해당하는 대사가 없습니다.");
-            EndDialogue();
+            StartCoroutine(EndDialogue());
         }
     }
 
@@ -330,7 +330,7 @@ public class special_customer : MonoBehaviour
                 Spe_visitDone = true;
                 SaveDone();
                 StartCoroutine(RestoreUI());
-                EndDialogue();
+                StartCoroutine(EndDialogue());
                 if (dateGD.time < 1)
                 {
                     SceneManager.LoadScene("Deadline");
@@ -434,11 +434,15 @@ public class special_customer : MonoBehaviour
         }
         Debug.Log($"특별 손님:{customer}, 표정:{expression}");
         characterManager.ChangeFace(customer, expression);
+        StartCoroutine(EndDialogue());
     }
 
-    private void EndDialogue()
+    private IEnumerator EndDialogue()
     {
-        Debug.Log("대화 종료");
+        RectTransform customerRect = customer.GetComponent<RectTransform>();
+        yield return StartCoroutine(MoveCustomerDown(customerRect));
+        customer.SetActive(false);
+         Debug.Log("대화 종료");
         speechBubble.SetActive(false);
     }
 
