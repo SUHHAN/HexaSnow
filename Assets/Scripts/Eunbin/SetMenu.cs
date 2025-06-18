@@ -47,6 +47,7 @@ public class SetMenu : MonoBehaviour
     private Bk_h currentSlot;
     private Bk_h bakerySlotData;
 
+    public string csvFileName = "recipe.csv";
     [SerializeField] private GameData GD = new GameData();
     private List<RecipeC> recipes = new List<RecipeC>();
 
@@ -60,14 +61,13 @@ public class SetMenu : MonoBehaviour
     public GameObject oldmanspeechBubble;
     public TextMeshProUGUI oldmandialogueText;
 
-
     private List<string> oldmanBake = new List<string> { "고구마", "귤", "초콜릿" };
 
     void Start()
     {
         InitializeSpecialCustomerMenus();
         LoadRecipeDate();
-        LoadRecipesFromCSV("Assets/Resources/recipe.csv");
+        LoadRecipesFromCSV();
         AddItems();
 
     }
@@ -98,7 +98,6 @@ public class SetMenu : MonoBehaviour
 
 public void AddItems()
     {
-        Debug.Log("컴포넌트 추가 중");
         foreach (var me in MyList)
         {
             GameObject item = Instantiate(itemPrefab, content);
@@ -112,50 +111,61 @@ public void AddItems()
 
             Transform menuImage = item.transform.Find("menuImage");
 
-             // 특별 손님 인덱스 별로 사진 수정하기
-            if(me.menuID <= 34) {
+            // 특별 손님 인덱스 별로 사진 수정하기
+            if (me.menuID <= 34)
+            {
                 menuImage.GetComponent<Image>().sprite = MenuSprites[me.menuID];
             }
-            else if(101 <= me.menuID && me.menuID <= 104) {
-                if(me.score <= 10) {
+            else if (101 <= me.menuID && me.menuID <= 104)
+            {
+                if (me.score <= 10)
+                {
                     menuImage.GetComponent<Image>().sprite = MenuSprites[44 + me.menuID % 100];
                 }
-                else{
+                else
+                {
                     menuImage.GetComponent<Image>().sprite = MenuSprites[34 + me.menuID % 100];
                 }
             }
-            else if(201 <= me.menuID && me.menuID <= 204) {
-                if(me.score <= 10) {
+            else if (201 <= me.menuID && me.menuID <= 204)
+            {
+                if (me.score <= 10)
+                {
                     menuImage.GetComponent<Image>().sprite = MenuSprites[44 + 4 + me.menuID % 200];
                 }
-                else{
+                else
+                {
                     menuImage.GetComponent<Image>().sprite = MenuSprites[34 + 4 + me.menuID % 200];
                 }
             }
-            else if(301 == me.menuID) {
-                if(me.score <= 10) {
+            else if (301 == me.menuID)
+            {
+                if (me.score <= 10)
+                {
                     menuImage.GetComponent<Image>().sprite = MenuSprites[53];
                 }
-                else{
+                else
+                {
                     menuImage.GetComponent<Image>().sprite = MenuSprites[43];
                 }
             }
-            else if(401 == me.menuID) {
+            else if (401 == me.menuID)
+            {
                 menuImage.GetComponent<Image>().sprite = MenuSprites[44];
             }
 
 
             //item의 색상을 각 등급에 맞는 색으로 지정하는 함수 작성하기
             menu.SetMenuColor();
-        // 슬롯 클릭 이벤트에 이름과 인덱스 전달
-        Button slotButton = item.GetComponent<Button>();
-        if (slotButton != null)
-        {
-            string capturedName = me.name;
-            int capturedIndex = me.index; // 클로저 문제 방지
-            slotButton.onClick.AddListener(() => SlotClick(me.name, capturedIndex));
+            // 슬롯 클릭 이벤트에 이름과 인덱스 전달
+            Button slotButton = item.GetComponent<Button>();
+            if (slotButton != null)
+            {
+                string capturedName = me.name;
+                int capturedIndex = me.index; // 클로저 문제 방지
+                slotButton.onClick.AddListener(() => SlotClick(me.name, capturedIndex));
+            }
         }
-    }
 }
 
     public void SlotClick(string name, int index)
@@ -548,60 +558,74 @@ private void OnActionButtonClick(Bk_h bakerySlot)
     private void LoadRecipeDate() {
         GD = DataManager.Instance.LoadGameData();
 
-        foreach (MyRecipeList recipe in DataManager.Instance.gameData.myBake) {
-            MyList.Add(recipe);
-            Debug.Log("리스트 추가");
-        }
-    }
-
-    // CSV 파일에서 레시피 데이터 로드
-    void LoadRecipesFromCSV(string filePath)
-    {
-        string[] lines = File.ReadAllLines(filePath);
-
-        for (int i = 1; i < lines.Length; i++)
+        foreach (MyRecipeList recipe in DataManager.Instance.gameData.myBake)
         {
-            string line = lines[i];
-            // 커스텀 파서로 CSV 행을 파싱
-            var columns = ParseCSVLine(line);
-
-
-            // 데이터 개수 확인
-            if (columns.Length < 6)
-            {
-                Debug.LogWarning($"잘못된 CSV 데이터: {line}");
-                continue;
+            MyList.Add(recipe);
+    }
             }
 
-            int index, coin;
-
-            // 안전한 정수 변환 (TryParse 사용)
-            if (!int.TryParse(columns[0], out index)) index = 0;
-            if (!int.TryParse(columns[5], out coin)) coin = 0;
-
-            string menu = columns[1];
-
-            // RecipeB 객체 생성
-            RecipeC recipe = new RecipeC()
+    // CSV 파일에서 레시피 데이터 로드
+    private void LoadRecipesFromCSV()
+    {
+        try
+        {
+            TextAsset csvFile = Resources.Load<TextAsset>(Path.GetFileNameWithoutExtension(csvFileName));
+            if (csvFile == null)
             {
-                index = index,
-                menu = menu,
-                coin = coin
-            };
+                Debug.LogError($"CSV 파일을 찾을 수 없습니다: {csvFileName}");
+                return;
+            }
+            string[] lines = csvFile.text.Split(new[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
 
-            // RecipeB 객체 출력 (콘솔에)
-            Debug.Log(recipe.ToString());
+            for (int i = 1; i < lines.Length; i++)
+            {
+                string line = lines[i];
+                // 커스텀 파서로 CSV 행을 파싱
+                var columns = ParseCSVLine(line);
 
-            recipes.Add(recipe);
-            
+
+                // 데이터 개수 확인
+                if (columns.Length < 6)
+                {
+                    Debug.LogWarning($"잘못된 CSV 데이터: {line}");
+                    continue;
+                }
+
+                int index, coin;
+
+                // 안전한 정수 변환 (TryParse 사용)
+                if (!int.TryParse(columns[0], out index)) index = 0;
+                if (!int.TryParse(columns[5], out coin)) coin = 0;
+
+                string menu = columns[1];
+
+                // RecipeB 객체 생성
+                RecipeC recipe = new RecipeC()
+                {
+                    index = index,
+                    menu = menu,
+                    coin = coin
+                };
+
+                // RecipeB 객체 출력 (콘솔에)
+                Debug.Log(recipe.ToString());
+
+                recipes.Add(recipe);
+
+            }
+
+            foreach (RecipeC re in recipes)
+            {
+                Debug.LogWarning($"[레시피 가격 저장] {re.index},{re.menu},{re.coin}");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"CSV 파일 읽기 중 오류 발생: {ex.Message}");
         }
 
-        foreach (RecipeC re in recipes) {
-            Debug.LogWarning($"[레시피 가격 저장] {re.index},{re.menu},{re.coin}");
         }
-
-    }
-
+    
     // 커스텀 CSV 라인 파서
     string[] ParseCSVLine(string line)
     {

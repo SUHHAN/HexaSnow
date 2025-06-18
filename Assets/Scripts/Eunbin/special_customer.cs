@@ -87,7 +87,7 @@ public class special_customer : MonoBehaviour
         speechBubble.SetActive(false);
 
         specialOrders.Add(2, child);
-        specialOrders.Add(5, oldMan);
+        specialOrders.Add(4, oldMan);
         specialOrders.Add(8, spcMan);
 
         specialVisit.Add(4, child);
