@@ -27,13 +27,26 @@ public class BakingTutorialManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("BakingTutorialManager Start 실행됨");
+
         if (DataManager.Instance == null || DataManager.Instance.gameData == null)
         {
             Debug.LogError("DataManager 또는 gameData가 null입니다!");
             return;
         }
 
+        // hasCompletedBakingTutorial 값이 없는 경우 false로 초기화
+        if (!PlayerPrefs.HasKey("initializedTutorial"))
+        {
+            DataManager.Instance.gameData.hasCompletedBakingTutorial = false;
+            DataManager.Instance.SaveGameData();
+            PlayerPrefs.SetInt("initializedTutorial", 1); // 다시 초기화하지 않도록 표시
+            PlayerPrefs.Save();
+            Debug.Log("튜토리얼 상태 초기화됨");
+        }
+
         hasDoneTutorial = DataManager.Instance.gameData.hasCompletedBakingTutorial;
+        Debug.Log("hasDoneTutorial 값: " + hasDoneTutorial);
 
         if (hasDoneTutorial)
         {

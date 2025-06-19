@@ -36,7 +36,7 @@ public class GameData
     public List<MyRecipeList> myBake = new List<MyRecipeList>(); // 내가 만든 요리~
     public string serializedDailyOrders; //주문서
     public string currentScene;
-    public bool hasCompletedBakingTutorial;    // 베이킹 튜토리얼 완료 여부
+    public bool hasCompletedBakingTutorial = false;    // 베이킹 튜토리얼 완료 여부
     public bool hasCompletedIngredientTutorial; // 재료 튜토리얼 완료 여부
     public bool hasCompletedBonusTutorial;     // 보너스 튜토리얼 완료 여부
     public int EndingCount=0;
