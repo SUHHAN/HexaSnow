@@ -244,6 +244,7 @@ public class special_customer : MonoBehaviour
         Debug.Log($"특별 손님 등장");
         if (specialOrders.ContainsKey(currentDay))
         {
+            StartCoroutine(WaitForUiLogicManager());
             customer = specialOrders[currentDay];
             LoadDialoguesFromCSV();
             customer.SetActive(true);
@@ -252,8 +253,6 @@ public class special_customer : MonoBehaviour
             SaveBakingOn();
             RectTransform customerRect = customer.GetComponent<RectTransform>();
             StartCoroutine(MoveCustomerUp(customerRect));
-
-            StartCoroutine(WaitForUiLogicManager());
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
             current_startId = 1;
             PlayDialogue(current_startId);
@@ -268,6 +267,7 @@ public class special_customer : MonoBehaviour
     {
         Debug.Log($"✅ 특별손님 등장 준비!:{currentDay}일차");
         yield return new WaitUntil(() => getMenuOnly.VisitDone == true);
+        StartCoroutine(WaitForUiLogicManager());
         Debug.Log($"✅ 일반 손님 처리 완료됨! 특별 손님 등장 시작{currentDay}일차");
         dayChange.gameObject.SetActive(true);
 
@@ -284,7 +284,6 @@ public class special_customer : MonoBehaviour
             RectTransform customerRect = customer.GetComponent<RectTransform>();
             StartCoroutine(MoveCustomerUp(customerRect));
 
-            StartCoroutine(WaitForUiLogicManager());
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.bell);
             current_startId = 1001;
             PlayDialogue(current_startId);
@@ -324,12 +323,8 @@ public class special_customer : MonoBehaviour
             if (startId == 1)
             {
                 Debug.Log("스페셜 손님 주문 완료!");
-                RectTransform customerRect = customer.GetComponent<RectTransform>();
-                yield return StartCoroutine(MoveCustomerDown(customerRect));
-                customer.SetActive(false);
                 Spe_visitDone = true;
                 SaveDone();
-                StartCoroutine(RestoreUI());
                 StartCoroutine(EndDialogue());
                 if (dateGD.time < 1)
                 {
@@ -434,7 +429,7 @@ public class special_customer : MonoBehaviour
         }
         Debug.Log($"특별 손님:{customer}, 표정:{expression}");
         characterManager.ChangeFace(customer, expression);
-        StartCoroutine(EndDialogue());
+        
     }
 
     private IEnumerator EndDialogue()
@@ -442,8 +437,9 @@ public class special_customer : MonoBehaviour
         RectTransform customerRect = customer.GetComponent<RectTransform>();
         yield return StartCoroutine(MoveCustomerDown(customerRect));
         customer.SetActive(false);
-         Debug.Log("대화 종료");
+        Debug.Log("대화 종료");
         speechBubble.SetActive(false);
+        StartCoroutine(RestoreUI());
     }
 
     // 화면 클릭 시 다음 대사로 이동
@@ -517,7 +513,7 @@ public class special_customer : MonoBehaviour
         Vector3 targetPosition = new Vector3(startPosition.x, startPosition.y - 300, startPosition.z);
 
 
-        float duration = 0.5f;
+        float duration = 0.7f;
         float timeElapsed = 0;
 
         while (timeElapsed < duration)

@@ -14,12 +14,12 @@ public class badEnding : MonoBehaviour
     public GameObject nameBubble;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI dialogueName;
-
+    private string currentScene;
 
     private List<DialogueLine> dialogues = new List<DialogueLine>();
     private int currentDialogueIndex = 1;
     public string csvFileName = "badEnding.csv";
-
+    [SerializeField] private GameData GD = new GameData();
     public struct DialogueLine
     {
         public string id;
@@ -35,10 +35,14 @@ public class badEnding : MonoBehaviour
     }
     private void Start()
     {
+
+        Loadscene();
+        currentScene = "badEnding";
+        Savescene();
         LoadDialoguesFromCSV();
         AudioManager.Instance.StopBgm();
 
-        
+
         if (dialogues.Count > 0)
         {
             ShowDialogue();
@@ -113,8 +117,8 @@ public class badEnding : MonoBehaviour
         if (currentDialogueIndex < dialogues.Count)
         {
             DialogueLine currentLine = dialogues[currentDialogueIndex];
-                speechBubble.SetActive(true);
-                UpdateDialogueUI(currentLine);  
+            speechBubble.SetActive(true);
+            UpdateDialogueUI(currentLine);
         }
         else
         {
@@ -142,7 +146,7 @@ public class badEnding : MonoBehaviour
     {
         if ((speechBubble.activeSelf) && Input.GetMouseButtonDown(0))
         {
-                StartCoroutine(NextDialogue());
+            StartCoroutine(NextDialogue());
         }
     }
 
@@ -160,5 +164,16 @@ public class badEnding : MonoBehaviour
         {
             ShowDialogue();
         }
+    }
+    private void Loadscene() {
+
+        GD = DataManager.Instance.LoadGameData();
+        currentScene= GD.currentScene;
+    }
+
+    private void Savescene() {
+        DataManager.Instance.gameData.currentScene = currentScene;
+
+        DataManager.Instance.SaveGameData();
     }
 }

@@ -50,7 +50,6 @@ public class OrderOnly : MonoBehaviour
     private int accept_order=2;
     private int deadline=1;
     private string currentScene;
-
     public GameObject popup;
     public TextMeshProUGUI popupText;
     private bool isPopupCoroutineRunning=false;
@@ -70,7 +69,6 @@ public class OrderOnly : MonoBehaviour
 }
     void Start()
     {
-
         GameData dateGD = DataManager.Instance.LoadGameData();
         if (dateGD.date == 10)
         {
@@ -475,8 +473,6 @@ private void SaveDate()
   private void Loadscene() {
 
         GD = DataManager.Instance.LoadGameData();
-
-        // !! 일차 업데이트하기
         currentScene= GD.currentScene;
     }
 
@@ -518,7 +514,7 @@ private IEnumerator MoveCustomerDown(RectTransform customerRect)
     Vector3 targetPosition = new Vector3(startPosition.x, startPosition.y - 1200, startPosition.z); // 최종 위치
 
     float bounceDuration = 0.3f;
-    float downDuration = 0.5f;
+    float downDuration = 0.8f;
     float timeElapsed = 0;
 
     // 🎮 1단계: 반동 애니메이션

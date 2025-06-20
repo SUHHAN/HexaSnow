@@ -294,12 +294,12 @@ private void OnActionButtonClick(Bk_h bakerySlot)
     private void CheckMenu(string menu, int score)
     {
         foreach (RecipeC re in recipes)
+        {
+            if (menu == re.menu)
             {
-                if (menu == re.menu)
-                {
-                    coin = re.coin;
-                }
+                coin = re.coin;
             }
+        }
 
         if (currentcus.Equals("cus"))
         {
@@ -426,6 +426,7 @@ private void OnActionButtonClick(Bk_h bakerySlot)
 
             Debug.Log($"[특별손님 처리 종료] 손님: {currentcus}, 메뉴: {menu}");
         }
+        bakeryDeliveryCount = 0;
     }
 
     public void CheckOldman(string menu, int score)
