@@ -88,6 +88,7 @@ public class SetMenu : MonoBehaviour
 
         if (cus == "old_man")
         {
+            bakeryDeliveryCount = 0; 
             maxDeliveryCount = 3;
         }
         else
@@ -308,6 +309,7 @@ private void OnActionButtonClick(Bk_h bakerySlot)
             if (menu.Equals(currentmenu))
             {
                 Debug.Log($"선택된 메뉴가 올바릅니다: {menu}");
+                bakeryDeliveryCount = 0;
                 if (score >= 60)
                 {
                     getmenu.UpdateDialogue(1); // s

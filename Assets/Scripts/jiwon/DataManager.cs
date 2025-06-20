@@ -126,6 +126,7 @@ public class DataManager : MonoBehaviour
         gameData.myBake = new List<MyRecipeList>{};
 
 
+
         Debug.Log("초기 게임 데이터 설정 완료");
     }
 
