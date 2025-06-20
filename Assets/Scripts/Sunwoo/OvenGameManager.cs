@@ -179,18 +179,22 @@ public class OvenGameManager : MonoBehaviour
         EndOvenGame(); // 게임 종료
     }
 
-    // ���� ���
+    // 최종 점수 계산
     private void CalculateTotalScore()
     {
-        // ��� ���� ���� + ���� ���� ���� + ���� ���� ���� �ջ�
+        // 개별 점수 합산
         totalScore = IngredientSelectManager.Instance.ingredientScore + mixingGameManager.mixingScore + ovenScore;
 
-        Debug.Log($"������� ����: {totalScore}/50");
+        // 최대 점수 제한
+        int maxScore = 45;
+        int displayedScore = Mathf.Min(totalScore, maxScore);
 
-        // ���� ������ UI�� ǥ��
+        Debug.Log($"총합 점수(표시용): {displayedScore}/{maxScore} (실제 점수: {totalScore})");
+
+        // 점수 텍스트 UI에 표시
         if (finalScoreText != null)
         {
-            finalScoreText.text = $"총점: {totalScore}/50";
+            finalScoreText.text = $"총점: {displayedScore}/{maxScore}";
         }
     }
 
